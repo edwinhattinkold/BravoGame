@@ -1,9 +1,9 @@
-﻿Build started 7-9-2015 14:55:33.
-     1>Project "C:\Users\Ivan\PROJECTS\BravoGame\GraphicsProject\GraphicsProject.vcxproj" on node 2 (Build target(s)).
+﻿Build started 08-Sep-15 1:31:41 PM.
+     1>Project "C:\Projects\BravoGame\GraphicsProject\GraphicsProject.vcxproj" on node 2 (Build target(s)).
      1>Link:
-         GraphicsProject.vcxproj -> C:\Users\Ivan\PROJECTS\BravoGame\Debug\GraphicsProject.exe
-     1>Done Building Project "C:\Users\Ivan\PROJECTS\BravoGame\GraphicsProject\GraphicsProject.vcxproj" (Build target(s)).
+         GraphicsProject.vcxproj -> C:\Projects\BravoGame\Debug\GraphicsProject.exe
+     1>Done Building Project "C:\Projects\BravoGame\GraphicsProject\GraphicsProject.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.09
+Time Elapsed 00:00:00.15
