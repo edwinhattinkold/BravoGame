@@ -1,9 +1,16 @@
-﻿Build started 08-Sep-15 1:31:41 PM.
-     1>Project "C:\Projects\BravoGame\GraphicsProject\GraphicsProject.vcxproj" on node 2 (Build target(s)).
-     1>Link:
-         GraphicsProject.vcxproj -> C:\Projects\BravoGame\Debug\GraphicsProject.exe
-     1>Done Building Project "C:\Projects\BravoGame\GraphicsProject\GraphicsProject.vcxproj" (Build target(s)).
+﻿Build started 8-9-2015 13:46:28.
+     1>Project "C:\Users\Sven\Documents\school\GraphicsProject\GraphicsProject.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt 01_hello_SDL.cpp main.cpp
+         main.cpp
+         01_hello_SDL.cpp
+         Generating Code...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Sven\Documents\school\Debug\GraphicsProject.exe" /INCREMENTAL /NOLOGO SDL2.lib SDL2main.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Sven\Documents\school\Debug\GraphicsProject.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Sven\Documents\school\Debug\GraphicsProject.lib" /MACHINE:X86 Debug\01_hello_SDL.obj
+         Debug\main.obj
+         GraphicsProject.vcxproj -> C:\Users\Sven\Documents\school\Debug\GraphicsProject.exe
+     1>Done Building Project "C:\Users\Sven\Documents\school\GraphicsProject\GraphicsProject.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.15
+Time Elapsed 00:00:00.76
