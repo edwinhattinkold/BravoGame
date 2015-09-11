@@ -11,3 +11,7 @@ Hier kan je de syntax van Markdown zien, de taal waarin deze documenten geschrev
 
 ##[Haroopad](http://pad.haroopress.com/)
 Haroopad is een fijna markdown editor, je ziet namelijk direct het resultaat.
+
+##SDL
+[Installatie tutorial](https://www.youtube.com/watch?v=FxCC9Ces1Yg) Heel erg goede installatie en vooral de mappen structuur is duidelijk / makkelijk te delen met anderen.
+[Gebruiks tutorial](http://lazyfoo.net/SDL_tutorials/) Goede tutorials met duidelijke uitleg en meestal de hele sourcecode.
