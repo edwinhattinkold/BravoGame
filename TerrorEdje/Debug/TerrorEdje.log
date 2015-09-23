@@ -1,0 +1,16 @@
+﻿Build started 9/23/2015 2:55:32 PM.
+     1>Project "D:\AVANS\Blok_13\Project\BravoGame\TerrorEdje\TerrorEdje.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Debug\TerrorEdje.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
+         stdafx.cpp
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\TerrorEdje.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt TerrorEdje.cpp
+         TerrorEdje.cpp
+       Link:
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\AVANS\Blok_13\Project\BravoGame\Debug\TerrorEdje.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\AVANS\Blok_13\Project\BravoGame\Debug\TerrorEdje.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\AVANS\Blok_13\Project\BravoGame\Debug\TerrorEdje.lib" /MACHINE:X86 Debug\stdafx.obj
+         Debug\TerrorEdje.obj
+         TerrorEdje.vcxproj -> D:\AVANS\Blok_13\Project\BravoGame\Debug\TerrorEdje.exe
+     1>Done Building Project "D:\AVANS\Blok_13\Project\BravoGame\TerrorEdje\TerrorEdje.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.09
