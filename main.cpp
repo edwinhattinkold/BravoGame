@@ -75,7 +75,7 @@ int main(int argc, char *argv[]){
 		player2.Update(deltaTime, keyState);
 		dog.Update(deltaTime, keyState);
 
-		camera.Update(player1.getOriginX(), player1.getOriginY());
+		camera.Update(player1.getPositionX(), player1.getPositionY());
 
 		SDL_RenderClear(renderTarget);
 

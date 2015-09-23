@@ -27,8 +27,8 @@ public:
 
 	SDL_Rect positionRect;
 
-	int getOriginX();
-	int getOriginY();
+	int getPositionX();
+	int getPositionY();
 
 	void setOriginX(int newOriginX);
 	void setOriginY(int newOriginY);

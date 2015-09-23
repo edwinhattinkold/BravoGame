@@ -36,11 +36,11 @@ void Sprite::Draw(SDL_Renderer *renderTarget, SDL_Rect camerRect){
 	this->animations[this->currentAnimaton].Draw(renderTarget, drawingRect);
 }
 
-int Sprite::getOriginX(){
-	return this->originX;
+int Sprite::getPositionX(){
+	return this->positionRect.x + this->originX;
 }
-int Sprite::getOriginY(){
-	return this->originY;
+int Sprite::getPositionY(){
+	return this->positionRect.y + this->originY;
 }
 
 void Sprite::setOriginX(int newOriginX){

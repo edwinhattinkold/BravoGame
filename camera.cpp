@@ -20,9 +20,9 @@ Camera::~Camera(void)
 
 }
 
-void Camera::Update(int originX, int originY){
-	this->cameraRect.x = originX - (this->windowWidth / 2);
-	this->cameraRect.y = originY - (this->windowHeight / 2);
+void Camera::Update(int xPosition, int yPosition){
+	this->cameraRect.x = xPosition - (this->windowWidth / 2);
+	this->cameraRect.y = yPosition - (this->windowHeight / 2);
 
 	if (this->cameraRect.x < 0)
 		this->cameraRect.x = 0;
