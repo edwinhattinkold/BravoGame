@@ -8,6 +8,8 @@
 #include "player.h"
 #include "camera.h"
 
+#include <Box2D/Box2D.h>
+
 SDL_Texture *LoadTexture(std::string filePath, SDL_Renderer *renderTarget){
 	SDL_Texture *texture = nullptr;
 	SDL_Surface *surface = IMG_Load(filePath.c_str());
@@ -26,6 +28,10 @@ SDL_Texture *LoadTexture(std::string filePath, SDL_Renderer *renderTarget){
 }
 
 int main(int argc, char *argv[]){
+
+	//test box2d specific code
+	b2World* world = new b2World(b2Vec2(0, 0));
+
 
 	//Initializing and loading variables
 	SDL_Window *window = nullptr;
