@@ -10,6 +10,10 @@
 [Dd]ebug
 [Rr]elease
 
+TerrorEdje.sdf
+TerrorEdje.opensdf
+TerrorEdje.v12.suo
+
 # Compiled Object files
 *.slo
 *.lo
