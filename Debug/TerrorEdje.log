@@ -1,19 +1,61 @@
-﻿Build started 10/6/2015 1:44:59 PM.
+﻿Build started 10/10/2015 10:19:43 PM.
      1>Project "D:\AVANS\Blok_13\Project\BravoGame\TerrorEdje.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
          main.cpp
-     1>d:\avans\blok_13\project\bravogame\main.cpp(31): error C2664: 'int SDL_FillRect(SDL_Surface *,const SDL_Rect *,Uint32)' : cannot convert argument 2 from 'SDL_Rect' to 'const SDL_Rect *'
-                 No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
-     1>d:\avans\blok_13\project\bravogame\main.cpp(36): error C3861: 'SDLGetTicks': identifier not found
-     1>d:\avans\blok_13\project\bravogame\main.cpp(51): error C2664: 'SDL_Surface *TTF_RenderText_Solid(TTF_Font *,const char *,SDL_Color)' : cannot convert argument 2 from 'SDL_Surface *' to 'const char *'
-                 Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
-     1>d:\avans\blok_13\project\bravogame\main.cpp(57): error C2664: 'SDL_Surface *TTF_RenderText_Solid(TTF_Font *,const char *,SDL_Color)' : cannot convert argument 2 from 'SDL_Surface *' to 'const char *'
-                 Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
-     1>d:\avans\blok_13\project\bravogame\main.cpp(119): error C3861: 'SDL_SetVideoMode': identifier not found
-     1>d:\avans\blok_13\project\bravogame\main.cpp(136): error C3861: 'showmenu': identifier not found
-     1>Done Building Project "D:\AVANS\Blok_13\Project\BravoGame\TerrorEdje.vcxproj" (Build target(s)) -- FAILED.
+       Link:
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\AVANS\Blok_13\Project\BravoGame\Debug\TerrorEdje.exe" /INCREMENTAL /NOLOGO /LIBPATH:"D:\Studie\Blok_13_Game_Development\SDL2-2.0.3\lib\x86" SDL2.lib SDL2main.lib SDL2_image.lib SDL2_ttf.lib SDL2_ttf.lib Box2D.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\AVANS\Blok_13\Project\BravoGame\Debug\TerrorEdje.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\AVANS\Blok_13\Project\BravoGame\Debug\TerrorEdje.lib" /MACHINE:X86 Debug\animation.obj
+         Debug\camera.obj
+         Debug\main.obj
+         Debug\player.obj
+         Debug\sprite.obj
+     1>MSVCRTD.lib(cinitexe.obj) : warning LNK4098: defaultlib 'msvcrt.lib' conflicts with use of other libs; use /NODEFAULTLIB:library
+     1>Box2D.lib(b2DistanceJoint.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2FrictionJoint.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2GearJoint.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2Joint.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2MotorJoint.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2MouseJoint.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2PrismaticJoint.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2PulleyJoint.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2RevoluteJoint.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2RopeJoint.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2WeldJoint.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2WheelJoint.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2CircleContact.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2Contact.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2ContactSolver.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2PolygonAndCircleContact.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2EdgeAndCircleContact.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2EdgeAndPolygonContact.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2ChainAndCircleContact.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2ChainAndPolygonContact.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2PolygonContact.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2Body.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2ContactManager.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2Fixture.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2Island.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2World.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2WorldCallbacks.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2BlockAllocator.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2Draw.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2Math.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2Settings.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2StackAllocator.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2Timer.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2EdgeShape.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2ChainShape.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2BroadPhase.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2CollideCircle.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2CollideEdge.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2CollidePolygon.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2Collision.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2Distance.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2DynamicTree.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>Box2D.lib(b2TimeOfImpact.obj) : warning LNK4204: 'D:\AVANS\Blok_13\Project\BravoGame\Debug\vc120.pdb' is missing debugging information for referencing module; linking object as if no debug info
+         TerrorEdje.vcxproj -> D:\AVANS\Blok_13\Project\BravoGame\Debug\TerrorEdje.exe
+     1>Done Building Project "D:\AVANS\Blok_13\Project\BravoGame\TerrorEdje.vcxproj" (Build target(s)).
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:00.61
+Time Elapsed 00:00:01.09
