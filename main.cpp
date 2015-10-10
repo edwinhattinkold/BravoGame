@@ -4,11 +4,77 @@
 
 #include "SDL.h"
 #include "SDL_image.h"
+#include "SDL_ttf.h"
 #include <iostream>
 #include "player.h"
 #include "camera.h"
 
 #include <Box2D/Box2D.h>
+
+int showMenu(SDL_Surface* screen, TTF_Font* font){
+	Uint32 time;
+	int x, y;
+	const int NUMMENU = 2;
+	const char* labels[NUMMENU] = { "Continue", "Exit" };
+	SDL_Surface* menus[NUMMENU];
+	bool selected[NUMMENU] = { 0, 0 };
+	SDL_Color color[2] = { { 255, 255, 255 }, { 255, 0, 0 } };
+	
+	menus[0] = TTF_RenderText_Solid(font, labels[0], color[0]);
+	menus[1] = TTF_RenderText_Solid(font, labels[1], color[0]);
+	SDL_Rect pos[NUMMENU];
+	pos[0].x = screen->clip_rect.w / 2 - menus[0]->clip_rect.w / 2;
+	pos[0].y = screen->clip_rect.h / 2 - menus[0]->clip_rect.h;
+	pos[1].x = screen->clip_rect.w / 2 - menus[1]->clip_rect.w / 2;
+	pos[1].y = screen->clip_rect.h / 2 - menus[1]->clip_rect.h;
+
+	SDL_FillRect(screen, screen->clip_rect, SDL_MapRGB(screen->format, 0x00, 0x00, 0x00));
+
+	SDL_Event event;
+	while (1)
+	{
+		time = SDLGetTicks();
+		while (SDL_PollEvent(&event)){
+			switch (event.type){
+				case SDL_QUIT:
+					for (int c = 0; c < NUMMENU; c++)
+						SDL_FreeSurface(menus[c]);
+					return 1;
+				case SDL_MOUSEMOTION:
+					x = event.motion.x;
+					y = event.motion.y;
+					for (int i = 0; i < NUMMENU; i++){
+						if (x >= pos[i].x && x <= pos[i].x + pos[i].w && y >= pos[i].y && y <= pos[i].y + pos[i].h){
+							if (!selected[i]){
+								selected[i] = true;
+								SDL_FreeSurface(menus[i]);
+								menus[i] = TTF_RenderText_Solid(font, menus[i], color[1]);
+							}
+						} else {
+							if (selected[i]){
+								selected[i] = 0;
+								SDL_FreeSurface(menus[i]);
+								menus[i] = TTF_RenderText_Solid(font, menus[i], color[0]);
+							}
+						}
+					}
+					break;
+				case SDL_MOUSEBUTTONDOWN:
+					x = event.motion.x;
+					y = event.motion.y;
+					for (int x = 0; x < NUMMENU; x++){
+						if (x >= pos[x].x && x <= pos[x].x + pos[x].w && y >= pos[x].y && y <= pos[x].y + pos[x].h){
+							return x;
+						}
+						break;
+					}
+				case SDL_KEYDOWN:
+					if (event.key.keysym.sym == SDLK_ESCAPE)
+						return 0;
+			}
+		}
+	}
+}
 
 SDL_Texture *LoadTexture(std::string filePath, SDL_Renderer *renderTarget){
 	SDL_Texture *texture = nullptr;
@@ -32,10 +98,11 @@ int main(int argc, char *argv[]){
 	//test box2d specific code
 	b2World* world = new b2World(b2Vec2(0, 0));
 
-
 	//Initializing and loading variables
 	SDL_Window *window = nullptr;
 	SDL_Renderer *renderTarget = nullptr;
+	SDL_Surface* screen = nullptr;
+	TTF_Font* font = TTF_OpenFont("Fonts/Apocalyse-Regular.ttf", 32);
 
 	int currentTime = 0;
 	int prevTime = 0;
@@ -49,6 +116,7 @@ int main(int argc, char *argv[]){
 
 	window = SDL_CreateWindow("TerrorEdje!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
 	renderTarget = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	screen = SDL_SetVideoMode(windowWidth, windowHeight, 32, SDL_SWSURFACE);
 
 	SDL_SetRenderDrawColor(renderTarget, 0, 0, 255, 255);
 
@@ -64,6 +132,10 @@ int main(int argc, char *argv[]){
 
 	bool isRunning = true;
 	SDL_Event ev;
+
+	int i = showmenu(screen, font);
+	if (i == 1)
+		isRunning = false;
 
 	while (isRunning){
 		prevTime = currentTime;
