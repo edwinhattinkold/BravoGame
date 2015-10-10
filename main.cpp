@@ -11,6 +11,13 @@
 
 #include <Box2D/Box2D.h>
 
+SDL_Texture* createTextTexture(SDL_Renderer* renderTarget, TTF_Font* font, const char* text, SDL_Color color){
+	SDL_Surface* textSurface = TTF_RenderText_Solid(font, text, color);
+	SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderTarget, textSurface);
+	SDL_FreeSurface(textSurface);
+	return textTexture;
+}
+
 int showMenu(SDL_Renderer* renderTarget, SDL_Texture* backgroundImage, int windowWidth, int windowHeight, TTF_Font* font){
 	SDL_Rect SrcR;
 
@@ -23,20 +30,23 @@ int showMenu(SDL_Renderer* renderTarget, SDL_Texture* backgroundImage, int windo
 	int x, y;
 	const int NUMMENU = 2;
 	const char* labels[NUMMENU] = { "Continue", "Exit" };
-	SDL_Surface* menus[NUMMENU];
+	SDL_Surface *menuSurfaces[NUMMENU];
+	SDL_Texture* menus[NUMMENU];
 	bool selected[NUMMENU] = { 0, 0 };
 	SDL_Color color[2] = { { 255, 255, 255, 255 }, { 255, 0, 0, 255 } };
 	
-	menus[0] = TTF_RenderText_Solid(font, labels[0], color[0]);
-	std::cout << TTF_GetError() << std::endl;
-	menus[1] = TTF_RenderText_Solid(font, labels[1], color[0]);
-	std::cout << TTF_GetError() << std::endl;
+	menus[0] = createTextTexture(renderTarget, font, labels[0], color[0]);
+	menus[1] = createTextTexture(renderTarget, font, labels[1], color[0]);
 	
 	SDL_Rect pos[NUMMENU];
-	pos[0].x = windowWidth / 2 - menus[0]->clip_rect.w / 2;
-	pos[0].y = windowHeight / 2 - menus[0]->clip_rect.h;
-	pos[1].x = windowWidth / 2 - menus[1]->clip_rect.w / 2;
-	pos[1].y = windowHeight / 2 - menus[1]->clip_rect.h;
+	pos[0].x = 500;
+	pos[0].y = 100;
+	pos[0].w = 60;
+	pos[0].h = 50;
+	pos[1].x = 500;
+	pos[1].y = 200;
+	pos[1].w = 60;
+	pos[1].h = 50;
 
 	
 	SDL_Event event;
@@ -47,7 +57,7 @@ int showMenu(SDL_Renderer* renderTarget, SDL_Texture* backgroundImage, int windo
 			switch (event.type){
 				case SDL_QUIT:
 					for (int c = 0; c < NUMMENU; c++)
-						SDL_FreeSurface(menus[c]);
+						SDL_DestroyTexture(menus[c]);
 					return 1;
 				case SDL_MOUSEMOTION:
 					x = event.motion.x;
@@ -56,14 +66,14 @@ int showMenu(SDL_Renderer* renderTarget, SDL_Texture* backgroundImage, int windo
 						if (x >= pos[i].x && x <= pos[i].x + pos[i].w && y >= pos[i].y && y <= pos[i].y + pos[i].h){
 							if (!selected[i]){
 								selected[i] = true;
-								SDL_FreeSurface(menus[i]);
-								menus[i] = TTF_RenderText_Solid(font, labels[i], color[1]);
+								SDL_DestroyTexture(menus[i]);
+								menus[i] = createTextTexture(renderTarget, font, labels[i], color[1]);
 							}
 						} else {
 							if (selected[i]){
 								selected[i] = 0;
-								SDL_FreeSurface(menus[i]);
-								menus[i] = TTF_RenderText_Solid(font, labels[i], color[0]);
+								SDL_DestroyTexture(menus[i]);
+								menus[i] = createTextTexture(renderTarget, font, labels[i], color[0]);
 							}
 						}
 					}
@@ -71,17 +81,19 @@ int showMenu(SDL_Renderer* renderTarget, SDL_Texture* backgroundImage, int windo
 				case SDL_MOUSEBUTTONDOWN:
 					x = event.motion.x;
 					y = event.motion.y;
-					for (int x = 0; x < NUMMENU; x++){
-						if (x >= pos[x].x && x <= pos[x].x + pos[x].w && y >= pos[x].y && y <= pos[x].y + pos[x].h){
+					for (int x = 0; x < NUMMENU; x++)
+						if (x >= pos[x].x && x <= pos[x].x + pos[x].w && y >= pos[x].y && y <= pos[x].y + pos[x].h)
 							return x;
-						}
-						break;
-					}
+					break;
 				case SDL_KEYDOWN:
 					if (event.key.keysym.sym == SDLK_ESCAPE)
 						return 0;
 			}
+			
+			SDL_RenderClear(renderTarget);
 			SDL_RenderCopy(renderTarget, backgroundImage, &SrcR, NULL);
+			for (int c = 0; c < NUMMENU; c++)
+				SDL_RenderCopy(renderTarget, menus[c], NULL, &pos[c]);
 			SDL_RenderPresent(renderTarget);
 		}
 	}
