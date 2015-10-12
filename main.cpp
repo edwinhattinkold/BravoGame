@@ -8,100 +8,9 @@
 #include <iostream>
 #include "player.h"
 #include "camera.h"
+#include "mainmenu.h"
 
 #include <Box2D/Box2D.h>
-
-SDL_Texture* createTextTexture(SDL_Renderer* renderTarget, TTF_Font* font, const char* text, SDL_Color color){
-	SDL_Surface* textSurface = TTF_RenderText_Solid(font, text, color);
-	SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderTarget, textSurface);
-	SDL_FreeSurface(textSurface);
-	return textTexture;
-}
-
-int showMenu(SDL_Renderer* renderTarget, SDL_Texture* backgroundImage, SDL_Rect cameraRect, TTF_Font* font ){
-	SDL_Rect backgroundImageRect;
-
-	backgroundImageRect.x = 0;
-	backgroundImageRect.y = 0;
-	backgroundImageRect.w = cameraRect.w;
-	backgroundImageRect.h = cameraRect.h;
-
-	Uint32 time;
-	int mouseX, mouseY;
-	int margin = 30;
-	int combinedHeight = 0;
-	const int NUMMENU = 2;
-	const char* labels[NUMMENU] = { "Continue", "Exit" };
-	SDL_Texture* menus[NUMMENU];
-	bool selected[NUMMENU];
-	SDL_Color color[2] = { { 140, 0, 0, 255 }, { 255, 0, 0, 255 } };
-	
-	SDL_Rect pos[NUMMENU];
-	for (int i = 0; i < NUMMENU; i++)
-	{
-		menus[i] = createTextTexture(renderTarget, font, labels[i], color[0]);
-		SDL_QueryTexture(menus[i], NULL, NULL, &pos[i].w, &pos[i].h);
-		combinedHeight += pos[i].h;
-		pos[i].x = (cameraRect.w / 2) - (pos[i].w / 2) - cameraRect.x;
-		selected[i] = 0;
-	}
-	int marginHeight = ((NUMMENU - 1) * margin);
-	combinedHeight += marginHeight;
-
-	for (int j = 0; j < NUMMENU; j++){
-		int previousHeight = 0;
-		for (int h = 0; h < j; h++)
-			previousHeight += pos[h].h;
-		pos[j].y = (cameraRect.h / 2) - cameraRect.y - (combinedHeight / 2) + (j * margin) + previousHeight;
-	}
-
-	SDL_Event event;
-	while (1)
-	{
-		time = SDL_GetTicks();
-		while (SDL_PollEvent(&event)){
-			switch (event.type){
-				case SDL_QUIT:
-					for (int c = 0; c < NUMMENU; c++)
-						SDL_DestroyTexture(menus[c]);
-					return 1;
-				case SDL_MOUSEMOTION:
-					mouseX = event.motion.x;
-					mouseY = event.motion.y;
-					for (int i = 0; i < NUMMENU; i++){
-						if (mouseX >= pos[i].x && mouseX <= pos[i].x + pos[i].w && mouseY >= pos[i].y && mouseY <= pos[i].y + pos[i].h){
-							if (!selected[i]){
-								selected[i] = true;
-								SDL_DestroyTexture(menus[i]);
-								menus[i] = createTextTexture(renderTarget, font, labels[i], color[1]);
-							}
-						} else {
-							if (selected[i]){
-								selected[i] = 0;
-								SDL_DestroyTexture(menus[i]);
-								menus[i] = createTextTexture(renderTarget, font, labels[i], color[0]);
-							}
-						}
-					}
-					break;
-				case SDL_MOUSEBUTTONDOWN:
-					mouseX = event.motion.x;
-					mouseY = event.motion.y;
-					for (int index = 0; index < NUMMENU; index++)
-						if (mouseX >= pos[index].x && mouseX <= pos[index].x + pos[index].w && mouseY >= pos[index].y && mouseY <= pos[index].y + pos[index].h)
-							return index;
-					break;
-			}
-		}
-		SDL_RenderClear(renderTarget);
-		SDL_RenderCopy(renderTarget, backgroundImage, &backgroundImageRect, NULL);
-		for (int c = 0; c < NUMMENU; c++)
-			SDL_RenderCopy(renderTarget, menus[c], NULL, &pos[c]);
-		SDL_RenderPresent(renderTarget);
-	}
-	for each (SDL_Texture* texture in menus)
-		SDL_DestroyTexture(texture);
-}
 
 SDL_Texture *LoadTexture(std::string filePath, SDL_Renderer *renderTarget){
 	SDL_Texture *texture = nullptr;
@@ -158,9 +67,11 @@ int main(int argc, char *argv[]){
 
 	Camera camera(levelWidth, levelHeight, windowWidth, windowHeight);
 
-	bool isRunning = true;
+	MainMenu menu(renderTarget, mainMenuBackground, camera.getCamera(), font);
 
-	int i = showMenu(renderTarget, mainMenuBackground, camera.getCamera(), font);
+	bool isRunning = true;
+	
+	int i = menu.showMenu(renderTarget);
 	if (i == 1)
 		isRunning = false;
 
@@ -173,7 +84,7 @@ int main(int argc, char *argv[]){
 			if (ev.type == SDL_QUIT)
 				isRunning = false;
 			if (ev.key.keysym.sym == SDLK_ESCAPE){
-				int i = showMenu(renderTarget, mainMenuBackground, camera.getCamera(), font);
+				int i = menu.showMenu(renderTarget);
 				if (i == 1)
 					isRunning = false;
 			}

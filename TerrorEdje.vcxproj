@@ -82,6 +82,8 @@
     <ClInclude Include="animation.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="mainmenu.h" />
+    <ClInclude Include="MenuItem.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="sprite.h" />
   </ItemGroup>
@@ -89,6 +91,8 @@
     <ClCompile Include="animation.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="mainmenu.cpp" />
+    <ClCompile Include="MenuItem.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="sprite.cpp" />
   </ItemGroup>
