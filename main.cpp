@@ -63,7 +63,6 @@ int main(int argc, char *argv[]){
 	SDL_QueryTexture(texture, NULL, NULL, &levelWidth, &levelHeight);
 
 	SDL_Texture *mainMenuBackground = LoadTexture("Images/Mainmenu/background.png", renderTarget);
-	SDL_QueryTexture(mainMenuBackground, NULL, NULL, &levelWidth, &levelHeight);
 
 	Camera camera(levelWidth, levelHeight, windowWidth, windowHeight);
 
