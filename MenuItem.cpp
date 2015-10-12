@@ -17,6 +17,7 @@ MenuItem::~MenuItem()
 {
 	SDL_DestroyTexture(this->normalTexture);
 	SDL_DestroyTexture(this->highlightedTexture);
+	SDL_DestroyTexture(this->currentTexture);
 }
 
 SDL_Texture* MenuItem::createTextTexture(SDL_Renderer* renderTarget, TTF_Font* font, const char* text, SDL_Color color){

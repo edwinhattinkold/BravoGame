@@ -38,7 +38,8 @@ MainMenu::MainMenu(SDL_Renderer* renderTarget, SDL_Texture* backgroundImage, SDL
 
 MainMenu::~MainMenu()
 {
-
+	for (int c = 0; c < this->menuItems.size(); c++)
+		delete this->menuItems[c];
 }
 
 int MainMenu::showMenu(SDL_Renderer* renderTarget){

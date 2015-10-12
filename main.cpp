@@ -29,7 +29,7 @@ SDL_Texture *LoadTexture(std::string filePath, SDL_Renderer *renderTarget){
 	return texture;
 }
 
-int main(int argc, char *argv[]){
+void run(){
 	TTF_Init();
 	//test box2d specific code
 	b2World* world = new b2World(b2Vec2(0, 0));
@@ -69,7 +69,7 @@ int main(int argc, char *argv[]){
 	MainMenu menu(renderTarget, mainMenuBackground, camera.getCamera(), font);
 
 	bool isRunning = true;
-	
+
 	int i = menu.showMenu(renderTarget);
 	if (i == 1)
 		isRunning = false;
@@ -120,9 +120,12 @@ int main(int argc, char *argv[]){
 	renderTarget = nullptr;
 
 	IMG_Quit();
+	TTF_Quit();
 	SDL_Quit();
+}
 
+int main(int argc, char *argv[]){
+	run();
 	_CrtDumpMemoryLeaks();
-
 	return 0;
 }

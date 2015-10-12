@@ -38,7 +38,7 @@ Animation::Animation(SDL_Renderer* renderTarget, std::string filePath, int frame
 
 Animation::~Animation()
 {
-	//SDL_DestroyTexture(texture);
+	SDL_DestroyTexture(texture);
 }
 
 void Animation::Update(float deltaTime){

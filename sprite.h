@@ -8,7 +8,7 @@
 class Sprite
 {
 protected:
-	std::vector<Animation> animations;
+	std::vector<Animation*> animations;
 	int currentAnimaton;
 	int originX, originY;
 

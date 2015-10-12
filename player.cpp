@@ -9,10 +9,10 @@ Player::Player(SDL_Renderer *renderTarget, int xPosition, int yPosition, float m
 	float animSpeed = 0.10f;
 	/* Create all the animations required for this sprite */
 
-	Animation walking_left_animation{ renderTarget, "Images/Animations/Walking/walking_left.png", 3, 1, 1, 0, animSpeed };
-	Animation walking_up_animation{ renderTarget, "Images/Animations/Walking/walking_up.png", 3, 1, 1, 0, animSpeed };
-	Animation walking_right_animation{ renderTarget, "Images/Animations/Walking/walking_right.png", 3, 1, 1, 0, animSpeed };
-	Animation walking_down_animation{ renderTarget, "Images/Animations/Walking/walking_down.png", 3, 1, 1, 0, animSpeed };
+	Animation* walking_left_animation = new Animation( renderTarget, "Images/Animations/Walking/walking_left.png", 3, 1, 1, 0, animSpeed );
+	Animation* walking_up_animation = new Animation( renderTarget, "Images/Animations/Walking/walking_up.png", 3, 1, 1, 0, animSpeed );
+	Animation* walking_right_animation = new Animation( renderTarget, "Images/Animations/Walking/walking_right.png", 3, 1, 1, 0, animSpeed );
+	Animation* walking_down_animation = new Animation( renderTarget, "Images/Animations/Walking/walking_down.png", 3, 1, 1, 0, animSpeed );
 
 	/* Has to be in order of the enum */
 	this->animations = { walking_left_animation, walking_up_animation, walking_right_animation, walking_down_animation };
@@ -69,17 +69,17 @@ void Player::Update(float delta, const Uint8 *keyState){
 		isActive = false;
 
 	if (isActive)
-		this->animations[currentAnimaton].Update(delta);
+		this->animations[currentAnimaton]->Update(delta);
 	else
-		this->animations[currentAnimaton].StandStill();
+		this->animations[currentAnimaton]->StandStill();
 }
 
 void Player::SetAnimation(PlayerAnimation playerAnimation){
 	this->currentAnimaton = playerAnimation;
-	Animation anim = this->animations[this->currentAnimaton];
+	Animation* anim = this->animations[this->currentAnimaton];
 
-	this->originX = anim.getOriginX();
-	this->originY = anim.getOriginY();
-	this->positionRect.w = anim.getFrameWidth();
-	this->positionRect.h = anim.getFrameHeight();
+	this->originX = anim->getOriginX();
+	this->originY = anim->getOriginY();
+	this->positionRect.w = anim->getFrameWidth();
+	this->positionRect.h = anim->getFrameHeight();
 }
