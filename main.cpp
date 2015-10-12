@@ -4,9 +4,11 @@
 
 #include "SDL.h"
 #include "SDL_image.h"
+#include "SDL_ttf.h"
 #include <iostream>
 #include "player.h"
 #include "camera.h"
+#include "mainmenu.h"
 
 #include <Box2D/Box2D.h>
 
@@ -28,14 +30,15 @@ SDL_Texture *LoadTexture(std::string filePath, SDL_Renderer *renderTarget){
 }
 
 int main(int argc, char *argv[]){
-
+	TTF_Init();
 	//test box2d specific code
 	b2World* world = new b2World(b2Vec2(0, 0));
-
 
 	//Initializing and loading variables
 	SDL_Window *window = nullptr;
 	SDL_Renderer *renderTarget = nullptr;
+	TTF_Font* font = TTF_OpenFont("Fonts/Frontman.ttf", 50);
+	std::cout << TTF_GetError() << std::endl;
 
 	int currentTime = 0;
 	int prevTime = 0;
@@ -49,7 +52,6 @@ int main(int argc, char *argv[]){
 
 	window = SDL_CreateWindow("TerrorEdje!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
 	renderTarget = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-
 	SDL_SetRenderDrawColor(renderTarget, 0, 0, 255, 255);
 
 	Player player1(renderTarget, 0, 0, 300.0f);
@@ -60,11 +62,19 @@ int main(int argc, char *argv[]){
 	SDL_Texture *texture = LoadTexture("Images/rect.png", renderTarget);
 	SDL_QueryTexture(texture, NULL, NULL, &levelWidth, &levelHeight);
 
+	SDL_Texture *mainMenuBackground = LoadTexture("Images/Mainmenu/background.png", renderTarget);
+
 	Camera camera(levelWidth, levelHeight, windowWidth, windowHeight);
 
-	bool isRunning = true;
-	SDL_Event ev;
+	MainMenu menu(renderTarget, mainMenuBackground, camera.getCamera(), font);
 
+	bool isRunning = true;
+	
+	int i = menu.showMenu(renderTarget);
+	if (i == 1)
+		isRunning = false;
+
+	SDL_Event ev;
 	while (isRunning){
 		prevTime = currentTime;
 		currentTime = SDL_GetTicks();
@@ -72,6 +82,11 @@ int main(int argc, char *argv[]){
 		while (SDL_PollEvent(&ev) != 0){
 			if (ev.type == SDL_QUIT)
 				isRunning = false;
+			if (ev.key.keysym.sym == SDLK_ESCAPE){
+				int i = menu.showMenu(renderTarget);
+				if (i == 1)
+					isRunning = false;
+			}
 		}
 
 		keyState = SDL_GetKeyboardState(NULL);
