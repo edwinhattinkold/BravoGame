@@ -82,15 +82,21 @@
     <ClInclude Include="animation.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="MapGenerator.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="sprite.h" />
+    <ClInclude Include="Tile.h" />
+    <ClInclude Include="XMLReader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="animation.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MapGenerator.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="sprite.cpp" />
+    <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="XMLReader.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
