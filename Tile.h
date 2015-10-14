@@ -1,12 +1,16 @@
 #pragma once
+#include "SDL.h";
+
 class Tile
 {
 private:
-	int x;
-	int y;
+	SDL_Rect _cropRect;
+	SDL_Texture *_texture;
 public:
 	
-	Tile();
+	Tile(SDL_Texture *texture, SDL_Rect cropRect);
 	~Tile();
+	SDL_Rect* getRect();
+	SDL_Texture* getTexture();
 };
 

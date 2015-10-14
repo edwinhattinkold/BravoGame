@@ -81,9 +81,12 @@
   <ItemGroup>
     <ClInclude Include="animation.h" />
     <ClInclude Include="camera.h" />
+    <ClInclude Include="Location.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="MapGenerator.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="rapidxml.hpp" />
+    <ClInclude Include="rapidxml_utils.hpp" />
     <ClInclude Include="sprite.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="XMLReader.h" />
@@ -91,6 +94,7 @@
   <ItemGroup>
     <ClCompile Include="animation.cpp" />
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="Location.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapGenerator.cpp" />
     <ClCompile Include="player.cpp" />

@@ -7,10 +7,10 @@
 #include <iostream>
 #include "player.h"
 #include "camera.h"
-
+#include "MapGenerator.h";
 #include <Box2D/Box2D.h>
 
-SDL_Texture *LoadTexture(std::string filePath, SDL_Renderer *renderTarget){
+ SDL_Texture *LoadTexture(std::string filePath, SDL_Renderer *renderTarget){
 	SDL_Texture *texture = nullptr;
 	SDL_Surface *surface = IMG_Load(filePath.c_str());
 	if (surface == NULL)
@@ -26,8 +26,48 @@ SDL_Texture *LoadTexture(std::string filePath, SDL_Renderer *renderTarget){
 
 	return texture;
 }
+ void run(){
+	 SDL_Window *window = nullptr;
+	 SDL_Renderer *renderTarget = nullptr;
 
+	 int currentTime = 0;
+	 int prevTime = 0;
+	 float deltaTime = 0.0f;
+	 const Uint8 *keyState;
+	 int windowWidth = 640;
+	 int windowHeight = 480;
+	 int levelWidth, levelHeight;
+
+	 SDL_Init(SDL_INIT_VIDEO);
+
+	 window = SDL_CreateWindow("TerrorEdje!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
+	 renderTarget = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	 MapGenerator mg{ renderTarget };
+	 std::vector<Location> *locations = mg.GenerateMap("maps/level1.tmx");
+	 Tile *tile = nullptr;
+	 SDL_Rect tarRect = { 0, 0, 32, 32 };
+	 
+	 for (int i = 0; i < locations->size(); i++){
+		 Location l = locations->at(i);
+		 tarRect.x = l.x*32;
+		 tarRect.y = l.y*32;
+		 tile = mg.getTile(l.id);
+		 SDL_RenderCopy(renderTarget, tile->getTexture(), tile->getRect(), &tarRect);
+	 }
+	 
+	 SDL_RenderPresent(renderTarget);
+	 delete locations;
+	 std::cout << "done";
+ }
 int main(int argc, char *argv[]){
+	run();
+	_CrtDumpMemoryLeaks();
+	std::getchar();
+
+	return 0;
+}
+
+int main2(int argc, char *argv[]){
 
 	//test box2d specific code
 	b2World* world = new b2World(b2Vec2(0, 0));
