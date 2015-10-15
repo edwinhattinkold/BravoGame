@@ -9,7 +9,8 @@
 #include "player.h"
 #include "camera.h"
 #include "mainmenu.h"
-
+#include "wtypes.h"
+#include "Sound.h"
 #include <Box2D/Box2D.h>
 
 SDL_Texture *LoadTexture(std::string filePath, SDL_Renderer *renderTarget){
@@ -29,6 +30,15 @@ SDL_Texture *LoadTexture(std::string filePath, SDL_Renderer *renderTarget){
 	return texture;
 }
 
+void GetDesktopResolution(int& horizontal, int& vertical)
+{
+	RECT desktop;
+	const HWND hDesktop = GetDesktopWindow();
+	GetWindowRect(hDesktop, &desktop);
+	horizontal = desktop.right;
+	vertical = desktop.bottom;
+}
+
 void run(){
 	TTF_Init();
 	//test box2d specific code
@@ -44,13 +54,14 @@ void run(){
 	int prevTime = 0;
 	float deltaTime = 0.0f;
 	const Uint8 *keyState;
-	int windowWidth = 1600;
-	int windowHeight = 900;
+	int windowWidth = 1280;
+	int windowHeight = 720;
 	int levelWidth, levelHeight;
+	//GetDesktopResolution(windowWidth, windowHeight);
 
 	SDL_Init(SDL_INIT_VIDEO);
 
-	window = SDL_CreateWindow("TerrorEdje!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, SDL_WINDOW_FULLSCREEN);
+	window = SDL_CreateWindow("TerrorEdje!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
 	renderTarget = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	SDL_SetRenderDrawColor(renderTarget, 0, 0, 255, 255);
 
@@ -67,11 +78,10 @@ void run(){
 	Camera camera(levelWidth, levelHeight, windowWidth, windowHeight);
 
 	MainMenu menu(renderTarget, mainMenuBackground, camera.getCamera(), font);
-
 	bool isRunning = true;
 
 	int i = menu.showMenu(renderTarget);
-	if (i == 1)
+	if (i == menu.getExitCode())
 		isRunning = false;
 
 	SDL_Event ev;
@@ -84,7 +94,7 @@ void run(){
 				isRunning = false;
 			if (ev.key.keysym.sym == SDLK_ESCAPE){
 				int i = menu.showMenu(renderTarget);
-				if (i == 1)
+				if (i == menu.getExitCode())
 					isRunning = false;
 			}
 		}

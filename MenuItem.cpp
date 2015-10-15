@@ -4,10 +4,11 @@
 MenuItem::MenuItem(SDL_Renderer* renderTarget, TTF_Font* font, char* content)
 {
 	this->content = content;
+	this->myFont = font;
 	this->normalColor = { 140, 0, 0, 255 };
 	this->highlightedColor = { 255, 0, 0, 255 };
-	this->normalTexture = createTextTexture(renderTarget, font, this->content, this->normalColor);
-	this->highlightedTexture = createTextTexture(renderTarget, font, this->content, this->highlightedColor);
+	this->normalTexture = createTextTexture(renderTarget, this->myFont, this->content, this->normalColor);
+	this->highlightedTexture = createTextTexture(renderTarget, this->myFont, this->content, this->highlightedColor);
 	this->currentTexture = this->normalTexture;
 	this->selected = false;
 	SDL_QueryTexture(this->normalTexture, NULL, NULL, &position.w, &position.h);
@@ -31,13 +32,16 @@ void MenuItem::setPosition(SDL_Rect position){
 	this->position = position;
 }
 
-void MenuItem::checkHover(int x, int y){
+bool MenuItem::checkHover(int x, int y){
 	if (x >= this->position.x && x <= this->position.x + this->position.w && y >= this->position.y && y <= this->position.y + this->position.h){
-		if (!this->selected)
+		if (!this->selected){
 			this->toggleSelected();
+			return true;
+		}
 	}
     else if (this->selected)
 		this->toggleSelected();
+	return false;
 }
 
 void MenuItem::toggleSelected(){
@@ -70,6 +74,17 @@ void MenuItem::setXPositon(int xPosition){
 
 void MenuItem::setYPosition(int yPosition){
 	this->position.y = yPosition;
+}
+
+void MenuItem::setText(SDL_Renderer* renderTarget, char* text){
+	this->content = text;
+	SDL_DestroyTexture(this->normalTexture);
+	SDL_DestroyTexture(this->highlightedTexture);
+	SDL_DestroyTexture(this->currentTexture);
+	this->normalTexture = createTextTexture(renderTarget, this->myFont, this->content, this->normalColor);
+	this->highlightedTexture = createTextTexture(renderTarget, this->myFont, this->content, this->highlightedColor);
+	this->currentTexture = this->highlightedTexture;
+	SDL_QueryTexture(this->normalTexture, NULL, NULL, &position.w, &position.h);
 }
 
 void MenuItem::draw(SDL_Renderer* renderTarget){

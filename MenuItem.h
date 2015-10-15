@@ -15,6 +15,7 @@ private:
 	bool selected;
 	SDL_Color normalColor;
 	SDL_Color highlightedColor;
+	TTF_Font* myFont;
 
 	SDL_Texture* createTextTexture(SDL_Renderer* renderTarget, TTF_Font* font, const char* text, SDL_Color color);
 	void toggleSelected();
@@ -24,7 +25,7 @@ public:
 	~MenuItem();
 
 	void setPosition(SDL_Rect position);
-	void checkHover(int x, int y);
+	bool checkHover(int x, int y);
 
 	int getHeight();
 	int getWidth();
@@ -32,6 +33,7 @@ public:
 	int getYPosition();
 	void setXPositon(int xPosition);
 	void setYPosition(int yPosition);
+	void setText(SDL_Renderer* renderTarget, char* text);
 	void draw(SDL_Renderer* renderTarget);
 };
 
