@@ -9,13 +9,12 @@ MainMenu::MainMenu(SDL_Renderer* renderTarget, SDL_Texture* backgroundImage, SDL
 	backgroundImageRect.h = cameraRect.h;
 	this->backgroundImage = backgroundImage;
 
-	this->margin = 30;
+	this->margin = 10;
 	this->combinedHeight = 0;
 
-	MenuItem* continueButton	= new MenuItem(renderTarget, font, "Continue");
-	MenuItem* exitButton		= new MenuItem(renderTarget, font, "Exit");
-
-	this->menuItems = { continueButton, exitButton };
+	this->menuItems = { new MenuItem(renderTarget, font, "Continue"),
+						new MenuItem(renderTarget, font, "Exit")
+					};
 
 	for (std::vector<int>::size_type i = this->menuItems.size() - 1; i != (std::vector<int>::size_type) - 1; i--) {
 		this->combinedHeight += this->menuItems[i]->getHeight();
