@@ -37,20 +37,20 @@ void run(){
 	//Initializing and loading variables
 	SDL_Window *window = nullptr;
 	SDL_Renderer *renderTarget = nullptr;
-	TTF_Font* font = TTF_OpenFont("Fonts/Frontman.ttf", 50);
+	TTF_Font* font = TTF_OpenFont("Fonts/Frontman.ttf", 40);
 	std::cout << TTF_GetError() << std::endl;
 
 	int currentTime = 0;
 	int prevTime = 0;
 	float deltaTime = 0.0f;
 	const Uint8 *keyState;
-	int windowWidth = 640;
-	int windowHeight = 480;
+	int windowWidth = 1600;
+	int windowHeight = 900;
 	int levelWidth, levelHeight;
 
 	SDL_Init(SDL_INIT_VIDEO);
 
-	window = SDL_CreateWindow("TerrorEdje!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow("TerrorEdje!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, SDL_WINDOW_FULLSCREEN);
 	renderTarget = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	SDL_SetRenderDrawColor(renderTarget, 0, 0, 255, 255);
 
@@ -59,7 +59,7 @@ void run(){
 
 	Sprite dog(renderTarget, "Images/spritesheet_dog.png", 300, 300, 2, 1, 0.25f);
 
-	SDL_Texture *texture = LoadTexture("Images/rect.png", renderTarget);
+	SDL_Texture *texture = LoadTexture("Images/large_background.jpg", renderTarget);
 	SDL_QueryTexture(texture, NULL, NULL, &levelWidth, &levelHeight);
 
 	SDL_Texture *mainMenuBackground = LoadTexture("Images/Mainmenu/background.png", renderTarget);
