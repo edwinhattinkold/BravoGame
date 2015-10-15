@@ -58,8 +58,23 @@
 	 SDL_RenderPresent(renderTarget);
 	 delete locations;
 	 std::cout << "done";
+
+	 bool isRunning = true;
+	 SDL_Event ev;
+	 while (isRunning){
+		 while (SDL_PollEvent(&ev) != 0){
+			 if (ev.type == SDL_QUIT)
+				 isRunning = false;
+		 }
+	 }
+
+	 SDL_DestroyWindow(window);
+	 SDL_DestroyRenderer(renderTarget);
  }
 int main(int argc, char *argv[]){
+
+	int random = std::rand();
+	std::cout << random << std::endl;
 	run();
 	_CrtDumpMemoryLeaks();
 	std::getchar();
