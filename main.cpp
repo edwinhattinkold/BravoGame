@@ -9,6 +9,7 @@
 #include "camera.h"
 #include "MapGenerator.h";
 #include <Box2D/Box2D.h>
+#include "MapDrawer.h"
 
  SDL_Texture *LoadTexture(std::string filePath, SDL_Renderer *renderTarget){
 	SDL_Texture *texture = nullptr;
@@ -42,21 +43,9 @@
 
 	 window = SDL_CreateWindow("TerrorEdje!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
 	 renderTarget = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	 MapGenerator mg{ renderTarget };
-	 std::vector<Location> *locations = mg.GenerateMap("maps/level1.tmx");
-	 Tile *tile = nullptr;
-	 SDL_Rect tarRect = { 0, 0, 32, 32 };
 	 
-	 for (int i = 0; i < locations->size(); i++){
-		 Location l = locations->at(i);
-		 tarRect.x = l.x*32;
-		 tarRect.y = l.y*32;
-		 tile = mg.getTile(l.id);
-		 SDL_RenderCopy(renderTarget, tile->getTexture(), tile->getRect(), &tarRect);
-	 }
+	 MapDrawer mapDrawer{ renderTarget };
 	 
-	 SDL_RenderPresent(renderTarget);
-	 delete locations;
 	 std::cout << "done";
 
 	 bool isRunning = true;
@@ -72,9 +61,6 @@
 	 SDL_DestroyRenderer(renderTarget);
  }
 int main(int argc, char *argv[]){
-
-	int random = std::rand();
-	std::cout << random << std::endl;
 	run();
 	_CrtDumpMemoryLeaks();
 	std::getchar();
