@@ -63,8 +63,6 @@
 int main(int argc, char *argv[]){
 	run();
 	_CrtDumpMemoryLeaks();
-	std::getchar();
-
 	return 0;
 }
 

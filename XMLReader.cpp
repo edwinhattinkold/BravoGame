@@ -30,14 +30,6 @@ std::vector<Location>* XMLReader::parseXMLFile(MapGenerator *mapGenerator, std::
 			atoi(tileset->first_attribute("tilecount")->value()),
 			atoi(image->first_attribute("width")->value()),
 			atoi(image->first_attribute("height")->value()));
-		/*std::cout << "tilesetname : " << tileset->first_attribute("name")->value() << std::endl;
-		std::cout << "firsttileid : " << tileset->first_attribute("firstgid")->value() << std::endl;
-		std::cout << "tilewidth : " << tileset->first_attribute("tilewidth")->value() << std::endl;
-		std::cout << "tileheight : " << tileset->first_attribute("tileheight")->value() << std::endl;
-		std::cout << "spacing : " <<  << std::endl;
-		std::cout << "tilecount : " <<  << std::endl;
-		std::cout << "image : " << tileset->first_node("image")->first_attribute("source")->value() << std::endl;
-		std::cout << " ------------------------------------------" << std::endl;*/
 	}
 
 	//return tiles

@@ -15,7 +15,6 @@ private:
 public:
 	void AddTileSet(std::string filePath, int spacing, int firstId, int amount, int width, int height);
 	std::vector<Location>* GenerateMap(std::string filePath);
-	void AddTile(int x, int y, int id);
 	Tile* getTile(int id);
 	MapGenerator(SDL_Renderer *rt);
 	~MapGenerator();
