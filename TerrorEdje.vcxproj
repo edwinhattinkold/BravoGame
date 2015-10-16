@@ -10,6 +10,39 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Animation.h" />
+    <ClInclude Include="Source\Camera.h" />
+    <ClInclude Include="Source\Location.h" />
+    <ClInclude Include="Source\MainMenu.h" />
+    <ClInclude Include="Source\MapDrawer.h" />
+    <ClInclude Include="Source\MapGenerator.h" />
+    <ClInclude Include="Source\MenuItem.h" />
+    <ClInclude Include="Source\OptionsMenu.h" />
+    <ClInclude Include="Source\Player.h" />
+    <ClInclude Include="Source\rapidxml.hpp" />
+    <ClInclude Include="Source\rapidxml_utils.hpp" />
+    <ClInclude Include="Source\Sound.h" />
+    <ClInclude Include="Source\Sprite.h" />
+    <ClInclude Include="Source\Tile.h" />
+    <ClInclude Include="Source\XMLReader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Animation.cpp" />
+    <ClCompile Include="Source\Camera.cpp" />
+    <ClCompile Include="Source\Location.cpp" />
+    <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\MainMenu.cpp" />
+    <ClCompile Include="Source\MapDrawer.cpp" />
+    <ClCompile Include="Source\MapGenerator.cpp" />
+    <ClCompile Include="Source\MenuItem.cpp" />
+    <ClCompile Include="Source\OptionsMenu.cpp" />
+    <ClCompile Include="Source\Player.cpp" />
+    <ClCompile Include="Source\Sound.cpp" />
+    <ClCompile Include="Source\Sprite.cpp" />
+    <ClCompile Include="Source\Tile.cpp" />
+    <ClCompile Include="Source\XMLReader.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A3E3BA3A-267A-481D-8F03-18989DFF70BE}</ProjectGuid>
     <RootNamespace>TerrorEdje</RootNamespace>
@@ -80,40 +113,6 @@
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="animation.h" />
-    <ClInclude Include="camera.h" />
-    <ClInclude Include="Location.h" />
-    <ClInclude Include="main.h" />
-    <ClInclude Include="mainmenu.h" />
-    <ClInclude Include="MenuItem.h" />
-    <ClInclude Include="MapDrawer.h" />
-    <ClInclude Include="MapGenerator.h" />
-    <ClInclude Include="player.h" />
-    <ClInclude Include="rapidxml.hpp" />
-    <ClInclude Include="rapidxml_utils.hpp" />
-    <ClInclude Include="OptionsMenu.h" />
-    <ClInclude Include="Sound.h" />
-    <ClInclude Include="sprite.h" />
-    <ClInclude Include="Tile.h" />
-    <ClInclude Include="XMLReader.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="animation.cpp" />
-    <ClCompile Include="camera.cpp" />
-    <ClCompile Include="Location.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="mainmenu.cpp" />
-    <ClCompile Include="MenuItem.cpp" />
-    <ClCompile Include="MapDrawer.cpp" />
-    <ClCompile Include="MapGenerator.cpp" />
-    <ClCompile Include="OptionsMenu.cpp" />
-    <ClCompile Include="player.cpp" />
-    <ClCompile Include="Sound.cpp" />
-    <ClCompile Include="sprite.cpp" />
-    <ClCompile Include="Tile.cpp" />
-    <ClCompile Include="XMLReader.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

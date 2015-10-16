@@ -3,7 +3,7 @@
 
 #include<SDL.h>
 #include<string>
-#include "sprite.h"
+#include "Sprite.h"
 
 class Player : public Sprite
 {

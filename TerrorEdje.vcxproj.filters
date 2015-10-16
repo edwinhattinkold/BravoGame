@@ -15,96 +15,93 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="main.h">
+    <ClInclude Include="Source\Animation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="player.h">
+    <ClInclude Include="Source\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="camera.h">
+    <ClInclude Include="Source\Location.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="animation.h">
+    <ClInclude Include="Source\MainMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sprite.h">
+    <ClInclude Include="Source\MapDrawer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="mainmenu.h">
+    <ClInclude Include="Source\MapGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MenuItem.h">
-	<Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MapGenerator.h">
+    <ClInclude Include="Source\MenuItem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Tile.h">
+    <ClInclude Include="Source\OptionsMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="XMLReader.h">
+    <ClInclude Include="Source\Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="rapidxml.hpp">
+    <ClInclude Include="Source\rapidxml.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="rapidxml_utils.hpp">
+    <ClInclude Include="Source\rapidxml_utils.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Location.h">
+    <ClInclude Include="Source\Sound.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MapDrawer.h">
+    <ClInclude Include="Source\Sprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Sound.h">
+    <ClInclude Include="Source\Tile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="OptionsMenu.h">
+    <ClInclude Include="Source\XMLReader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="Source\Animation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="player.cpp">
+    <ClCompile Include="Source\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="camera.cpp">
+    <ClCompile Include="Source\Location.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="animation.cpp">
+    <ClCompile Include="Source\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sprite.cpp">
+    <ClCompile Include="Source\MainMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="mainmenu.cpp">
+    <ClCompile Include="Source\MapDrawer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MenuItem.cpp">
-	<Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MapGenerator.cpp">
+    <ClCompile Include="Source\MapGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Tile.cpp">
+    <ClCompile Include="Source\MenuItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="XMLReader.cpp">
+    <ClCompile Include="Source\OptionsMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Location.cpp">
+    <ClCompile Include="Source\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MapDrawer.cpp">
+    <ClCompile Include="Source\Sound.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Sound.cpp">
+    <ClCompile Include="Source\Sprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OptionsMenu.cpp">
+    <ClCompile Include="Source\Tile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\XMLReader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

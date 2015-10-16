@@ -3,7 +3,7 @@
 #include "SDL.h"
 #include <string>
 #include <vector>
-#include "animation.h"
+#include "Animation.h"
 
 class Sprite
 {

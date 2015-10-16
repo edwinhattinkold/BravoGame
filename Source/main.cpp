@@ -6,9 +6,9 @@
 #include "SDL_image.h"
 #include "SDL_ttf.h"
 #include <iostream>
-#include "player.h"
-#include "camera.h"
-#include "mainmenu.h"
+#include "Player.h"
+#include "Camera.h"
+#include "MainMenu.h"
 #include "MapGenerator.h";
 #include "wtypes.h"
 #include <Box2D/Box2D.h>

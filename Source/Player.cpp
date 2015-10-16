@@ -1,4 +1,4 @@
-#include "player.h"
+#include "Player.h"
 #include <SDL_image.h>
 #include <iostream>
 #include <cmath>
