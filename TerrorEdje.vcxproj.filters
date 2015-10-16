@@ -13,99 +13,123 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Map">
+      <UniqueIdentifier>{a3b15544-7826-48b6-a779-6615b1ed788e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GraphicObjects">
+      <UniqueIdentifier>{1bae5c04-e78a-4eb0-b92f-e73f3258de26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Menu">
+      <UniqueIdentifier>{fb00ac1d-528a-4967-89a7-0b289319fdde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Sound">
+      <UniqueIdentifier>{1cfddf5e-bcba-41e9-8caa-ea03bf0e22f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\RapidXML">
+      <UniqueIdentifier>{418e99f9-bfd5-4797-b2d1-e2c284a9c4fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Menu">
+      <UniqueIdentifier>{ba0122fe-8795-4d4d-8ad2-eda0041243f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GraphicObjects">
+      <UniqueIdentifier>{24e78933-9422-4dca-be4e-d5c84ee70c6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Map">
+      <UniqueIdentifier>{1380dd1b-e169-4653-9d5c-a97296e199a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Sound">
+      <UniqueIdentifier>{814155c1-f594-45ec-b51e-a81516284047}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="main.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\Animation.h">
+      <Filter>Header Files\GraphicObjects</Filter>
     </ClInclude>
-    <ClInclude Include="player.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\Camera.h">
+      <Filter>Header Files\GraphicObjects</Filter>
     </ClInclude>
-    <ClInclude Include="camera.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\Player.h">
+      <Filter>Header Files\GraphicObjects</Filter>
     </ClInclude>
-    <ClInclude Include="animation.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\Sprite.h">
+      <Filter>Header Files\GraphicObjects</Filter>
     </ClInclude>
-    <ClInclude Include="sprite.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\Location.h">
+      <Filter>Header Files\Map</Filter>
     </ClInclude>
-    <ClInclude Include="mainmenu.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\MapDrawer.h">
+      <Filter>Header Files\Map</Filter>
     </ClInclude>
-    <ClInclude Include="MenuItem.h">
-	<Filter>Header Files</Filter>
+    <ClInclude Include="Source\MapGenerator.h">
+      <Filter>Header Files\Map</Filter>
     </ClInclude>
-    <ClInclude Include="MapGenerator.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\Tile.h">
+      <Filter>Header Files\Map</Filter>
     </ClInclude>
-    <ClInclude Include="Tile.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\XMLReader.h">
+      <Filter>Header Files\Map</Filter>
     </ClInclude>
-    <ClInclude Include="XMLReader.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\MainMenu.h">
+      <Filter>Header Files\Menu</Filter>
     </ClInclude>
-    <ClInclude Include="rapidxml.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\MenuItem.h">
+      <Filter>Header Files\Menu</Filter>
     </ClInclude>
-    <ClInclude Include="rapidxml_utils.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\OptionsMenu.h">
+      <Filter>Header Files\Menu</Filter>
     </ClInclude>
-    <ClInclude Include="Location.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\Sound.h">
+      <Filter>Header Files\Sound</Filter>
     </ClInclude>
-    <ClInclude Include="MapDrawer.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\rapidxml.hpp">
+      <Filter>Header Files\RapidXML</Filter>
     </ClInclude>
-    <ClInclude Include="Sound.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="OptionsMenu.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\rapidxml_utils.hpp">
+      <Filter>Header Files\RapidXML</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="Source\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="player.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\MainMenu.cpp">
+      <Filter>Source Files\Menu</Filter>
     </ClCompile>
-    <ClCompile Include="camera.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\MenuItem.cpp">
+      <Filter>Source Files\Menu</Filter>
     </ClCompile>
-    <ClCompile Include="animation.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\OptionsMenu.cpp">
+      <Filter>Source Files\Menu</Filter>
     </ClCompile>
-    <ClCompile Include="sprite.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Animation.cpp">
+      <Filter>Source Files\GraphicObjects</Filter>
     </ClCompile>
-    <ClCompile Include="mainmenu.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Camera.cpp">
+      <Filter>Source Files\GraphicObjects</Filter>
     </ClCompile>
-    <ClCompile Include="MenuItem.cpp">
-	<Filter>Source Files</Filter>
+    <ClCompile Include="Source\Player.cpp">
+      <Filter>Source Files\GraphicObjects</Filter>
     </ClCompile>
-    <ClCompile Include="MapGenerator.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Sprite.cpp">
+      <Filter>Source Files\GraphicObjects</Filter>
     </ClCompile>
-    <ClCompile Include="Tile.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Location.cpp">
+      <Filter>Source Files\Map</Filter>
     </ClCompile>
-    <ClCompile Include="XMLReader.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\MapDrawer.cpp">
+      <Filter>Source Files\Map</Filter>
     </ClCompile>
-    <ClCompile Include="Location.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\MapGenerator.cpp">
+      <Filter>Source Files\Map</Filter>
     </ClCompile>
-    <ClCompile Include="MapDrawer.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Tile.cpp">
+      <Filter>Source Files\Map</Filter>
     </ClCompile>
-    <ClCompile Include="Sound.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\XMLReader.cpp">
+      <Filter>Source Files\Map</Filter>
     </ClCompile>
-    <ClCompile Include="OptionsMenu.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Sound.cpp">
+      <Filter>Source Files\Sound</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
