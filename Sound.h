@@ -24,6 +24,7 @@ public:
 	void playSoundLooping(std::string file);
 	void playSound(std::string file, ik_f32 volume);
 	void playSoundLooping(std::string file, ik_f32 volume);
+	void stopSound(std::string file);
 	void setVolume(ik_f32 volume);
 	void mute();
 	void unmute();

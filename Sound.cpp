@@ -50,6 +50,12 @@ void Sound::playSoundLooping(std::string file, ik_f32 volume){
 	engine->play2D(currentSound, true);
 }
 
+void Sound::stopSound(std::string file){
+	std::string temp = this->startFilePath + file;
+	const char *filepath = temp.c_str();
+	engine->removeSoundSource(filepath);
+}
+
 
 void Sound::setVolume(ik_f32 volume){
 	engine->setSoundVolume(volume);

@@ -52,11 +52,11 @@ int MainMenu::getExitCode(){
 int MainMenu::showMenu(SDL_Renderer* renderTarget){
 	int choice = this->createMenu(renderTarget);
 	switch (choice){
-		case(Choices::Continue) :
-
+	case(Choices::Continue) :
+			this->sound->stopSound("rock_intro.mp3");
 			break;
 		case(Choices::Load_Game) :
-
+			this->sound->stopSound("rock_intro.mp3");
 			break;
 		case(Choices::Options) :
 			this->optionsChoice = this->optionsMenu->showMenu(renderTarget);

@@ -10,7 +10,6 @@
 #include "camera.h"
 #include "mainmenu.h"
 #include "wtypes.h"
-#include "Sound.h"
 #include <Box2D/Box2D.h>
 
 SDL_Texture *LoadTexture(std::string filePath, SDL_Renderer *renderTarget){
@@ -26,8 +25,13 @@ SDL_Texture *LoadTexture(std::string filePath, SDL_Renderer *renderTarget){
 	}
 
 	SDL_FreeSurface(surface);
-
 	return texture;
+}
+
+void showMenu(SDL_Renderer* renderTarget, MainMenu menu, bool &isRunning){
+	int i = menu.showMenu(renderTarget);
+	if (i == menu.getExitCode())
+		isRunning = false;
 }
 
 void GetDesktopResolution(int& horizontal, int& vertical)
@@ -93,6 +97,7 @@ void run(){
 			if (ev.type == SDL_QUIT)
 				isRunning = false;
 			if (ev.key.keysym.sym == SDLK_ESCAPE){
+				Sound::getInstance()->playSoundLooping("rock_intro.mp3");
 				int i = menu.showMenu(renderTarget);
 				if (i == menu.getExitCode())
 					isRunning = false;
