@@ -1,18 +1,22 @@
 #include "mainmenu.h"
 
-
 MainMenu::MainMenu(SDL_Renderer* renderTarget, SDL_Texture* backgroundImage, SDL_Rect cameraRect, TTF_Font* font)
 {
+	this->sound = Sound::getInstance();
+	this->sound->playSoundLooping("rock_intro.mp3", 0.50f);
+	this->optionsMenu = new OptionsMenu(renderTarget, backgroundImage, cameraRect, font);
 	backgroundImageRect.x = 0;
 	backgroundImageRect.y = 0;
 	backgroundImageRect.w = cameraRect.w;
 	backgroundImageRect.h = cameraRect.h;
 	this->backgroundImage = backgroundImage;
 
-	this->margin = 10;
+	this->margin = 40;
 	this->combinedHeight = 0;
 
 	this->menuItems = { new MenuItem(renderTarget, font, "Continue"),
+						new MenuItem(renderTarget, font, "Load game"),
+						new MenuItem(renderTarget, font, "Options"),
 						new MenuItem(renderTarget, font, "Exit")
 					};
 
@@ -27,21 +31,50 @@ MainMenu::MainMenu(SDL_Renderer* renderTarget, SDL_Texture* backgroundImage, SDL
 
 	for (std::vector<int>::size_type j = this->menuItems.size() - 1; j != (std::vector<int>::size_type) - 1; j--) {
 		int previousHeight = 0;
-		for (int h = 0; h < j; h++)
+		for (size_t h = 0; h < j; h++)
 			previousHeight += this->menuItems[h]->getHeight();
 		int yPosition = (cameraRect.h / 2) - cameraRect.y - (combinedHeight / 2) + (j * margin) + previousHeight;
 		this->menuItems[j]->setYPosition(yPosition);
 	}
 }
 
-
 MainMenu::~MainMenu()
 {
-	for (int c = 0; c < this->menuItems.size(); c++)
+	for (size_t c = 0; c < this->menuItems.size(); c++)
 		delete this->menuItems[c];
+	delete this->optionsMenu;
+}
+
+int MainMenu::getExitCode(){
+	return Choices::Exit;
 }
 
 int MainMenu::showMenu(SDL_Renderer* renderTarget){
+	int choice = this->createMenu(renderTarget);
+	switch (choice){
+	case(Choices::Continue) :
+			this->sound->stopSound("rock_intro.mp3");
+			break;
+		case(Choices::Load_Game) :
+			this->sound->stopSound("rock_intro.mp3");
+			break;
+		case(Choices::Options) :
+			this->optionsChoice = this->optionsMenu->showMenu(renderTarget);
+			if (this->optionsChoice == this->optionsMenu->getBackCode())
+				this->showMenu(renderTarget);
+			else if (this->optionsChoice == this->optionsMenu->getExitCode())
+				return Choices::Exit;
+			break;
+		case(Choices::Exit) :
+			return Choices::Exit;
+			break;
+		default:
+			return Choices::Exit;
+			break;
+	}
+}
+
+int MainMenu::createMenu(SDL_Renderer* renderTarget){
 	SDL_Event event;
 	while (1)
 	{
@@ -49,25 +82,29 @@ int MainMenu::showMenu(SDL_Renderer* renderTarget){
 		while (SDL_PollEvent(&event)){
 			switch (event.type){
 			case SDL_QUIT:
-				return 1;
+				return Choices::Exit;
 			case SDL_MOUSEMOTION:
 				this->mouseX = event.motion.x;
 				this->mouseY = event.motion.y;
-				for (int i = 0; i < this->menuItems.size(); i++)
-					this->menuItems[i]->checkHover(this->mouseX, this->mouseY);
+				for (size_t i = 0; i < this->menuItems.size(); i++)
+					if (this->menuItems[i]->checkHover(this->mouseX, this->mouseY))
+						this->sound->playSound("menu_tick.wav");
 				break;
 			case SDL_MOUSEBUTTONDOWN:
 				this->mouseX = event.motion.x;
 				this->mouseY = event.motion.y;
-				for (int index = 0; index < this->menuItems.size(); index++)
+				for (size_t index = 0; index < this->menuItems.size(); index++)
 					if (mouseX >= this->menuItems[index]->getXPosition() && mouseX <= this->menuItems[index]->getXPosition() + this->menuItems[index]->getWidth() &&
-						mouseY >= this->menuItems[index]->getYPosition() && mouseY <= this->menuItems[index]->getYPosition() + this->menuItems[index]->getHeight())
+						mouseY >= this->menuItems[index]->getYPosition() && mouseY <= this->menuItems[index]->getYPosition() + this->menuItems[index]->getHeight()){
+						this->sound->playSound("menu_confirm.wav");
 						return index;
+					}
+
 				break;
 			}
 		}
 		SDL_RenderClear(renderTarget);
-		SDL_RenderCopy(renderTarget, this->backgroundImage, &this->backgroundImageRect, NULL);
+		SDL_RenderCopy(renderTarget, this->backgroundImage, NULL, NULL);
 		this->draw(renderTarget);
 		SDL_RenderPresent(renderTarget);
 	}

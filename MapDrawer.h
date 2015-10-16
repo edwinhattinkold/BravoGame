@@ -10,8 +10,10 @@ class MapDrawer
 {
 private:
 	std::vector<Location> *locations;
+	MapGenerator *mapGenerator;
 public:
 	MapDrawer(SDL_Renderer *renderTarget);
 	~MapDrawer();
+	void Draw(SDL_Renderer *renderTarget, SDL_Rect cameraRect);
 };
 
