@@ -55,8 +55,9 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\Studie\Blok_13_Game_Development\SDL2-2.0.3\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;irrKlang.lib;SDL2_ttf.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -73,24 +74,45 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>D:\Studie\Blok_13_Game_Development\SDL2-2.0.3\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="animation.h" />
     <ClInclude Include="camera.h" />
+    <ClInclude Include="Location.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="mainmenu.h" />
+    <ClInclude Include="MenuItem.h" />
+    <ClInclude Include="MapDrawer.h" />
+    <ClInclude Include="MapGenerator.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="rapidxml.hpp" />
+    <ClInclude Include="rapidxml_utils.hpp" />
+    <ClInclude Include="OptionsMenu.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="sprite.h" />
+    <ClInclude Include="Tile.h" />
+    <ClInclude Include="XMLReader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="animation.cpp" />
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="Location.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="mainmenu.cpp" />
+    <ClCompile Include="MenuItem.cpp" />
+    <ClCompile Include="MapDrawer.cpp" />
+    <ClCompile Include="MapGenerator.cpp" />
+    <ClCompile Include="OptionsMenu.cpp" />
     <ClCompile Include="player.cpp" />
+    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="sprite.cpp" />
+    <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="XMLReader.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

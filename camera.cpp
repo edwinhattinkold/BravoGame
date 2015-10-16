@@ -29,8 +29,9 @@ void Camera::Update(int xPosition, int yPosition){
 	if (this->cameraRect.y < 0)
 		this->cameraRect.y = 0;
 
-	if (this->cameraRect.x + this->cameraRect.w >= this->levelWidth)
+	if (this->cameraRect.x + this->cameraRect.w >= this->levelWidth){
 		this->cameraRect.x = this->levelWidth - this->windowWidth;
+	}
 	if (this->cameraRect.y + this->cameraRect.h >= this->levelHeight)
 		this->cameraRect.y = this->levelHeight - this->windowHeight;
 }
