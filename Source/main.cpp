@@ -9,7 +9,7 @@
 #include "Player.h"
 #include "Camera.h"
 #include "MainMenu.h"
-#include "MapGenerator.h";
+#include "Chunk.h";
 #include "wtypes.h"
 #include <Box2D/Box2D.h>
 #include "MapDrawer.h"

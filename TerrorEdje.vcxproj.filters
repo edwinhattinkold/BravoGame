@@ -60,9 +60,6 @@
     <ClInclude Include="Source\MapDrawer.h">
       <Filter>Header Files\Map</Filter>
     </ClInclude>
-    <ClInclude Include="Source\MapGenerator.h">
-      <Filter>Header Files\Map</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Tile.h">
       <Filter>Header Files\Map</Filter>
     </ClInclude>
@@ -123,9 +120,6 @@
       <Filter>Source Files\Map</Filter>
     </ClCompile>
     <ClCompile Include="Source\MapDrawer.cpp">
-      <Filter>Source Files\Map</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\MapGenerator.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
     <ClCompile Include="Source\Tile.cpp">

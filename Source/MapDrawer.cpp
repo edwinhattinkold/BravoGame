@@ -3,14 +3,13 @@
 
 MapDrawer::MapDrawer(SDL_Renderer *renderTarget)
 {
-	mapGenerator = new MapGenerator(renderTarget);
-	locations = mapGenerator->GenerateMap("maps/level1.tmx");
+	chunk = new Chunk(renderTarget, "maps/level1.tmx");
 }
 
 
 MapDrawer::~MapDrawer()
 {
-	delete locations;
+	delete chunk;
 }
 
 void MapDrawer::Draw(SDL_Renderer *renderTarget, SDL_Rect cameraRect)

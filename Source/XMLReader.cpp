@@ -10,7 +10,7 @@ XMLReader::~XMLReader()
 {
 }
 
-std::vector<Location>* XMLReader::parseXMLFile(MapGenerator *mapGenerator, std::string filePath)
+std::vector<Location>* XMLReader::parseXMLFile(Chunk *chunk, std::string filePath)
 {
 	rapidxml::file<> xmlFile(filePath.c_str());
 	rapidxml::xml_document<> doc;
@@ -24,7 +24,7 @@ std::vector<Location>* XMLReader::parseXMLFile(MapGenerator *mapGenerator, std::
 			spacing = atoi(tileset->first_attribute("spacing")->value());
 		}
 		rapidxml::xml_node<> *image = tileset->first_node("image");
-		mapGenerator->AddTileSet(image->first_attribute("source")->value(),
+		chunk->AddTileSet(image->first_attribute("source")->value(),
 			spacing,
 			atoi(tileset->first_attribute("firstgid")->value()),
 			atoi(tileset->first_attribute("tilecount")->value()),
