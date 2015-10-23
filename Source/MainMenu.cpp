@@ -99,7 +99,6 @@ int MainMenu::createMenu(SDL_Renderer* renderTarget){
 						this->sound->playSound("menu_confirm.wav");
 						return index;
 					}
-
 				break;
 			}
 		}

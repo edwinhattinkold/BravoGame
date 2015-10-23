@@ -5,6 +5,7 @@
 #include "UpdateContainer.h"
 #include "MainMenu.h"
 #include "Player.h"
+#include "MapDrawer.h"
 #include "Camera.h"
 /************************************************************************/
 /* The World class contains everything a the game needs to render except
@@ -19,7 +20,11 @@ private:
 	SDL_Rect *cameraRect;
 	SDL_Texture *mainMenuBackground;
 	Camera* camera;
+	SDL_Event ev;
 	void updateSDL();
+
+	//Menus
+	MainMenu* menu;
 
 	//physics
 	const b2Vec2 *gravity;
@@ -35,8 +40,10 @@ private:
 	int prevTime;
 	int currentTime;
 	float deltaTime;
+	bool isRunning;
 
 	Player *player1;
+	MapDrawer *mapDrawer;
 
 	void tick();
 

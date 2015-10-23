@@ -40,6 +40,7 @@ void run(){
 	//renderTarget = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	World *world = new World(window, levelWidth, levelHeight, font);
 	world->Run();
+
 	SDL_DestroyWindow(window);
 	window = nullptr;
 }

@@ -1,11 +1,12 @@
 #include "World.h"
 
+
 World::World(SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font)
 {
-	//Should these be pointers? No
 	this->prevTime = 0;
 	this->currentTime = 0;
 	this->deltaTime = 0.0f;
+	this->isRunning = true;
 
 	this->velocityIterations = new int32(8);
 	this->positionIterations = new int32(3);
@@ -26,11 +27,14 @@ World::World(SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font
 
 	//TODO: main menu in separate class, drawable maybe?
 	this->mainMenuBackground = LoadTexture("Images/Mainmenu/background.png", renderTarget);
-	MainMenu menu(renderTarget, mainMenuBackground, this->camera->getCamera(), font);
-	menu.showMenu(renderTarget);
+	this->menu = new MainMenu(renderTarget, mainMenuBackground, this->camera->getCamera(), font);
 
 	//Creation of sprites should be placed elsewhere as well, I'm just running out of time
-	player1 = new Player(renderTarget, 0, 0, 300.0f, drawContainer);
+	this->player1 = new Player(renderTarget, 0, 0, 300.0f, drawContainer);
+	this->mapDrawer = new MapDrawer(renderTarget);
+
+	this->drawContainer->Add(this->mapDrawer);
+
 }
 
 
@@ -46,44 +50,62 @@ World::~World()
 //Update the world
 void World::tick()
 {
-	calcDeltaTime();
+	//DeltaTime
+	this->calcDeltaTime();
+
+	//Input handling
+	while (SDL_PollEvent(&ev) != 0){
+		if (ev.type == SDL_QUIT)
+			isRunning = false;
+		if (ev.key.keysym.sym == SDLK_ESCAPE){
+			Sound::getInstance()->playSoundLooping("rock_intro.mp3");
+			int i = this->menu->showMenu(renderTarget);
+			if (i == this->menu->getExitCode())
+				isRunning = false;
+		}
+	}
 
 	//update physics
-	physics->Step(deltaTime, *velocityIterations, *positionIterations);
+	this->physics->Step(deltaTime, *velocityIterations, *positionIterations);
 
 	//update camera
 	//TODO: make camera IUpdateable.
-	camera->Update(player1->getPositionX(), player1->getPositionY());
+	this->camera->Update(player1->getPositionX(), player1->getPositionY());
 
-	updateContainer->Update(deltaTime);
+	this->updateContainer->Update(deltaTime);
 
 	//update SDL
-	updateSDL();
+	this->updateSDL();
 }
 
 void World::Run(){
-	bool isRunning = true;
+	this->isRunning = true;
+
+	//Show the menu
+	int i = this->menu->showMenu(renderTarget);
+	if (i == this->menu->getExitCode())
+		this->isRunning = false;
 
 	while (isRunning){
-		tick();
+		this->tick();
 	}
 
 	SDL_DestroyRenderer(renderTarget);
-	renderTarget = nullptr;
+	this->renderTarget = nullptr;
 }
 
 void World::updateSDL(){
 
 	SDL_RenderClear(renderTarget);
-	drawContainer->Draw();
+	this->drawContainer->Draw();
 	SDL_RenderPresent(renderTarget);
 }
 
 float World::calcDeltaTime(){
-	prevTime = currentTime;
-	currentTime = SDL_GetTicks();
-	deltaTime = (currentTime - prevTime) / 1000.0f;
-	return deltaTime;
+	this->prevTime = this->currentTime;
+	this->currentTime = SDL_GetTicks();
+	this->deltaTime = (this->currentTime - this->prevTime) / 1000.0f;
+	return this->deltaTime;
 }
 
 void World::createCamera(SDL_Window *window, int levelWidth, int levelHeight)
@@ -91,7 +113,7 @@ void World::createCamera(SDL_Window *window, int levelWidth, int levelHeight)
 	int width = 0;
 	int height = 0;
 	SDL_GetWindowSize(window, &width, &height);
-	camera = new Camera(levelWidth, levelHeight, width, height);
+	this->camera = new Camera(levelWidth, levelHeight, width, height);
 }
 
 SDL_Texture* World::LoadTexture(std::string filePath, SDL_Renderer *renderTarget){
