@@ -11,13 +11,14 @@ class Chunk
 private:
 	std::vector<Tile*> tiles;
 	std::vector<SDL_Texture*> textures;
-	
+	std::vector<Location> *locations;	
 	SDL_Renderer *renderTarget;
 public:
 	void AddTileSet(std::string filePath, int spacing, int firstId, int amount, int width, int height);	
 	Tile* getTile(int id);
 	Chunk(SDL_Renderer *rt, std::string filePath);
 	~Chunk();
-	std::vector<Location> *locations;
+	void AddLocation(Location l);
+	void AddCollidableObject(int x, int y);
 };
 

@@ -12,6 +12,6 @@ class XMLReader
 public:
 	XMLReader();
 	~XMLReader();
-	std::vector<Location>* parseXMLFile(Chunk *chunk, std::string filePath);
+	void parseXMLFile(Chunk *chunk, std::string filePath);
 };
 

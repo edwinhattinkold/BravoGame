@@ -94,7 +94,7 @@ void run(){
 		 camera.Update(player1.getPositionX(), player1.getPositionY());
 
 		 SDL_RenderClear(renderTarget);		 
-		 mapDrawer->Draw(renderTarget, camera.getCamera());
+		 //mapDrawer->Draw(renderTarget, camera.getCamera());
 		 player1.Draw(renderTarget, camera.getCamera());
 
 		 SDL_RenderPresent(renderTarget);

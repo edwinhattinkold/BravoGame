@@ -10,7 +10,7 @@ XMLReader::~XMLReader()
 {
 }
 
-std::vector<Location>* XMLReader::parseXMLFile(Chunk *chunk, std::string filePath)
+void XMLReader::parseXMLFile(Chunk *chunk, std::string filePath)
 {
 	rapidxml::file<> xmlFile(filePath.c_str());
 	rapidxml::xml_document<> doc;
@@ -32,8 +32,6 @@ std::vector<Location>* XMLReader::parseXMLFile(Chunk *chunk, std::string filePat
 			atoi(image->first_attribute("height")->value()));
 	}
 
-	//return tiles
-	std::vector<Location> *locations = new std::vector<Location>();
 	//find layers
 	for (rapidxml::xml_node<> *layer = map->first_node("layer"); layer; layer = layer->next_sibling("layer"))
 	{
@@ -42,10 +40,18 @@ std::vector<Location>* XMLReader::parseXMLFile(Chunk *chunk, std::string filePat
 		std::cout << x;
 		int currentX = 0;
 		int currentY = 0;
+		std::string layerName = layer->first_attribute("name")->value();
 		rapidxml::xml_node<> *layerdata = layer->first_node("data");
 		for (rapidxml::xml_node<> *tile = layerdata->first_node("tile"); tile; tile = tile->next_sibling("tile"))
 		{
-			locations->push_back(Location(currentX, currentY, atoi(tile->first_attribute("gid")->value())));
+			if (layerName == "collision"){
+				if (atoi(tile->first_attribute("gid")->value()) != 0)
+					chunk->AddCollidableObject(currentX, currentY);
+			}
+			else{
+				chunk->AddLocation(Location(currentX, currentY, atoi(tile->first_attribute("gid")->value())));
+			}
+			
 			currentX++;
 			if (currentX >= x){
 				currentX = 0;
@@ -55,6 +61,5 @@ std::vector<Location>* XMLReader::parseXMLFile(Chunk *chunk, std::string filePat
 				}
 			}
 		}
-		return locations;
 	}
 }

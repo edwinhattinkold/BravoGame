@@ -18,8 +18,9 @@ Chunk::Chunk(SDL_Renderer *rt, std::string filePath)
 {
 	renderTarget = rt;
 	tiles.push_back(nullptr);
+	locations = new std::vector<Location>();
 	XMLReader reader;
-	locations = reader.parseXMLFile(this, filePath);
+	reader.parseXMLFile(this, filePath);
 }
 
 Chunk::~Chunk()
@@ -55,4 +56,12 @@ void Chunk::AddTileSet(std::string filePath, int spacing, int firstId, int amoun
 
 Tile* Chunk::getTile(int id){
 	return tiles.at(id);
+}
+
+void Chunk::AddCollidableObject(int x, int y){
+	std::cout << "test" << x << std::endl;
+}
+
+void Chunk::AddLocation(Location l){
+	locations->push_back(l);
 }

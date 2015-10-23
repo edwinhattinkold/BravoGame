@@ -9,7 +9,7 @@
 class MapDrawer
 {
 private:
-	Chunk *chunk;
+	std::vector<std::vector<Chunk*>*> *chunks;
 public:
 	MapDrawer(SDL_Renderer *renderTarget);
 	~MapDrawer();
