@@ -6,6 +6,8 @@ class Camera
 {
 private:
 	SDL_Rect cameraRect;
+	int width;
+	int height;
 
 public:
 	int levelWidth, levelHeight, windowWidth, windowHeight;

@@ -3,21 +3,22 @@
 #include "SDL.h"
 #include <string>
 #include <vector>
+#include "IDrawable.h"
 #include "Animation.h"
-
-class Sprite
+#include "DrawContainer.h"
+class Sprite : public IDrawable
 {
 protected:
-	std::vector<Animation*> animations;
+	std::vector<Animation*> *animations;
 	int currentAnimaton;
 	int originX, originY;
 
 public:
 	/* Inheritance constructor */
-	Sprite(int xPosition, int yPosition);
+	Sprite(int xPosition, int yPosition, DrawContainer *dc);
 
 	/* Default constructor */
-	Sprite(SDL_Renderer *renderTarget, std::string filePath, int xPosition, int yPosition, int framesX, int framesY, float animationSpeed);
+	Sprite(SDL_Renderer *renderTarget, std::string filePath, int xPosition, int yPosition, int framesX, int framesY, float animationSpeed, DrawContainer *dc);
 
 	~Sprite();
 
@@ -32,6 +33,10 @@ public:
 
 	void setOriginX(int newOriginX);
 	void setOriginY(int newOriginY);
+
+	virtual void Accept(DrawVisitor &dv);
+	void Subscribe();
+
 };
 
 #endif
