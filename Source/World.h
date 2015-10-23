@@ -21,6 +21,7 @@ private:
 	Camera* camera;
 	SDL_Event ev;
 	void updateSDL();
+	const Uint8 *keyState;
 
 	//Menus
 	MainMenu* menu;

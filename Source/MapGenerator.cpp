@@ -22,8 +22,11 @@ MapGenerator::MapGenerator(SDL_Renderer *rt)
 
 MapGenerator::~MapGenerator()
 {
-	for (int i = 1; i < tiles.size(); i++){
-		delete tiles.at(i);
+	for (size_t i = 0; i < this->tiles.size(); i++){
+		delete this->tiles.at(i); this->tiles.at(i) = nullptr;
+	}
+	for (size_t x = 0; x < this->textures.size(); x++){
+		SDL_DestroyTexture(this->textures.at(x)); this->textures.at(x) = nullptr;
 	}
 }
 

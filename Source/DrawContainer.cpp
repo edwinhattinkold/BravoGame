@@ -2,26 +2,25 @@
 
 DrawContainer::DrawContainer(SDL_Renderer *renderTarget, SDL_Rect *cameraRect)
 {
-	dv = new DrawVisitor(renderTarget, cameraRect);
-	objects = {};
+	this->dv = new DrawVisitor(renderTarget, cameraRect);
+	this->objects = new std::vector<IDrawable*>();
 }
 
 
 DrawContainer::~DrawContainer()
 {
-	//TODO: Delete each IDrawable since it's on the heap
 	delete dv;
+	delete this->objects;
 }
 
 void DrawContainer::Draw(){
-	for (int i = 0; i < objects.size(); i++){
-		objects[i]->Accept(dv);
-	}
+	for (size_t i = 0; i < objects->size(); i++)
+		this->objects->at(i)->Accept(dv);
 }
 
 void DrawContainer::Add(IDrawable *drawable)
 {
-	objects.push_back(drawable);
+	this->objects->push_back(drawable);
 }
 
 void DrawContainer::Remove(IDrawable *drawable)

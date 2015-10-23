@@ -20,28 +20,28 @@ Player::Player(SDL_Renderer *renderTarget, int xPosition, int yPosition, float m
 	this->animations->push_back(walking_left_animation);
 	this->animations->push_back(walking_up_animation);
 	this->animations->push_back(walking_right_animation);
-	this->animations->push_back(walking_up_animation);
+	this->animations->push_back(walking_down_animation);
 
 	/* Set the animation */
 	this->SetAnimation(Walking_Down);
 
 	this->moveSpeed = moveSpeed;
-	isActive = false;
+	this->isActive = false;
 
 	static int playerNumber = 0;
 	playerNumber++;
 
 	if (playerNumber == 1){
-		keys[0] = SDL_SCANCODE_W;
-		keys[1] = SDL_SCANCODE_S;
-		keys[2] = SDL_SCANCODE_A;
-		keys[3] = SDL_SCANCODE_D;
+		this->keys[0] = SDL_SCANCODE_W;
+		this->keys[1] = SDL_SCANCODE_S;
+		this->keys[2] = SDL_SCANCODE_A;
+		this->keys[3] = SDL_SCANCODE_D;
 	}
 	else {
-		keys[0] = SDL_SCANCODE_UP;
-		keys[1] = SDL_SCANCODE_DOWN;
-		keys[2] = SDL_SCANCODE_LEFT;
-		keys[3] = SDL_SCANCODE_RIGHT;
+		this->keys[0] = SDL_SCANCODE_UP;
+		this->keys[1] = SDL_SCANCODE_DOWN;
+		this->keys[2] = SDL_SCANCODE_LEFT;
+		this->keys[3] = SDL_SCANCODE_RIGHT;
 	}
 }
 
@@ -53,28 +53,28 @@ Player::~Player()
 
 //TODO: animation based on X and Y velocity
 void Player::Update(float delta, const Uint8 *keyState){
-	isActive = true;
+	this->isActive = true;
 	if (keyState[keys[0]])
 	{
-		SetAnimation(Walking_Up);
-		positionRect.y -= int(moveSpeed * delta);
+		this->SetAnimation(Walking_Up);
+		this->positionRect.y -= int(moveSpeed * delta);
 	}
 	else if (keyState[keys[1]]){
-		SetAnimation(Walking_Down);
-		positionRect.y += int(moveSpeed * delta);
+		this->SetAnimation(Walking_Down);
+		this->positionRect.y += int(moveSpeed * delta);
 	}
 	else if (keyState[keys[2]]){
-		SetAnimation(Walking_Left);
-		positionRect.x -= int(moveSpeed * delta);
+		this->SetAnimation(Walking_Left);
+		this->positionRect.x -= int(moveSpeed * delta);
 	}
 	else if (keyState[keys[3]]){
-		SetAnimation(Walking_Right);
-		positionRect.x += int(moveSpeed * delta);
+		this->SetAnimation(Walking_Right);
+		this->positionRect.x += int(moveSpeed * delta);
 	}
 	else
-		isActive = false;
+		this->isActive = false;
 
-	if (isActive)
+	if (this->isActive)
 		this->animations->at(currentAnimaton)->Update(delta);
 	else
 		this->animations->at(currentAnimaton)->StandStill();
@@ -82,15 +82,11 @@ void Player::Update(float delta, const Uint8 *keyState){
 
 void Player::SetAnimation(PlayerAnimation playerAnimation){
 	this->currentAnimaton = playerAnimation;
+
 	Animation* anim = this->animations->at(this->currentAnimaton);
 
-	this->originX = anim->getOriginX();
-	this->originY = anim->getOriginY();
-	this->positionRect.w = anim->getFrameWidth();
-	this->positionRect.h = anim->getFrameHeight();
-}
-
-void Player::Accept(UpdateVisitor uv, float deltaTime)
-{
-	uv.visit(this, deltaTime);
+	this->originX =			anim->getOriginX();
+	this->originY =			anim->getOriginY();
+	this->positionRect.w =	anim->getFrameWidth();
+	this->positionRect.h =	anim->getFrameHeight();
 }

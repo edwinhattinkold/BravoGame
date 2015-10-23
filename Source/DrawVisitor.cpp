@@ -15,13 +15,3 @@ DrawVisitor::~DrawVisitor(){
 void DrawVisitor::Visit(IDrawable *id){
 	id->Draw(renderTarget, *cameraRect);
 }
-
-void DrawVisitor::Visit(MapDrawer *md)
-{
-	md->Draw(renderTarget, *cameraRect);
-}
-
-void DrawVisitor::Visit(Sprite *sp)
-{
-	sp->Draw(renderTarget, *cameraRect);
-}

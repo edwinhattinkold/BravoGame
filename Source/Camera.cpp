@@ -18,7 +18,7 @@ Camera::Camera(int levelWidth, int levelHeight, int windowWidth, int windowHeigh
 
 Camera::~Camera(void)
 {
-
+	delete this->cameraRect;	this->cameraRect = nullptr;
 }
 
 void Camera::Update(int xPosition, int yPosition){

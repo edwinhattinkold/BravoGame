@@ -1,5 +1,9 @@
 #pragma once
-#include "Player.h"
+
+#include <SDL.h>
+
+class IUpdateable;
+
 class UpdateVisitor
 {
 private:
@@ -8,6 +12,6 @@ private:
 public:
 	UpdateVisitor();
 	~UpdateVisitor();
-	void visit(Player *p, float deltaTime);
+	void Visit(IUpdateable *iu, float deltaTime, const Uint8 *keyState);
 };
 

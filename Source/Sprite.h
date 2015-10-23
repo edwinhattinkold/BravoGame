@@ -4,9 +4,11 @@
 #include <string>
 #include <vector>
 #include "IDrawable.h"
+#include "IUpdateable.h"
 #include "Animation.h"
 #include "DrawContainer.h"
-class Sprite : public IDrawable
+
+class Sprite : public IDrawable, public IUpdateable
 {
 protected:
 	std::vector<Animation*> *animations;
@@ -35,7 +37,6 @@ public:
 	void setOriginY(int newOriginY);
 
 	void Subscribe();
-
 };
 
 #endif

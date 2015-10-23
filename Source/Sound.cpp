@@ -18,6 +18,11 @@ Sound* Sound::getInstance(){
 	return instance;
 }
 
+Sound::~Sound(){
+	this->engine->drop(); this->engine = nullptr;
+	instance = nullptr;
+}
+
 void Sound::playSound(std::string file){
 	std::string temp = this->startFilePath + file;
 	const char *filepath = temp.c_str();
@@ -70,3 +75,6 @@ void Sound::unmute(){
 	this->engine->setSoundVolume(this->previousVolume);
 }
 
+extern __declspec(dllexport) void Sound_Quit(){
+	delete Sound::getInstance();
+}

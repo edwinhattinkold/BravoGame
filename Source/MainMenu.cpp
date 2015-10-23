@@ -72,6 +72,7 @@ int MainMenu::showMenu(SDL_Renderer* renderTarget){
 			return Choices::Exit;
 			break;
 	}
+	return Choices::Exit;
 }
 
 int MainMenu::createMenu(SDL_Renderer* renderTarget){

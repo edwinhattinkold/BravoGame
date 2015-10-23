@@ -1,5 +1,5 @@
 #include "UpdateVisitor.h"
-
+#include "IUpdateable.h"
 
 UpdateVisitor::UpdateVisitor()
 {
@@ -10,8 +10,8 @@ UpdateVisitor::~UpdateVisitor()
 {
 }
 
-void UpdateVisitor::visit(Player *p, float deltaTime)
+void UpdateVisitor::Visit(IUpdateable *ip, float deltaTime, const Uint8* keyState)
 {
 	//TODO: Input container
-	p->Update(deltaTime, SDL_GetKeyboardState(NULL));
+	ip->Update(deltaTime, keyState);
 }

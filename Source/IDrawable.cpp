@@ -1,8 +1,5 @@
 #include "IDrawable.h"
 #include "DrawVisitor.h"
-/************************************************************************/
-/* This is an interface, do not use this file.							*/
-/************************************************************************/
 
 void IDrawable::Accept(DrawVisitor *dv){
 	dv->Visit(this);

@@ -8,7 +8,7 @@
 #include "DrawContainer.h"
 class UpdateVisitor;
 
-class Player : public Sprite, public IUpdateable
+class Player : public Sprite
 {
 private:
 	bool isActive;
@@ -22,9 +22,6 @@ public:
 
 	virtual void Update(float delta, const Uint8 *keyState);
 	void SetAnimation(PlayerAnimation playerAnimation);
-
-	virtual void Accept(UpdateVisitor uv, float deltaTime);
-
 };
 
 #endif

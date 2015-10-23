@@ -42,11 +42,18 @@ World::World(SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font
 
 World::~World()
 {
-	delete physics;
-	delete gravity;
-	delete velocityIterations;
-	delete positionIterations;
-	delete mainMenuBackground;
+	delete this->physics;							this->physics = nullptr;
+	delete this->gravity;							this->gravity = nullptr;
+	delete this->velocityIterations;				this->velocityIterations = nullptr;
+	delete this->positionIterations;				this->positionIterations = nullptr;
+	delete this->drawContainer;						this->drawContainer = nullptr;
+	delete this->updateContainer;					this->updateContainer = nullptr;
+	delete this->camera;							this->camera = nullptr;
+	delete this->menu;								this->menu = nullptr;
+	delete this->player1;							this->player1 = nullptr;
+	delete this->mapDrawer;							this->mapDrawer = nullptr;
+	SDL_DestroyTexture(this->mainMenuBackground);	this->mainMenuBackground = nullptr;
+	SDL_DestroyRenderer(this->renderTarget);		this->renderTarget = nullptr;
 }
 
 //Update the world
@@ -67,14 +74,18 @@ void World::tick()
 		}
 	}
 
+	this->keyState = SDL_GetKeyboardState(NULL);
+
 	//update physics
 	this->physics->Step(deltaTime, *velocityIterations, *positionIterations);
 
 	//update camera
-	//TODO: make camera IUpdateable.
+	//TODO: make camera IUpdateable.  <-- klinkt netjes, maar is niet slim, aangezien de camera altijd als eerst geupdate MOET worden
+	//zodat alle ander updates gegevens uit de geupdate camera kunnen halen, als je het in een vector op positie 0 zet dan kan een ander stuk code
+	//een element op de 0ste plek zetten, waardoor alles omvalt.
 	this->camera->Update(player1->getPositionX(), player1->getPositionY());
 
-	this->updateContainer->Update(deltaTime);
+	this->updateContainer->Update(deltaTime, keyState);
 
 	//update SDL
 	this->updateSDL();

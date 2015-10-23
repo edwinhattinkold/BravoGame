@@ -1,5 +1,4 @@
-#ifndef SOUND_IRRKLANG_H
-#define SOUND_IRRKLANG_H
+#pragma once
 
 #include "irrklang.h"
 #include <iostream>
@@ -19,7 +18,10 @@ private:
 	void operator=(Sound const&);
 
 public:
+	/* Singleton */
 	static Sound* getInstance();
+
+	~Sound();
 	void playSound(std::string file);
 	void playSoundLooping(std::string file);
 	void playSound(std::string file, ik_f32 volume);
@@ -30,5 +32,7 @@ public:
 	void unmute();
 };
 
-#endif
-
+/**
+ This function cleans up the entire sound system. You should call it upon all exit conditions.
+*/
+extern __declspec(dllexport) void Sound_Quit();
