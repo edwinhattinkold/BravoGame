@@ -1,13 +1,13 @@
 #include "OptionsMenu.h"
 
-OptionsMenu::OptionsMenu(SDL_Renderer* renderTarget, SDL_Texture* backgroundImage, SDL_Rect cameraRect, TTF_Font* font)
+OptionsMenu::OptionsMenu(SDL_Renderer* renderTarget, SDL_Texture* backgroundImage, SDL_Rect* cameraRect, TTF_Font* font)
 {
 	this->cameraRect = cameraRect;
 	this->sound = Sound::getInstance();
 	backgroundImageRect.x = 0;
 	backgroundImageRect.y = 0;
-	backgroundImageRect.w = cameraRect.w;
-	backgroundImageRect.h = cameraRect.h;
+	backgroundImageRect.w = cameraRect->w;
+	backgroundImageRect.h = cameraRect->h;
 	this->backgroundImage = backgroundImage;
 
 	this->margin = 40;
@@ -19,7 +19,7 @@ OptionsMenu::OptionsMenu(SDL_Renderer* renderTarget, SDL_Texture* backgroundImag
 
 	for (std::vector<int>::size_type i = this->menuItems.size() - 1; i != (std::vector<int>::size_type) - 1; i--) {
 		this->combinedHeight += this->menuItems[i]->getHeight();
-		int xPosition = (cameraRect.w / 2) - (this->menuItems[i]->getWidth() / 2) - cameraRect.x;
+		int xPosition = (cameraRect->w / 2) - (this->menuItems[i]->getWidth() / 2) - cameraRect->x;
 		this->menuItems[i]->setXPositon(xPosition);
 	}
 
@@ -121,13 +121,13 @@ void OptionsMenu::toggleSound(SDL_Renderer* renderTarget){
 
 void OptionsMenu::center(){
 	for (std::vector<int>::size_type j = this->menuItems.size() - 1; j != (std::vector<int>::size_type) - 1; j--) {
-		int xPosition = (cameraRect.w / 2) - (this->menuItems[j]->getWidth() / 2) - cameraRect.x;
+		int xPosition = (cameraRect->w / 2) - (this->menuItems[j]->getWidth() / 2) - cameraRect->x;
 		this->menuItems[j]->setXPositon(xPosition);
 
 		int previousHeight = 0;
 		for (size_t h = 0; h < j; h++)
 			previousHeight += this->menuItems[h]->getHeight();
-		int yPosition = (this->cameraRect.h / 2) - this->cameraRect.y - (this->combinedHeight / 2) + (j * this->margin) + previousHeight;
+		int yPosition = (this->cameraRect->h / 2) - this->cameraRect->y - (this->combinedHeight / 2) + (j * this->margin) + previousHeight;
 		this->menuItems[j]->setYPosition(yPosition);
 	}
 }

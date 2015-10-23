@@ -17,7 +17,6 @@ class World
 private:
 	//SDL
 	SDL_Renderer *renderTarget;
-	SDL_Rect *cameraRect;
 	SDL_Texture *mainMenuBackground;
 	Camera* camera;
 	SDL_Event ev;

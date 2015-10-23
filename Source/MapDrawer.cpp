@@ -15,7 +15,6 @@ MapDrawer::~MapDrawer()
 
 void MapDrawer::Draw(SDL_Renderer *renderTarget, SDL_Rect cameraRect)
 {
-	std::cout << "Draw the map" << std::endl;
 	Tile *tile = nullptr;
 	SDL_Rect tarRect = { 0, 0, 32, 32 };
 	for (int i = 0; i < locations->size(); i++){
@@ -25,8 +24,4 @@ void MapDrawer::Draw(SDL_Renderer *renderTarget, SDL_Rect cameraRect)
 		tile = mapGenerator->getTile(l.id);
 		SDL_RenderCopy(renderTarget, tile->getTexture(), tile->getRect(), &tarRect);
 	}
-}
-
-void MapDrawer::Accept(DrawVisitor &dv){
-	dv.Visit(this);
 }

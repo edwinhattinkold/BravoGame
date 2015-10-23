@@ -22,7 +22,7 @@ World::World(SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font
 	this->createCamera(window, levelWidth, levelHeight);
 
 	//Create containers
-	this->drawContainer = new DrawContainer(renderTarget, cameraRect);
+	this->drawContainer = new DrawContainer(renderTarget, this->camera->getCamera());
 	this->updateContainer = new UpdateContainer();
 
 	//TODO: main menu in separate class, drawable maybe?
@@ -34,7 +34,9 @@ World::World(SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font
 	this->mapDrawer = new MapDrawer(renderTarget);
 
 	this->drawContainer->Add(this->mapDrawer);
+	this->drawContainer->Add(this->player1);
 
+	this->updateContainer->Add(this->player1);
 }
 
 
@@ -56,12 +58,12 @@ void World::tick()
 	//Input handling
 	while (SDL_PollEvent(&ev) != 0){
 		if (ev.type == SDL_QUIT)
-			isRunning = false;
+			this->isRunning = false;
 		if (ev.key.keysym.sym == SDLK_ESCAPE){
 			Sound::getInstance()->playSoundLooping("rock_intro.mp3");
 			int i = this->menu->showMenu(renderTarget);
 			if (i == this->menu->getExitCode())
-				isRunning = false;
+				this->isRunning = false;
 		}
 	}
 
@@ -86,16 +88,14 @@ void World::Run(){
 	if (i == this->menu->getExitCode())
 		this->isRunning = false;
 
-	while (isRunning){
+	while (isRunning)
 		this->tick();
-	}
 
 	SDL_DestroyRenderer(renderTarget);
 	this->renderTarget = nullptr;
 }
 
 void World::updateSDL(){
-
 	SDL_RenderClear(renderTarget);
 	this->drawContainer->Draw();
 	SDL_RenderPresent(renderTarget);

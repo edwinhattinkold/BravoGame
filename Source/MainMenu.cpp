@@ -1,14 +1,14 @@
 #include "MainMenu.h"
 
-MainMenu::MainMenu(SDL_Renderer* renderTarget, SDL_Texture* backgroundImage, SDL_Rect cameraRect, TTF_Font* font)
+MainMenu::MainMenu(SDL_Renderer* renderTarget, SDL_Texture* backgroundImage, SDL_Rect* cameraRect, TTF_Font* font)
 {
 	this->sound = Sound::getInstance();
 	this->sound->playSoundLooping("rock_intro.mp3", 0.50f);
 	this->optionsMenu = new OptionsMenu(renderTarget, backgroundImage, cameraRect, font);
 	backgroundImageRect.x = 0;
 	backgroundImageRect.y = 0;
-	backgroundImageRect.w = cameraRect.w;
-	backgroundImageRect.h = cameraRect.h;
+	backgroundImageRect.w = cameraRect->w;
+	backgroundImageRect.h = cameraRect->h;
 	this->backgroundImage = backgroundImage;
 
 	this->margin = 40;
@@ -22,7 +22,7 @@ MainMenu::MainMenu(SDL_Renderer* renderTarget, SDL_Texture* backgroundImage, SDL
 
 	for (std::vector<int>::size_type i = this->menuItems.size() - 1; i != (std::vector<int>::size_type) - 1; i--) {
 		this->combinedHeight += this->menuItems[i]->getHeight();
-		int xPosition = (cameraRect.w / 2) - (this->menuItems[i]->getWidth() / 2) - cameraRect.x;
+		int xPosition = (cameraRect->w / 2) - (this->menuItems[i]->getWidth() / 2) - cameraRect->x;
 		this->menuItems[i]->setXPositon(xPosition);
 	}
 
@@ -33,7 +33,7 @@ MainMenu::MainMenu(SDL_Renderer* renderTarget, SDL_Texture* backgroundImage, SDL
 		int previousHeight = 0;
 		for (size_t h = 0; h < j; h++)
 			previousHeight += this->menuItems[h]->getHeight();
-		int yPosition = (cameraRect.h / 2) - cameraRect.y - (combinedHeight / 2) + (j * margin) + previousHeight;
+		int yPosition = (cameraRect->h / 2) - cameraRect->y - (combinedHeight / 2) + (j * margin) + previousHeight;
 		this->menuItems[j]->setYPosition(yPosition);
 	}
 }

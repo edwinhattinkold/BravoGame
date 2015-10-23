@@ -57,11 +57,6 @@ void Sprite::setOriginY(int newOriginY){
 	this->originY = newOriginY;
 }
 
-void Sprite::Accept(DrawVisitor &dv)
-{
-	dv.Visit(this);
-}
-
 void Sprite::Subscribe()
 {
 	//TODO: sprite subscribes itself.

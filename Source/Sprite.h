@@ -34,7 +34,6 @@ public:
 	void setOriginX(int newOriginX);
 	void setOriginY(int newOriginY);
 
-	virtual void Accept(DrawVisitor &dv);
 	void Subscribe();
 
 };

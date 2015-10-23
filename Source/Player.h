@@ -8,7 +8,7 @@
 #include "DrawContainer.h"
 class UpdateVisitor;
 
-class Player : public Sprite, IUpdateable
+class Player : public Sprite, public IUpdateable
 {
 private:
 	bool isActive;
