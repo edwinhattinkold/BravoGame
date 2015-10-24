@@ -4,6 +4,8 @@
 #include "SDL_ttf.h"
 #include <vector>
 
+static enum Color { Red, White };
+
 class MenuItem
 {
 private:
@@ -31,6 +33,7 @@ public:
 	int getWidth();
 	int getXPosition();
 	int getYPosition();
+	void setColor(SDL_Renderer* renderTarget, Color color);
 	void setXPositon(int xPosition);
 	void setYPosition(int yPosition);
 	void setText(SDL_Renderer* renderTarget, char* text);

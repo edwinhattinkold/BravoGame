@@ -17,6 +17,7 @@ private:
 	TTF_Font* font;
 	int windowWidth, windowHeight, levelWidth, levelHeight;
 	World* world;
+	bool fullScreen;
 
 public:
 	void MainHelper::GetDesktopResolution(int& horizontal, int& vertical)
@@ -28,7 +29,9 @@ public:
 		vertical = desktop.bottom;
 	}
 
-	MainHelper::MainHelper(){
+	MainHelper::MainHelper(bool fullScreen){
+		Uint32 flags = SDL_WINDOW_SHOWN;
+
 		TTF_Init();
 		if (!font) 
 			printf("TTF_OpenFont: %s\n", TTF_GetError()); //I.p.v. printen wellicht voor dit soort dingen exception handling?
@@ -41,9 +44,14 @@ public:
 		this->levelWidth = 1024;
 		this->levelHeight = 1024;
 
+		if (fullScreen){
+			this->GetDesktopResolution(this->windowWidth, this->windowHeight);
+			flags = SDL_WINDOW_FULLSCREEN;
+		}
+
 		SDL_Init(SDL_INIT_VIDEO);
 
-		this->window = SDL_CreateWindow("TerrorEdje!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, this->windowWidth, this->windowHeight, SDL_WINDOW_SHOWN);
+		this->window = SDL_CreateWindow("TerrorEdje!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, this->windowWidth, this->windowHeight, flags);
 		this->world = new World(this->window, this->levelWidth, this->levelHeight, this->font);
 	}
 
@@ -69,7 +77,7 @@ public:
 };
 
 int main(int argc, char *argv[]){
-	MainHelper* mainHelper = new MainHelper();
+	MainHelper* mainHelper = new MainHelper(true);
 	mainHelper->run();
 
 	delete mainHelper;

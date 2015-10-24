@@ -11,10 +11,10 @@ Sound::Sound(){
 	this->previousVolume = 1.00f;
 
 	this->sounds = new std::map<int, std::string>();
-	this->sounds->insert( std::pair<int, std::string>( Sound_MainMenu_Theme, "rock_intro.mp3" ) );
-	this->sounds->insert( std::pair<int, std::string>( Sound_MainMenu_Tick, "menu_tick.wav" ));
-	this->sounds->insert( std::pair<int, std::string>( Sound_MainMenu_Click, "menu_confirm.wav" ));
-	this->sounds->insert( std::pair<int, std::string>( Sound_Credits_Theme, "rock_credits.wav" ));
+	this->sounds->insert( std::pair<int, std::string>( Sound_MainMenu_Theme,	"rock_intro.mp3" ) );
+	this->sounds->insert( std::pair<int, std::string>( Sound_MainMenu_Tick,		"menu_tick.wav" ));
+	this->sounds->insert( std::pair<int, std::string>( Sound_MainMenu_Click,	"menu_confirm.wav" ));
+	this->sounds->insert( std::pair<int, std::string>( Sound_Credits_Theme,		"credits_metallica.mp3" ));
 }
 
 /* Singleton */
