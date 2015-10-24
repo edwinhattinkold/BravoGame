@@ -3,14 +3,22 @@
 #include "irrklang.h"
 #include <iostream>
 #include <string>
+#include <map>
 using namespace irrklang;
+enum SoundFiles {	Sound_MainMenu_Theme, 
+					Sound_MainMenu_Tick, 
+					Sound_MainMenu_Click, 
+					Sound_Credits_Theme 
+};
 
 class Sound
 {
+	
 private:
 	ISoundEngine* engine;
 	std::string startFilePath;
 	ik_f32 previousVolume;
+	std::map<int, std::string>* sounds;
 
 	/* Singleton */
 	Sound();
@@ -20,13 +28,14 @@ private:
 public:
 	/* Singleton */
 	static Sound* getInstance();
+	
 
 	~Sound();
-	void playSound(std::string file);
-	void playSoundLooping(std::string file);
-	void playSound(std::string file, ik_f32 volume);
-	void playSoundLooping(std::string file, ik_f32 volume);
-	void stopSound(std::string file);
+	void playSound(SoundFiles file);
+	void playSoundLooping(SoundFiles file);
+	void playSound(SoundFiles file, ik_f32 volume);
+	void playSoundLooping(SoundFiles file, ik_f32 volume);
+	void stopSound(SoundFiles file);
 	void setVolume(ik_f32 volume);
 	void mute();
 	void unmute();

@@ -67,7 +67,7 @@ void World::tick()
 		if (ev.type == SDL_QUIT)
 			this->isRunning = false;
 		if (ev.key.keysym.sym == SDLK_ESCAPE){
-			Sound::getInstance()->playSoundLooping("rock_intro.mp3");
+			Sound::getInstance()->playSoundLooping(Sound_MainMenu_Theme);
 			int i = this->menu->showMenu(renderTarget);
 			if (i == this->menu->getExitCode())
 				this->isRunning = false;

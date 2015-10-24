@@ -129,6 +129,9 @@
     <ClInclude Include="Source\World.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\CreditsMenu.h">
+      <Filter>Header Files\Menu</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\main.cpp">
@@ -196,6 +199,9 @@
     </ClCompile>
     <ClCompile Include="Source\World.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CreditsMenu.cpp">
+      <Filter>Source Files\Menu</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

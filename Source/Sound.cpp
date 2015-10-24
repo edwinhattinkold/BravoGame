@@ -9,6 +9,12 @@ Sound::Sound(){
 		std::cout << "Sound engine initialisation complete" << std::endl;
 	this->startFilePath = "Sounds/";
 	this->previousVolume = 1.00f;
+
+	this->sounds = new std::map<int, std::string>();
+	this->sounds->insert( std::pair<int, std::string>( Sound_MainMenu_Theme, "rock_intro.mp3" ) );
+	this->sounds->insert( std::pair<int, std::string>( Sound_MainMenu_Tick, "menu_tick.wav" ));
+	this->sounds->insert( std::pair<int, std::string>( Sound_MainMenu_Click, "menu_confirm.wav" ));
+	this->sounds->insert( std::pair<int, std::string>( Sound_Credits_Theme, "rock_credits.wav" ));
 }
 
 /* Singleton */
@@ -19,24 +25,25 @@ Sound* Sound::getInstance(){
 }
 
 Sound::~Sound(){
-	this->engine->drop(); this->engine = nullptr;
+	this->engine->drop();	this->engine = nullptr;
+	delete this->sounds;	this->sounds = nullptr;
 	instance = nullptr;
 }
 
-void Sound::playSound(std::string file){
-	std::string temp = this->startFilePath + file;
+void Sound::playSound(SoundFiles file){
+	std::string temp = this->startFilePath + sounds->find(file)->second;
 	const char *filepath = temp.c_str();
 	engine->play2D(filepath, false);
 }
 
-void Sound::playSoundLooping(std::string file){
-	std::string temp = this->startFilePath + file;
+void Sound::playSoundLooping(SoundFiles file){
+	std::string temp = this->startFilePath + sounds->find(file)->second;;
 	const char *filepath = temp.c_str();
 	engine->play2D(filepath, true);
 }
 
-void Sound::playSound(std::string file, ik_f32 volume){
-	std::string temp = this->startFilePath + file;
+void Sound::playSound(SoundFiles file, ik_f32 volume){
+	std::string temp = this->startFilePath + sounds->find(file)->second;;
 	const char *filepath = temp.c_str();
 
 	ISoundSource* currentSound = engine->addSoundSourceFromFile(filepath);
@@ -45,8 +52,8 @@ void Sound::playSound(std::string file, ik_f32 volume){
 	engine->play2D(currentSound, false);
 }
 
-void Sound::playSoundLooping(std::string file, ik_f32 volume){
-	std::string temp = this->startFilePath + file;
+void Sound::playSoundLooping(SoundFiles file, ik_f32 volume){
+	std::string temp = this->startFilePath + sounds->find(file)->second;;
 	const char *filepath = temp.c_str();
 
 	ISoundSource* currentSound = engine->addSoundSourceFromFile(filepath);
@@ -55,8 +62,8 @@ void Sound::playSoundLooping(std::string file, ik_f32 volume){
 	engine->play2D(currentSound, true);
 }
 
-void Sound::stopSound(std::string file){
-	std::string temp = this->startFilePath + file;
+void Sound::stopSound(SoundFiles file){
+	std::string temp = this->startFilePath + sounds->find(file)->second;;
 	const char *filepath = temp.c_str();
 	engine->removeSoundSource(filepath);
 }
