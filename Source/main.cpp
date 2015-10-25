@@ -59,9 +59,9 @@ void run(){
 	 renderTarget = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
 	 MapDrawer *mapDrawer = new MapDrawer(renderTarget);
+	 
 	 SDL_Texture *mainMenuBackground = LoadTexture("Images/Mainmenu/background.png", renderTarget);
 	 Camera camera(levelWidth, levelHeight, windowWidth, windowHeight);
-
 	 MainMenu menu(renderTarget, mainMenuBackground, camera.getCamera(), font);
 	 bool isRunning = true;
 	 
@@ -94,7 +94,7 @@ void run(){
 		 camera.Update(player1.getPositionX(), player1.getPositionY());
 
 		 SDL_RenderClear(renderTarget);		 
-		 //mapDrawer->Draw(renderTarget, camera.getCamera());
+		 mapDrawer->Draw(renderTarget, camera.getCamera());
 		 player1.Draw(renderTarget, camera.getCamera());
 
 		 SDL_RenderPresent(renderTarget);
