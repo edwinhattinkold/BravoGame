@@ -20,7 +20,7 @@ OptionsMenu::OptionsMenu(SDL_Renderer* renderTarget, SDL_Texture* backgroundImag
 	for (std::vector<int>::size_type i = this->menuItems->size() - 1; i != (std::vector<int>::size_type) - 1; i--) {
 		this->combinedHeight += this->menuItems->at(i)->getHeight();
 		int xPosition = (cameraRect->w / 2) - (this->menuItems->at(i)->getWidth() / 2) - cameraRect->x;
-		this->menuItems->at(i)->setXPositon(xPosition);
+		this->menuItems->at(i)->setXPosition(xPosition);
 	}
 
 	int marginHeight = ((this->menuItems->size() - 1) * margin);
@@ -34,6 +34,7 @@ OptionsMenu::~OptionsMenu()
 {
 	for (size_t c = 0; c < this->menuItems->size(); c++)
 		delete this->menuItems->at(c);
+	delete this->menuItems;
 }
 
 int OptionsMenu::getBackCode(){
@@ -122,7 +123,7 @@ void OptionsMenu::toggleSound(SDL_Renderer* renderTarget){
 void OptionsMenu::center(){
 	for (std::vector<int>::size_type j = this->menuItems->size() - 1; j != (std::vector<int>::size_type) - 1; j--) {
 		int xPosition = (cameraRect->w / 2) - (this->menuItems->at(j)->getWidth() / 2) - cameraRect->x;
-		this->menuItems->at(j)->setXPositon(xPosition);
+		this->menuItems->at(j)->setXPosition(xPosition);
 
 		int previousHeight = 0;
 		for (size_t h = 0; h < j; h++)

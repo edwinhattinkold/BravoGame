@@ -1,9 +1,10 @@
 #pragma once
-
 #include "irrklang.h"
 #include <iostream>
 #include <string>
 #include <map>
+#include <SDL.h>
+
 using namespace irrklang;
 enum SoundFiles {	Sound_MainMenu_Theme, 
 					Sound_MainMenu_Tick, 
@@ -19,6 +20,8 @@ private:
 	std::string startFilePath;
 	ik_f32 previousVolume;
 	std::map<int, std::string>* sounds;
+	ik_f32 fadeTickSpeed;
+	bool muted;
 
 	/* Singleton */
 	Sound();
@@ -37,8 +40,15 @@ public:
 	void playSoundLooping(SoundFiles file, ik_f32 volume);
 	void stopSound(SoundFiles file);
 	void setVolume(ik_f32 volume);
+	ik_f32 getVolume();
 	void mute();
 	void unmute();
+
+
+	void fadeIn();
+	void fadeOut();
+	void fadeInTick();
+	void fadeOutTick();
 };
 
 /**

@@ -34,7 +34,7 @@ public:
 	int getXPosition();
 	int getYPosition();
 	void setColor(SDL_Renderer* renderTarget, Color color);
-	void setXPositon(int xPosition);
+	void setXPosition(int xPosition);
 	void setYPosition(int yPosition);
 	void setText(SDL_Renderer* renderTarget, char* text);
 	void draw(SDL_Renderer* renderTarget);

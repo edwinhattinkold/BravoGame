@@ -40,7 +40,7 @@ public:
 		this->font = TTF_OpenFont("Fonts/Frontman.ttf", 40);
 
 		this->windowWidth = 1024;
-		this->windowHeight = 576; // waarom niet 512? -> omdat 1024 en 574 een aspect ratio hebben van 16:9, bij 512 zou dat 2:1 zijn
+		this->windowHeight = 576;
 		this->levelWidth = 1024;
 		this->levelHeight = 1024;
 

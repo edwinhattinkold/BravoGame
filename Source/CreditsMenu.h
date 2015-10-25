@@ -11,12 +11,15 @@ private:
 	Sound* sound;
 	TTF_Font* creditsTitelFont;
 	TTF_Font* creditsDefaultFont;
+	TTF_Font* creditsMainTitelFont;
+
 	Uint32 time;
 	int mouseX, mouseY, defaultMargin, largerMargin, titelSpacing, previousTime, currentTime, speed;
 	float deltaTime, pastTime;
 	std::vector<std::pair<MenuItem*, int>*>* lines;
 	std::vector<MenuItem*>* menuItems;
 	void positionAllLines();
+	void fadeIn();
 
 	static enum LineType { MainTitel, Titel, Default };
 	static enum Choices { Back, Sound_On_Off, Exit };

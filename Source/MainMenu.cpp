@@ -28,7 +28,7 @@ MainMenu::MainMenu(SDL_Renderer* renderTarget, SDL_Texture* backgroundImage, SDL
 	for (std::vector<int>::size_type i = this->menuItems->size() - 1; i != (std::vector<int>::size_type) - 1; i--) {
 		this->combinedHeight += this->menuItems->at(i)->getHeight();
 		int xPosition = (cameraRect->w / 2) - (this->menuItems->at(i)->getWidth() / 2) - cameraRect->x;
-		this->menuItems->at(i)->setXPositon(xPosition);
+		this->menuItems->at(i)->setXPosition(xPosition);
 	}
 
 	int marginHeight = ((this->menuItems->size() - 1) * margin);
@@ -45,9 +45,12 @@ MainMenu::MainMenu(SDL_Renderer* renderTarget, SDL_Texture* backgroundImage, SDL
 
 MainMenu::~MainMenu()
 {
-	for (size_t c = 0; c < this->menuItems->size(); c++)
-		delete this->menuItems->at(c);
-	delete this->optionsMenu;
+	for (size_t c = 0; c < this->menuItems->size(); c++){
+		delete this->menuItems->at(c);				this->menuItems->at(c) = nullptr;
+	}
+	delete this->menuItems;							this->menuItems = nullptr;
+	delete this->optionsMenu;						this->optionsMenu = nullptr;
+	delete this->creditsMenu;						this->creditsMenu = nullptr;
 }
 
 int MainMenu::getExitCode(){
@@ -73,6 +76,7 @@ int MainMenu::showMenu(SDL_Renderer* renderTarget){
 			return Choices::Exit;
 		break;
 	case(Choices::Credits) :
+		this->sound->fadeOut();
 		this->creditsChoice = this->creditsMenu->showMenu(renderTarget);
 		if (this->creditsChoice == this->creditsMenu->getBackCode())
 			return this->showMenu(renderTarget);
@@ -92,6 +96,9 @@ int MainMenu::createMenu(SDL_Renderer* renderTarget){
 	SDL_Event event;
 	while (1)
 	{
+		if (this->sound->getVolume() != 1.00f)
+			this->sound->fadeInTick();
+
 		this->time = SDL_GetTicks();
 		while (SDL_PollEvent(&event)){
 			switch (event.type){

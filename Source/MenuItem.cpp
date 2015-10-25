@@ -81,7 +81,7 @@ int MenuItem::getYPosition(){
 	return this->position.y;
 }
 
-void MenuItem::setXPositon(int xPosition){
+void MenuItem::setXPosition(int xPosition){
 	this->position.x = xPosition;
 }
 
