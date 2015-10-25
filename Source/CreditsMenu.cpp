@@ -5,7 +5,6 @@ CreditsMenu::CreditsMenu(SDL_Renderer* renderTarget, SDL_Rect* cameraRect)
 { 
 	this->cameraRect = cameraRect;
 	this->sound = Sound::getInstance();
-	TTF_Font* creditsDefaultFont;
 	this->creditsTitelFont = TTF_OpenFont("Fonts/frontman.ttf", 50);
 	this->creditsDefaultFont = TTF_OpenFont("Fonts/atrox.ttf", 50);
 	this->creditsMainTitelFont = TTF_OpenFont("Fonts/atrox.ttf", cameraRect->w / 10);
@@ -196,7 +195,7 @@ int CreditsMenu::createMenu(SDL_Renderer* renderTarget){
 void CreditsMenu::update(float deltaTime){
 	if (shouldMove(deltaTime)){
 		float fps = (1 / deltaTime);
-		int pixels = round(this->speed / fps);
+		int pixels = int(round(this->speed / fps));
 		for (size_t c = 0; c < this->lines->size(); c++)
 			this->lines->at(c)->first->setYPosition(this->lines->at(c)->first->getYPosition() - pixels);
 	}
@@ -234,7 +233,7 @@ void CreditsMenu::positionAllLines(){
 	for (size_t c = 0; c < this->lines->size(); c++){
 		MenuItem* item = this->lines->at(c)->first;
 		int previousDistance = 0;
-		for (int x = 0; x <= c; x++)
+		for (size_t x = 0; x <= c; x++)
 			previousDistance += (this->lines->at(x)->first->getHeight() + this->lines->at(x)->second);
 
 		if (c == 0)
