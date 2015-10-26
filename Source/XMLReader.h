@@ -13,5 +13,6 @@ public:
 	XMLReader();
 	~XMLReader();
 	void parseXMLFile(Chunk *chunk, std::string filePath);
+	std::string getChunk( int x, int y );
 };
 

@@ -27,7 +27,6 @@ void UpdateContainer::remove( IUpdateable *updateable )
 	// swap the one to be removed with the last element
 	// and remove the item at the end of the container
 	std::swap( *it, objects->back() );
-	delete updateable;
 	objects->pop_back();
 }
 
