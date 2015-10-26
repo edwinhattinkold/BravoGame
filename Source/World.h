@@ -53,7 +53,7 @@ private:
 public:
 	World(SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font);
 	~World();
-	void Run();
+	void run();
 };
 
 

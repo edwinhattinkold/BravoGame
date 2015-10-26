@@ -43,8 +43,6 @@ public:
 	ik_f32 getVolume();
 	void mute();
 	void unmute();
-
-
 	void fadeIn();
 	void fadeOut();
 	void fadeInTick();

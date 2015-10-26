@@ -24,9 +24,9 @@ public:
 
 	~Sprite();
 
-	virtual void Update(float delta, const Uint8 *keyState);
-	virtual void Draw(SDL_Renderer *renderTarget, SDL_Rect camerRect);
-	bool IntersectsWith(Sprite &p);
+	virtual void update(float delta, const Uint8 *keyState);
+	virtual void draw(SDL_Renderer *renderTarget, SDL_Rect camerRect);
+	bool intersectsWith(Sprite &p);
 
 	SDL_Rect positionRect;
 
@@ -36,7 +36,7 @@ public:
 	void setOriginX(int newOriginX);
 	void setOriginY(int newOriginY);
 
-	void Subscribe();
+	void subscribe();
 };
 
 #endif

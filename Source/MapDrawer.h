@@ -15,6 +15,6 @@ private:
 public:
 	MapDrawer(SDL_Renderer *renderTarget);
 	~MapDrawer();
-	virtual void Draw(SDL_Renderer *renderTarget, SDL_Rect cameraRect);
+	virtual void draw(SDL_Renderer *renderTarget, SDL_Rect cameraRect);
 };
 

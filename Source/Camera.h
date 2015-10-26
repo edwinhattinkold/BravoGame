@@ -14,8 +14,8 @@ public:
 	Camera::Camera(int levelWidth, int levelHeight, int windowWidth, int windowHeight);
 	Camera::~Camera(void);
 
-	void Camera::Update(int originX, int originY);
-	SDL_Rect* Camera::getCamera();
+	void update(int originX, int originY);
+	SDL_Rect* getCamera();
 };
 
 #endif
