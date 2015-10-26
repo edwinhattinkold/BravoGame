@@ -23,10 +23,10 @@ MapDrawer::~MapDrawer()
 
 void MapDrawer::Draw(SDL_Renderer *renderTarget, SDL_Rect cameraRect)
 {
-	for (int i = 0; i < 3; ++i)
+	for (int y = 0; y < 3; y++)
 	{
 		for (int x = 0; x < 3; x++)
-			chunks->at(i)->at(x)->Draw(i, x);
+			chunks->at(y)->at(x)->Draw(y * 1024, x * 1024, &cameraRect);
 	}
 	/*Tile *tile = nullptr;
 	SDL_Rect tarRect = { 0, 0, 32, 32 };

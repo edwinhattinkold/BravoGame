@@ -51,7 +51,7 @@ void run(){
 	 const Uint8 *keyState;
 	 int windowWidth = 1024;
 	 int windowHeight = 576;
-	 int levelWidth = 1024, levelHeight = 1024;
+	 int levelWidth = 3072, levelHeight = 3072;
 
 	 SDL_Init(SDL_INIT_VIDEO);
 

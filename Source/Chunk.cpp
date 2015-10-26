@@ -87,13 +87,13 @@ void Chunk::AddLocation(Location l){
 	locations->push_back(l);
 }
 
-void Chunk::Draw(int x, int y){
+void Chunk::Draw(int x, int y, SDL_Rect *cameraRect){
 	Tile *tile = nullptr;
 	SDL_Rect tarRect = { 0, 0, 32, 32 };
 	for (int i = 0; i < locations->size(); i++){
 	Location l = locations->at(i);
-	tarRect.x = l.x * 32;// -cameraRect.x;
-	tarRect.y = l.y * 32;// -cameraRect.y;
+	tarRect.x = l.x * 32 + x - cameraRect->x;
+	tarRect.y = l.y * 32 + y - cameraRect->y;
 	tile = tiles->at(l.id);;
 	SDL_RenderCopy(renderTarget, tile->getTexture(), tile->getRect(), &tarRect);
 	}

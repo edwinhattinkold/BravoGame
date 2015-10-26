@@ -20,7 +20,7 @@ private:
 	SDL_Renderer *renderTarget;
 public:
 	void AddTileSet(std::string filePath, int spacing, int firstId, int amount, int width, int height);	
-	void Draw(int x, int y);
+	void Draw(int x, int y, SDL_Rect *cameraRect);
 	Chunk(SDL_Renderer *rt, std::string filePath);
 	~Chunk();
 	void AddLocation(Location l);
