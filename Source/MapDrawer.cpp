@@ -12,29 +12,36 @@ MapDrawer::MapDrawer(SDL_Renderer *renderTarget)
 		for (int x = 0; x < colCount; x++)
 			chunks->at(i)->push_back(new Chunk(renderTarget, "maps/level1.tmx"));
 	}
-	//chunk = new Chunk(renderTarget, "maps/level1.tmx");
 }
 
 
 MapDrawer::~MapDrawer()
 {
-	//delete chunk;
+	for (size_t y = 0; y < chunks->size(); y++)
+	{
+		for (size_t x = 0; x < chunks->at(y)->size(); x++)
+		{
+			delete chunks->at(y)->at(x); 
+			chunks->at(y)->at(x) = nullptr;
+		}			 
+		delete chunks->at(y);
+		chunks->at(y) = nullptr;
+	}
+	delete chunks; 
+	chunks = nullptr;
+	
 }
 
 void MapDrawer::Draw(SDL_Renderer *renderTarget, SDL_Rect cameraRect)
 {
-	for (int y = 0; y < 3; y++)
+	int rowCount = 3;
+	int colCount = 3;
+	for (int y = 0; y < rowCount; y++)
 	{
-		for (int x = 0; x < 3; x++)
+		for (int x = 0; x < colCount; x++)
+		{
 			chunks->at(y)->at(x)->Draw(y * 1024, x * 1024, &cameraRect);
+		}
 	}
-	/*Tile *tile = nullptr;
-	SDL_Rect tarRect = { 0, 0, 32, 32 };
-	for (int i = 0; i < chunk->locations->size(); i++){
-		Location l = chunk->locations->at(i);
-		tarRect.x = l.x * 32 - cameraRect.x;
-		tarRect.y = l.y * 32 - cameraRect.y;
-		tile = chunk->getTile(l.id);
-		SDL_RenderCopy(renderTarget, tile->getTexture(), tile->getRect(), &tarRect);
-	}*/
 }
+

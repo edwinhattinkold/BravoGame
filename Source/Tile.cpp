@@ -7,7 +7,6 @@ Tile::Tile(SDL_Texture *texture, SDL_Rect cropRect)
 	_cropRect = cropRect;
 }
 
-
 Tile::~Tile()
 {
 }

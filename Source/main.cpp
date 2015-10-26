@@ -9,105 +9,86 @@
 #include "Player.h"
 #include "Camera.h"
 #include "MainMenu.h"
-#include "Chunk.h";
 #include "wtypes.h"
 #include <Box2D/Box2D.h>
-#include "MapDrawer.h"
+#include "World.h"
+#include "Sound.h"
 
-SDL_Texture *LoadTexture(std::string filePath, SDL_Renderer *renderTarget){
-	SDL_Texture *texture = nullptr;
-	SDL_Surface *surface = IMG_Load(filePath.c_str());
-	if (surface == NULL)
-		std::cout << "Error" << std::endl;
-	else
+class MainHelper {
+private:
+	SDL_Window *window;
+	TTF_Font* font;
+	int windowWidth, windowHeight, levelWidth, levelHeight;
+	World* world;
+	bool fullScreen;
+
+public:
+	void MainHelper::GetDesktopResolution(int& horizontal, int& vertical)
 	{
-		texture = SDL_CreateTextureFromSurface(renderTarget, surface);
-		if (texture == NULL)
-			std::cout << "Error" << std::endl;
+		RECT desktop;
+		const HWND hDesktop = GetDesktopWindow();
+		GetWindowRect(hDesktop, &desktop);
+		horizontal = desktop.right;
+		vertical = desktop.bottom;
 	}
 
-	SDL_FreeSurface(surface);
-	return texture;
-}
+	MainHelper::MainHelper(bool fullScreen)
+	{
+		Uint32 flags = SDL_WINDOW_SHOWN;
 
-void GetDesktopResolution(int& horizontal, int& vertical)
-{
-	RECT desktop;
-	const HWND hDesktop = GetDesktopWindow();
-	GetWindowRect(hDesktop, &desktop);
-	horizontal = desktop.right;
-	vertical = desktop.bottom;
-}
+		TTF_Init();
+		if (!font) 
+			printf("TTF_OpenFont: %s\n", TTF_GetError()); //I.p.v. printen wellicht voor dit soort dingen exception handling?
 
-void run(){
-	 TTF_Init();
-	 SDL_Window *window = nullptr;
-	 SDL_Renderer *renderTarget = nullptr;
-	 TTF_Font* font = TTF_OpenFont("Fonts/Frontman.ttf", 40);
+		this->window = nullptr;
+		this->font = TTF_OpenFont("Fonts/Frontman.ttf", 40);
 
-	 int currentTime = 0;
-	 int prevTime = 0;
-	 float deltaTime = 0.0f;
-	 const Uint8 *keyState;
-	 int windowWidth = 1024;
-	 int windowHeight = 576;
-	 int levelWidth = 3072, levelHeight = 3072;
+		this->windowWidth = 1024;
+		this->windowHeight = 576;
+		this->levelWidth = 3072;
+		this->levelHeight = 3072;
 
-	 SDL_Init(SDL_INIT_VIDEO);
+		if (fullScreen){
+			this->GetDesktopResolution(this->windowWidth, this->windowHeight);
+			flags = SDL_WINDOW_FULLSCREEN;
+		}
 
-	 window = SDL_CreateWindow("TerrorEdje!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
-	 renderTarget = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+		SDL_Init(SDL_INIT_VIDEO);
 
-	 MapDrawer *mapDrawer = new MapDrawer(renderTarget);
-	 
-	 SDL_Texture *mainMenuBackground = LoadTexture("Images/Mainmenu/background.png", renderTarget);
-	 Camera camera(levelWidth, levelHeight, windowWidth, windowHeight);
-	 MainMenu menu(renderTarget, mainMenuBackground, camera.getCamera(), font);
-	 bool isRunning = true;
-	 
-	 int i = menu.showMenu(renderTarget);
-	 if (i == menu.getExitCode())
-		 isRunning = false;
+		this->window = SDL_CreateWindow("TerrorEdje!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, this->windowWidth, this->windowHeight, flags);
+		this->world = new World(this->window, this->levelWidth, this->levelHeight, this->font);
+	}
 
-	 Player player1(renderTarget, 0, 0, 300.0f);
-	 SDL_Event ev;
-	 while (isRunning){
-		 prevTime = currentTime;
-		 currentTime = SDL_GetTicks();
-		 deltaTime = (currentTime - prevTime) / 1000.0f;
-		 while (SDL_PollEvent(&ev) != 0){
-			 if (ev.type == SDL_QUIT)
-				 isRunning = false;
-			 if (ev.key.keysym.sym == SDLK_ESCAPE){
-				 Sound::getInstance()->playSoundLooping("rock_intro.mp3");
-				 int i = menu.showMenu(renderTarget);
-				 if (i == menu.getExitCode())
-					 isRunning = false;
-				 
-			 }
-		 }
+	void MainHelper::run()
+	{
+		this->world->Run();
+		this->destroyMainHelper();
+	}
 
-		 keyState = SDL_GetKeyboardState(NULL);
+	void MainHelper::destroyMainHelper()
+	{
+		SDL_DestroyWindow(this->window);
+		this->window = nullptr;
 
-		 player1.Update(deltaTime, keyState);
+		TTF_CloseFont(this->font);
+		this->font = nullptr;
 
-		 camera.Update(player1.getPositionX(), player1.getPositionY());
+		delete this->world;
+		this->world = nullptr;
 
-		 SDL_RenderClear(renderTarget);		 
-		 mapDrawer->Draw(renderTarget, camera.getCamera());
-		 player1.Draw(renderTarget, camera.getCamera());
-
-		 SDL_RenderPresent(renderTarget);
-	 }
-
-	 SDL_DestroyWindow(window);
-	 SDL_DestroyRenderer(renderTarget);
-	 window = nullptr;
-	 renderTarget = nullptr;
- }
+		SDL_Quit();
+		TTF_Quit();
+		Sound_Quit();
+	}
+};
 
 int main(int argc, char *argv[]){
-	run();
+	MainHelper* mainHelper = new MainHelper(true);
+	mainHelper->run();
+
+	delete mainHelper;
+	mainHelper = nullptr;
+
 	_CrtDumpMemoryLeaks();
 	return 0;
 }

@@ -5,7 +5,9 @@
 class Camera
 {
 private:
-	SDL_Rect cameraRect;
+	SDL_Rect* cameraRect;
+	int width;
+	int height;
 
 public:
 	int levelWidth, levelHeight, windowWidth, windowHeight;
@@ -13,7 +15,7 @@ public:
 	Camera::~Camera(void);
 
 	void Camera::Update(int originX, int originY);
-	SDL_Rect Camera::getCamera();
+	SDL_Rect* Camera::getCamera();
 };
 
 #endif

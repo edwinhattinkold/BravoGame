@@ -40,6 +40,24 @@
     <Filter Include="Source Files\Sound">
       <UniqueIdentifier>{814155c1-f594-45ec-b51e-a81516284047}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Containers">
+      <UniqueIdentifier>{5dbff1d7-6440-4ca6-89e6-db7eb088d286}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Factories">
+      <UniqueIdentifier>{604e35b2-87b9-426e-b590-f5e64b45f4ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Containers">
+      <UniqueIdentifier>{d9ee158a-0792-46c2-a8c3-a0fc6b57acca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Factories">
+      <UniqueIdentifier>{a9fb67de-d3ff-4696-a771-12e2de3d35fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Visitors">
+      <UniqueIdentifier>{fcbe8fd8-5d91-423f-a9b6-2652646e3b81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Visitors">
+      <UniqueIdentifier>{ddf472d0-9051-410d-a409-e658d2705f7a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Animation.h">
@@ -89,6 +107,33 @@
     </ClInclude>
     <ClInclude Include="Source\Chunk.h">
       <Filter>Header Files\Map</Filter>
+	</ClInclude>
+    <ClInclude Include="Source\DrawVisitor.h">
+      <Filter>Header Files\Visitors</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UpdateVisitor.h">
+      <Filter>Header Files\Visitors</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DrawContainer.h">
+      <Filter>Header Files\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UpdateContainer.h">
+      <Filter>Header Files\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DrawFactory.h">
+      <Filter>Header Files\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\IUpdateable.h">
+      <Filter>Header Files\GraphicObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\IDrawable.h">
+      <Filter>Header Files\GraphicObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\World.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CreditsMenu.h">
+      <Filter>Header Files\Menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -139,5 +184,32 @@
     <ResourceCompile Include="TerrorEdje.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+    <ClCompile Include="Source\DrawVisitor.cpp">
+      <Filter>Source Files\Visitors</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UpdateVisitor.cpp">
+      <Filter>Source Files\Visitors</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DrawContainer.cpp">
+      <Filter>Source Files\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UpdateContainer.cpp">
+      <Filter>Source Files\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DrawFactory.cpp">
+      <Filter>Source Files\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\IUpdateable.cpp">
+      <Filter>Source Files\GraphicObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\IDrawable.cpp">
+      <Filter>Source Files\GraphicObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\World.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CreditsMenu.cpp">
+      <Filter>Source Files\Menu</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

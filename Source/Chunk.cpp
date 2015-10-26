@@ -37,19 +37,27 @@ Chunk::Chunk(SDL_Renderer *rt, std::string filePath)
 
 Chunk::~Chunk()
 {
-	for (int i = 1; i < tiles->size(); i++){
+	for (size_t i = 1; i < tiles->size(); i++){
 		delete tiles->at(i);
+		tiles->at(i) = nullptr;
 	}
-	for (int i = 0; i < textures->size(); i++){
-		delete textures->at(i);
+	for (size_t j = 0; j < textures->size(); j++){
+		SDL_DestroyTexture(textures->at(j));
+		textures->at(j) = nullptr;
 	}
 	delete tiles;
+	tiles = nullptr;
 	delete textures;
+	textures = nullptr;
 	delete locations;
+	locations = nullptr;
 	/*delete bodies;*/
 	delete collisionBodyDef;
+	collisionBodyDef = nullptr;
 	delete collisionFixtureDef;
+	collisionFixtureDef = nullptr;
 	delete boxShape;
+	boxShape = nullptr;
 }
 
 void Chunk::AddTileSet(std::string filePath, int spacing, int firstId, int amount, int width, int height)

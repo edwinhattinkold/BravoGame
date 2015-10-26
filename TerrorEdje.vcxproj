@@ -14,6 +14,12 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Camera.h" />
+    <ClInclude Include="Source\CreditsMenu.h" />
+    <ClInclude Include="Source\DrawContainer.h" />
+    <ClInclude Include="Source\DrawFactory.h" />
+    <ClInclude Include="Source\DrawVisitor.h" />
+    <ClInclude Include="Source\IDrawable.h" />
+    <ClInclude Include="Source\IUpdateable.h" />
     <ClInclude Include="Source\Location.h" />
     <ClInclude Include="Source\MainMenu.h" />
     <ClInclude Include="Source\MapDrawer.h" />
@@ -26,11 +32,20 @@
     <ClInclude Include="Source\Sound.h" />
     <ClInclude Include="Source\Sprite.h" />
     <ClInclude Include="Source\Tile.h" />
+    <ClInclude Include="Source\UpdateContainer.h" />
+    <ClInclude Include="Source\UpdateVisitor.h" />
+    <ClInclude Include="Source\World.h" />
     <ClInclude Include="Source\XMLReader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Animation.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
+    <ClCompile Include="Source\CreditsMenu.cpp" />
+    <ClCompile Include="Source\DrawContainer.cpp" />
+    <ClCompile Include="Source\DrawFactory.cpp" />
+    <ClCompile Include="Source\DrawVisitor.cpp" />
+    <ClCompile Include="Source\IDrawable.cpp" />
+    <ClCompile Include="Source\IUpdateable.cpp" />
     <ClCompile Include="Source\Location.cpp" />
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\MainMenu.cpp" />
@@ -42,6 +57,9 @@
     <ClCompile Include="Source\Sound.cpp" />
     <ClCompile Include="Source\Sprite.cpp" />
     <ClCompile Include="Source\Tile.cpp" />
+    <ClCompile Include="Source\UpdateContainer.cpp" />
+    <ClCompile Include="Source\UpdateVisitor.cpp" />
+    <ClCompile Include="Source\World.cpp" />
     <ClCompile Include="Source\XMLReader.cpp" />
   </ItemGroup>
   <ItemGroup>

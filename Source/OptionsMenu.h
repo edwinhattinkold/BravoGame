@@ -9,9 +9,9 @@ class OptionsMenu
 {
 private:
 	SDL_Rect backgroundImageRect;
-	SDL_Rect cameraRect;
+	SDL_Rect* cameraRect;
 	SDL_Texture* backgroundImage;
-	std::vector<MenuItem*> menuItems;
+	std::vector<MenuItem*>* menuItems;
 	Sound* sound;
 	Uint32 time;
 	int mouseX, mouseY, margin, combinedHeight;
@@ -20,7 +20,7 @@ private:
 	void center();
 
 public:
-	OptionsMenu(SDL_Renderer* renderTarget, SDL_Texture* backgroundImage, SDL_Rect cameraRect, TTF_Font* font);
+	OptionsMenu(SDL_Renderer* renderTarget, SDL_Texture* backgroundImage, SDL_Rect* cameraRect, TTF_Font* font);
 	~OptionsMenu();
 
 	int getBackCode();

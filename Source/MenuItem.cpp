@@ -32,6 +32,19 @@ void MenuItem::setPosition(SDL_Rect position){
 	this->position = position;
 }
 
+void MenuItem::setColor(SDL_Renderer* renderTarget, Color color){
+	SDL_Color newColor;
+	switch (color){
+		case(Color::Red):
+			newColor = { 140, 0, 0, 255 };
+			break;
+		case(Color::White):
+			newColor = { 255, 255, 255, 255 };
+			break;
+	}
+	this->currentTexture = createTextTexture(renderTarget, this->myFont, this->content, newColor);
+}
+
 bool MenuItem::checkHover(int x, int y){
 	if (x >= this->position.x && x <= this->position.x + this->position.w && y >= this->position.y && y <= this->position.y + this->position.h){
 		if (!this->selected){
@@ -68,7 +81,7 @@ int MenuItem::getYPosition(){
 	return this->position.y;
 }
 
-void MenuItem::setXPositon(int xPosition){
+void MenuItem::setXPosition(int xPosition){
 	this->position.x = xPosition;
 }
 
