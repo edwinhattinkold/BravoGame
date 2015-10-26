@@ -1,7 +1,6 @@
 #include "MapDrawer.h"
 
-
-MapDrawer::MapDrawer( SDL_Renderer *renderTarget, SDL_Rect *cameraRect )
+MapDrawer::MapDrawer( SDL_Renderer *renderTarget, SDL_Rect *cameraRect, World *world )
 {
 	this->cameraRect = cameraRect;
 	minX = 0;
@@ -11,13 +10,14 @@ MapDrawer::MapDrawer( SDL_Renderer *renderTarget, SDL_Rect *cameraRect )
 	int rowCount = 3;
 	int colCount = 3;
 	XMLReader xmlReader;
+	this->world = world;
 	chunks = new std::vector<std::vector<Chunk*>*>();
 	int yCount = 0;
 	for( int y = minY; y < maxY; ++y )
 	{
 		chunks->push_back( new std::vector<Chunk*>() );
 		for( int x = minX; x < maxX; x++ )
-			chunks->at( yCount )->push_back( new Chunk( renderTarget, "maps/" + xmlReader.getChunk( x, y ) ) );
+			chunks->at( yCount )->push_back( new Chunk( renderTarget, "maps/" + xmlReader.getChunk( x, y ), world ) );
 		yCount++;
 	}
 }

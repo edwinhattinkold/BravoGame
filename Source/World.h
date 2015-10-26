@@ -31,7 +31,7 @@ private:
 	const int32 *velocityIterations;
 	const int32 *positionIterations;
 	b2World *physics;
-
+	std::vector<b2Body*> *bodyRemoveStack;
 	//Containers
 	DrawContainer *drawContainer;
 	UpdateContainer *updateContainer;
@@ -50,10 +50,14 @@ private:
 	float calcDeltaTime();
 	SDL_Texture *loadTexture(std::string filePath, SDL_Renderer *renderTarget);
 	void createCamera(SDL_Window *window, int levelWidth, int levelHeight);
+	void handleBodyRemoveStack();
 public:
 	World(SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font);
 	~World();
 	void run();
+	//Box2d wrapper function
+	b2Body* createBody(b2BodyDef *bodyDef);
+	void destroyBody(b2Body *body);
 };
 
 
