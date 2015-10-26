@@ -23,7 +23,7 @@ void XMLReader::parseXMLFile( Chunk *chunk, std::string filePath )
 			spacing = atoi( tileset->first_attribute( "spacing" )->value() );
 		}
 		rapidxml::xml_node<> *image = tileset->first_node( "image" );
-		chunk->AddTileSet( image->first_attribute( "source" )->value(),
+		chunk->addTileSet( image->first_attribute( "source" )->value(),
 						   spacing,
 						   atoi( tileset->first_attribute( "firstgid" )->value() ),
 						   atoi( tileset->first_attribute( "tilecount" )->value() ),
@@ -46,10 +46,10 @@ void XMLReader::parseXMLFile( Chunk *chunk, std::string filePath )
 			if( layerName == "collision" )
 			{
 				if( atoi( tile->first_attribute( "gid" )->value() ) != 0 )
-					chunk->AddCollidableObject( currentX, currentY );
+					chunk->addCollidableObject( currentX, currentY );
 			} else
 			{
-				chunk->AddLocation( Location( currentX, currentY, atoi( tile->first_attribute( "gid" )->value() ) ) );
+				chunk->addLocation( Location( currentX, currentY, atoi( tile->first_attribute( "gid" )->value() ) ) );
 			}
 
 			currentX++;

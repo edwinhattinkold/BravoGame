@@ -21,7 +21,7 @@ Camera::~Camera( void )
 	delete cameraRect;	cameraRect = nullptr;
 }
 
-void Camera::Update( int xPosition, int yPosition )
+void Camera::update( int xPosition, int yPosition )
 {
 	cameraRect->x = xPosition - ( windowWidth / 2 );
 	cameraRect->y = yPosition - ( windowHeight / 2 );

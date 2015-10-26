@@ -12,6 +12,6 @@ private:
 public:
 	DrawVisitor(SDL_Renderer *renderTarget, SDL_Rect *cameraRect);
 	~DrawVisitor();
-	void Visit(IDrawable *id);
+	void visit(IDrawable *id);
 };
 

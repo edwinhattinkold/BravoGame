@@ -24,7 +24,7 @@ private:
 	bool fullScreen;
 
 public:
-	void MainHelper::GetDesktopResolution( int& horizontal, int& vertical )
+	void MainHelper::getDesktopResolution( int& horizontal, int& vertical )
 	{
 		RECT desktop;
 		const HWND hDesktop = GetDesktopWindow();
@@ -51,7 +51,7 @@ public:
 
 		if( fullScreen )
 		{
-			GetDesktopResolution( windowWidth, windowHeight );
+			getDesktopResolution( windowWidth, windowHeight );
 			flags = SDL_WINDOW_FULLSCREEN;
 		}
 
@@ -63,7 +63,7 @@ public:
 
 	void MainHelper::run()
 	{
-		world->Run();
+		world->run();
 		destroyMainHelper();
 	}
 

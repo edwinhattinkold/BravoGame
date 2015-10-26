@@ -32,7 +32,7 @@ MapDrawer::~MapDrawer()
 
 }
 
-void MapDrawer::Draw( SDL_Renderer *renderTarget, SDL_Rect cameraRect )
+void MapDrawer::draw( SDL_Renderer *renderTarget, SDL_Rect cameraRect )
 {
 	int rowCount = 3;
 	int colCount = 3;
@@ -40,7 +40,7 @@ void MapDrawer::Draw( SDL_Renderer *renderTarget, SDL_Rect cameraRect )
 	{
 		for( int x = 0; x < colCount; x++ )
 		{
-			chunks->at( y )->at( x )->Draw( y * 1024, x * 1024, &cameraRect );
+			chunks->at( y )->at( x )->draw( y * 1024, x * 1024, &cameraRect );
 		}
 	}
 }

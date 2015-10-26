@@ -1,6 +1,6 @@
 #include "Chunk.h"
 
-SDL_Texture* LoadImage( SDL_Renderer *renderTarget, std::string filePath )
+SDL_Texture* loadImage( SDL_Renderer *renderTarget, std::string filePath )
 {
 	filePath = filePath.substr( 3 );
 	SDL_Surface *surface = IMG_Load( filePath.c_str() );
@@ -65,10 +65,10 @@ Chunk::~Chunk()
 	boxShape = nullptr;
 }
 
-void Chunk::AddTileSet( std::string filePath, int spacing, int firstId, int amount, int width, int height )
+void Chunk::addTileSet( std::string filePath, int spacing, int firstId, int amount, int width, int height )
 {
 
-	SDL_Texture  *texture = LoadImage( renderTarget, filePath );
+	SDL_Texture  *texture = loadImage( renderTarget, filePath );
 	//save pointer for removing
 	textures->push_back( texture );
 	int x = 0;
@@ -91,7 +91,7 @@ void Chunk::AddTileSet( std::string filePath, int spacing, int firstId, int amou
 	}
 }
 
-void Chunk::AddCollidableObject( int x, int y )
+void Chunk::addCollidableObject( int x, int y )
 {
 	//collisionBodyDef->position.Set(x * 2, y * 3);
 	//b2Body staticBody = m_world->CreateBody(collisionBodyDef);
@@ -99,12 +99,12 @@ void Chunk::AddCollidableObject( int x, int y )
 	//bodies->push_back(staticBody);
 }
 
-void Chunk::AddLocation( Location l )
+void Chunk::addLocation( Location l )
 {
 	locations->push_back( l );
 }
 
-void Chunk::Draw( int x, int y, SDL_Rect *cameraRect )
+void Chunk::draw( int x, int y, SDL_Rect *cameraRect )
 {
 	Tile *tile = nullptr;
 	SDL_Rect tarRect = { 0, 0, 32, 32 };

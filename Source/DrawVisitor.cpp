@@ -9,12 +9,12 @@ DrawVisitor::DrawVisitor( SDL_Renderer *renderTarget, SDL_Rect *cameraRect )
 	this->renderTarget = renderTarget;
 	this->cameraRect = cameraRect;
 }
+
+
 DrawVisitor::~DrawVisitor()
-{
+{}
 
-}
-
-void DrawVisitor::Visit( IDrawable *id )
+void DrawVisitor::visit( IDrawable *id )
 {
-	id->Draw( renderTarget, *cameraRect );
+	id->draw( renderTarget, *cameraRect );
 }

@@ -7,6 +7,6 @@ class DrawVisitor;
 class IDrawable
 {
 public:
-	virtual void Accept(DrawVisitor *dv);
-	virtual void Draw(SDL_Renderer *renderTarget, SDL_Rect cameraRect);
+	virtual void accept(DrawVisitor *dv);
+	virtual void draw(SDL_Renderer *renderTarget, SDL_Rect cameraRect);
 };

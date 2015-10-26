@@ -23,7 +23,7 @@ Player::Player( SDL_Renderer *renderTarget, int xPosition, int yPosition, float 
 	animations->push_back( walking_down_animation );
 
 	/* Set the animation */
-	SetAnimation( Walking_Down );
+	setAnimation( Walking_Down );
 
 	this->moveSpeed = moveSpeed;
 	isActive = false;
@@ -53,35 +53,35 @@ Player::~Player()
 }
 
 //TODO: animation based on X and Y velocity
-void Player::Update( float delta, const Uint8 *keyState )
+void Player::update( float delta, const Uint8 *keyState )
 {
 	isActive = true;
 	if( keyState[keys[0]] )
 	{
-		SetAnimation( Walking_Up );
+		setAnimation( Walking_Up );
 		positionRect.y -= int( moveSpeed * delta );
 	} else if( keyState[keys[1]] )
 	{
-		SetAnimation( Walking_Down );
+		setAnimation( Walking_Down );
 		positionRect.y += int( moveSpeed * delta );
 	} else if( keyState[keys[2]] )
 	{
-		SetAnimation( Walking_Left );
+		setAnimation( Walking_Left );
 		positionRect.x -= int( moveSpeed * delta );
 	} else if( keyState[keys[3]] )
 	{
-		SetAnimation( Walking_Right );
+		setAnimation( Walking_Right );
 		positionRect.x += int( moveSpeed * delta );
 	} else
 		isActive = false;
 
 	if( isActive )
-		animations->at( currentAnimaton )->Update( delta );
+		animations->at( currentAnimaton )->update( delta );
 	else
-		animations->at( currentAnimaton )->StandStill();
+		animations->at( currentAnimaton )->standStill();
 }
 
-void Player::SetAnimation( PlayerAnimation playerAnimation )
+void Player::setAnimation( PlayerAnimation playerAnimation )
 {
 	currentAnimaton = playerAnimation;
 

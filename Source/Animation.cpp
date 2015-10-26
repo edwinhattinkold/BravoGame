@@ -42,7 +42,7 @@ Animation::~Animation()
 	SDL_DestroyTexture( texture );
 }
 
-void Animation::Update( float deltaTime )
+void Animation::update( float deltaTime )
 {
 	frameCounter += deltaTime;
 
@@ -60,12 +60,12 @@ void Animation::Update( float deltaTime )
 	}
 }
 
-void Animation::Draw( SDL_Renderer* renderTarget, SDL_Rect drawingRect )
+void Animation::draw( SDL_Renderer* renderTarget, SDL_Rect drawingRect )
 {
 	SDL_RenderCopy( renderTarget, texture, &cropRect, &drawingRect );
 }
 
-void Animation::StandStill()
+void Animation::standStill()
 {
 	frameCounter = 0.0f;
 	cropRect.x = frameWidth * startFrameX;

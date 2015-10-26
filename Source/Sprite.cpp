@@ -9,7 +9,7 @@ Sprite::Sprite( int xPosition, int yPosition, DrawContainer *dc )
 	currentAnimaton = 0;
 	positionRect.x = xPosition;
 	positionRect.y = yPosition;
-	dc->Add( this );//Adds itself to the container (container reference needed though
+	dc->add( this );//Adds itself to the container (container reference needed though
 }
 
 Sprite::Sprite( SDL_Renderer *renderTarget, std::string filePath, int xPosition, int yPosition, int framesX, int framesY, float animationSpeed, DrawContainer *dc )
@@ -26,7 +26,7 @@ Sprite::Sprite( SDL_Renderer *renderTarget, std::string filePath, int xPosition,
 	positionRect.w = animations->at( currentAnimaton )->getFrameWidth();
 	positionRect.h = animations->at( currentAnimaton )->getFrameHeight();
 
-	dc->Add( this ); //Adds itself to the container (container reference needed though
+	dc->add( this ); //Adds itself to the container (container reference needed though
 }
 
 Sprite::~Sprite()
@@ -36,15 +36,15 @@ Sprite::~Sprite()
 	delete animations;
 }
 
-void Sprite::Update( float delta, const Uint8 *keyState )
+void Sprite::update( float delta, const Uint8 *keyState )
 {
-	animations->at( currentAnimaton )->Update( delta );
+	animations->at( currentAnimaton )->update( delta );
 }
 
-void Sprite::Draw( SDL_Renderer *renderTarget, SDL_Rect camerRect )
+void Sprite::draw( SDL_Renderer *renderTarget, SDL_Rect camerRect )
 {
 	SDL_Rect drawingRect = { positionRect.x - camerRect.x, positionRect.y - camerRect.y, positionRect.w, positionRect.h };
-	animations->at( currentAnimaton )->Draw( renderTarget, drawingRect );
+	animations->at( currentAnimaton )->draw( renderTarget, drawingRect );
 }
 
 int Sprite::getPositionX()
@@ -65,7 +65,7 @@ void Sprite::setOriginY( int newOriginY )
 	originY = newOriginY;
 }
 
-void Sprite::Subscribe()
+void Sprite::subscribe()
 {
 	//TODO: sprite subscribes itself.
 	throw new std::logic_error( "not yet implemented" );

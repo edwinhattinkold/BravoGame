@@ -48,12 +48,12 @@ private:
 	void tick();
 
 	float calcDeltaTime();
-	SDL_Texture *LoadTexture(std::string filePath, SDL_Renderer *renderTarget);
+	SDL_Texture *loadTexture(std::string filePath, SDL_Renderer *renderTarget);
 	void createCamera(SDL_Window *window, int levelWidth, int levelHeight);
 public:
 	World(SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font);
 	~World();
-	void Run();
+	void run();
 };
 
 

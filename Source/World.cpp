@@ -26,17 +26,17 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	updateContainer = new UpdateContainer();
 
 	//TODO: main menu in separate class, drawable maybe?
-	mainMenuBackground = LoadTexture( "Images/Mainmenu/background.png", renderTarget );
+	mainMenuBackground = loadTexture( "Images/Mainmenu/background.png", renderTarget );
 	menu = new MainMenu( renderTarget, mainMenuBackground, camera->getCamera(), font );
 
 	//Creation of sprites should be placed elsewhere as well, I'm just running out of time
 	player1 = new Player( renderTarget, 0, 0, 300.0f, drawContainer );
 	mapDrawer = new MapDrawer( renderTarget );
 
-	drawContainer->Add( mapDrawer );
-	drawContainer->Add( player1 );
+	drawContainer->add( mapDrawer );
+	drawContainer->add( player1 );
 
-	updateContainer->Add( player1 );
+	updateContainer->add( player1 );
 }
 
 
@@ -85,15 +85,15 @@ void World::tick()
 	//TODO: make camera IUpdateable.  <-- klinkt netjes, maar is niet slim, aangezien de camera altijd als eerst geupdate MOET worden
 	//zodat alle ander updates gegevens uit de geupdate camera kunnen halen, als je het in een vector op positie 0 zet dan kan een ander stuk code
 	//een element op de 0ste plek zetten, waardoor alles omvalt.
-	camera->Update( player1->getPositionX(), player1->getPositionY() );
+	camera->update( player1->getPositionX(), player1->getPositionY() );
 
-	updateContainer->Update( deltaTime, keyState );
+	updateContainer->update( deltaTime, keyState );
 
 	//update SDL
 	updateSDL();
 }
 
-void World::Run()
+void World::run()
 {
 	isRunning = true;
 
@@ -112,7 +112,7 @@ void World::Run()
 void World::updateSDL()
 {
 	SDL_RenderClear( renderTarget );
-	drawContainer->Draw();
+	drawContainer->draw();
 	SDL_RenderPresent( renderTarget );
 }
 
@@ -132,7 +132,7 @@ void World::createCamera( SDL_Window *window, int levelWidth, int levelHeight )
 	camera = new Camera( levelWidth, levelHeight, width, height );
 }
 
-SDL_Texture* World::LoadTexture( std::string filePath, SDL_Renderer *renderTarget )
+SDL_Texture* World::loadTexture( std::string filePath, SDL_Renderer *renderTarget )
 {
 	SDL_Texture *texture = nullptr;
 	SDL_Surface *surface = IMG_Load( filePath.c_str() );

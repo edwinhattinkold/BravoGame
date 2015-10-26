@@ -1,10 +1,10 @@
 #include "IDrawable.h"
 #include "DrawVisitor.h"
 
-void IDrawable::Accept( DrawVisitor *dv )
+void IDrawable::accept( DrawVisitor *dv )
 {
-	dv->Visit( this );
+	dv->visit( this );
 }
 
-void IDrawable::Draw( SDL_Renderer *renderTarget, SDL_Rect cameraRect )
+void IDrawable::draw( SDL_Renderer *renderTarget, SDL_Rect cameraRect )
 {}

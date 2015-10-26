@@ -13,18 +13,18 @@ DrawContainer::~DrawContainer()
 	delete objects;
 }
 
-void DrawContainer::Draw()
+void DrawContainer::draw()
 {
 	for( size_t i = 0; i < objects->size(); i++ )
-		objects->at( i )->Accept( dv );
+		objects->at( i )->accept( dv );
 }
 
-void DrawContainer::Add( IDrawable *drawable )
+void DrawContainer::add( IDrawable *drawable )
 {
 	objects->push_back( drawable );
 }
 
-void DrawContainer::Remove( IDrawable *drawable )
+void DrawContainer::remove( IDrawable *drawable )
 {
 	//std::vector<IDrawable>::iterator it;
 	//it = std::find(objects->begin(), objects->end(), drawable);

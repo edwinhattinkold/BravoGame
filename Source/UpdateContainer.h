@@ -12,8 +12,8 @@ public:
 	UpdateContainer();
 	~UpdateContainer();
 
-	void Update(float deltaTime, const Uint8* keyState);
-	void Add(IUpdateable *updateable);
-	void Remove(IUpdateable *updateable);
+	void update(float deltaTime, const Uint8* keyState);
+	void add(IUpdateable *updateable);
+	void remove(IUpdateable *updateable);
 };
 

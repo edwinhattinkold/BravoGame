@@ -12,6 +12,6 @@ private:
 public:
 	UpdateVisitor();
 	~UpdateVisitor();
-	void Visit(IUpdateable *iu, float deltaTime, const Uint8 *keyState);
+	void visit(IUpdateable *iu, float deltaTime, const Uint8 *keyState);
 };
 

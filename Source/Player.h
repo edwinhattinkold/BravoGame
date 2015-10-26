@@ -20,8 +20,8 @@ public:
 	Player(SDL_Renderer *renderTarget, int xPosition, int yPosition, float moveSpeed, DrawContainer *dc);
 	~Player();
 
-	virtual void Update(float delta, const Uint8 *keyState);
-	void SetAnimation(PlayerAnimation playerAnimation);
+	virtual void update(float delta, const Uint8 *keyState);
+	void setAnimation(PlayerAnimation playerAnimation);
 };
 
 #endif

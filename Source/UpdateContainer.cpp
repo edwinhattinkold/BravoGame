@@ -14,12 +14,12 @@ UpdateContainer::~UpdateContainer()
 	delete objects;
 }
 
-void UpdateContainer::Add( IUpdateable *updateable )
+void UpdateContainer::add( IUpdateable *updateable )
 {
 	objects->push_back( updateable );
 }
 
-void UpdateContainer::Remove( IUpdateable *updateable )
+void UpdateContainer::remove( IUpdateable *updateable )
 {
 	std::vector<IUpdateable *>::iterator it;
 	it = std::find( objects->begin(), objects->end(), updateable );
@@ -31,10 +31,10 @@ void UpdateContainer::Remove( IUpdateable *updateable )
 	objects->pop_back();
 }
 
-void UpdateContainer::Update( float deltaTime, const Uint8* keyState )
+void UpdateContainer::update( float deltaTime, const Uint8* keyState )
 {
 	for( size_t c = 0; c < objects->size(); c++ )
 	{
-		objects->at( c )->Accept( uv, deltaTime, keyState );
+		objects->at( c )->accept( uv, deltaTime, keyState );
 	}
 }

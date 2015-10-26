@@ -13,8 +13,8 @@ public:
 	DrawContainer(SDL_Renderer *renderTarget, SDL_Rect *cameraRect);
 	~DrawContainer();
 
-	void Draw();
-	void Add(IDrawable *drawable);
-	void Remove(IDrawable *drawable);
+	void draw();
+	void add(IDrawable *drawable);
+	void remove(IDrawable *drawable);
 };
 

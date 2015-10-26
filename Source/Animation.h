@@ -18,9 +18,9 @@ private:
 public:
 	Animation(SDL_Renderer* renderTarget, std::string filePath, int framesX, int framesY, int startFrameX, int startFrameY, float animationSpeed);
 	~Animation();
-	void Update(float deltaTime);
-	void Draw(SDL_Renderer* renderTarget, SDL_Rect drawingRect);
-	void StandStill();
+	void update(float deltaTime);
+	void draw(SDL_Renderer* renderTarget, SDL_Rect drawingRect);
+	void standStill();
 
 	int getOriginX();
 	int getOriginY();
