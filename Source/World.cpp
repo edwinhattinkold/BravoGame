@@ -30,12 +30,12 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	menu = new MainMenu( renderTarget, mainMenuBackground, camera->getCamera(), font );
 
 	//Creation of sprites should be placed elsewhere as well, I'm just running out of time
-	player1 = new Player( renderTarget, 0, 0, 300.0f, drawContainer );
-	mapDrawer = new MapDrawer( renderTarget );
+	player1 = new Player( renderTarget, 1024, 1024, 300.0f, drawContainer );
+	mapDrawer = new MapDrawer( renderTarget, camera->getCamera() );
 
 	drawContainer->add( mapDrawer );
 	drawContainer->add( player1 );
-
+	updateContainer->add( mapDrawer );
 	updateContainer->add( player1 );
 }
 
