@@ -1,17 +1,17 @@
 #include "MapDrawer.h"
 
-
-MapDrawer::MapDrawer( SDL_Renderer *renderTarget )
+MapDrawer::MapDrawer(SDL_Renderer *renderTarget, World *world)
 {
 	int rowCount = 3;
 	int colCount = 3;
 	XMLReader xmlReader;
+	this->world = world;
 	chunks = new std::vector<std::vector<Chunk*>*>();
-	for( int y = 0; y < rowCount; ++y )
+	for (int y = 0; y < rowCount; ++y)
 	{
-		chunks->push_back( new std::vector<Chunk*>() );
-		for( int x = 0; x < colCount; x++ )
-			chunks->at( y )->push_back( new Chunk( renderTarget, "maps/" + xmlReader.getChunk( x, y ) ) );
+		chunks->push_back(new std::vector<Chunk*>());
+		for (int x = 0; x < colCount; x++)
+			chunks->at(y)->push_back(new Chunk(renderTarget, "maps/" + xmlReader.getChunk(x, y),world));
 	}
 }
 

@@ -12,8 +12,9 @@ class MapDrawer : public IDrawable
 {
 private:
 	std::vector<std::vector<Chunk*>*> *chunks;
+	World *world;
 public:
-	MapDrawer(SDL_Renderer *renderTarget);
+	MapDrawer(SDL_Renderer *renderTarget, World *world);
 	~MapDrawer();
 	virtual void draw(SDL_Renderer *renderTarget, SDL_Rect cameraRect);
 };

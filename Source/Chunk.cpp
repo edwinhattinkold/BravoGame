@@ -1,5 +1,5 @@
 #include "Chunk.h"
-
+#include "World.h"
 SDL_Texture* loadImage( SDL_Renderer *renderTarget, std::string filePath )
 {
 	filePath = filePath.substr( 3 );
@@ -17,15 +17,16 @@ SDL_Texture* loadImage( SDL_Renderer *renderTarget, std::string filePath )
 	return NULL;
 }
 
-Chunk::Chunk( SDL_Renderer *rt, std::string filePath )
+Chunk::Chunk(SDL_Renderer *rt, std::string filePath, World *world)
 {
+	this->world = world;
 	renderTarget = rt;
 	textures = new std::vector<SDL_Texture*>();
 	tiles = new std::vector<Tile*>();
 	tiles->push_back( nullptr );
 	locations = new std::vector<Location>();
 	//create holder and definitions for box2d
-	bodies = new std::vector<b2Body>();
+	bodies = new std::vector<b2Body*>();
 	collisionBodyDef = new b2BodyDef();
 	collisionBodyDef->type = b2_staticBody;
 	collisionBodyDef->angle = 0;
@@ -50,6 +51,12 @@ Chunk::~Chunk()
 		SDL_DestroyTexture( textures->at( j ) );
 		textures->at( j ) = nullptr;
 	}
+	for (size_t k = 0; k < bodies->size(); k++){
+		world->destroyBody(bodies->at(k));
+		bodies->at(k) = nullptr;
+	}
+	delete bodies;
+	bodies = nullptr;
 	delete tiles;
 	tiles = nullptr;
 	delete textures;
@@ -93,10 +100,10 @@ void Chunk::addTileSet( std::string filePath, int spacing, int firstId, int amou
 
 void Chunk::addCollidableObject( int x, int y )
 {
-	//collisionBodyDef->position.Set(x * 2, y * 3);
-	//b2Body staticBody = m_world->CreateBody(collisionBodyDef);
-	//staticBody.CreateFixture(collisionFixtureDef);
-	//bodies->push_back(staticBody);
+	collisionBodyDef->position.Set(x * 2, y * 3);
+	b2Body *staticBody = world->createBody(collisionBodyDef);
+	staticBody->CreateFixture(collisionFixtureDef);
+	bodies->push_back(staticBody);
 }
 
 void Chunk::addLocation( Location l )
