@@ -11,6 +11,7 @@ private:
 	SDL_Rect backgroundImageRect;
 	SDL_Rect* cameraRect;
 	SDL_Texture* backgroundImage;
+	SDL_Event ev;
 	std::vector<MenuItem*>* menuItems;
 	Sound* sound;
 	Uint32 time;

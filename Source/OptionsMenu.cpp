@@ -1,4 +1,5 @@
 #include "OptionsMenu.h"
+#include "CustomCursor.h"
 
 OptionsMenu::OptionsMenu(SDL_Renderer* renderTarget, SDL_Texture* backgroundImage, SDL_Rect* cameraRect, TTF_Font* font)
 {
@@ -46,6 +47,8 @@ int OptionsMenu::getExitCode(){
 }
 
 int OptionsMenu::showMenu(SDL_Renderer* renderTarget){
+	SDL_GetMouseState( &mouseX, &mouseY );
+	CustomCursor::getInstance( )->draw( mouseX, mouseY );
 	int choice = createMenu(renderTarget);
 	switch (choice){
 	case(Choices::Back) :
@@ -61,24 +64,23 @@ int OptionsMenu::showMenu(SDL_Renderer* renderTarget){
 }
 
 int OptionsMenu::createMenu(SDL_Renderer* renderTarget){
-	SDL_Event event;
 	while (1)
 	{
 		time = SDL_GetTicks();
-		while (SDL_PollEvent(&event)){
-			switch (event.type){
+		while (SDL_PollEvent(&ev)){
+			switch (ev.type){
 			case SDL_QUIT:
 				return Choices::Exit;
 			case SDL_MOUSEMOTION:
-				mouseX = event.motion.x;
-				mouseY = event.motion.y;
+				mouseX = ev.motion.x;
+				mouseY = ev.motion.y;
 				for (size_t i = 0; i < menuItems->size(); i++)
 					if (menuItems->at(i)->checkHover(mouseX, mouseY))
 						sound->playSound(Sound_MainMenu_Tick);
 				break;
 			case SDL_MOUSEBUTTONDOWN:
-				mouseX = event.motion.x;
-				mouseY = event.motion.y;
+				mouseX = ev.motion.x;
+				mouseY = ev.motion.y;
 				for (size_t index = 0; index < menuItems->size(); index++)
 					if (mouseX >= menuItems->at(index)->getXPosition() && mouseX <= menuItems->at(index)->getXPosition() + menuItems->at(index)->getWidth() &&
 						mouseY >= menuItems->at(index)->getYPosition() && mouseY <= menuItems->at(index)->getYPosition() + menuItems->at(index)->getHeight()){
@@ -96,6 +98,7 @@ int OptionsMenu::createMenu(SDL_Renderer* renderTarget){
 		SDL_RenderClear(renderTarget);
 		SDL_RenderCopy(renderTarget, backgroundImage, NULL, NULL);
 		draw(renderTarget);
+		CustomCursor::getInstance( )->draw( mouseX, mouseY );
 		SDL_RenderPresent(renderTarget);
 	}
 }

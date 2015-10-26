@@ -1,4 +1,6 @@
 #include "Sound.h"
+#include "CustomCursor.h"
+#include <Windows.h>
 static Sound* instance;
 
 Sound::Sound(){
@@ -10,7 +12,7 @@ Sound::Sound(){
 	startFilePath = "Sounds/";
 	muted = false;
 	previousVolume = 1.00f;
-	fadeTickSpeed = 0.01f;
+	fadeTickSpeed = 0.02f;
 
 	sounds = new std::map<int, std::string>();
 	sounds->insert( std::pair<int, std::string>( Sound_MainMenu_Theme,	"rock_intro.mp3" ) );
@@ -93,18 +95,14 @@ void Sound::unmute(){
 }
 
 void Sound::fadeIn(){
-	SDL_Event ev;
 	while (getVolume() != 1.00f){
-		while (SDL_PollEvent(&ev)); //Keep the application responsive
 		fadeInTick();
 		SDL_Delay(16);
 	}
 }
 
 void Sound::fadeOut(){
-	SDL_Event ev;
 	while (getVolume() != 0.00f){
-		while (SDL_PollEvent(&ev)); //Keep the application responsive
 		fadeOutTick();
 		SDL_Delay(16);
 	}

@@ -107,7 +107,7 @@
     </ClInclude>
     <ClInclude Include="Source\Chunk.h">
       <Filter>Header Files\Map</Filter>
-	</ClInclude>
+    </ClInclude>
     <ClInclude Include="Source\DrawVisitor.h">
       <Filter>Header Files\Visitors</Filter>
     </ClInclude>
@@ -134,6 +134,9 @@
     </ClInclude>
     <ClInclude Include="Source\CreditsMenu.h">
       <Filter>Header Files\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CustomCursor.h">
+      <Filter>Header Files\GraphicObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +181,9 @@
     </ClCompile>
     <ClCompile Include="Source\Chunk.cpp">
       <Filter>Source Files\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CustomCursor.cpp">
+      <Filter>Source Files\GraphicObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

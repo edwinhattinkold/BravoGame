@@ -1,5 +1,6 @@
 #include "CreditsMenu.h"
 #include <math.h> 
+#include "CustomCursor.h"
 
 CreditsMenu::CreditsMenu( SDL_Renderer* renderTarget, SDL_Rect* cameraRect )
 {
@@ -122,6 +123,8 @@ std::pair<MenuItem*, int>* CreditsMenu::createLine( SDL_Renderer* renderTarget, 
 
 int CreditsMenu::showMenu( SDL_Renderer* renderTarget )
 {
+	SDL_GetMouseState( &mouseX, &mouseY );
+	CustomCursor::getInstance( )->draw( mouseX, mouseY );
 	previousTime = SDL_GetTicks();;
 	currentTime = SDL_GetTicks();;
 	deltaTime = 0.0f;
@@ -195,6 +198,7 @@ int CreditsMenu::createMenu( SDL_Renderer* renderTarget )
 		SDL_RenderClear( renderTarget );
 		update( deltaTime );
 		draw( renderTarget );
+		CustomCursor::getInstance( )->draw( mouseX, mouseY );
 		SDL_RenderPresent( renderTarget );
 		SDL_Delay( 1000 / 60 );
 	}

@@ -1,4 +1,5 @@
 #include "MainMenu.h"
+#include "CustomCursor.h"
 
 MainMenu::MainMenu(SDL_Renderer* renderTarget, SDL_Texture* backgroundImage, SDL_Rect* cameraRect, TTF_Font* font)
 {
@@ -58,6 +59,8 @@ int MainMenu::getExitCode(){
 }
 
 int MainMenu::showMenu(SDL_Renderer* renderTarget){
+	SDL_GetMouseState( &mouseX, &mouseY );
+	CustomCursor::getInstance( )->draw( mouseX, mouseY );
 	int choice = createMenu(renderTarget);
 	switch (choice){
 	case(Choices::Continue) :
@@ -98,7 +101,7 @@ int MainMenu::createMenu(SDL_Renderer* renderTarget){
 	{
 		if (sound->getVolume() != 1.00f)
 			sound->fadeInTick();
-
+		SDL_ShowCursor( SDL_DISABLE );
 		time = SDL_GetTicks();
 		while (SDL_PollEvent(&event)){
 			switch (event.type){
@@ -126,6 +129,7 @@ int MainMenu::createMenu(SDL_Renderer* renderTarget){
 		SDL_RenderClear(renderTarget);
 		SDL_RenderCopy(renderTarget, backgroundImage, NULL, NULL);
 		draw(renderTarget);
+		CustomCursor::getInstance( )->draw( mouseX, mouseY );
 		SDL_RenderPresent(renderTarget);
 	}
 }
