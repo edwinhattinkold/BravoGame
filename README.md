@@ -1,4 +1,4 @@
- # BravoGame
+#BravoGame
 Neem contact op met Edwin voor onduidelijkheden en vragen over github.
 ##[GitFlow](http://nvie.com/posts/a-successful-git-branching-model/)
 Hier kan je lezen hoe GitFlow werkt, een Git branch model dat wij gaan gebruiken. (Omdat het goed werkt als je het goed gebruikt).
