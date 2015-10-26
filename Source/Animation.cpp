@@ -2,19 +2,20 @@
 #include <iostream>
 
 
-Animation::Animation(SDL_Renderer* renderTarget, std::string filePath, int framesX, int framesY, int startFrameX, int startFrameY, float animationSpeed)
+Animation::Animation( SDL_Renderer* renderTarget, std::string filePath, int framesX, int framesY, int startFrameX, int startFrameY, float animationSpeed )
 {
-	SDL_Surface *surface = IMG_Load(filePath.c_str());
-	if (surface == NULL)
+	SDL_Surface *surface = IMG_Load( filePath.c_str() );
+	if( surface == NULL )
 		std::cout << "Error" << std::endl;
-	else {
-		texture = SDL_CreateTextureFromSurface(renderTarget, surface);
-		if (texture == NULL)
+	else
+	{
+		texture = SDL_CreateTextureFromSurface( renderTarget, surface );
+		if( texture == NULL )
 			std::cout << "Error" << std::endl;
 	}
-	SDL_FreeSurface(surface);
+	SDL_FreeSurface( surface );
 
-	SDL_QueryTexture(texture, NULL, NULL, &cropRect.w, &cropRect.h);
+	SDL_QueryTexture( texture, NULL, NULL, &cropRect.w, &cropRect.h );
 
 	textureWidth = cropRect.w;
 	textureHeight = cropRect.h;
@@ -38,46 +39,55 @@ Animation::Animation(SDL_Renderer* renderTarget, std::string filePath, int frame
 
 Animation::~Animation()
 {
-	SDL_DestroyTexture(texture);
+	SDL_DestroyTexture( texture );
 }
 
-void Animation::Update(float deltaTime){
+void Animation::Update( float deltaTime )
+{
 	frameCounter += deltaTime;
 
-	if (frameCounter >= animationSpeed){
+	if( frameCounter >= animationSpeed )
+	{
 		frameCounter = 0;
 		cropRect.x += frameWidth;
-		if (cropRect.x >= textureWidth){
+		if( cropRect.x >= textureWidth )
+		{
 			cropRect.y += frameHeight;
 			cropRect.x = 0;
-			if (cropRect.y >= textureHeight)
+			if( cropRect.y >= textureHeight )
 				cropRect.y = 0;
 		}
 	}
 }
 
-void Animation::Draw(SDL_Renderer* renderTarget, SDL_Rect drawingRect){
-	SDL_RenderCopy(renderTarget, texture, &cropRect, &drawingRect);
+void Animation::Draw( SDL_Renderer* renderTarget, SDL_Rect drawingRect )
+{
+	SDL_RenderCopy( renderTarget, texture, &cropRect, &drawingRect );
 }
 
-void Animation::StandStill(){
+void Animation::StandStill()
+{
 	frameCounter = 0.0f;
 	cropRect.x = frameWidth * startFrameX;
 	cropRect.y = frameHeight * startFrameY;
 }
 
-int Animation::getOriginX(){
+int Animation::getOriginX()
+{
 	return frameWidth / 2;
 }
 
-int Animation::getOriginY(){
+int Animation::getOriginY()
+{
 	return frameHeight / 2;
 }
 
-int Animation::getFrameWidth(){
+int Animation::getFrameWidth()
+{
 	return frameWidth;
 }
 
-int Animation::getFrameHeight(){
+int Animation::getFrameHeight()
+{
 	return frameHeight;
 }

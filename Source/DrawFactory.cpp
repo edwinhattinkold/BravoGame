@@ -1,8 +1,7 @@
 #include "DrawFactory.h"
 
 DrawFactory::~DrawFactory()
-{
-}
+{}
 
 // DrawFactory& DrawFactory::getInstance()
 // {

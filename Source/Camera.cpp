@@ -2,7 +2,7 @@
 #include <iostream>
 
 
-Camera::Camera(int levelWidth, int levelHeight, int windowWidth, int windowHeight)
+Camera::Camera( int levelWidth, int levelHeight, int windowWidth, int windowHeight )
 {
 	this->levelWidth = levelWidth;
 	this->levelHeight = levelHeight;
@@ -16,27 +16,30 @@ Camera::Camera(int levelWidth, int levelHeight, int windowWidth, int windowHeigh
 }
 
 
-Camera::~Camera(void)
+Camera::~Camera( void )
 {
 	delete cameraRect;	cameraRect = nullptr;
 }
 
-void Camera::Update(int xPosition, int yPosition){
-	cameraRect->x = xPosition - (windowWidth / 2);
-	cameraRect->y = yPosition - (windowHeight / 2);
+void Camera::Update( int xPosition, int yPosition )
+{
+	cameraRect->x = xPosition - ( windowWidth / 2 );
+	cameraRect->y = yPosition - ( windowHeight / 2 );
 
-	if (cameraRect->x < 0)
+	if( cameraRect->x < 0 )
 		cameraRect->x = 0;
-	if (cameraRect->y < 0)
+	if( cameraRect->y < 0 )
 		cameraRect->y = 0;
 
-	if (cameraRect->x + cameraRect->w >= levelWidth){
+	if( cameraRect->x + cameraRect->w >= levelWidth )
+	{
 		cameraRect->x = levelWidth - windowWidth;
 	}
-	if (cameraRect->y + cameraRect->h >= levelHeight)
+	if( cameraRect->y + cameraRect->h >= levelHeight )
 		cameraRect->y = levelHeight - windowHeight;
 }
 
-SDL_Rect* Camera::getCamera(){
+SDL_Rect* Camera::getCamera()
+{
 	return cameraRect;
 }

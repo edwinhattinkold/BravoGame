@@ -1,42 +1,42 @@
 #include "World.h"
 
 
-World::World(SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font)
+World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font )
 {
 	prevTime = 0;
 	currentTime = 0;
 	deltaTime = 0.0f;
 	isRunning = true;
 
-	velocityIterations = new int32(8);
-	positionIterations = new int32(3);
+	velocityIterations = new int32( 8 );
+	positionIterations = new int32( 3 );
 
 	//create physics world (box2d)
-	gravity = new b2Vec2(0.0f, 0.0f);
-	physics = new b2World(*gravity);
+	gravity = new b2Vec2( 0.0f, 0.0f );
+	physics = new b2World( *gravity );
 
 	//create graphics world (SDL)
-	renderTarget = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	renderTarget = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
 
 	//TODO: Level in separate class, camera too maybe?
-	createCamera(window, levelWidth, levelHeight);
+	createCamera( window, levelWidth, levelHeight );
 
 	//Create containers
-	drawContainer = new DrawContainer(renderTarget, camera->getCamera());
+	drawContainer = new DrawContainer( renderTarget, camera->getCamera() );
 	updateContainer = new UpdateContainer();
 
 	//TODO: main menu in separate class, drawable maybe?
-	mainMenuBackground = LoadTexture("Images/Mainmenu/background.png", renderTarget);
-	menu = new MainMenu(renderTarget, mainMenuBackground, camera->getCamera(), font);
+	mainMenuBackground = LoadTexture( "Images/Mainmenu/background.png", renderTarget );
+	menu = new MainMenu( renderTarget, mainMenuBackground, camera->getCamera(), font );
 
 	//Creation of sprites should be placed elsewhere as well, I'm just running out of time
-	player1 = new Player(renderTarget, 0, 0, 300.0f, drawContainer);
-	mapDrawer = new MapDrawer(renderTarget);
+	player1 = new Player( renderTarget, 0, 0, 300.0f, drawContainer );
+	mapDrawer = new MapDrawer( renderTarget );
 
-	drawContainer->Add(mapDrawer);
-	drawContainer->Add(player1);
+	drawContainer->Add( mapDrawer );
+	drawContainer->Add( player1 );
 
-	updateContainer->Add(player1);
+	updateContainer->Add( player1 );
 }
 
 
@@ -52,8 +52,8 @@ World::~World()
 	delete menu;								menu = nullptr;
 	delete player1;								player1 = nullptr;
 	delete mapDrawer;							mapDrawer = nullptr;
-	SDL_DestroyTexture(mainMenuBackground);		mainMenuBackground = nullptr;
-	SDL_DestroyRenderer(renderTarget);			renderTarget = nullptr;
+	SDL_DestroyTexture( mainMenuBackground );		mainMenuBackground = nullptr;
+	SDL_DestroyRenderer( renderTarget );			renderTarget = nullptr;
 }
 
 //Update the world
@@ -63,82 +63,88 @@ void World::tick()
 	calcDeltaTime();
 
 	//Input handling
-	while (SDL_PollEvent(&ev) != 0){
-		if (ev.type == SDL_QUIT)
+	while( SDL_PollEvent( &ev ) != 0 )
+	{
+		if( ev.type == SDL_QUIT )
 			isRunning = false;
-		if (ev.key.keysym.sym == SDLK_ESCAPE){
-			Sound::getInstance()->playSoundLooping(Sound_MainMenu_Theme);
-			int i = menu->showMenu(renderTarget);
-			if (i == menu->getExitCode())
+		if( ev.key.keysym.sym == SDLK_ESCAPE )
+		{
+			Sound::getInstance()->playSoundLooping( Sound_MainMenu_Theme );
+			int i = menu->showMenu( renderTarget );
+			if( i == menu->getExitCode() )
 				isRunning = false;
 		}
 	}
 
-	keyState = SDL_GetKeyboardState(NULL);
+	keyState = SDL_GetKeyboardState( NULL );
 
 	//update physics
-	physics->Step(deltaTime, *velocityIterations, *positionIterations);
+	physics->Step( deltaTime, *velocityIterations, *positionIterations );
 
 	//update camera
 	//TODO: make camera IUpdateable.  <-- klinkt netjes, maar is niet slim, aangezien de camera altijd als eerst geupdate MOET worden
 	//zodat alle ander updates gegevens uit de geupdate camera kunnen halen, als je het in een vector op positie 0 zet dan kan een ander stuk code
 	//een element op de 0ste plek zetten, waardoor alles omvalt.
-	camera->Update(player1->getPositionX(), player1->getPositionY());
+	camera->Update( player1->getPositionX(), player1->getPositionY() );
 
-	updateContainer->Update(deltaTime, keyState);
+	updateContainer->Update( deltaTime, keyState );
 
 	//update SDL
 	updateSDL();
 }
 
-void World::Run(){
+void World::Run()
+{
 	isRunning = true;
 
 	//Show the menu
-	int i = menu->showMenu(renderTarget);
-	if (i == menu->getExitCode())
+	int i = menu->showMenu( renderTarget );
+	if( i == menu->getExitCode() )
 		isRunning = false;
 
-	while (isRunning)
+	while( isRunning )
 		tick();
 
-	SDL_DestroyRenderer(renderTarget);
+	SDL_DestroyRenderer( renderTarget );
 	renderTarget = nullptr;
 }
 
-void World::updateSDL(){
-	SDL_RenderClear(renderTarget);
+void World::updateSDL()
+{
+	SDL_RenderClear( renderTarget );
 	drawContainer->Draw();
-	SDL_RenderPresent(renderTarget);
+	SDL_RenderPresent( renderTarget );
 }
 
-float World::calcDeltaTime(){
+float World::calcDeltaTime()
+{
 	prevTime = currentTime;
 	currentTime = SDL_GetTicks();
-	deltaTime = (currentTime - prevTime) / 1000.0f;
+	deltaTime = ( currentTime - prevTime ) / 1000.0f;
 	return deltaTime;
 }
 
-void World::createCamera(SDL_Window *window, int levelWidth, int levelHeight)
+void World::createCamera( SDL_Window *window, int levelWidth, int levelHeight )
 {
 	int width = 0;
 	int height = 0;
-	SDL_GetWindowSize(window, &width, &height);
-	camera = new Camera(levelWidth, levelHeight, width, height);
+	SDL_GetWindowSize( window, &width, &height );
+	camera = new Camera( levelWidth, levelHeight, width, height );
 }
 
-SDL_Texture* World::LoadTexture(std::string filePath, SDL_Renderer *renderTarget){
+SDL_Texture* World::LoadTexture( std::string filePath, SDL_Renderer *renderTarget )
+{
 	SDL_Texture *texture = nullptr;
-	SDL_Surface *surface = IMG_Load(filePath.c_str());
-	if (surface == NULL)
+	SDL_Surface *surface = IMG_Load( filePath.c_str() );
+	if( surface == NULL )
 		std::cout << "Error" << std::endl;
 	else
 	{
-		texture = SDL_CreateTextureFromSurface(renderTarget, surface);
-		if (texture == NULL)
+		texture = SDL_CreateTextureFromSurface( renderTarget, surface );
+		if( texture == NULL )
 			std::cout << "Error" << std::endl;
 	}
 
-	SDL_FreeSurface(surface);
+	SDL_FreeSurface( surface );
 	return texture;
 }

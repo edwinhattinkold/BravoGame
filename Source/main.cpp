@@ -14,7 +14,8 @@
 #include "World.h"
 #include "Sound.h"
 
-class MainHelper {
+class MainHelper
+{
 private:
 	SDL_Window *window;
 	TTF_Font* font;
@@ -23,40 +24,41 @@ private:
 	bool fullScreen;
 
 public:
-	void MainHelper::GetDesktopResolution(int& horizontal, int& vertical)
+	void MainHelper::GetDesktopResolution( int& horizontal, int& vertical )
 	{
 		RECT desktop;
 		const HWND hDesktop = GetDesktopWindow();
-		GetWindowRect(hDesktop, &desktop);
+		GetWindowRect( hDesktop, &desktop );
 		horizontal = desktop.right;
 		vertical = desktop.bottom;
 	}
 
-	MainHelper::MainHelper(bool fullScreen)
+	MainHelper::MainHelper( bool fullScreen )
 	{
 		Uint32 flags = SDL_WINDOW_SHOWN;
 
 		TTF_Init();
-		if (!font) 
-			printf("TTF_OpenFont: %s\n", TTF_GetError()); //I.p.v. printen wellicht voor dit soort dingen exception handling?
+		if( !font )
+			printf( "TTF_OpenFont: %s\n", TTF_GetError() ); //I.p.v. printen wellicht voor dit soort dingen exception handling?
 
 		window = nullptr;
-		font = TTF_OpenFont("Fonts/Frontman.ttf", 40);
+		font = TTF_OpenFont( "Fonts/Frontman.ttf", 40 );
 
 		windowWidth = 1024;
 		windowHeight = 576;
 		levelWidth = 3072;
 		levelHeight = 3072;
 
-		if (fullScreen){
-			GetDesktopResolution(windowWidth, windowHeight);
+		if( fullScreen )
+		{
+			GetDesktopResolution( windowWidth, windowHeight );
 			flags = SDL_WINDOW_FULLSCREEN;
 		}
 
-		SDL_Init(SDL_INIT_VIDEO);
+		SDL_Init( SDL_INIT_VIDEO );
 
-		window = SDL_CreateWindow("TerrorEdje!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, flags);
-		world = new World(window, levelWidth, levelHeight, font);
+		window = SDL_CreateWindow( "TerrorEdje!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, flags );
+		world = new World( window, levelWidth, levelHeight, font );
 	}
 
 	void MainHelper::run()
@@ -67,10 +69,10 @@ public:
 
 	void MainHelper::destroyMainHelper()
 	{
-		SDL_DestroyWindow(window);
+		SDL_DestroyWindow( window );
 		window = nullptr;
 
-		TTF_CloseFont(font);
+		TTF_CloseFont( font );
 		font = nullptr;
 
 		delete world;
@@ -82,8 +84,9 @@ public:
 	}
 };
 
-int main(int argc, char *argv[]){
-	MainHelper* mainHelper = new MainHelper(true);
+int main( int argc, char *argv[] )
+{
+	MainHelper* mainHelper = new MainHelper( true );
 	mainHelper->run();
 
 	delete mainHelper;

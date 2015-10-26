@@ -1,7 +1,7 @@
 #include "Location.h"
 
 
-Location::Location(int tx, int ty, int tid)
+Location::Location( int tx, int ty, int tid )
 {
 	id = tid;
 	x = tx;
@@ -10,5 +10,4 @@ Location::Location(int tx, int ty, int tid)
 
 
 Location::~Location()
-{
-}
+{}
