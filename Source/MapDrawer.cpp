@@ -5,7 +5,7 @@ MapDrawer::MapDrawer(SDL_Renderer *renderTarget)
 {
 	int rowCount = 3;
 	int colCount = 3;
-	this->chunks = new std::vector<std::vector<Chunk*>*>();
+	chunks = new std::vector<std::vector<Chunk*>*>();
 	for (int i = 0; i < rowCount; ++i)
 	{
 		chunks->push_back(new std::vector<Chunk*>());

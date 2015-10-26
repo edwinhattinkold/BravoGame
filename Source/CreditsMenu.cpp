@@ -4,93 +4,93 @@
 CreditsMenu::CreditsMenu(SDL_Renderer* renderTarget, SDL_Rect* cameraRect)
 { 
 	this->cameraRect = cameraRect;
-	this->sound = Sound::getInstance();
-	this->creditsTitelFont = TTF_OpenFont("Fonts/frontman.ttf", 50);
-	this->creditsDefaultFont = TTF_OpenFont("Fonts/atrox.ttf", 50);
-	this->creditsMainTitelFont = TTF_OpenFont("Fonts/atrox.ttf", cameraRect->w / 10);
-	this->defaultMargin = 1;
-	this->largerMargin = 35;
-	this->titelSpacing = 10;
-	this->speed = this->cameraRect->h / 9;
+	sound = Sound::getInstance();
+	creditsTitelFont = TTF_OpenFont("Fonts/frontman.ttf", 50);
+	creditsDefaultFont = TTF_OpenFont("Fonts/atrox.ttf", 50);
+	creditsMainTitelFont = TTF_OpenFont("Fonts/atrox.ttf", cameraRect->w / 10);
+	defaultMargin = 1;
+	largerMargin = 35;
+	titelSpacing = 10;
+	speed = cameraRect->h / 9;
 
-	this->menuItems = new std::vector<MenuItem*>();
+	menuItems = new std::vector<MenuItem*>();
 
-	MenuItem* backButton = new MenuItem(renderTarget, this->creditsTitelFont, "Back");
+	MenuItem* backButton = new MenuItem(renderTarget, creditsTitelFont, "Back");
 	backButton->setXPosition(20);
 	backButton->setYPosition(cameraRect->h - backButton->getHeight() - 10);
-	this->menuItems->push_back(backButton);
+	menuItems->push_back(backButton);
 
-	this->lines = new std::vector<std::pair<MenuItem*, int>*>();
-	this->lines->push_back(this->createLine(renderTarget, "TerrorEdje!",				LineType::MainTitel,	0));
+	lines = new std::vector<std::pair<MenuItem*, int>*>();
+	lines->push_back(createLine(renderTarget, "TerrorEdje!",				LineType::MainTitel,	0));
 
-	this->lines->push_back(this->createLine(renderTarget, "Developers",					LineType::Titel,		cameraRect->h / 2));
-	this->lines->push_back(this->createLine(renderTarget, "Sven van den Boogaard",		LineType::Default,		this->titelSpacing));
-	this->lines->push_back(this->createLine(renderTarget, "Ivan Horn",					LineType::Default,		this->defaultMargin));
-	this->lines->push_back(this->createLine(renderTarget, "Edwin Hattink",				LineType::Default,		this->defaultMargin));
-	this->lines->push_back(this->createLine(renderTarget, "Aaron Kieboom",				LineType::Default,		this->defaultMargin));
-	this->lines->push_back(this->createLine(renderTarget, "Erik Brandsma",				LineType::Default,		this->defaultMargin));
+	lines->push_back(createLine(renderTarget, "Developers",					LineType::Titel,		cameraRect->h / 2));
+	lines->push_back(createLine(renderTarget, "Sven van den Boogaard",		LineType::Default,		titelSpacing));
+	lines->push_back(createLine(renderTarget, "Ivan Horn",					LineType::Default,		defaultMargin));
+	lines->push_back(createLine(renderTarget, "Edwin Hattink",				LineType::Default,		defaultMargin));
+	lines->push_back(createLine(renderTarget, "Aaron Kieboom",				LineType::Default,		defaultMargin));
+	lines->push_back(createLine(renderTarget, "Erik Brandsma",				LineType::Default,		defaultMargin));
 
-	this->lines->push_back(this->createLine(renderTarget, "Physics",					LineType::Titel,		this->largerMargin));
-	this->lines->push_back(this->createLine(renderTarget, "Sven van den Boogaard",		LineType::Default,		this->titelSpacing));
-	this->lines->push_back(this->createLine(renderTarget, "Ivan horn",					LineType::Default,		this->defaultMargin));
+	lines->push_back(createLine(renderTarget, "Physics",					LineType::Titel,		largerMargin));
+	lines->push_back(createLine(renderTarget, "Sven van den Boogaard",		LineType::Default,		titelSpacing));
+	lines->push_back(createLine(renderTarget, "Ivan horn",					LineType::Default,		defaultMargin));
 
-	this->lines->push_back(this->createLine(renderTarget, "Map",						LineType::Titel,		this->largerMargin));
-	this->lines->push_back(this->createLine(renderTarget, "Aaron Kieboom",				LineType::Default,		this->titelSpacing));
-	this->lines->push_back(this->createLine(renderTarget, "Edwin Hattink",				LineType::Default,		this->defaultMargin));
+	lines->push_back(createLine(renderTarget, "Map",						LineType::Titel,		largerMargin));
+	lines->push_back(createLine(renderTarget, "Aaron Kieboom",				LineType::Default,		titelSpacing));
+	lines->push_back(createLine(renderTarget, "Edwin Hattink",				LineType::Default,		defaultMargin));
 
-	this->lines->push_back(this->createLine(renderTarget, "Menus",						LineType::Titel,		this->largerMargin));
-	this->lines->push_back(this->createLine(renderTarget, "Erik Brandsma",				LineType::Default,		this->titelSpacing));
+	lines->push_back(createLine(renderTarget, "Menus",						LineType::Titel,		largerMargin));
+	lines->push_back(createLine(renderTarget, "Erik Brandsma",				LineType::Default,		titelSpacing));
 
-	this->lines->push_back(this->createLine(renderTarget, "Sound",						LineType::Titel,		this->largerMargin));
-	this->lines->push_back(this->createLine(renderTarget, "Erik Brandsma",				LineType::Default,		this->titelSpacing));
+	lines->push_back(createLine(renderTarget, "Sound",						LineType::Titel,		largerMargin));
+	lines->push_back(createLine(renderTarget, "Erik Brandsma",				LineType::Default,		titelSpacing));
 
-	this->lines->push_back(this->createLine(renderTarget, "Git Master",					LineType::Titel,		this->largerMargin));
-	this->lines->push_back(this->createLine(renderTarget, "Edwin Hattink",				LineType::Default,		this->titelSpacing));
+	lines->push_back(createLine(renderTarget, "Git Master",					LineType::Titel,		largerMargin));
+	lines->push_back(createLine(renderTarget, "Edwin Hattink",				LineType::Default,		titelSpacing));
 
-	this->lines->push_back(this->createLine(renderTarget, "Test Manager",				LineType::Titel,		this->largerMargin));
-	this->lines->push_back(this->createLine(renderTarget, "Ivan Horn",					LineType::Default,		this->titelSpacing));
+	lines->push_back(createLine(renderTarget, "Test Manager",				LineType::Titel,		largerMargin));
+	lines->push_back(createLine(renderTarget, "Ivan Horn",					LineType::Default,		titelSpacing));
 
-	this->lines->push_back(this->createLine(renderTarget, "Scrum master",				LineType::Titel,		this->largerMargin));
-	this->lines->push_back(this->createLine(renderTarget, "Erik Brandsma",				LineType::Default,		this->titelSpacing));
+	lines->push_back(createLine(renderTarget, "Scrum master",				LineType::Titel,		largerMargin));
+	lines->push_back(createLine(renderTarget, "Erik Brandsma",				LineType::Default,		titelSpacing));
 
-	this->lines->push_back(this->createLine(renderTarget, "Product owner",				LineType::Titel,		this->largerMargin));
-	this->lines->push_back(this->createLine(renderTarget, "Edwin Hattink",				LineType::Default,		this->titelSpacing));
+	lines->push_back(createLine(renderTarget, "Product owner",				LineType::Titel,		largerMargin));
+	lines->push_back(createLine(renderTarget, "Edwin Hattink",				LineType::Default,		titelSpacing));
 
-	this->lines->push_back(this->createLine(renderTarget, "Boss",						LineType::Titel,		this->largerMargin));
-	this->lines->push_back(this->createLine(renderTarget, "Bob van der Putten",			LineType::Default,		this->titelSpacing));
+	lines->push_back(createLine(renderTarget, "Boss",						LineType::Titel,		largerMargin));
+	lines->push_back(createLine(renderTarget, "Bob van der Putten",			LineType::Default,		titelSpacing));
 
-	this->lines->push_back(this->createLine(renderTarget, "Customer",					LineType::Titel,		this->largerMargin));
-	this->lines->push_back(this->createLine(renderTarget, "Bob van der putten",			LineType::Default,		this->titelSpacing));
+	lines->push_back(createLine(renderTarget, "Customer",					LineType::Titel,		largerMargin));
+	lines->push_back(createLine(renderTarget, "Bob van der putten",			LineType::Default,		titelSpacing));
 
-	this->lines->push_back(this->createLine(renderTarget, "Special thanks",				LineType::Titel,		this->largerMargin));
-	this->lines->push_back(this->createLine(renderTarget, "Wokmeneer",					LineType::Default,		this->titelSpacing));
-	this->lines->push_back(this->createLine(renderTarget, "Die ene dönerzaak",			LineType::Default,		this->titelSpacing));
-	this->lines->push_back(this->createLine(renderTarget, "OB205",						LineType::Default,		this->titelSpacing));
-	this->lines->push_back(this->createLine(renderTarget, "Google",						LineType::Default,		this->titelSpacing));
-	this->lines->push_back(this->createLine(renderTarget, "Stackoverflow",				LineType::Default,		this->titelSpacing));
-	this->lines->push_back(this->createLine(renderTarget, "iForce2d tutorials",			LineType::Default,		this->titelSpacing));
-	this->lines->push_back(this->createLine(renderTarget, "CodingMadeEasy tutorials",	LineType::Default,		this->titelSpacing));
-	this->lines->push_back(this->createLine(renderTarget, "Thecplusplusguy tutorials",	LineType::Default,		this->titelSpacing));
+	lines->push_back(createLine(renderTarget, "Special thanks",				LineType::Titel,		largerMargin));
+	lines->push_back(createLine(renderTarget, "Wokmeneer",					LineType::Default,		titelSpacing));
+	lines->push_back(createLine(renderTarget, "Die ene dönerzaak",			LineType::Default,		titelSpacing));
+	lines->push_back(createLine(renderTarget, "OB205",						LineType::Default,		titelSpacing));
+	lines->push_back(createLine(renderTarget, "Google",						LineType::Default,		titelSpacing));
+	lines->push_back(createLine(renderTarget, "Stackoverflow",				LineType::Default,		titelSpacing));
+	lines->push_back(createLine(renderTarget, "iForce2d tutorials",			LineType::Default,		titelSpacing));
+	lines->push_back(createLine(renderTarget, "CodingMadeEasy tutorials",	LineType::Default,		titelSpacing));
+	lines->push_back(createLine(renderTarget, "Thecplusplusguy tutorials",	LineType::Default,		titelSpacing));
 
-	this->lines->push_back(this->createLine(renderTarget, "Thanks for playing!",		LineType::MainTitel,	this->cameraRect->h / 2));
+	lines->push_back(createLine(renderTarget, "Thanks for playing!",		LineType::MainTitel,	cameraRect->h / 2));
 }
 
 CreditsMenu::~CreditsMenu()
 {
-	for (size_t c = 0; c < this->lines->size(); c++){
-		delete this->lines->at(c)->first;		this->lines->at(c)->first = nullptr;
-		delete this->lines->at(c);				this->lines->at(c) = nullptr;
+	for (size_t c = 0; c < lines->size(); c++){
+		delete lines->at(c)->first;		lines->at(c)->first = nullptr;
+		delete lines->at(c);				lines->at(c) = nullptr;
 	}
-	delete this->lines;
+	delete lines;
 
-	for (size_t x = 0; x < this->menuItems->size(); x++){
-		delete this->menuItems->at(x);			this->menuItems->at(x) = nullptr;
+	for (size_t x = 0; x < menuItems->size(); x++){
+		delete menuItems->at(x);			menuItems->at(x) = nullptr;
 	}
-	delete this->menuItems;						this->menuItems = nullptr;
+	delete menuItems;						menuItems = nullptr;
 
-	TTF_CloseFont(this->creditsDefaultFont);	this->creditsDefaultFont = nullptr;
-	TTF_CloseFont(this->creditsMainTitelFont);	this->creditsMainTitelFont = nullptr;
-	TTF_CloseFont(this->creditsTitelFont);		this->creditsTitelFont = nullptr;
+	TTF_CloseFont(creditsDefaultFont);	creditsDefaultFont = nullptr;
+	TTF_CloseFont(creditsMainTitelFont);	creditsMainTitelFont = nullptr;
+	TTF_CloseFont(creditsTitelFont);		creditsTitelFont = nullptr;
 }
 
 std::pair<MenuItem*, int>* CreditsMenu::createLine(SDL_Renderer* renderTarget, char * line, LineType lineType, int margin){
@@ -99,15 +99,15 @@ std::pair<MenuItem*, int>* CreditsMenu::createLine(SDL_Renderer* renderTarget, c
 
 	switch (lineType){
 	case(LineType::Titel) :
-		fontToUse = this->creditsTitelFont;
+		fontToUse = creditsTitelFont;
 		colorToUse = Color::Red;
 		break;
 	case(LineType::Default) :
-		fontToUse = this->creditsDefaultFont;
+		fontToUse = creditsDefaultFont;
 		colorToUse = Color::White;
 		break;
 	case(LineType::MainTitel) :
-		fontToUse = this->creditsMainTitelFont;
+		fontToUse = creditsMainTitelFont;
 		colorToUse = Color::White;
 	}
 
@@ -117,21 +117,21 @@ std::pair<MenuItem*, int>* CreditsMenu::createLine(SDL_Renderer* renderTarget, c
 }
 
 int CreditsMenu::showMenu(SDL_Renderer* renderTarget){
-	this->previousTime = SDL_GetTicks();;
-	this->currentTime = SDL_GetTicks();;
-	this->deltaTime = 0.0f;
-	this->pastTime = 0.0f;
-	this->positionAllLines();
+	previousTime = SDL_GetTicks();;
+	currentTime = SDL_GetTicks();;
+	deltaTime = 0.0f;
+	pastTime = 0.0f;
+	positionAllLines();
 
-	this->sound->stopSound(Sound_MainMenu_Theme);
-	this->sound->playSound(Sound_Credits_Theme);
+	sound->stopSound(Sound_MainMenu_Theme);
+	sound->playSound(Sound_Credits_Theme);
 
-	int choice = this->createMenu(renderTarget);
+	int choice = createMenu(renderTarget);
 	switch (choice){
 	case(Choices::Back) :
-		this->sound->fadeOut();
-		this->sound->stopSound(Sound_Credits_Theme);
-		this->sound->playSoundLooping(Sound_MainMenu_Theme, 0.5f);
+		sound->fadeOut();
+		sound->stopSound(Sound_Credits_Theme);
+		sound->playSoundLooping(Sound_MainMenu_Theme, 0.5f);
 		return Choices::Back;
 		break;
 	case(Choices::Exit) :
@@ -148,43 +148,43 @@ int CreditsMenu::createMenu(SDL_Renderer* renderTarget){
 	bool needsToFadeIn = true;
 	while (1)
 	{
-		if (this->sound->getVolume() != 1.00f && needsToFadeIn)
-			this->sound->fadeInTick();
+		if (sound->getVolume() != 1.00f && needsToFadeIn)
+			sound->fadeInTick();
 		else
 			needsToFadeIn = false;
 
-		this->previousTime = this->currentTime;
-		this->currentTime = SDL_GetTicks();
-		this->deltaTime = (this->currentTime - this->previousTime) / 1000.0f;
+		previousTime = currentTime;
+		currentTime = SDL_GetTicks();
+		deltaTime = (currentTime - previousTime) / 1000.0f;
 		while (SDL_PollEvent(&event)){
 			switch (event.type){
 			case SDL_QUIT:
 				return Choices::Exit;
 				break;
 			case SDL_MOUSEMOTION:
-				this->mouseX = event.motion.x;
-				this->mouseY = event.motion.y;
-				for (size_t i = 0; i < this->menuItems->size(); i++)
-					this->menuItems->at(i)->checkHover(this->mouseX, this->mouseY);
+				mouseX = event.motion.x;
+				mouseY = event.motion.y;
+				for (size_t i = 0; i < menuItems->size(); i++)
+					menuItems->at(i)->checkHover(mouseX, mouseY);
 				break;
 			case SDL_MOUSEBUTTONDOWN:
-				this->mouseX = event.motion.x;
-				this->mouseY = event.motion.y;
-				for (size_t index = 0; index < this->menuItems->size(); index++)
-					if (mouseX >= this->menuItems->at(index)->getXPosition() && mouseX <= this->menuItems->at(index)->getXPosition() + this->menuItems->at(index)->getWidth() &&
-						mouseY >= this->menuItems->at(index)->getYPosition() && mouseY <= this->menuItems->at(index)->getYPosition() + this->menuItems->at(index)->getHeight()){
-						this->sound->playSound(Sound_MainMenu_Click);
+				mouseX = event.motion.x;
+				mouseY = event.motion.y;
+				for (size_t index = 0; index < menuItems->size(); index++)
+					if (mouseX >= menuItems->at(index)->getXPosition() && mouseX <= menuItems->at(index)->getXPosition() + menuItems->at(index)->getWidth() &&
+						mouseY >= menuItems->at(index)->getYPosition() && mouseY <= menuItems->at(index)->getYPosition() + menuItems->at(index)->getHeight()){
+						sound->playSound(Sound_MainMenu_Click);
 						return index;
 					}
 				break;
 			}
 		}
-		if (this->isDone())
+		if (isDone())
 			return Choices::Back;
 
 		SDL_RenderClear(renderTarget);
-		this->update(deltaTime);
-		this->draw(renderTarget);
+		update(deltaTime);
+		draw(renderTarget);
 		SDL_RenderPresent(renderTarget);
 		SDL_Delay(1000 / 60);
 	}
@@ -193,25 +193,25 @@ int CreditsMenu::createMenu(SDL_Renderer* renderTarget){
 void CreditsMenu::update(float deltaTime){
 	if (shouldMove(deltaTime)){
 		float fps = (1 / deltaTime);
-		int pixels = int(round(this->speed / fps));
-		for (size_t c = 0; c < this->lines->size(); c++)
-			this->lines->at(c)->first->setYPosition(this->lines->at(c)->first->getYPosition() - pixels);
+		int pixels = int(round(speed / fps));
+		for (size_t c = 0; c < lines->size(); c++)
+			lines->at(c)->first->setYPosition(lines->at(c)->first->getYPosition() - pixels);
 	}
 }
 
 bool CreditsMenu::shouldMove(float deltaTime){
 	
-	if (this->pastTime > 2.5f)
+	if (pastTime > 2.5f)
 		return true;
 	else
-		this->pastTime += deltaTime;
+		pastTime += deltaTime;
 	return false;
 }
 
 bool CreditsMenu::isDone(){
-	if (this->lines->at(this->lines->size() - 1)->first->getYPosition() < -100){
-		if (this->sound->getVolume() != 0.00f){
-			this->sound->fadeOutTick();
+	if (lines->at(lines->size() - 1)->first->getYPosition() < -100){
+		if (sound->getVolume() != 0.00f){
+			sound->fadeOutTick();
 		}
 		else
 			return true;
@@ -221,24 +221,24 @@ bool CreditsMenu::isDone(){
 }
 
 void CreditsMenu::draw(SDL_Renderer* renderTarget){
-	for (size_t c = 0; c < this->lines->size(); c++)
-		this->lines->at(c)->first->draw(renderTarget);
-	for (size_t x = 0; x < this->menuItems->size(); x++)
-		this->menuItems->at(x)->draw(renderTarget);
+	for (size_t c = 0; c < lines->size(); c++)
+		lines->at(c)->first->draw(renderTarget);
+	for (size_t x = 0; x < menuItems->size(); x++)
+		menuItems->at(x)->draw(renderTarget);
 }
 
 void CreditsMenu::positionAllLines(){
-	for (size_t c = 0; c < this->lines->size(); c++){
-		MenuItem* item = this->lines->at(c)->first;
+	for (size_t c = 0; c < lines->size(); c++){
+		MenuItem* item = lines->at(c)->first;
 		int previousDistance = 0;
 		for (size_t x = 0; x <= c; x++)
-			previousDistance += (this->lines->at(x)->first->getHeight() + this->lines->at(x)->second);
+			previousDistance += (lines->at(x)->first->getHeight() + lines->at(x)->second);
 
 		if (c == 0)
 			previousDistance = 0;
 
-		item->setYPosition(this->cameraRect->h / 2 - item->getHeight() / 2 + previousDistance);
-		item->setXPosition(this->cameraRect->w / 2 - item->getWidth() / 2);
+		item->setYPosition(cameraRect->h / 2 - item->getHeight() / 2 + previousDistance);
+		item->setXPosition(cameraRect->w / 2 - item->getWidth() / 2);
 	}
 }
 

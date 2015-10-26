@@ -40,41 +40,41 @@ public:
 		if (!font) 
 			printf("TTF_OpenFont: %s\n", TTF_GetError()); //I.p.v. printen wellicht voor dit soort dingen exception handling?
 
-		this->window = nullptr;
-		this->font = TTF_OpenFont("Fonts/Frontman.ttf", 40);
+		window = nullptr;
+		font = TTF_OpenFont("Fonts/Frontman.ttf", 40);
 
-		this->windowWidth = 1024;
-		this->windowHeight = 576;
-		this->levelWidth = 3072;
-		this->levelHeight = 3072;
+		windowWidth = 1024;
+		windowHeight = 576;
+		levelWidth = 3072;
+		levelHeight = 3072;
 
 		if (fullScreen){
-			this->GetDesktopResolution(this->windowWidth, this->windowHeight);
+			GetDesktopResolution(windowWidth, windowHeight);
 			flags = SDL_WINDOW_FULLSCREEN;
 		}
 
 		SDL_Init(SDL_INIT_VIDEO);
 
-		this->window = SDL_CreateWindow("TerrorEdje!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, this->windowWidth, this->windowHeight, flags);
-		this->world = new World(this->window, this->levelWidth, this->levelHeight, this->font);
+		window = SDL_CreateWindow("TerrorEdje!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, flags);
+		world = new World(window, levelWidth, levelHeight, font);
 	}
 
 	void MainHelper::run()
 	{
-		this->world->Run();
-		this->destroyMainHelper();
+		world->Run();
+		destroyMainHelper();
 	}
 
 	void MainHelper::destroyMainHelper()
 	{
-		SDL_DestroyWindow(this->window);
-		this->window = nullptr;
+		SDL_DestroyWindow(window);
+		window = nullptr;
 
-		TTF_CloseFont(this->font);
-		this->font = nullptr;
+		TTF_CloseFont(font);
+		font = nullptr;
 
-		delete this->world;
-		this->world = nullptr;
+		delete world;
+		world = nullptr;
 
 		SDL_Quit();
 		TTF_Quit();

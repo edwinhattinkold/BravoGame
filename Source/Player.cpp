@@ -16,32 +16,32 @@ Player::Player(SDL_Renderer *renderTarget, int xPosition, int yPosition, float m
 	Animation* walking_down_animation = new Animation(renderTarget, "Images/Animations/Walking/walking_down.png", 3, 1, 1, 0, animSpeed);
 
 	/* Has to be in order of the enum */
-	this->animations = new std::vector<Animation*>();
-	this->animations->push_back(walking_left_animation);
-	this->animations->push_back(walking_up_animation);
-	this->animations->push_back(walking_right_animation);
-	this->animations->push_back(walking_down_animation);
+	animations = new std::vector<Animation*>();
+	animations->push_back(walking_left_animation);
+	animations->push_back(walking_up_animation);
+	animations->push_back(walking_right_animation);
+	animations->push_back(walking_down_animation);
 
 	/* Set the animation */
-	this->SetAnimation(Walking_Down);
+	SetAnimation(Walking_Down);
 
 	this->moveSpeed = moveSpeed;
-	this->isActive = false;
+	isActive = false;
 
 	static int playerNumber = 0;
 	playerNumber++;
 
 	if (playerNumber == 1){
-		this->keys[0] = SDL_SCANCODE_W;
-		this->keys[1] = SDL_SCANCODE_S;
-		this->keys[2] = SDL_SCANCODE_A;
-		this->keys[3] = SDL_SCANCODE_D;
+		keys[0] = SDL_SCANCODE_W;
+		keys[1] = SDL_SCANCODE_S;
+		keys[2] = SDL_SCANCODE_A;
+		keys[3] = SDL_SCANCODE_D;
 	}
 	else {
-		this->keys[0] = SDL_SCANCODE_UP;
-		this->keys[1] = SDL_SCANCODE_DOWN;
-		this->keys[2] = SDL_SCANCODE_LEFT;
-		this->keys[3] = SDL_SCANCODE_RIGHT;
+		keys[0] = SDL_SCANCODE_UP;
+		keys[1] = SDL_SCANCODE_DOWN;
+		keys[2] = SDL_SCANCODE_LEFT;
+		keys[3] = SDL_SCANCODE_RIGHT;
 	}
 }
 
@@ -53,40 +53,40 @@ Player::~Player()
 
 //TODO: animation based on X and Y velocity
 void Player::Update(float delta, const Uint8 *keyState){
-	this->isActive = true;
+	isActive = true;
 	if (keyState[keys[0]])
 	{
-		this->SetAnimation(Walking_Up);
-		this->positionRect.y -= int(moveSpeed * delta);
+		SetAnimation(Walking_Up);
+		positionRect.y -= int(moveSpeed * delta);
 	}
 	else if (keyState[keys[1]]){
-		this->SetAnimation(Walking_Down);
-		this->positionRect.y += int(moveSpeed * delta);
+		SetAnimation(Walking_Down);
+		positionRect.y += int(moveSpeed * delta);
 	}
 	else if (keyState[keys[2]]){
-		this->SetAnimation(Walking_Left);
-		this->positionRect.x -= int(moveSpeed * delta);
+		SetAnimation(Walking_Left);
+		positionRect.x -= int(moveSpeed * delta);
 	}
 	else if (keyState[keys[3]]){
-		this->SetAnimation(Walking_Right);
-		this->positionRect.x += int(moveSpeed * delta);
+		SetAnimation(Walking_Right);
+		positionRect.x += int(moveSpeed * delta);
 	}
 	else
-		this->isActive = false;
+		isActive = false;
 
-	if (this->isActive)
-		this->animations->at(currentAnimaton)->Update(delta);
+	if (isActive)
+		animations->at(currentAnimaton)->Update(delta);
 	else
-		this->animations->at(currentAnimaton)->StandStill();
+		animations->at(currentAnimaton)->StandStill();
 }
 
 void Player::SetAnimation(PlayerAnimation playerAnimation){
-	this->currentAnimaton = playerAnimation;
+	currentAnimaton = playerAnimation;
 
-	Animation* anim = this->animations->at(this->currentAnimaton);
+	Animation* anim = animations->at(currentAnimaton);
 
-	this->originX =			anim->getOriginX();
-	this->originY =			anim->getOriginY();
-	this->positionRect.w =	anim->getFrameWidth();
-	this->positionRect.h =	anim->getFrameHeight();
+	originX =			anim->getOriginX();
+	originY =			anim->getOriginY();
+	positionRect.w =	anim->getFrameWidth();
+	positionRect.h =	anim->getFrameHeight();
 }

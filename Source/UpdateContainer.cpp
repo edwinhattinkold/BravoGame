@@ -3,20 +3,20 @@
 
 UpdateContainer::UpdateContainer()
 {
-	this->uv = new UpdateVisitor();
-	this->objects = new std::vector<IUpdateable*>();
+	uv = new UpdateVisitor();
+	objects = new std::vector<IUpdateable*>();
 }
 
 
 UpdateContainer::~UpdateContainer()
 {
-	delete this->uv;
-	delete this->objects;
+	delete uv;
+	delete objects;
 }
 
 void UpdateContainer::Add(IUpdateable *updateable)
 {
-	this->objects->push_back(updateable);
+	objects->push_back(updateable);
 }
 
 void UpdateContainer::Remove(IUpdateable *updateable)
@@ -33,7 +33,7 @@ void UpdateContainer::Remove(IUpdateable *updateable)
 
 void UpdateContainer::Update(float deltaTime, const Uint8* keyState)
 {
-	for (size_t c = 0; c < this->objects->size(); c++){
-		this->objects->at(c)->Accept(this->uv, deltaTime, keyState);
+	for (size_t c = 0; c < objects->size(); c++){
+		objects->at(c)->Accept(uv, deltaTime, keyState);
 	}
 }

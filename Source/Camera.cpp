@@ -8,35 +8,35 @@ Camera::Camera(int levelWidth, int levelHeight, int windowWidth, int windowHeigh
 	this->levelHeight = levelHeight;
 	this->windowWidth = windowWidth;
 	this->windowHeight = windowHeight;
-	this->cameraRect = new SDL_Rect();
-	this->cameraRect->w = this->windowWidth;
-	this->cameraRect->h = this->windowHeight;
-	this->cameraRect->x = 0;
-	this->cameraRect->y = 0;
+	cameraRect = new SDL_Rect();
+	cameraRect->w = windowWidth;
+	cameraRect->h = windowHeight;
+	cameraRect->x = 0;
+	cameraRect->y = 0;
 }
 
 
 Camera::~Camera(void)
 {
-	delete this->cameraRect;	this->cameraRect = nullptr;
+	delete cameraRect;	cameraRect = nullptr;
 }
 
 void Camera::Update(int xPosition, int yPosition){
-	this->cameraRect->x = xPosition - (this->windowWidth / 2);
-	this->cameraRect->y = yPosition - (this->windowHeight / 2);
+	cameraRect->x = xPosition - (windowWidth / 2);
+	cameraRect->y = yPosition - (windowHeight / 2);
 
-	if (this->cameraRect->x < 0)
-		this->cameraRect->x = 0;
-	if (this->cameraRect->y < 0)
-		this->cameraRect->y = 0;
+	if (cameraRect->x < 0)
+		cameraRect->x = 0;
+	if (cameraRect->y < 0)
+		cameraRect->y = 0;
 
-	if (this->cameraRect->x + this->cameraRect->w >= this->levelWidth){
-		this->cameraRect->x = this->levelWidth - this->windowWidth;
+	if (cameraRect->x + cameraRect->w >= levelWidth){
+		cameraRect->x = levelWidth - windowWidth;
 	}
-	if (this->cameraRect->y + this->cameraRect->h >= this->levelHeight)
-		this->cameraRect->y = this->levelHeight - this->windowHeight;
+	if (cameraRect->y + cameraRect->h >= levelHeight)
+		cameraRect->y = levelHeight - windowHeight;
 }
 
 SDL_Rect* Camera::getCamera(){
-	return this->cameraRect;
+	return cameraRect;
 }

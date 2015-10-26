@@ -42,9 +42,9 @@ Animation::~Animation()
 }
 
 void Animation::Update(float deltaTime){
-	this->frameCounter += deltaTime;
+	frameCounter += deltaTime;
 
-	if (frameCounter >= this->animationSpeed){
+	if (frameCounter >= animationSpeed){
 		frameCounter = 0;
 		cropRect.x += frameWidth;
 		if (cropRect.x >= textureWidth){
@@ -67,17 +67,17 @@ void Animation::StandStill(){
 }
 
 int Animation::getOriginX(){
-	return this->frameWidth / 2;
+	return frameWidth / 2;
 }
 
 int Animation::getOriginY(){
-	return this->frameHeight / 2;
+	return frameHeight / 2;
 }
 
 int Animation::getFrameWidth(){
-	return this->frameWidth;
+	return frameWidth;
 }
 
 int Animation::getFrameHeight(){
-	return this->frameHeight;
+	return frameHeight;
 }
