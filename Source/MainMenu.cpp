@@ -72,7 +72,7 @@ int MainMenu::showMenu(SDL_Renderer* renderTarget){
 		this->optionsChoice = this->optionsMenu->showMenu(renderTarget);
 		if (this->optionsChoice == this->optionsMenu->getBackCode())
 			return this->showMenu(renderTarget);
-		else if (this->optionsChoice == this->optionsMenu->getExitCode())
+		else
 			return Choices::Exit;
 		break;
 	case(Choices::Credits) :
@@ -80,7 +80,7 @@ int MainMenu::showMenu(SDL_Renderer* renderTarget){
 		this->creditsChoice = this->creditsMenu->showMenu(renderTarget);
 		if (this->creditsChoice == this->creditsMenu->getBackCode())
 			return this->showMenu(renderTarget);
-		else if (this->creditsChoice == this->creditsMenu->getExitCode())
+		else
 			return Choices::Exit;
 		break;
 	case(Choices::Exit):

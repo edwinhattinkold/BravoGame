@@ -1,9 +1,9 @@
 #pragma once
-#include <string>;
-#include "Chunk.h";
-#include "rapidxml.hpp";
-#include "rapidxml_utils.hpp";
-#include "Location.h";
+#include <string>
+#include "Chunk.h"
+#include "rapidxml.hpp"
+#include "rapidxml_utils.hpp"
+#include "Location.h"
 
 class Chunk;
 
