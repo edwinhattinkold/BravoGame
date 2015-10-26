@@ -12,6 +12,7 @@ SDL_Texture* LoadImage(SDL_Renderer *renderTarget, std::string filePath){
 		SDL_FreeSurface(surface);
 		return texture;
 	}
+	return NULL;
 }
 
 Chunk::Chunk(SDL_Renderer *rt, std::string filePath)
@@ -98,11 +99,11 @@ void Chunk::AddLocation(Location l){
 void Chunk::Draw(int x, int y, SDL_Rect *cameraRect){
 	Tile *tile = nullptr;
 	SDL_Rect tarRect = { 0, 0, 32, 32 };
-	for (int i = 0; i < locations->size(); i++){
-	Location l = locations->at(i);
-	tarRect.x = l.x * 32 + x - cameraRect->x;
-	tarRect.y = l.y * 32 + y - cameraRect->y;
-	tile = tiles->at(l.id);;
-	SDL_RenderCopy(renderTarget, tile->getTexture(), tile->getRect(), &tarRect);
+	for (size_t i = 0; i < locations->size(); i++){
+		Location l = locations->at(i);
+		tarRect.x = l.x * 32 + x - cameraRect->x;
+		tarRect.y = l.y * 32 + y - cameraRect->y;
+		tile = tiles->at(l.id);;
+		SDL_RenderCopy(renderTarget, tile->getTexture(), tile->getRect(), &tarRect);
 	}
 }
