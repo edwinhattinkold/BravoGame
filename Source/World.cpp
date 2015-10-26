@@ -11,6 +11,9 @@ World::World(SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font
 	this->velocityIterations = new int32(8);
 	this->positionIterations = new int32(3);
 
+	//create add and remove stacks
+	bodyRemoveStack = new std::vector<b2Body*>();
+
 	//create physics world (box2d)
 	this->gravity = new b2Vec2(0.0f, 0.0f);
 	this->physics = new b2World(*gravity);
@@ -31,7 +34,7 @@ World::World(SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font
 
 	//Creation of sprites should be placed elsewhere as well, I'm just running out of time
 	this->player1 = new Player(renderTarget, 0, 0, 300.0f, drawContainer);
-	this->mapDrawer = new MapDrawer(renderTarget);
+	this->mapDrawer = new MapDrawer(renderTarget, this);
 
 	this->drawContainer->Add(this->mapDrawer);
 	this->drawContainer->Add(this->player1);
@@ -42,16 +45,19 @@ World::World(SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font
 
 World::~World()
 {
+	delete this->drawContainer;						this->drawContainer = nullptr;
+	delete this->updateContainer;					this->updateContainer = nullptr;
+	delete this->mapDrawer;							this->mapDrawer = nullptr;
+	handleBodyRemoveStack();
+	delete bodyRemoveStack;							bodyRemoveStack = nullptr;
 	delete this->physics;							this->physics = nullptr;
 	delete this->gravity;							this->gravity = nullptr;
 	delete this->velocityIterations;				this->velocityIterations = nullptr;
 	delete this->positionIterations;				this->positionIterations = nullptr;
-	delete this->drawContainer;						this->drawContainer = nullptr;
-	delete this->updateContainer;					this->updateContainer = nullptr;
 	delete this->camera;							this->camera = nullptr;
 	delete this->menu;								this->menu = nullptr;
 	delete this->player1;							this->player1 = nullptr;
-	delete this->mapDrawer;							this->mapDrawer = nullptr;
+	
 	SDL_DestroyTexture(this->mainMenuBackground);	this->mainMenuBackground = nullptr;
 	SDL_DestroyRenderer(this->renderTarget);		this->renderTarget = nullptr;
 }
@@ -75,7 +81,7 @@ void World::tick()
 	}
 
 	this->keyState = SDL_GetKeyboardState(NULL);
-
+	handleBodyRemoveStack();
 	//update physics
 	this->physics->Step(deltaTime, *velocityIterations, *positionIterations);
 
@@ -141,4 +147,21 @@ SDL_Texture* World::LoadTexture(std::string filePath, SDL_Renderer *renderTarget
 
 	SDL_FreeSurface(surface);
 	return texture;
+}
+
+void World::handleBodyRemoveStack(){
+	for (size_t i = 0; i < bodyRemoveStack->size(); i++){
+		physics->DestroyBody(bodyRemoveStack->at(i));
+		bodyRemoveStack->at(i) = nullptr;
+	}
+	bodyRemoveStack->clear();
+}
+
+//Box2D function wrappers;
+b2Body* World::createBody(b2BodyDef *def){
+	return physics->CreateBody(def);
+}
+
+void World::destroyBody(b2Body *body){
+	bodyRemoveStack->push_back(body);
 }
