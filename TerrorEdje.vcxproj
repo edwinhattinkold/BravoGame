@@ -11,12 +11,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\Location.h" />
     <ClInclude Include="Source\MainMenu.h" />
     <ClInclude Include="Source\MapDrawer.h" />
-    <ClInclude Include="Source\MapGenerator.h" />
+    <ClInclude Include="Source\Chunk.h" />
     <ClInclude Include="Source\MenuItem.h" />
     <ClInclude Include="Source\OptionsMenu.h" />
     <ClInclude Include="Source\Player.h" />
@@ -34,7 +35,7 @@
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\MainMenu.cpp" />
     <ClCompile Include="Source\MapDrawer.cpp" />
-    <ClCompile Include="Source\MapGenerator.cpp" />
+    <ClCompile Include="Source\Chunk.cpp" />
     <ClCompile Include="Source\MenuItem.cpp" />
     <ClCompile Include="Source\OptionsMenu.cpp" />
     <ClCompile Include="Source\Player.cpp" />
@@ -42,6 +43,9 @@
     <ClCompile Include="Source\Sprite.cpp" />
     <ClCompile Include="Source\Tile.cpp" />
     <ClCompile Include="Source\XMLReader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="TerrorEdje.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A3E3BA3A-267A-481D-8F03-18989DFF70BE}</ProjectGuid>

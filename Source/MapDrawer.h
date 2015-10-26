@@ -4,13 +4,12 @@
 #include <vector>
 #include "Location.h"
 #include "SDL.h"
-#include "MapGenerator.h"
+#include "Chunk.h"
 
 class MapDrawer
 {
 private:
-	std::vector<Location> *locations;
-	MapGenerator *mapGenerator;
+	std::vector<std::vector<Chunk*>*> *chunks;
 public:
 	MapDrawer(SDL_Renderer *renderTarget);
 	~MapDrawer();

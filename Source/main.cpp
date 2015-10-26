@@ -9,7 +9,7 @@
 #include "Player.h"
 #include "Camera.h"
 #include "MainMenu.h"
-#include "MapGenerator.h";
+#include "Chunk.h";
 #include "wtypes.h"
 #include <Box2D/Box2D.h>
 #include "MapDrawer.h"
@@ -51,7 +51,7 @@ void run(){
 	 const Uint8 *keyState;
 	 int windowWidth = 1024;
 	 int windowHeight = 576;
-	 int levelWidth = 1024, levelHeight = 1024;
+	 int levelWidth = 3072, levelHeight = 3072;
 
 	 SDL_Init(SDL_INIT_VIDEO);
 
@@ -59,9 +59,9 @@ void run(){
 	 renderTarget = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
 	 MapDrawer *mapDrawer = new MapDrawer(renderTarget);
+	 
 	 SDL_Texture *mainMenuBackground = LoadTexture("Images/Mainmenu/background.png", renderTarget);
 	 Camera camera(levelWidth, levelHeight, windowWidth, windowHeight);
-
 	 MainMenu menu(renderTarget, mainMenuBackground, camera.getCamera(), font);
 	 bool isRunning = true;
 	 

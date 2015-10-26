@@ -60,9 +60,6 @@
     <ClInclude Include="Source\MapDrawer.h">
       <Filter>Header Files\Map</Filter>
     </ClInclude>
-    <ClInclude Include="Source\MapGenerator.h">
-      <Filter>Header Files\Map</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Tile.h">
       <Filter>Header Files\Map</Filter>
     </ClInclude>
@@ -86,6 +83,12 @@
     </ClInclude>
     <ClInclude Include="Source\rapidxml_utils.hpp">
       <Filter>Header Files\RapidXML</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Chunk.h">
+      <Filter>Header Files\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -119,9 +122,6 @@
     <ClCompile Include="Source\MapDrawer.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
-    <ClCompile Include="Source\MapGenerator.cpp">
-      <Filter>Source Files\Map</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Tile.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
@@ -131,5 +131,13 @@
     <ClCompile Include="Source\Sound.cpp">
       <Filter>Source Files\Sound</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Chunk.cpp">
+      <Filter>Source Files\Map</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="TerrorEdje.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
