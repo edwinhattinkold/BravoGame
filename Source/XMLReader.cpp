@@ -65,3 +65,43 @@ void XMLReader::parseXMLFile( Chunk *chunk, std::string filePath )
 		}
 	}
 }
+
+std::string XMLReader::getChunk( int searchX, int searchY )
+{
+	rapidxml::file<> xmlFile( "maps/map.xml" );
+	rapidxml::xml_document<> doc;
+	doc.parse<0>( xmlFile.data() );
+	rapidxml::xml_node<> *map = doc.first_node();
+	for( rapidxml::xml_node<> *xvalue = map->first_node( "x" );
+		 xvalue; xvalue = xvalue->next_sibling( "x" ) )
+	{
+		int x = 0;
+		if( xvalue->first_attribute( "value" ) != nullptr )
+		{
+			x = atoi( xvalue->first_attribute( "value" )->value() );
+		}
+		if( x == searchX )
+		{
+			for( rapidxml::xml_node<> *chunk = xvalue->first_node( "chunk" );
+				 chunk; chunk = chunk->next_sibling( "chunk" ) )
+			{
+				int y = 0;
+				if( chunk->first_attribute( "y" ) != nullptr )
+				{
+					y = atoi( chunk->first_attribute( "y" )->value() );
+				}
+				if( y == searchY )
+				{
+					std::string tmx;
+					if( chunk->first_attribute( "tmx" ) != nullptr )
+					{
+						tmx = chunk->first_attribute( "tmx" )->value();
+						return tmx;
+					}
+				}
+			}
+		}
+	}
+	return "CHUNK NOT FOUND";
+}
+

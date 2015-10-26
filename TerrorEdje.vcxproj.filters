@@ -107,7 +107,7 @@
     </ClInclude>
     <ClInclude Include="Source\Chunk.h">
       <Filter>Header Files\Map</Filter>
-	</ClInclude>
+    </ClInclude>
     <ClInclude Include="Source\DrawVisitor.h">
       <Filter>Header Files\Visitors</Filter>
     </ClInclude>
