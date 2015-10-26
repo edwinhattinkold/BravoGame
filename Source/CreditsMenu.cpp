@@ -126,14 +126,12 @@ int CreditsMenu::showMenu(SDL_Renderer* renderTarget){
 	this->sound->stopSound(Sound_MainMenu_Theme);
 	this->sound->playSound(Sound_Credits_Theme);
 
-	SDL_Delay(200);
-
 	int choice = this->createMenu(renderTarget);
 	switch (choice){
 	case(Choices::Back) :
 		this->sound->fadeOut();
 		this->sound->stopSound(Sound_Credits_Theme);
-		this->sound->playSound(Sound_MainMenu_Theme, 0.5f);
+		this->sound->playSoundLooping(Sound_MainMenu_Theme, 0.5f);
 		return Choices::Back;
 		break;
 	case(Choices::Exit) :
