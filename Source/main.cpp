@@ -35,14 +35,8 @@ public:
 		vertical = desktop.bottom;
 	}
 
-	MainHelper::MainHelper( bool fullScreen )
+	MainHelper::MainHelper( )
 	{
-		std::cout << " " << std::endl;
-		std::cout << Settings::getInstance()->getBoolean( Settings_SoundOn ) << std::endl;
-		std::cout << Settings::getInstance()->getInteger( Settings_Resolution_Width ) << std::endl;
-		std::cout << Settings::getInstance()->getInteger( Settings_Resolution_Height ) << std::endl;
-		std::cout << " " << std::endl;
-
 		Uint32 flags = SDL_WINDOW_SHOWN;
 
 		TTF_Init();
@@ -57,7 +51,7 @@ public:
 		levelWidth = 3072;
 		levelHeight = 3072;
 
-		if( fullScreen )
+		if( Settings::getInstance()->getBoolean( Settings_fullscreen ) )
 		{
 			getDesktopResolution( windowWidth, windowHeight );
 			flags = SDL_WINDOW_FULLSCREEN;
@@ -98,7 +92,7 @@ public:
 
 int main( int argc, char *argv[] )
 {
-	MainHelper* mainHelper = new MainHelper( false );
+	MainHelper* mainHelper = new MainHelper( );
 	mainHelper->run();
 
 	delete mainHelper;

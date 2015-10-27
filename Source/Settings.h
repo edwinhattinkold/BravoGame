@@ -3,18 +3,25 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include <map>
+#include <sstream>
 
-enum BooleanVariables { Settings_SoundOn };
+enum BooleanVariables { Settings_fullscreen, Settings_SoundOn };
 enum IntegerVariables { Settings_Resolution_Width, Settings_Resolution_Height };
+
+using namespace std;
 
 class Settings
 {
 private:
-	std::vector<bool>* savedBooleans;
-	std::vector<int>* savedIntegers;
+	vector<bool>* savedBooleans;
+	vector<int>* savedIntegers;
 
-	bool isInteger( const std::string & s );
-	std::string generalFile;
+	map<BooleanVariables, pair<string, int>>* booleanConnections;
+	map<IntegerVariables, pair<string, int>>* integerConnections;
+
+	bool isInteger( const string & s );
+	string generalFile;
 
 	/* Singleton */
 	Settings();
@@ -28,6 +35,8 @@ public:
 	int getInteger( IntegerVariables variable );
 	void setBoolean( BooleanVariables variable, bool newVariable );
 	void setInteger( IntegerVariables variable, int newVariable );
+	vector<string>* getFile(string filepath);
+	void setFile( string filepath, vector<string>* newFile );
 	~Settings();
 };
 

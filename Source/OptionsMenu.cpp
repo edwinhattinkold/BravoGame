@@ -1,8 +1,9 @@
 #include "OptionsMenu.h"
 #include "CustomCursor.h"
 
-OptionsMenu::OptionsMenu(SDL_Renderer* renderTarget, SDL_Texture* backgroundImage, SDL_Rect* cameraRect, TTF_Font* font)
+OptionsMenu::OptionsMenu(SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, SDL_Rect* cameraRect, TTF_Font* font)
 {
+	this->window = window;
 	settings = Settings::getInstance();
 	this->cameraRect = cameraRect;
 	sound = Sound::getInstance();
@@ -16,6 +17,7 @@ OptionsMenu::OptionsMenu(SDL_Renderer* renderTarget, SDL_Texture* backgroundImag
 	combinedHeight = 0;
 
 	menuItems = new std::vector<MenuItem*>();
+	menuItems->push_back( new MenuItem( renderTarget, font, "Fullscreen on" ) );
 	menuItems->push_back(new MenuItem(renderTarget, font, "Sound on"));
 	menuItems->push_back(new MenuItem(renderTarget, font, "Back"));
 
@@ -30,7 +32,9 @@ OptionsMenu::OptionsMenu(SDL_Renderer* renderTarget, SDL_Texture* backgroundImag
 
 	center();
 	soundOn = settings->getBoolean( Settings_SoundOn );
+	fullscreen = settings->getBoolean( Settings_fullscreen );
 	updateSound( renderTarget );
+	updateFullscreen( renderTarget );
 }
 
 OptionsMenu::~OptionsMenu()
@@ -88,8 +92,10 @@ int OptionsMenu::createMenu(SDL_Renderer* renderTarget){
 						mouseY >= menuItems->at(index)->getYPosition() && mouseY <= menuItems->at(index)->getYPosition() + menuItems->at(index)->getHeight()){
 						sound->playSound(Sound_MainMenu_Click);
 						
-						if (index == Choices::Sound_On_Off)
-							toggleSound(renderTarget);
+						if( index == Choices::Sound_On_Off )
+							toggleSound( renderTarget );
+						else if( index == Choices::FullScreen_On_Off )
+							toggleFullscreen( renderTarget );
 						else
 							return index;
 					}
@@ -113,18 +119,16 @@ void OptionsMenu::draw(SDL_Renderer* renderTarget){
 
 void OptionsMenu::toggleSound(SDL_Renderer* renderTarget){
 	if (soundOn){
-		sound->unmute();
+		sound->mute();
 		soundOn = false;
-		menuItems->at(Choices::Sound_On_Off)->setText(renderTarget, "Sound On");
-		menuItems->at( Choices::Sound_On_Off )->setHighlighted();
-
+		menuItems->at( Choices::Sound_On_Off )->setText( renderTarget, "Sound Off" );
 	}
 	else{
-		sound->mute();
+		sound->unmute();
 		soundOn = true;
-		menuItems->at(Choices::Sound_On_Off)->setText(renderTarget, "Sound Off");
-		menuItems->at( Choices::Sound_On_Off )->setHighlighted();
+		menuItems->at( Choices::Sound_On_Off )->setText( renderTarget, "Sound On" );
 	}
+	menuItems->at( Choices::Sound_On_Off )->setHighlighted();
 	settings->setBoolean( Settings_SoundOn, soundOn );
 	center();
 }
@@ -140,6 +144,40 @@ void OptionsMenu::updateSound(SDL_Renderer* renderTarget)
 	{
 		sound->mute();
 		menuItems->at( Choices::Sound_On_Off )->setText( renderTarget, "Sound Off" );
+	}
+	center();
+}
+
+void OptionsMenu::toggleFullscreen( SDL_Renderer* renderTarget )
+{
+	if( fullscreen )
+	{
+		/* SDL_SetWindowFullscreen( window, 0 ); */
+		fullscreen = false;
+		menuItems->at( Choices::FullScreen_On_Off )->setText( renderTarget, "Fullscreen off" );
+		center();
+								
+	}
+	else
+	{
+		/* SDL_SetWindowFullscreen( window, SDL_WINDOW_FULLSCREEN ); */
+		fullscreen = true;
+		menuItems->at( Choices::FullScreen_On_Off )->setText( renderTarget, "Fullscreen on" );
+	}
+	menuItems->at( Choices::FullScreen_On_Off )->setHighlighted();
+	settings->setBoolean( Settings_fullscreen, fullscreen );
+	center();
+}
+
+void OptionsMenu::updateFullscreen( SDL_Renderer* renderTarget )
+{
+	if( fullscreen )
+	{
+		menuItems->at( Choices::FullScreen_On_Off )->setText( renderTarget, "Fullscreen On" );
+	}
+	else
+	{
+		menuItems->at( Choices::FullScreen_On_Off )->setText( renderTarget, "Fullscreen Off" );
 	}
 	center();
 }

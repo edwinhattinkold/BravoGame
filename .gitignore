@@ -10,9 +10,11 @@
 [Dd]ebug
 [Rr]elease
 
+# TerrorEdje specifiek
 TerrorEdje.sdf
 TerrorEdje.opensdf
 TerrorEdje.v12.suo
+Settings
 
 # Compiled Object files
 *.slo

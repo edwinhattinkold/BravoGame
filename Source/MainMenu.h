@@ -25,7 +25,7 @@ private:
 	static enum Choices { Continue, Load_Game, Options, Credits, Exit };
 
 public:
-	MainMenu(SDL_Renderer* renderTarget, SDL_Texture* backgroundImage, SDL_Rect* cameraRect, TTF_Font* font);
+	MainMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, SDL_Rect* cameraRect, TTF_Font* font );
 	~MainMenu();
 
 	int getExitCode();

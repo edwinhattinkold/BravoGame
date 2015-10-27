@@ -89,7 +89,6 @@ void Sound::mute(){
 void Sound::unmute(){
 	muted = false;
 	engine->setSoundVolume(previousVolume);
-	
 }
 
 void Sound::fadeIn(){

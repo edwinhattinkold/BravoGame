@@ -1,12 +1,12 @@
 #include "MainMenu.h"
 #include "CustomCursor.h"
 
-MainMenu::MainMenu(SDL_Renderer* renderTarget, SDL_Texture* backgroundImage, SDL_Rect* cameraRect, TTF_Font* font)
+MainMenu::MainMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, SDL_Rect* cameraRect, TTF_Font* font )
 {
 	sound = Sound::getInstance();
 	sound->playSoundLooping(Sound_MainMenu_Theme, 0.50f);
 
-	optionsMenu = new OptionsMenu(renderTarget, backgroundImage, cameraRect, font);
+	optionsMenu = new OptionsMenu(renderTarget, window, backgroundImage, cameraRect, font);
 	creditsMenu = new CreditsMenu(renderTarget, cameraRect);
 
 	backgroundImageRect.x = 0;
