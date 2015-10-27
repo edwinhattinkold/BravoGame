@@ -117,9 +117,6 @@
     <ClInclude Include="Source\DrawContainer.h">
       <Filter>Header Files\Containers</Filter>
     </ClInclude>
-    <ClInclude Include="Source\UpdateContainer.h">
-      <Filter>Header Files\Containers</Filter>
-    </ClInclude>
     <ClInclude Include="Source\DrawFactory.h">
       <Filter>Header Files\Factories</Filter>
     </ClInclude>
@@ -137,6 +134,12 @@
     </ClInclude>
     <ClInclude Include="Source\CustomCursor.h">
       <Filter>Header Files\GraphicObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UpdateContainer.h">
+      <Filter>Header Files\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ChunkFactory.h">
+      <Filter>Header Files\Factories</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -184,6 +187,9 @@
     </ClCompile>
     <ClCompile Include="Source\CustomCursor.cpp">
       <Filter>Source Files\GraphicObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ChunkFactory.cpp">
+      <Filter>Source Files\Factories</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

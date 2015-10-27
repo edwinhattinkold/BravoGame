@@ -8,14 +8,21 @@
 #include "IDrawable.h"
 #include "IUpdateable.h"
 #include "DrawVisitor.h"
+#include "ChunkFactory.h"
 
 class MapDrawer : public IDrawable, public IUpdateable
 {
 private:
 	std::vector<std::vector<Chunk*>*> *chunks;
+	SDL_Renderer *renderTarget;
 	int minX, maxX, minY, maxY;
 	SDL_Rect *cameraRect;
 	World *world;
+	ChunkFactory *chunkFactory;
+	void loadChunkTop();
+	void loadChunkRight();
+	void loadChunkBottom();
+	void loadChunkLeft();
 public:
 	MapDrawer(SDL_Renderer *renderTarget,SDL_Rect *cameraRect, World *world);
 	~MapDrawer();

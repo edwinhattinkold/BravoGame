@@ -86,7 +86,7 @@ public:
 
 int main( int argc, char *argv[] )
 {
-	MainHelper* mainHelper = new MainHelper( true );
+	MainHelper* mainHelper = new MainHelper( false );
 	mainHelper->run();
 
 	delete mainHelper;
