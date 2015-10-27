@@ -6,6 +6,7 @@
 #include "MainMenu.h"
 #include "Player.h"
 #include "MapDrawer.h"
+#include "TDCar.h"
 #include "Camera.h"
 #include <Windows.h>
 /************************************************************************/
@@ -16,16 +17,21 @@ update the objects, etc. Not all in this class of course.			*/
 class World
 {
 private:
+
+	TDCar* myCar;
 	//SDL
 	SDL_Renderer *renderTarget;
+	SDL_Texture *carTexture;
 	SDL_Texture *mainMenuBackground;
 	Camera* camera;
 	SDL_Event ev;
 	void updateSDL();
 	const Uint8 *keyState;
-
+	int m_controlState;
 	//Menus
 	MainMenu* menu;
+
+	SDL_Scancode keys[4];
 
 	//physics
 	const b2Vec2 *gravity;

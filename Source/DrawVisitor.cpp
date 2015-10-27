@@ -3,6 +3,7 @@
 
 #include "MapDrawer.h"
 #include "Sprite.h"
+#include "TDCar.h"
 
 DrawVisitor::DrawVisitor( SDL_Renderer *renderTarget, SDL_Rect *cameraRect )
 {
@@ -14,7 +15,12 @@ DrawVisitor::DrawVisitor( SDL_Renderer *renderTarget, SDL_Rect *cameraRect )
 DrawVisitor::~DrawVisitor()
 {}
 
-void DrawVisitor::visit( IDrawable *id )
+void DrawVisitor::visit(IDrawable *db)
 {
-	id->draw( renderTarget, *cameraRect );
+	db->draw(renderTarget, *cameraRect);
+}
+
+void DrawVisitor::visit(TDCar *car)
+{
+	car->drawEx(renderTarget, *cameraRect);
 }

@@ -7,6 +7,12 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	currentTime = 0;
 	deltaTime = 0.0f;
 	isRunning = true;
+	m_controlState = 0;
+
+	keys[0] = SDL_SCANCODE_W;
+	keys[1] = SDL_SCANCODE_S;
+	keys[2] = SDL_SCANCODE_A;
+	keys[3] = SDL_SCANCODE_D;
 
 	velocityIterations = new int32( 8 );
 	positionIterations = new int32( 3 );
@@ -34,10 +40,14 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	menu = new MainMenu( renderTarget, mainMenuBackground, camera->getCamera(), font );
 
 	//Creation of sprites should be placed elsewhere as well, I'm just running out of time
-	player1 = new Player( renderTarget, 1024, 1024, 300.0f, drawContainer );
+	player1 = new Player( renderTarget, 1024, 1024, 300.0f );
 	mapDrawer = new MapDrawer( renderTarget, camera->getCamera(),this );
+	
+	myCar = new TDCar(physics, renderTarget, 4, 8);
+
 	drawContainer->add( mapDrawer );
 	drawContainer->add( player1 );
+	drawContainer->add( myCar );
 	updateContainer->add( mapDrawer );
 	updateContainer->add( player1 );
 }
@@ -69,30 +79,56 @@ void World::tick()
 	calcDeltaTime();
 
 	//Input handling
-	while( SDL_PollEvent( &ev ) != 0 )
+	while (SDL_PollEvent(&ev) != 0)
 	{
-		if( ev.type == SDL_QUIT )
+		if (ev.type == SDL_QUIT)
 			isRunning = false;
-		if( ev.key.keysym.sym == SDLK_ESCAPE )
+		if (ev.key.keysym.sym == SDLK_ESCAPE)
 		{
-			Sound::getInstance()->playSoundLooping( Sound_MainMenu_Theme );
-			int i = menu->showMenu( renderTarget );
-			if( i == menu->getExitCode() )
+			Sound::getInstance()->playSoundLooping(Sound_MainMenu_Theme);
+			int i = menu->showMenu(renderTarget);
+			if (i == menu->getExitCode())
 				isRunning = false;
 		}
 	}
-	keyState = SDL_GetKeyboardState( NULL );
+	keyState = SDL_GetKeyboardState(NULL);
+
+	//SVEN
+	//W
+	if (keyState[keys[0]])
+		m_controlState |= TDC_UP;
+	else
+		m_controlState &= ~TDC_UP;
+
+	//S
+	if (keyState[keys[1]])
+		m_controlState |= TDC_DOWN;
+	else
+		m_controlState &= ~TDC_DOWN;
+
+
+	//A
+	if (keyState[keys[2]])
+		m_controlState |= TDC_LEFT;
+	else
+		m_controlState &= ~TDC_LEFT;
+
+	//D
+	if (keyState[keys[3]])
+		m_controlState |= TDC_RIGHT;
+	else
+		m_controlState &= ~TDC_RIGHT;
+
+	myCar->update(m_controlState);
+
+	///SVEN
 	handleBodyRemoveStack();
 	//update physics
-	physics->Step( deltaTime, *velocityIterations, *positionIterations );
+	physics->Step(deltaTime, *velocityIterations, *positionIterations);
 
-	//update camera
-	//TODO: make camera IUpdateable.  <-- klinkt netjes, maar is niet slim, aangezien de camera altijd als eerst geupdate MOET worden
-	//zodat alle ander updates gegevens uit de geupdate camera kunnen halen, als je het in een vector op positie 0 zet dan kan een ander stuk code
-	//een element op de 0ste plek zetten, waardoor alles omvalt.
-	camera->update( player1->getPositionX(), player1->getPositionY() );
+	camera->update(myCar->getPositionX(), myCar->getPositionY());
 
-	updateContainer->update( deltaTime, keyState );
+	updateContainer->update(deltaTime, keyState);
 
 	//update SDL
 	updateSDL();
@@ -118,6 +154,15 @@ void World::updateSDL()
 {
 	SDL_RenderClear( renderTarget );
 	drawContainer->draw();
+	SDL_Rect texture_rect;
+	int scale = 20;
+	//std::cout << "x " << myCar->getPosition().x << "y " << myCar->getPosition().y * scale << "" << std::endl;
+
+	texture_rect.x =  myCar->getPosition().x   ;  //the x coordinate
+	texture_rect.y = -myCar->getPosition().y; // the y coordinate
+	texture_rect.w = 6 * scale; //the width of the texture
+	texture_rect.h = 10 * scale; //the height of the texture
+	
 	SDL_RenderPresent( renderTarget );
 }
 

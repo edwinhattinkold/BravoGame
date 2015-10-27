@@ -4,15 +4,27 @@
 #include <cmath>
 #include "Sprite.h"
 
-Sprite::Sprite( int xPosition, int yPosition, DrawContainer *dc )
+Sprite::Sprite( int xPosition, int yPosition )
 {
 	currentAnimaton = 0;
+	angle = 0;
 	positionRect.x = xPosition;
 	positionRect.y = yPosition;
-	dc->add( this );//Adds itself to the container (container reference needed though
 }
 
-Sprite::Sprite( SDL_Renderer *renderTarget, std::string filePath, int xPosition, int yPosition, int framesX, int framesY, float animationSpeed, DrawContainer *dc )
+Sprite::Sprite(SDL_Renderer* renderTarget, std::string filePath){
+	Animation* default_animation = new Animation(renderTarget, filePath, 1, 1, 0, 0, 0.50f);
+
+	animations = new std::vector<Animation*>();
+	animations->push_back(default_animation);
+
+	currentAnimaton = 0;
+
+	positionRect.w = animations->at(currentAnimaton)->getFrameWidth();
+	positionRect.h = animations->at(currentAnimaton)->getFrameHeight();
+}
+
+Sprite::Sprite( SDL_Renderer *renderTarget, std::string filePath, int xPosition, int yPosition, int framesX, int framesY, float animationSpeed)
 {
 	Animation* default_animation = new Animation( renderTarget, filePath, framesX, framesY, 0, 0, animationSpeed );
 
@@ -25,8 +37,6 @@ Sprite::Sprite( SDL_Renderer *renderTarget, std::string filePath, int xPosition,
 	positionRect.y = yPosition;
 	positionRect.w = animations->at( currentAnimaton )->getFrameWidth();
 	positionRect.h = animations->at( currentAnimaton )->getFrameHeight();
-
-	dc->add( this ); //Adds itself to the container (container reference needed though
 }
 
 Sprite::~Sprite()
@@ -47,13 +57,19 @@ void Sprite::draw( SDL_Renderer *renderTarget, SDL_Rect camerRect )
 	animations->at( currentAnimaton )->draw( renderTarget, drawingRect );
 }
 
+void Sprite::drawEx(SDL_Renderer *renderTarget, SDL_Rect camerRect)
+{
+	SDL_Rect drawingRect = { positionRect.x - camerRect.x, positionRect.y - camerRect.y, positionRect.w, positionRect.h };
+	animations->at(currentAnimaton)->drawEx(renderTarget, drawingRect, angle);
+}
+
 int Sprite::getPositionX()
 {
-	return positionRect.x + originX;
+	return positionRect.x + this->animations->at(currentAnimaton)->getOriginX();
 }
 int Sprite::getPositionY()
 {
-	return positionRect.y + originY;
+	return positionRect.y + this->animations->at(currentAnimaton)->getOriginY();
 }
 
 void Sprite::setOriginX( int newOriginX )

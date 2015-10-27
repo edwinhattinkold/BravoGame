@@ -55,6 +55,7 @@ void MapDrawer::draw( SDL_Renderer *renderTarget, SDL_Rect cameraRect )
 
 void MapDrawer::accept( UpdateVisitor *uv, float deltaTime, const Uint8 *keyState )
 {
+	/*
 	if( minX * 1024 + 300 > cameraRect->x )
 		std::cout << "loadLeft" << std::endl;
 	if( minY * 1024 + 300 > cameraRect->y )
@@ -63,6 +64,7 @@ void MapDrawer::accept( UpdateVisitor *uv, float deltaTime, const Uint8 *keyStat
 		std::cout << "loadRight" << std::endl;
 	if( minY * 1024 - 300 < cameraRect->x + cameraRect->h)
 		std::cout << "loadBottom" << std::endl;
+		*/
 }
 void MapDrawer::update( float delta, const Uint8 *keyState )
 {

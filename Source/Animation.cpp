@@ -65,6 +65,31 @@ void Animation::draw( SDL_Renderer* renderTarget, SDL_Rect drawingRect )
 	SDL_RenderCopy( renderTarget, texture, &cropRect, &drawingRect );
 }
 
+void Animation::drawEx(SDL_Renderer* renderTarget, SDL_Rect drawingRect, int angle){
+	std::cout << angle << std::endl;
+	int newAngle = 0;
+	if (angle< 90)
+	{
+		int temp = 90 - angle;
+		newAngle = 90 + temp;
+	}
+	if (angle < 180 )
+	{
+		int temp =   angle - 90;
+		newAngle = 90 - temp;
+	}
+	if (angle < 270)
+	{
+		int temp = 270 - angle;
+		newAngle = 270 + temp;
+	}
+	else{
+		int temp = angle - 270;
+		newAngle = 270 - temp;
+	}
+	SDL_RenderCopyEx(renderTarget, texture, NULL, &drawingRect, newAngle, NULL, SDL_FLIP_VERTICAL);
+}
+
 void Animation::standStill()
 {
 	frameCounter = 0.0f;

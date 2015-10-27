@@ -58,6 +58,12 @@
     <Filter Include="Source Files\Visitors">
       <UniqueIdentifier>{ddf472d0-9051-410d-a409-e658d2705f7a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Model">
+      <UniqueIdentifier>{0520e3fd-05ea-4bfc-b4b7-09ec4f940d35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Model">
+      <UniqueIdentifier>{0b72afb4-ec52-4902-9163-f21402da7492}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Animation.h">
@@ -138,6 +144,30 @@
     <ClInclude Include="Source\CustomCursor.h">
       <Filter>Header Files\GraphicObjects</Filter>
     </ClInclude>
+    <ClInclude Include="Source\CarTireFUD.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FixtureUserData.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GroundAreaFUD.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MyDestructionListener.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PhysicsWorld.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\TDCar.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\TDTire.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Car.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\main.cpp">
@@ -184,6 +214,30 @@
     </ClCompile>
     <ClCompile Include="Source\CustomCursor.cpp">
       <Filter>Source Files\GraphicObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Car.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CarTireFUD.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FixtureUserData.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GroundAreaFUD.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MyDestructionListener.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PhysicsWorld.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TDCar.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TDTire.cpp">
+      <Filter>Source Files\Model</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

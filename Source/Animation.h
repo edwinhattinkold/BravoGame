@@ -20,6 +20,7 @@ public:
 	~Animation();
 	void update(float deltaTime);
 	void draw(SDL_Renderer* renderTarget, SDL_Rect drawingRect);
+	void drawEx(SDL_Renderer* renderTarget, SDL_Rect drawingRect, int angle);
 	void standStill();
 
 	int getOriginX();

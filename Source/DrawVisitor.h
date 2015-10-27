@@ -3,6 +3,7 @@
 #include <SDL.h>
 
 class IDrawable;
+class TDCar;
 
 class DrawVisitor
 {
@@ -12,6 +13,7 @@ private:
 public:
 	DrawVisitor(SDL_Renderer *renderTarget, SDL_Rect *cameraRect);
 	~DrawVisitor();
-	void visit(IDrawable *id);
+	void visit(IDrawable *db);
+	void visit(TDCar *car);
 };
 

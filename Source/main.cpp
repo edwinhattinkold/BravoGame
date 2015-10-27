@@ -14,6 +14,28 @@
 #include "World.h"
 #include "Sound.h"
 
+#include "Car.h"
+#include "PhysicsWorld.h"
+
+
+//SVEN
+
+SDL_Texture *LoadTexture(std::string filePath, SDL_Renderer *renderTarget){
+	SDL_Texture *texture = nullptr;
+	SDL_Surface *surface = IMG_Load(filePath.c_str());
+	if (surface == NULL)
+		std::cout << "Error" << std::endl;
+	else
+	{
+		texture = SDL_CreateTextureFromSurface(renderTarget, surface);
+		if (texture == NULL)
+			std::cout << "Error" << std::endl;
+	}
+
+	SDL_FreeSurface(surface);
+	return texture;
+}
+///SVEN
 class MainHelper
 {
 private:
@@ -49,7 +71,7 @@ public:
 		levelWidth = 3072;
 		levelHeight = 3072;
 
-		if( fullScreen )
+		if( !fullScreen )
 		{
 			getDesktopResolution( windowWidth, windowHeight );
 			flags = SDL_WINDOW_FULLSCREEN;

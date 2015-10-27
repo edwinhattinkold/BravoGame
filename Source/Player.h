@@ -17,7 +17,7 @@ private:
 
 public:
 	enum PlayerAnimation { Walking_Left, Walking_Up, Walking_Right, Walking_Down, PlayerAnimationsCount };
-	Player(SDL_Renderer *renderTarget, int xPosition, int yPosition, float moveSpeed, DrawContainer *dc);
+	Player(SDL_Renderer *renderTarget, int xPosition, int yPosition, float moveSpeed);
 	~Player();
 
 	virtual void update(float delta, const Uint8 *keyState);

@@ -4,8 +4,8 @@
 #include <cmath>
 #include "UpdateVisitor.h"
 
-Player::Player( SDL_Renderer *renderTarget, int xPosition, int yPosition, float moveSpeed, DrawContainer *dc )
-	:Sprite( xPosition, yPosition, dc )
+Player::Player( SDL_Renderer *renderTarget, int xPosition, int yPosition, float moveSpeed )
+	:Sprite( xPosition, yPosition)
 {
 	float animSpeed = 0.10f;
 	/* Create all the animations required for this sprite */
