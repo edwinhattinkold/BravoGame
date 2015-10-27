@@ -65,6 +65,11 @@ void MenuItem::toggleSelected(){
 		currentTexture = normalTexture;
 }
 
+void MenuItem::setHighlighted()
+{
+	currentTexture = highlightedTexture;
+}
+
 int MenuItem::getHeight(){
 	return position.h;
 }
@@ -96,7 +101,7 @@ void MenuItem::setText(SDL_Renderer* renderTarget, char* text){
 	SDL_DestroyTexture(currentTexture);
 	normalTexture = createTextTexture(renderTarget, myFont, content, normalColor);
 	highlightedTexture = createTextTexture(renderTarget, myFont, content, highlightedColor);
-	currentTexture = highlightedTexture;
+	currentTexture = normalTexture;
 	SDL_QueryTexture(normalTexture, NULL, NULL, &position.w, &position.h);
 }
 

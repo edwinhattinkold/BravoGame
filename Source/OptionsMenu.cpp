@@ -3,6 +3,7 @@
 
 OptionsMenu::OptionsMenu(SDL_Renderer* renderTarget, SDL_Texture* backgroundImage, SDL_Rect* cameraRect, TTF_Font* font)
 {
+	settings = Settings::getInstance();
 	this->cameraRect = cameraRect;
 	sound = Sound::getInstance();
 	backgroundImageRect.x = 0;
@@ -28,7 +29,8 @@ OptionsMenu::OptionsMenu(SDL_Renderer* renderTarget, SDL_Texture* backgroundImag
 	combinedHeight += marginHeight;
 
 	center();
-	soundMuted = false;
+	soundOn = settings->getBoolean( Settings_SoundOn );
+	updateSound( renderTarget );
 }
 
 OptionsMenu::~OptionsMenu()
@@ -110,15 +112,34 @@ void OptionsMenu::draw(SDL_Renderer* renderTarget){
 }
 
 void OptionsMenu::toggleSound(SDL_Renderer* renderTarget){
-	if (soundMuted){
+	if (soundOn){
 		sound->unmute();
-		soundMuted = false;
+		soundOn = false;
 		menuItems->at(Choices::Sound_On_Off)->setText(renderTarget, "Sound On");
+		menuItems->at( Choices::Sound_On_Off )->setHighlighted();
+
 	}
 	else{
 		sound->mute();
-		soundMuted = true;
+		soundOn = true;
 		menuItems->at(Choices::Sound_On_Off)->setText(renderTarget, "Sound Off");
+		menuItems->at( Choices::Sound_On_Off )->setHighlighted();
+	}
+	settings->setBoolean( Settings_SoundOn, soundOn );
+	center();
+}
+
+void OptionsMenu::updateSound(SDL_Renderer* renderTarget)
+{
+	if( soundOn )
+	{
+		sound->unmute();
+		menuItems->at( Choices::Sound_On_Off )->setText( renderTarget, "Sound On" );
+	}
+	else
+	{
+		sound->mute();
+		menuItems->at( Choices::Sound_On_Off )->setText( renderTarget, "Sound Off" );
 	}
 	center();
 }

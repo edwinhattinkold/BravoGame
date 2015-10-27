@@ -27,5 +27,5 @@ public:
 	void draw( int mouseXPosition, int mouseYPosition );
 };
 
-extern __declspec(dllexport) void Cursor_Quit();
+extern __declspec(dllexport) void CustomCursor_Quit();
 

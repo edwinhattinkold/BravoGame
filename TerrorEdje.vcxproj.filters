@@ -58,6 +58,12 @@
     <Filter Include="Source Files\Visitors">
       <UniqueIdentifier>{ddf472d0-9051-410d-a409-e658d2705f7a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Settings">
+      <UniqueIdentifier>{278797af-776e-4033-aec0-150df4c20b91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Settings">
+      <UniqueIdentifier>{718b5845-efe9-446e-8177-b4ad79a5cf06}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Animation.h">
@@ -138,6 +144,9 @@
     <ClInclude Include="Source\CustomCursor.h">
       <Filter>Header Files\GraphicObjects</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Settings.h">
+      <Filter>Header Files\Settings</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\main.cpp">
@@ -184,6 +193,9 @@
     </ClCompile>
     <ClCompile Include="Source\CustomCursor.cpp">
       <Filter>Source Files\GraphicObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Settings.cpp">
+      <Filter>Source Files\Settings</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

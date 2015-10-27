@@ -30,6 +30,7 @@
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\rapidxml.hpp" />
     <ClInclude Include="Source\rapidxml_utils.hpp" />
+    <ClInclude Include="Source\Settings.h" />
     <ClInclude Include="Source\Sound.h" />
     <ClInclude Include="Source\Sprite.h" />
     <ClInclude Include="Source\Tile.h" />
@@ -56,6 +57,7 @@
     <ClCompile Include="Source\MenuItem.cpp" />
     <ClCompile Include="Source\OptionsMenu.cpp" />
     <ClCompile Include="Source\Player.cpp" />
+    <ClCompile Include="Source\Settings.cpp" />
     <ClCompile Include="Source\Sound.cpp" />
     <ClCompile Include="Source\Sprite.cpp" />
     <ClCompile Include="Source\Tile.cpp" />

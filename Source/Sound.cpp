@@ -1,6 +1,4 @@
 #include "Sound.h"
-#include "CustomCursor.h"
-#include <Windows.h>
 static Sound* instance;
 
 Sound::Sound(){
@@ -123,5 +121,5 @@ void Sound::fadeOutTick(){
 }
 
 extern __declspec(dllexport) void Sound_Quit(){
-	delete Sound::getInstance();
+	delete instance; instance = nullptr;
 }

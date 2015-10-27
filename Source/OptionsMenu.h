@@ -4,6 +4,7 @@
 #include "Sound.h"
 #include <vector>
 #include "MenuItem.h"
+#include "Settings.h"
 
 class OptionsMenu
 {
@@ -16,9 +17,11 @@ private:
 	Sound* sound;
 	Uint32 time;
 	int mouseX, mouseY, margin, combinedHeight;
-	bool soundMuted;
+	bool soundOn;
 	static enum Choices { Sound_On_Off, Back, Exit };
 	void center();
+	Settings* settings;
+	void updateSound( SDL_Renderer* renderTarget );
 
 public:
 	OptionsMenu(SDL_Renderer* renderTarget, SDL_Texture* backgroundImage, SDL_Rect* cameraRect, TTF_Font* font);

@@ -27,11 +27,12 @@ private:
 	Sound();
 	Sound(Sound const&);
 	void operator=(Sound const&);
+	
 
 public:
 	/* Singleton */
 	static Sound* getInstance();
-	
+
 	~Sound();
 	void playSound(SoundFiles file);
 	void playSoundLooping(SoundFiles file);

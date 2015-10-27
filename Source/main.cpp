@@ -13,6 +13,8 @@
 #include <Box2D/Box2D.h>
 #include "World.h"
 #include "Sound.h"
+#include "CustomCursor.h"
+#include "Settings.h"
 
 class MainHelper
 {
@@ -35,6 +37,12 @@ public:
 
 	MainHelper::MainHelper( bool fullScreen )
 	{
+		std::cout << " " << std::endl;
+		std::cout << Settings::getInstance()->getBoolean( Settings_SoundOn ) << std::endl;
+		std::cout << Settings::getInstance()->getInteger( Settings_Resolution_Width ) << std::endl;
+		std::cout << Settings::getInstance()->getInteger( Settings_Resolution_Height ) << std::endl;
+		std::cout << " " << std::endl;
+
 		Uint32 flags = SDL_WINDOW_SHOWN;
 
 		TTF_Init();
@@ -80,13 +88,17 @@ public:
 
 		SDL_Quit();
 		TTF_Quit();
+
+		//Our own Quits
 		Sound_Quit();
+		CustomCursor_Quit();
+		Settings_Quit();
 	}
 };
 
 int main( int argc, char *argv[] )
 {
-	MainHelper* mainHelper = new MainHelper( true );
+	MainHelper* mainHelper = new MainHelper( false );
 	mainHelper->run();
 
 	delete mainHelper;

@@ -45,7 +45,7 @@ void CustomCursor::draw( int mouseXPosition, int mouseYPosition)
 	SDL_RenderCopy( renderTarget, image, NULL, &positionRect );
 }
 
-extern __declspec(dllexport) void Cursor_Quit()
+extern __declspec(dllexport) void CustomCursor_Quit()
 {
-	delete instance;
+	delete instance; instance = nullptr;
 }
