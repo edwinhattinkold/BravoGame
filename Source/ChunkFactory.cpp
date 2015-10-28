@@ -16,6 +16,7 @@ ChunkFactory::~ChunkFactory()
 		iterator->second = nullptr;
 	}
 	delete chunks;
+	chunks = nullptr;
 }
 Chunk* ChunkFactory::getChunk(std::string name)
 {

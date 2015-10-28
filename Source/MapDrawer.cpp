@@ -19,7 +19,7 @@ MapDrawer::MapDrawer( SDL_Renderer *renderTarget, SDL_Rect *cameraRect, World *w
 	{
 		chunks->push_back( new std::vector<Chunk*>() );
 		for( int x = minX; x < maxX; x++ )
-			chunks->at( yCount )->push_back( new Chunk( renderTarget, "maps/" + xmlReader.getChunk( x, y ), world ) );
+			chunks->at( yCount )->push_back( new Chunk( renderTarget, "maps/" + getChunk( x, y ), world ) );
 		yCount++;
 	}
 }
@@ -57,13 +57,13 @@ void MapDrawer::draw( SDL_Renderer *renderTarget, SDL_Rect cameraRect )
 
 void MapDrawer::accept( UpdateVisitor *uv, float deltaTime, const Uint8 *keyState )
 {
-	if ( minX * 1024 + 300 > cameraRect->x)
+	if ( minX * 1024 > cameraRect->x)
 		loadChunkLeft();
-	if (minY * 1024 + 300 > cameraRect->y)
+	if (minY * 1024 > cameraRect->y)
 		loadChunkTop();
-	if (maxX * 1024 - 300 < cameraRect->x + cameraRect->w)
+	if (maxX * 1024 < cameraRect->x + cameraRect->w)
 		loadChunkRight();
-	if (maxY * 1024 - 300 < cameraRect->y + cameraRect->h)
+	if (maxY * 1024 < cameraRect->y + cameraRect->h)
 		loadChunkBottom();
 }
 void MapDrawer::update( float delta, const Uint8 *keyState )
@@ -71,13 +71,23 @@ void MapDrawer::update( float delta, const Uint8 *keyState )
 
 }
 
-void MapDrawer::loadChunkLeft()
+std::string MapDrawer::getChunk(int x, int y)
 {
 	XMLReader xmlReader;
+	std::string filePath = xmlReader.getChunk(x,y);
+	if( filePath.empty())
+	{
+		filePath = "cleanlevel.tmx";
+	}
+	return filePath;
+}
+
+void MapDrawer::loadChunkLeft()
+{
 	std::vector<Chunk*> preLoad;
-	preLoad.push_back(new Chunk(renderTarget, "maps/" + xmlReader.getChunk(minX - 1, minY), world));
-	preLoad.push_back(new Chunk(renderTarget, "maps/" + xmlReader.getChunk(minX - 1, minY+1), world));
-	preLoad.push_back(new Chunk(renderTarget, "maps/" + xmlReader.getChunk(minX - 1, minY +2), world));
+	preLoad.push_back(new Chunk(renderTarget, "maps/" + getChunk(minX - 1, minY), world));
+	preLoad.push_back(new Chunk(renderTarget, "maps/" + getChunk(minX - 1, minY+1), world));
+	preLoad.push_back(new Chunk(renderTarget, "maps/" + getChunk(minX - 1, minY +2), world));
 	for (size_t y = 0; y < chunks->size(); y++)
 	{
 		int xCount = chunks->at(y)->size() - 1;
@@ -99,9 +109,9 @@ void MapDrawer::loadChunkRight()
 {
 	XMLReader xmlReader;
 	std::vector<Chunk*> preLoad;
-	preLoad.push_back(new Chunk(renderTarget, "maps/" + xmlReader.getChunk(maxX , minY), world));
-	preLoad.push_back(new Chunk(renderTarget, "maps/" + xmlReader.getChunk(maxX , minY + 1), world));
-	preLoad.push_back(new Chunk(renderTarget, "maps/" + xmlReader.getChunk(maxX , minY + 2), world));
+	preLoad.push_back(new Chunk(renderTarget, "maps/" + getChunk(maxX , minY), world));
+	preLoad.push_back(new Chunk(renderTarget, "maps/" + getChunk(maxX , minY + 1), world));
+	preLoad.push_back(new Chunk(renderTarget, "maps/" + getChunk(maxX , minY + 2), world));
 	for (size_t y = 0; y < chunks->size(); y++)
 	{
 		//delete most left element
@@ -122,9 +132,9 @@ void MapDrawer::loadChunkRight()
 void MapDrawer::loadChunkBottom(){
 	XMLReader xmlReader;
 	std::vector<Chunk*> *preLoad = new std::vector<Chunk*>();
-	preLoad->push_back(new Chunk(renderTarget, "maps/" + xmlReader.getChunk(minX, maxY), world));
-	preLoad->push_back(new Chunk(renderTarget, "maps/" + xmlReader.getChunk(minX + 1, maxY), world));
-	preLoad->push_back(new Chunk(renderTarget, "maps/" + xmlReader.getChunk(minX + 2, maxY), world));
+	preLoad->push_back(new Chunk(renderTarget, "maps/" + getChunk(minX, maxY), world));
+	preLoad->push_back(new Chunk(renderTarget, "maps/" + getChunk(minX + 1, maxY), world));
+	preLoad->push_back(new Chunk(renderTarget, "maps/" + getChunk(minX + 2, maxY), world));
 	//delete first row
 	for (size_t x = 0; x < chunks->at(0)->size() ; x++){
 		delete chunks->at(0)->at(x);
@@ -146,9 +156,9 @@ void MapDrawer::loadChunkTop()
 {
 	XMLReader xmlReader;
 	std::vector<Chunk*> *preLoad = new std::vector<Chunk*>();
-	preLoad->push_back(new Chunk(renderTarget, "maps/" + xmlReader.getChunk(minX, minY -1), world));
-	preLoad->push_back(new Chunk(renderTarget, "maps/" + xmlReader.getChunk(minX + 1, minY - 1), world));
-	preLoad->push_back(new Chunk(renderTarget, "maps/" + xmlReader.getChunk(minX + 2, minY - 1), world));
+	preLoad->push_back(new Chunk(renderTarget, "maps/" + getChunk(minX, minY -1), world));
+	preLoad->push_back(new Chunk(renderTarget, "maps/" + getChunk(minX + 1, minY - 1), world));
+	preLoad->push_back(new Chunk(renderTarget, "maps/" + getChunk(minX + 2, minY - 1), world));
 	//delete first row
 	size_t size = chunks->size() - 1;
 	for (size_t x = 0; x < chunks->at(size)->size(); x++){

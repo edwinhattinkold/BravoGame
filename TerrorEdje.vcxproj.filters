@@ -102,9 +102,6 @@
     <ClInclude Include="Source\rapidxml_utils.hpp">
       <Filter>Header Files\RapidXML</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Chunk.h">
       <Filter>Header Files\Map</Filter>
     </ClInclude>
@@ -193,9 +190,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="TerrorEdje.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
     <ClCompile Include="Source\DrawVisitor.cpp">
       <Filter>Source Files\Visitors</Filter>
     </ClCompile>
