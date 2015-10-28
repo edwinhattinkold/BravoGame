@@ -168,6 +168,12 @@
     <ClInclude Include="Source\Car.h">
       <Filter>Header Files\Model</Filter>
     </ClInclude>
+    <ClInclude Include="Source\B2Content.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Tree.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\main.cpp">
@@ -237,6 +243,12 @@
       <Filter>Source Files\Model</Filter>
     </ClCompile>
     <ClCompile Include="Source\TDTire.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\B2Content.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tree.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
   </ItemGroup>

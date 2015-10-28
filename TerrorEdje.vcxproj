@@ -36,11 +36,13 @@
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\rapidxml.hpp" />
     <ClInclude Include="Source\rapidxml_utils.hpp" />
+    <ClInclude Include="Source\B2Content.h" />
     <ClInclude Include="Source\Sound.h" />
     <ClInclude Include="Source\Sprite.h" />
     <ClInclude Include="Source\TDCar.h" />
     <ClInclude Include="Source\TDTire.h" />
     <ClInclude Include="Source\Tile.h" />
+    <ClInclude Include="Source\Tree.h" />
     <ClInclude Include="Source\UpdateContainer.h" />
     <ClInclude Include="Source\UpdateVisitor.h" />
     <ClInclude Include="Source\World.h" />
@@ -48,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Animation.cpp" />
+    <ClCompile Include="Source\B2Content.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\Car.cpp" />
     <ClCompile Include="Source\CarTireFUD.cpp" />
@@ -75,6 +78,7 @@
     <ClCompile Include="Source\TDCar.cpp" />
     <ClCompile Include="Source\TDTire.cpp" />
     <ClCompile Include="Source\Tile.cpp" />
+    <ClCompile Include="Source\Tree.cpp" />
     <ClCompile Include="Source\UpdateContainer.cpp" />
     <ClCompile Include="Source\UpdateVisitor.cpp" />
     <ClCompile Include="Source\World.cpp" />

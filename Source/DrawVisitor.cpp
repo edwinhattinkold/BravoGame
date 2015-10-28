@@ -4,6 +4,8 @@
 #include "MapDrawer.h"
 #include "Sprite.h"
 #include "TDCar.h"
+#include "Tree.h"
+#include "B2Content.h"
 
 DrawVisitor::DrawVisitor( SDL_Renderer *renderTarget, SDL_Rect *cameraRect )
 {
@@ -20,7 +22,15 @@ void DrawVisitor::visit(IDrawable *db)
 	db->draw(renderTarget, *cameraRect);
 }
 
-void DrawVisitor::visit(TDCar *car)
+void DrawVisitor::visit(B2Content *content)
 {
-	car->drawEx(renderTarget, *cameraRect);
+	content->draw(renderTarget, *cameraRect);
+}
+
+void DrawVisitor::visit(Tree *tree){
+	tree->drawTree(renderTarget, *cameraRect);
+}
+
+void DrawVisitor::visit(TDCar *car){
+	car->drawCar(renderTarget, *cameraRect);
 }

@@ -1,6 +1,7 @@
 #include "World.h"
 #include "CustomCursor.h"
 
+
 World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font )
 {
 	prevTime = 0;
@@ -40,16 +41,17 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	menu = new MainMenu( renderTarget, mainMenuBackground, camera->getCamera(), font );
 
 	//Creation of sprites should be placed elsewhere as well, I'm just running out of time
-	player1 = new Player( renderTarget, 1024, 1024, 300.0f );
 	mapDrawer = new MapDrawer( renderTarget, camera->getCamera(),this );
 	
-	myCar = new TDCar(physics, renderTarget, 4, 8);
+	myCar = new TDCar(physics, renderTarget, 6, 10);
 
-	drawContainer->add( mapDrawer );
-	drawContainer->add( player1 );
+	myTree = new Tree(physics, renderTarget, 3, 6, 0, -15);
+
+
+	drawContainer->add(mapDrawer);
 	drawContainer->add( myCar );
+	drawContainer->add(myTree);
 	updateContainer->add( mapDrawer );
-	updateContainer->add( player1 );
 }
 
 
@@ -66,7 +68,6 @@ World::~World()
 	delete this->positionIterations;				this->positionIterations = nullptr;
 	delete this->camera;							this->camera = nullptr;
 	delete this->menu;								this->menu = nullptr;
-	delete this->player1;							this->player1 = nullptr;
 	
 	SDL_DestroyTexture(this->mainMenuBackground);	this->mainMenuBackground = nullptr;
 	SDL_DestroyRenderer(this->renderTarget);		this->renderTarget = nullptr;
@@ -126,7 +127,8 @@ void World::tick()
 	//update physics
 	physics->Step(deltaTime, *velocityIterations, *positionIterations);
 
-	camera->update(myCar->getPositionX(), myCar->getPositionY());
+	camera->update(myCar->getOriginX(), myCar->getOriginY());
+	camera->update(0,0);
 
 	updateContainer->update(deltaTime, keyState);
 
@@ -158,10 +160,6 @@ void World::updateSDL()
 	int scale = 20;
 	//std::cout << "x " << myCar->getPosition().x << "y " << myCar->getPosition().y * scale << "" << std::endl;
 
-	texture_rect.x =  myCar->getPosition().x   ;  //the x coordinate
-	texture_rect.y = -myCar->getPosition().y; // the y coordinate
-	texture_rect.w = 6 * scale; //the width of the texture
-	texture_rect.h = 10 * scale; //the height of the texture
 	
 	SDL_RenderPresent( renderTarget );
 }

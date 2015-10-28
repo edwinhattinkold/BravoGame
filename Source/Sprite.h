@@ -10,10 +10,11 @@
 
 class Sprite : public IDrawable, public IUpdateable
 {
+private:
+	const int scale = 20;
 protected:
 	std::vector<Animation*> *animations;
-	int currentAnimaton;
-	int originX, originY;
+	int currentAnimation;
 	int angle;
 
 public:
@@ -30,7 +31,8 @@ public:
 
 	virtual void update(float delta, const Uint8 *keyState);
 	virtual void draw(SDL_Renderer *renderTarget, SDL_Rect camerRect);
-	virtual void drawEx(SDL_Renderer *renderTarget, SDL_Rect camerRect);
+	virtual void drawTree(SDL_Renderer *renderTarget, SDL_Rect camerRect);
+	virtual void drawCar(SDL_Renderer *renderTarget, SDL_Rect cameraRect);
 	bool intersectsWith(Sprite &p);
 
 	SDL_Rect positionRect;
@@ -38,9 +40,12 @@ public:
 	int getPositionX();
 	int getPositionY();
 
-	void setOriginX(int newOriginX);
-	void setOriginY(int newOriginY);
+	void updateSDLPosition(int, int, int, int, float);
+	void updateSDLPosition(float, float);
 
+	int getOriginX();
+	int getOriginY();
+	void updateOrigin();
 	void subscribe();
 };
 
