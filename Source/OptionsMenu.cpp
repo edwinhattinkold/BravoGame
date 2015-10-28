@@ -1,16 +1,16 @@
 #include "OptionsMenu.h"
 #include "CustomCursor.h"
 
-OptionsMenu::OptionsMenu(SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, SDL_Rect* cameraRect, TTF_Font* font)
+OptionsMenu::OptionsMenu(SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, Camera* camera, TTF_Font* font)
 {
 	this->window = window;
 	settings = Settings::getInstance();
-	this->cameraRect = cameraRect;
+	this->camera = camera;
 	sound = Sound::getInstance();
 	backgroundImageRect.x = 0;
 	backgroundImageRect.y = 0;
-	backgroundImageRect.w = cameraRect->w;
-	backgroundImageRect.h = cameraRect->h;
+	backgroundImageRect.w = camera->getCamera()->w;
+	backgroundImageRect.h = camera->getCamera()->h;
 	this->backgroundImage = backgroundImage;
 
 	margin = 40;
@@ -23,7 +23,7 @@ OptionsMenu::OptionsMenu(SDL_Renderer* renderTarget, SDL_Window* window, SDL_Tex
 
 	for (std::vector<int>::size_type i = menuItems->size() - 1; i != (std::vector<int>::size_type) - 1; i--) {
 		combinedHeight += menuItems->at(i)->getHeight();
-		int xPosition = (cameraRect->w / 2) - (menuItems->at(i)->getWidth() / 2) - cameraRect->x;
+		int xPosition = (camera->getCamera()->w / 2) - (menuItems->at(i)->getWidth() / 2) - camera->getCamera()->x;
 		menuItems->at(i)->setXPosition(xPosition);
 	}
 
@@ -150,20 +150,31 @@ void OptionsMenu::updateSound(SDL_Renderer* renderTarget)
 
 void OptionsMenu::toggleFullscreen( SDL_Renderer* renderTarget )
 {
+	Uint32 flags;
+	int windowWidth = 0;
+	int windowHeight = 0;
+
 	if( fullscreen )
 	{
-		/* SDL_SetWindowFullscreen( window, 0 ); */
+		flags = 0;
+		windowWidth = 1024;
+		windowHeight = 576;
 		fullscreen = false;
 		menuItems->at( Choices::FullScreen_On_Off )->setText( renderTarget, "Fullscreen off" );
-		center();
-								
 	}
 	else
 	{
-		/* SDL_SetWindowFullscreen( window, SDL_WINDOW_FULLSCREEN ); */
+		flags = SDL_WINDOW_FULLSCREEN_DESKTOP;
+		getDesktopResolution( windowWidth, windowHeight );
 		fullscreen = true;
 		menuItems->at( Choices::FullScreen_On_Off )->setText( renderTarget, "Fullscreen on" );
 	}
+	SDL_SetWindowSize( window, windowWidth, windowHeight );
+	SDL_SetWindowFullscreen( window, flags );
+	camera->getCamera()->w = windowWidth;
+	camera->getCamera()->h = windowHeight;
+	camera->windowWidth = windowWidth;
+	camera->windowHeight = windowHeight;
 	menuItems->at( Choices::FullScreen_On_Off )->setHighlighted();
 	settings->setBoolean( Settings_fullscreen, fullscreen );
 	center();
@@ -184,13 +195,22 @@ void OptionsMenu::updateFullscreen( SDL_Renderer* renderTarget )
 
 void OptionsMenu::center(){
 	for (std::vector<int>::size_type j = menuItems->size() - 1; j != (std::vector<int>::size_type) - 1; j--) {
-		int xPosition = (cameraRect->w / 2) - (menuItems->at(j)->getWidth() / 2) - cameraRect->x;
+		int xPosition = (camera->getCamera()->w / 2) - (menuItems->at( j )->getWidth() / 2);
 		menuItems->at(j)->setXPosition(xPosition);
 
 		int previousHeight = 0;
 		for (size_t h = 0; h < j; h++)
 			previousHeight += menuItems->at(h)->getHeight();
-		int yPosition = (cameraRect->h / 2) - cameraRect->y - (combinedHeight / 2) + (j * margin) + previousHeight;
+		int yPosition = (camera->getCamera()->h / 2) - (combinedHeight / 2) + (j * margin) + previousHeight;
 		menuItems->at(j)->setYPosition(yPosition);
 	}
+}
+
+void OptionsMenu::getDesktopResolution( int& horizontal, int& vertical )
+{
+	RECT desktop;
+	const HWND hDesktop = GetDesktopWindow();
+	GetWindowRect( hDesktop, &desktop );
+	horizontal = desktop.right;
+	vertical = desktop.bottom;
 }

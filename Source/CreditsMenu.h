@@ -3,15 +3,19 @@
 #include "Sound.h"
 #include "MenuItem.h"
 #include <vector>
+#include "Camera.h"
 
 class CreditsMenu
 {
 private:
-	SDL_Rect* cameraRect;
+	Camera* camera;
+	SDL_Renderer* renderTarget;
 	Sound* sound;
 	TTF_Font* creditsTitelFont;
 	TTF_Font* creditsDefaultFont;
 	TTF_Font* creditsMainTitelFont;
+
+	MenuItem* backButton;
 
 	Uint32 time;
 	int mouseX, mouseY, defaultMargin, largerMargin, titelSpacing, previousTime, currentTime, speed;
@@ -29,7 +33,7 @@ private:
 	bool isDone();
 
 public:
-	CreditsMenu(SDL_Renderer* renderTarget, SDL_Rect* cameraRect);
+	CreditsMenu( SDL_Renderer* renderTarget, Camera* camera );
 	~CreditsMenu();
 
 	int getBackCode();

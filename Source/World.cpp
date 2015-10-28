@@ -31,7 +31,7 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 
 	//TODO: main menu in separate class, drawable maybe?
 	mainMenuBackground = loadTexture( "Images/Mainmenu/background.png", renderTarget );
-	menu = new MainMenu( renderTarget, window, mainMenuBackground, camera->getCamera(), font );
+	menu = new MainMenu( renderTarget, window, mainMenuBackground, camera, font );
 
 	//Creation of sprites should be placed elsewhere as well, I'm just running out of time
 	player1 = new Player( renderTarget, 1024, 1024, 300.0f, drawContainer );

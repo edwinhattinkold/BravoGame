@@ -2,29 +2,26 @@
 #include <math.h> 
 #include "CustomCursor.h"
 
-CreditsMenu::CreditsMenu( SDL_Renderer* renderTarget, SDL_Rect* cameraRect )
+CreditsMenu::CreditsMenu( SDL_Renderer* renderTarget, Camera* camera )
 {
-	this->cameraRect = cameraRect;
+	this->camera = camera;
 	sound = Sound::getInstance();
 	creditsTitelFont = TTF_OpenFont( "Fonts/frontman.ttf", 50 );
 	creditsDefaultFont = TTF_OpenFont( "Fonts/atrox.ttf", 50 );
-	creditsMainTitelFont = TTF_OpenFont( "Fonts/atrox.ttf", cameraRect->w / 10 );
+	creditsMainTitelFont = TTF_OpenFont( "Fonts/atrox.ttf", camera->getCamera()->w / 10 );
 	defaultMargin = 1;
 	largerMargin = 35;
 	titelSpacing = 10;
-	speed = cameraRect->h / 9;
 
 	menuItems = new std::vector<MenuItem*>();
 
-	MenuItem* backButton = new MenuItem( renderTarget, creditsTitelFont, "Back" );
-	backButton->setXPosition( 20 );
-	backButton->setYPosition( cameraRect->h - backButton->getHeight() - 10 );
+	backButton = new MenuItem( renderTarget, creditsTitelFont, "Back" );
 	menuItems->push_back( backButton );
 
 	lines = new std::vector<std::pair<MenuItem*, int>*>();
 	lines->push_back( createLine( renderTarget, "TerrorEdje!", LineType::MainTitel, 0 ) );
 
-	lines->push_back( createLine( renderTarget, "Developers", LineType::Titel, cameraRect->h / 2 ) );
+	lines->push_back( createLine( renderTarget, "Developers", LineType::Titel, camera->getCamera()->h / 2 ) );
 	lines->push_back( createLine( renderTarget, "Sven van den Boogaard", LineType::Default, titelSpacing ) );
 	lines->push_back( createLine( renderTarget, "Ivan Horn", LineType::Default, defaultMargin ) );
 	lines->push_back( createLine( renderTarget, "Edwin Hattink", LineType::Default, defaultMargin ) );
@@ -73,7 +70,7 @@ CreditsMenu::CreditsMenu( SDL_Renderer* renderTarget, SDL_Rect* cameraRect )
 	lines->push_back( createLine( renderTarget, "CodingMadeEasy tutorials", LineType::Default, titelSpacing ) );
 	lines->push_back( createLine( renderTarget, "Thecplusplusguy tutorials", LineType::Default, titelSpacing ) );
 
-	lines->push_back( createLine( renderTarget, "Thanks for playing!", LineType::MainTitel, cameraRect->h / 2 ) );
+	lines->push_back( createLine( renderTarget, "Thanks for playing!", LineType::Default, camera->getCamera()->h / 2 ) );
 }
 
 CreditsMenu::~CreditsMenu()
@@ -260,9 +257,12 @@ void CreditsMenu::positionAllLines()
 		if( c == 0 )
 			previousDistance = 0;
 
-		item->setYPosition( cameraRect->h / 2 - item->getHeight() / 2 + previousDistance );
-		item->setXPosition( cameraRect->w / 2 - item->getWidth() / 2 );
+		item->setYPosition( camera->getCamera()->h / 2 - item->getHeight() / 2 + previousDistance );
+		item->setXPosition( camera->getCamera()->w / 2 - item->getWidth() / 2 );
 	}
+	backButton->setXPosition( 20 );
+	backButton->setYPosition( camera->getCamera()->h - backButton->getHeight() - 10 );
+	speed = camera->getCamera()->h / 9;
 }
 
 int CreditsMenu::getBackCode()

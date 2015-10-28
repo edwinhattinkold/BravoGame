@@ -37,29 +37,31 @@ public:
 
 	MainHelper::MainHelper( )
 	{
-		Uint32 flags = SDL_WINDOW_SHOWN;
-
 		TTF_Init();
+		SDL_Init( SDL_INIT_VIDEO );
+
 		if( !font )
 			printf( "TTF_OpenFont: %s\n", TTF_GetError() ); //I.p.v. printen wellicht voor dit soort dingen exception handling?
 
 		window = nullptr;
 		font = TTF_OpenFont( "Fonts/Frontman.ttf", 40 );
 
+		Uint32 flags = SDL_WINDOW_SHOWN;
 		windowWidth = 1024;
 		windowHeight = 576;
 		levelWidth = 3072;
 		levelHeight = 3072;
 
+		window = SDL_CreateWindow( "TerrorEdje!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, flags );
+
 		if( Settings::getInstance()->getBoolean( Settings_fullscreen ) )
 		{
 			getDesktopResolution( windowWidth, windowHeight );
-			flags = SDL_WINDOW_FULLSCREEN;
+			flags = SDL_WINDOW_FULLSCREEN_DESKTOP;
+			SDL_SetWindowSize( window, windowWidth, windowHeight );
+			SDL_SetWindowFullscreen( window, flags );
 		}
 
-		SDL_Init( SDL_INIT_VIDEO );
-
-		window = SDL_CreateWindow( "TerrorEdje!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, flags );
 		world = new World( window, levelWidth, levelHeight, font );
 	}
 

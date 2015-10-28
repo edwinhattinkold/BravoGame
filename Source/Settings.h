@@ -7,7 +7,7 @@
 #include <sstream>
 
 enum BooleanVariables { Settings_fullscreen, Settings_SoundOn };
-enum IntegerVariables { Settings_Resolution_Width, Settings_Resolution_Height };
+enum IntegerVariables { Settings_Windowed_Width, Settings_Windowed_Height };
 
 using namespace std;
 

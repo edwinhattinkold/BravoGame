@@ -25,18 +25,6 @@ void Camera::update( int xPosition, int yPosition )
 {
 	cameraRect->x = xPosition - ( windowWidth / 2 );
 	cameraRect->y = yPosition - ( windowHeight / 2 );
-
-	/*if( cameraRect->x < 0 )
-		cameraRect->x = 0;
-	if( cameraRect->y < 0 )
-		cameraRect->y = 0;*/
-
-	/*if( cameraRect->x + cameraRect->w >= levelWidth )
-	{
-		cameraRect->x = levelWidth - windowWidth;
-	}
-	if( cameraRect->y + cameraRect->h >= levelHeight )
-		cameraRect->y = levelHeight - windowHeight;*/
 }
 
 SDL_Rect* Camera::getCamera()

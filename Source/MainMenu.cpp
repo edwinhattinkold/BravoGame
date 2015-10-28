@@ -1,22 +1,22 @@
 #include "MainMenu.h"
 #include "CustomCursor.h"
 
-MainMenu::MainMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, SDL_Rect* cameraRect, TTF_Font* font )
+MainMenu::MainMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, Camera* camera, TTF_Font* font )
 {
+	this->camera = camera;
 	sound = Sound::getInstance();
 	sound->playSoundLooping(Sound_MainMenu_Theme, 0.50f);
 
-	optionsMenu = new OptionsMenu(renderTarget, window, backgroundImage, cameraRect, font);
-	creditsMenu = new CreditsMenu(renderTarget, cameraRect);
+	optionsMenu = new OptionsMenu(renderTarget, window, backgroundImage, camera, font);
+	creditsMenu = new CreditsMenu(renderTarget, camera);
 
 	backgroundImageRect.x = 0;
 	backgroundImageRect.y = 0;
-	backgroundImageRect.w = cameraRect->w;
-	backgroundImageRect.h = cameraRect->h;
+	backgroundImageRect.w = camera->getCamera()->w;
+	backgroundImageRect.h = camera->getCamera()->h;
 	this->backgroundImage = backgroundImage;
 
 	margin = 40;
-	combinedHeight = 0;
 	
 	menuItems = new std::vector<MenuItem*>();
 	menuItems->push_back(new MenuItem(renderTarget, font, "Continue"));
@@ -24,24 +24,6 @@ MainMenu::MainMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture*
 	menuItems->push_back(new MenuItem(renderTarget, font, "Options"));
 	menuItems->push_back(new MenuItem(renderTarget, font, "Credits"));
 	menuItems->push_back(new MenuItem(renderTarget, font, "Exit"));
-
-
-	for (std::vector<int>::size_type i = menuItems->size() - 1; i != (std::vector<int>::size_type) - 1; i--) {
-		combinedHeight += menuItems->at(i)->getHeight();
-		int xPosition = (cameraRect->w / 2) - (menuItems->at(i)->getWidth() / 2) - cameraRect->x;
-		menuItems->at(i)->setXPosition(xPosition);
-	}
-
-	int marginHeight = ((menuItems->size() - 1) * margin);
-	combinedHeight += marginHeight;
-
-	for (std::vector<int>::size_type j = menuItems->size() - 1; j != (std::vector<int>::size_type) - 1; j--) {
-		int previousHeight = 0;
-		for (size_t h = 0; h < j; h++)
-			previousHeight += menuItems->at(h)->getHeight();
-		int yPosition = (cameraRect->h / 2) - cameraRect->y - (combinedHeight / 2) + (j * margin) + previousHeight;
-		menuItems->at(j)->setYPosition(yPosition);
-	}
 }
 
 MainMenu::~MainMenu()
@@ -59,6 +41,7 @@ int MainMenu::getExitCode(){
 }
 
 int MainMenu::showMenu(SDL_Renderer* renderTarget){
+	center();
 	SDL_GetMouseState( &mouseX, &mouseY );
 	CustomCursor::getInstance( )->draw( mouseX, mouseY );
 	int choice = createMenu(renderTarget);
@@ -137,5 +120,28 @@ int MainMenu::createMenu(SDL_Renderer* renderTarget){
 void MainMenu::draw(SDL_Renderer* renderTarget){
 	for (size_t c = 0; c < menuItems->size(); c++) {
 		menuItems->at(c)->draw(renderTarget);
+	}
+}
+
+void MainMenu::center()
+{
+	combinedHeight = 0;
+	for( std::vector<int>::size_type i = menuItems->size() - 1; i != (std::vector<int>::size_type) - 1; i-- )
+	{
+		combinedHeight += menuItems->at( i )->getHeight();
+		int xPosition = (camera->getCamera()->w / 2) - (menuItems->at( i )->getWidth() / 2);
+		menuItems->at( i )->setXPosition( xPosition );
+	}
+
+	int marginHeight = ((menuItems->size() - 1) * margin);
+	combinedHeight += marginHeight;
+
+	for( std::vector<int>::size_type j = menuItems->size() - 1; j != (std::vector<int>::size_type) - 1; j-- )
+	{
+		int previousHeight = 0;
+		for( size_t h = 0; h < j; h++ )
+			previousHeight += menuItems->at( h )->getHeight();
+		int yPosition = (camera->getCamera()->h / 2) - (combinedHeight / 2) + (j * margin) + previousHeight;
+		menuItems->at( j )->setYPosition( yPosition );
 	}
 }

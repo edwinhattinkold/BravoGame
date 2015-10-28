@@ -5,13 +5,15 @@
 #include <vector>
 #include "MenuItem.h"
 #include "Settings.h"
+#include "wtypes.h"
+#include "Camera.h"
 
 class OptionsMenu
 {
 private:
 	SDL_Window* window;
 	SDL_Rect backgroundImageRect;
-	SDL_Rect* cameraRect;
+	Camera* camera;
 	SDL_Texture* backgroundImage;
 	SDL_Event ev;
 	std::vector<MenuItem*>* menuItems;
@@ -30,7 +32,7 @@ private:
 	void toggleFullscreen( SDL_Renderer* renderTarget );
 
 public:
-	OptionsMenu(SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, SDL_Rect* cameraRect, TTF_Font* font);
+	OptionsMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, Camera* camera, TTF_Font* font );
 	~OptionsMenu();
 
 	int getBackCode();
@@ -38,7 +40,7 @@ public:
 	void draw(SDL_Renderer* renderTarget);
 	int showMenu(SDL_Renderer* renderTarget);
 	int createMenu(SDL_Renderer* renderTarget);
-	
+	void getDesktopResolution( int& horizontal, int& vertical );
 };
 
 #endif
