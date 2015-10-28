@@ -43,7 +43,7 @@ private:
 	float deltaTime;
 	bool isRunning;
 
-	Player *player1;
+	
 	MapDrawer *mapDrawer;
 		
 	void tick();
@@ -53,6 +53,7 @@ private:
 	void createCamera(SDL_Window *window, int levelWidth, int levelHeight);
 	void handleBodyRemoveStack();
 public:
+	Player *player1;
 	World(SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font);
 	~World();
 	void run();

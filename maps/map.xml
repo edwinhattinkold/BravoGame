@@ -1,27 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map>
+	<x value="-2">
+		<chunk y="-2" tmx="cleanlevel.tmx"/>
+		<chunk y="-1" tmx="level00.tmx"/>
+		<chunk y="0" tmx="level01.tmx"/>
+		<chunk y="1" tmx="level02.tmx"/>
+		<chunk y="2" tmx="level03.tmx"/>
+		<chunk y="3" tmx="cleanlevel.tmx"/>
+	</x>
 	<x value="-1">
+		<chunk y="-2" tmx="cleanlevel.tmx"/>
 		<chunk y="-1" tmx="cleanlevel.tmx"/>
 		<chunk y="0" tmx="cleanlevel.tmx"/>
-		<chunk y="1" tmx="level1.tmx"/>
-		<chunk y="2" tmx="level2.tmx"/>
+		<chunk y="1" tmx="cleanlevel.tmx"/>
+		<chunk y="2" tmx="cleanlevel.tmx"/>
+		<chunk y="3" tmx="cleanlevel.tmx"/>
 	</x>
 	<x value="0">
-		<chunk y="-1" tmx="cleanlevel.tmx"/>
-		<chunk y="0" tmx="cleanlevel.tmx"/>
-		<chunk y="1" tmx="level1.tmx"/>
-		<chunk y="2" tmx="level2.tmx"/>
+		<chunk y="-2" tmx="cleanlevel.tmx"/>
+		<chunk y="-1" tmx="level00.tmx"/>
+		<chunk y="0" tmx="level01.tmx"/>
+		<chunk y="1" tmx="level02.tmx"/>
+		<chunk y="2" tmx="level03.tmx"/>
+		<chunk y="3" tmx="cleanlevel.tmx"/>
 	</x>
 	<x value="1">
+		<chunk y="-2" tmx="cleanlevel.tmx"/>
 		<chunk y="-1" tmx="cleanlevel.tmx"/>
 		<chunk y="0" tmx="level3.tmx"/>
 		<chunk y="1" tmx="level4.tmx"/>
 		<chunk y="2" tmx="level5.tmx"/>
+		<chunk y="3" tmx="cleanlevel.tmx"/>
 	</x>
 	<x value="2">
+		<chunk y="-2" tmx="cleanlevel.tmx"/>
 		<chunk y="-1" tmx="cleanlevel.tmx"/>
 		<chunk y="0" tmx="cleanlevel.tmx"/>
 		<chunk y="1" tmx="level1.tmx"/>
 		<chunk y="2" tmx="level2.tmx"/>
+		<chunk y="3" tmx="cleanlevel.tmx"/>
 	</x>
 </map>

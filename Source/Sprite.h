@@ -35,7 +35,6 @@ public:
 
 	void setOriginX(int newOriginX);
 	void setOriginY(int newOriginY);
-
 	void subscribe();
 };
 

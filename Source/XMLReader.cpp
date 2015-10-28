@@ -102,6 +102,6 @@ std::string XMLReader::getChunk( int searchX, int searchY )
 			}
 		}
 	}
-	return "CHUNK NOT FOUND";
+	return "";
 }
 
