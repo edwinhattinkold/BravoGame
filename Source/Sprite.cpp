@@ -33,6 +33,7 @@ Sprite::Sprite( SDL_Renderer *renderTarget, std::string filePath, int xPosition,
 
 	currentAnimation = 0;
 
+
 	positionRect.x = xPosition;
 	positionRect.y = yPosition;
 	positionRect.w = animations->at( currentAnimation )->getFrameWidth();
