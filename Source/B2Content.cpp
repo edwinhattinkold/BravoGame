@@ -9,6 +9,7 @@ B2Content::B2Content(b2World* world, SDL_Renderer* renderTarget, std::string fil
 
 B2Content::~B2Content()
 {
+	m_body->GetWorld()->DestroyBody(m_body);
 }
 
 b2Vec2 B2Content::getB2DPosition(){

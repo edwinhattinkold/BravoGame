@@ -19,6 +19,8 @@ Sound::Sound(){
 	sounds->insert( std::pair<int, std::string>( Sound_Credits_Theme,		"credits_beelzeboss.mp3" ));
 	sounds->insert(	std::pair<int, std::string>( Sound_Horn,				"horn.mp3"));
 	sounds->insert( std::pair<int, std::string>( Sound_Engine_Start,		"car_engine.mp3"));
+	sounds->insert(std::pair<int, std::string>(Sound_Engine_Loop,			"engine_loop2.wav"));
+	sounds->insert(std::pair<int, std::string>(Sound_Skid,					"brake2.mp3"));
 
 }
 

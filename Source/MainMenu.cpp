@@ -6,7 +6,6 @@ MainMenu::MainMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture*
 	this->camera = camera;
 	sound = Sound::getInstance();
 	sound->playSoundLooping(Sound_MainMenu_Theme, 0.50f);
-
 	optionsMenu = new OptionsMenu(renderTarget, window, backgroundImage, camera, font);
 	creditsMenu = new CreditsMenu(renderTarget, camera);
 

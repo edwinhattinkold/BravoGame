@@ -20,7 +20,9 @@
 class TDCar : public B2Content
 {
 
-	bool soundStarted;
+	bool soundWStarted;
+	bool soundAStarted;
+	bool soundALoopStarted;
 	SDL_Scancode keys[5];
 	TDTire* tireLEFT;
 	std::vector<TDTire*> m_tires;

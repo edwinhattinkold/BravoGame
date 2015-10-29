@@ -1,5 +1,4 @@
 #include "TDTire.h"
-#include "CarTireFud.h"
 
 TDTire::TDTire(b2World* world)
 {
@@ -10,7 +9,8 @@ TDTire::TDTire(b2World* world)
 	b2PolygonShape polygonShape;
 	polygonShape.SetAsBox(0.5f, 1.25f);
 	b2Fixture* fixture = m_body->CreateFixture(&polygonShape, 1);//shape, density
-	fixture->SetUserData(new CarTireFUD());
+	ctfud = new CarTireFUD();
+	fixture->SetUserData(ctfud);
 
 	m_body->SetUserData(this);
 
@@ -21,4 +21,6 @@ TDTire::TDTire(b2World* world)
 TDTire::~TDTire()
 {
 	m_body->GetWorld()->DestroyBody(m_body);
+	m_groundAreas.clear();
+	delete ctfud; ctfud = nullptr;
 }

@@ -53,8 +53,7 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 
 World::~World()
 {
-	delete this->drawContainer;						this->drawContainer = nullptr;
-	delete this->updateContainer;					this->updateContainer = nullptr;
+	delete this->myCar;								this->myCar = nullptr;;
 	delete this->mapDrawer;							this->mapDrawer = nullptr;
 	handleBodyRemoveStack();
 	delete bodyRemoveStack;							bodyRemoveStack = nullptr;
@@ -64,7 +63,9 @@ World::~World()
 	delete this->positionIterations;				this->positionIterations = nullptr;
 	delete this->camera;							this->camera = nullptr;
 	delete this->menu;								this->menu = nullptr;
-	
+	delete drawContainer;						this->drawContainer = nullptr;
+	delete updateContainer;					this->updateContainer = nullptr;
+
 	SDL_DestroyTexture(this->mainMenuBackground);	this->mainMenuBackground = nullptr;
 	SDL_DestroyRenderer(this->renderTarget);		this->renderTarget = nullptr;
 }

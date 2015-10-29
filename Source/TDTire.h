@@ -2,6 +2,7 @@
 
 #include <Box2D/Box2D.h>
 #include "GroundAreaFud.h"
+#include "CarTireFud.h"
 
 #include <set>
 enum {
@@ -14,6 +15,7 @@ enum {
 class TDTire
 {
 public:
+	CarTireFUD *ctfud;
 	b2Body* m_body;
 	float m_maxForwardSpeed;
 	float m_maxBackwardSpeed;

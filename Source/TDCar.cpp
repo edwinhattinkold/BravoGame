@@ -1,8 +1,11 @@
 #include "TDCar.h"
 
 TDCar::~TDCar() {
-	for (int i = 0; i < m_tires.size(); i++)
-		delete m_tires[i];
+	m_body->GetWorld()->DestroyJoint(flJoint);	flJoint = nullptr;
+	m_body->GetWorld()->DestroyJoint(frJoint);	frJoint = nullptr;
+	for (size_t i = 0; i < m_tires.size(); i++){
+		delete m_tires[i];	m_tires[i] = nullptr;
+	}
 }
 
 TDCar::TDCar(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM)
@@ -11,7 +14,9 @@ TDCar::TDCar(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM
 	w = widthM;
 	h = heightM;
 
-	soundStarted = false;
+	soundWStarted = false;
+	soundAStarted = false;
+	soundALoopStarted = false;
 	//create car body=
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
@@ -113,27 +118,44 @@ void TDCar::update(const Uint8 *keyState) {
 	if (keyState[keys[0]])
 	{
 		m_controlState |= TDC_UP;
-		if (!soundStarted)
+		if (!soundWStarted)
 		{
+			soundAStarted = false;
+
+			Sound::getInstance()->stopSound(Sound_Skid);
 			Sound::getInstance()->playSound(Sound_Engine_Start);
-			soundStarted = true;
+
+			Sound::getInstance()->stopSound(Sound_Engine_Loop);
+			Sound::getInstance()->playSoundLooping(Sound_Engine_Loop);
+			soundWStarted = true;
+			soundALoopStarted = true;
 		}			
 			
 	}		
 	else{
+			soundWStarted = false;
+		
 		m_controlState &= ~TDC_UP;
-		soundStarted = false;
 	}
 		
 
-	//S
-	if (keyState[keys[1]])
+	//A
+	if (keyState[keys[1]]){
 		m_controlState |= TDC_DOWN;
+		if (!soundAStarted){
+			Sound::getInstance()->playSound(Sound_Skid);
+			soundAStarted = true;
+		}
+		if (soundALoopStarted){
+			Sound::getInstance()->stopSound(Sound_Engine_Loop);
+			soundALoopStarted = false;
+		}		
+	}		
 	else
 		m_controlState &= ~TDC_DOWN;
 
 
-	//A
+	//S
 	if (keyState[keys[2]])
 		m_controlState |= TDC_LEFT;
 	else

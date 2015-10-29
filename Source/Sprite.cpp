@@ -42,9 +42,10 @@ Sprite::Sprite( SDL_Renderer *renderTarget, std::string filePath, int xPosition,
 
 Sprite::~Sprite()
 {
-	for( size_t x = 0; x < animations->size(); x++ )
-		delete animations->at( x );
-	delete animations;
+	for (size_t x = 0; x < animations->size(); x++){
+		delete animations->at(x); animations->at(x) = nullptr;
+	}
+	delete animations;	animations = nullptr;
 }
 
 void Sprite::update( float delta, const Uint8 *keyState )
