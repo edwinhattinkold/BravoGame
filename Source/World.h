@@ -6,8 +6,10 @@
 #include "MainMenu.h"
 #include "Player.h"
 #include "MapDrawer.h"
+#include "TDCar.h"
 #include "Camera.h"
 #include <Windows.h>
+#include "Tree.h"
 /************************************************************************/
 /* The World class contains everything a the game needs to render except
 for the window. Its purpose is to render the world, run the physics
@@ -16,16 +18,21 @@ update the objects, etc. Not all in this class of course.			*/
 class World
 {
 private:
+
+	TDCar* myCar;
+	Tree* myTree;
 	//SDL
 	SDL_Renderer *renderTarget;
+	SDL_Texture *carTexture;
 	SDL_Texture *mainMenuBackground;
 	Camera* camera;
 	SDL_Event ev;
 	void updateSDL();
 	const Uint8 *keyState;
-
+	int m_controlState;
 	//Menus
 	MainMenu* menu;
+
 
 	//physics
 	const b2Vec2 *gravity;
@@ -43,7 +50,6 @@ private:
 	float deltaTime;
 	bool isRunning;
 
-	
 	MapDrawer *mapDrawer;
 		
 	void tick();

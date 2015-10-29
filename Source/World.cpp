@@ -1,12 +1,15 @@
 #include "World.h"
 #include "CustomCursor.h"
 
+
 World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font )
 {
 	prevTime = 0;
 	currentTime = 0;
 	deltaTime = 0.0f;
 	isRunning = true;
+	m_controlState = 0;
+
 
 	velocityIterations = new int32( 8 );
 	positionIterations = new int32( 3 );
@@ -34,12 +37,17 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	menu = new MainMenu( renderTarget, window, mainMenuBackground, camera, font );
 
 	//Creation of sprites should be placed elsewhere as well, I'm just running out of time
-	player1 = new Player( renderTarget, 1024, 1024, 300.0f, drawContainer );
 	mapDrawer = new MapDrawer( renderTarget, camera->getCamera(),this );
-	drawContainer->add( mapDrawer );
-	drawContainer->add( player1 );
+	
+	myCar = new TDCar(physics, renderTarget, 6, 10);
+
+	//myTree = new Tree(physics, renderTarget, 3, 6, 0, -15);
+
+
+	drawContainer->add(mapDrawer);
+	drawContainer->add( myCar );
+	//drawContainer->add(myTree);
 	updateContainer->add( mapDrawer );
-	updateContainer->add( player1 );
 }
 
 
@@ -56,7 +64,6 @@ World::~World()
 	delete this->positionIterations;				this->positionIterations = nullptr;
 	delete this->camera;							this->camera = nullptr;
 	delete this->menu;								this->menu = nullptr;
-	delete this->player1;							this->player1 = nullptr;
 	
 	SDL_DestroyTexture(this->mainMenuBackground);	this->mainMenuBackground = nullptr;
 	SDL_DestroyRenderer(this->renderTarget);		this->renderTarget = nullptr;
@@ -69,30 +76,33 @@ void World::tick()
 	calcDeltaTime();
 
 	//Input handling
-	while( SDL_PollEvent( &ev ) != 0 )
+	while (SDL_PollEvent(&ev) != 0)
 	{
-		if( ev.type == SDL_QUIT )
+		if (ev.type == SDL_QUIT)
 			isRunning = false;
-		if( ev.key.keysym.sym == SDLK_ESCAPE )
+		if (ev.key.keysym.sym == SDLK_ESCAPE)
 		{
-			Sound::getInstance()->playSoundLooping( Sound_MainMenu_Theme );
-			int i = menu->showMenu( renderTarget );
-			if( i == menu->getExitCode() )
+			Sound::getInstance()->playSoundLooping(Sound_MainMenu_Theme);
+			int i = menu->showMenu(renderTarget);
+			if (i == menu->getExitCode())
 				isRunning = false;
 		}
 	}
-	keyState = SDL_GetKeyboardState( NULL );
+	keyState = SDL_GetKeyboardState(NULL);
+
+	//SVEN
+	
+	myCar->update(keyState);
+
+	///SVEN
 	handleBodyRemoveStack();
 	//update physics
-	physics->Step( deltaTime, *velocityIterations, *positionIterations );
+	physics->Step(deltaTime, *velocityIterations, *positionIterations);
 
-	//update camera
-	//TODO: make camera IUpdateable.  <-- klinkt netjes, maar is niet slim, aangezien de camera altijd als eerst geupdate MOET worden
-	//zodat alle ander updates gegevens uit de geupdate camera kunnen halen, als je het in een vector op positie 0 zet dan kan een ander stuk code
-	//een element op de 0ste plek zetten, waardoor alles omvalt.
-	camera->update( player1->getPositionX(), player1->getPositionY() );
+	camera->update(myCar->getOriginX(), myCar->getOriginY());
+	//camera->update(0,0);
 
-	updateContainer->update( deltaTime, keyState );
+	updateContainer->update(deltaTime, keyState);
 
 	//update SDL
 	updateSDL();
@@ -118,6 +128,11 @@ void World::updateSDL()
 {
 	SDL_RenderClear( renderTarget );
 	drawContainer->draw();
+	SDL_Rect texture_rect;
+	int scale = 20;
+	//std::cout << "x " << myCar->getPosition().x << "y " << myCar->getPosition().y * scale << "" << std::endl;
+
+	
 	SDL_RenderPresent( renderTarget );
 }
 

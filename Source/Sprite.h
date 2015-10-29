@@ -10,22 +10,29 @@
 
 class Sprite : public IDrawable, public IUpdateable
 {
+private:
+	const int scale = 20;
 protected:
 	std::vector<Animation*> *animations;
-	int currentAnimaton;
-	int originX, originY;
+	int currentAnimation;
+	int angle;
 
 public:
 	/* Inheritance constructor */
-	Sprite(int xPosition, int yPosition, DrawContainer *dc);
+	Sprite(int xPosition, int yPosition);
+
+	/* Car constructor */
+	Sprite(SDL_Renderer* renderTarget, std::string filePath);
 
 	/* Default constructor */
-	Sprite(SDL_Renderer *renderTarget, std::string filePath, int xPosition, int yPosition, int framesX, int framesY, float animationSpeed, DrawContainer *dc);
+	Sprite(SDL_Renderer *renderTarget, std::string filePath, int xPosition, int yPosition, int framesX, int framesY, float animationSpeed);
 
 	~Sprite();
 
 	virtual void update(float delta, const Uint8 *keyState);
 	virtual void draw(SDL_Renderer *renderTarget, SDL_Rect camerRect);
+	virtual void drawTree(SDL_Renderer *renderTarget, SDL_Rect camerRect);
+	virtual void drawCar(SDL_Renderer *renderTarget, SDL_Rect cameraRect);
 	bool intersectsWith(Sprite &p);
 
 	SDL_Rect positionRect;
@@ -35,6 +42,12 @@ public:
 
 	void setOriginX(int newOriginX);
 	void setOriginY(int newOriginY);
+	void updateSDLPosition(int, int, int, int, float);
+	void updateSDLPosition(float, float);
+
+	int getOriginX();
+	int getOriginY();
+	void updateOrigin();
 	void subscribe();
 };
 

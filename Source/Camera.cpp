@@ -23,6 +23,7 @@ Camera::~Camera( void )
 
 void Camera::update( int xPosition, int yPosition )
 {
+	//std::cout << xPosition << " - " << yPosition << std::endl;
 	cameraRect->x = xPosition - ( windowWidth / 2 );
 	cameraRect->y = yPosition - ( windowHeight / 2 );
 }

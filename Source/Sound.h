@@ -9,7 +9,9 @@ using namespace irrklang;
 enum SoundFiles {	Sound_MainMenu_Theme, 
 					Sound_MainMenu_Tick, 
 					Sound_MainMenu_Click, 
-					Sound_Credits_Theme 
+					Sound_Credits_Theme,
+					Sound_Horn,
+					Sound_Engine_Start
 };
 
 class Sound

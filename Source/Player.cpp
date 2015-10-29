@@ -4,8 +4,8 @@
 #include <cmath>
 #include "UpdateVisitor.h"
 
-Player::Player( SDL_Renderer *renderTarget, int xPosition, int yPosition, float moveSpeed, DrawContainer *dc )
-	:Sprite( xPosition, yPosition, dc )
+Player::Player( SDL_Renderer *renderTarget, int xPosition, int yPosition, float moveSpeed )
+	:Sprite( xPosition, yPosition)
 {
 	float animSpeed = 0.10f;
 	/* Create all the animations required for this sprite */
@@ -76,19 +76,18 @@ void Player::update( float delta, const Uint8 *keyState )
 		isActive = false;
 
 	if( isActive )
-		animations->at( currentAnimaton )->update( delta );
+		animations->at( currentAnimation )->update( delta );
 	else
-		animations->at( currentAnimaton )->standStill();
+		animations->at( currentAnimation )->standStill();
 }
 
 void Player::setAnimation( PlayerAnimation playerAnimation )
 {
-	currentAnimaton = playerAnimation;
+	currentAnimation = playerAnimation;
 
-	Animation* anim = animations->at( currentAnimaton );
+	Animation* anim = animations->at( currentAnimation );
 
-	originX = anim->getOriginX();
-	originY = anim->getOriginY();
 	positionRect.w = anim->getFrameWidth();
 	positionRect.h = anim->getFrameHeight();
+	updateOrigin();
 }

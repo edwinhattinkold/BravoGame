@@ -1,7 +1,6 @@
 #include "Animation.h"
 #include <iostream>
 
-
 Animation::Animation( SDL_Renderer* renderTarget, std::string filePath, int framesX, int framesY, int startFrameX, int startFrameY, float animationSpeed )
 {
 	SDL_Surface *surface = IMG_Load( filePath.c_str() );
@@ -65,21 +64,20 @@ void Animation::draw( SDL_Renderer* renderTarget, SDL_Rect drawingRect )
 	SDL_RenderCopy( renderTarget, texture, &cropRect, &drawingRect );
 }
 
+void Animation::drawTree(SDL_Renderer* renderTarget, SDL_Rect drawingRect, int angle){
+	SDL_RenderCopyEx(renderTarget, texture, NULL, &drawingRect, angle, NULL, SDL_FLIP_NONE);
+}
+
+void Animation::drawCar(SDL_Renderer* renderTarget, SDL_Rect drawingRect, int angle){
+	const SDL_Point startRenderPoint = { drawingRect.x, drawingRect.y };
+	SDL_RenderCopyEx(renderTarget, texture, NULL, &drawingRect, angle, NULL, SDL_FLIP_NONE);
+}
+
 void Animation::standStill()
 {
 	frameCounter = 0.0f;
 	cropRect.x = frameWidth * startFrameX;
 	cropRect.y = frameHeight * startFrameY;
-}
-
-int Animation::getOriginX()
-{
-	return frameWidth / 2;
-}
-
-int Animation::getOriginY()
-{
-	return frameHeight / 2;
 }
 
 int Animation::getFrameWidth()
@@ -90,4 +88,20 @@ int Animation::getFrameWidth()
 int Animation::getFrameHeight()
 {
 	return frameHeight;
+}
+
+int Animation::getOriginX(){
+	return originX;
+}
+
+int Animation::getOriginY(){
+	return originY;
+}
+
+void Animation::setOriginX(int newOriginX){
+	originX = newOriginX;
+}
+
+void Animation::setOriginY(int newOriginY){
+	originY = newOriginY;
 }
