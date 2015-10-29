@@ -93,7 +93,7 @@
 		<chunk y="1" tmx="map.7.5.tmx"/>
 		<chunk y="2" tmx="clearlevel.tmx"/>
 		<chunk y="3" tmx="map.7.7.tmx"/>
-		<chunk y="4" tmx="vertical-small-road"/>
+		<chunk y="4" tmx="vertical-small-road.tmx"/>
 		<chunk y="5" tmx="map.7.9.tmx"/>
 	</x>
 	<x value="4">
@@ -116,7 +116,7 @@
 		<chunk y="-0" tmx="map.2.4.tmx"/>
 		<chunk y="1" tmx="vertical-small-road.tmx"/>
 		<chunk y="2" tmx="vertical-small-road.tmx"/>
-		<chunk y="3" tmx="map.7.9"/>
+		<chunk y="3" tmx="map.7.9.tmx"/>
 		<chunk y="4" tmx="clearlevel.tmx"/>
 		<chunk y="5" tmx="horizontal-small-road.tmx"/>
 	</x>	

@@ -77,7 +77,7 @@ std::string MapDrawer::getChunk(int x, int y)
 	std::string filePath = xmlReader.getChunk(x,y);
 	if( filePath.empty())
 	{
-		filePath = "cleanlevel.tmx";
+		filePath = "clearlevel.tmx";
 	}
 	return filePath;
 }
