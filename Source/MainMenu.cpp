@@ -40,6 +40,7 @@ int MainMenu::getExitCode(){
 }
 
 int MainMenu::showMenu(SDL_Renderer* renderTarget){
+	sound->stopSound(Sound_Engine_Loop);
 	center();
 	SDL_GetMouseState( &mouseX, &mouseY );
 	CustomCursor::getInstance( )->draw( mouseX, mouseY );
