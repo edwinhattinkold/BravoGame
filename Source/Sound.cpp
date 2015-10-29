@@ -19,6 +19,8 @@ Sound::Sound(){
 	sounds->insert( std::pair<int, std::string>( Sound_MainMenu_Tick,		"menu_tick.wav" ));
 	sounds->insert( std::pair<int, std::string>( Sound_MainMenu_Click,	"menu_confirm.wav" ));
 	sounds->insert( std::pair<int, std::string>( Sound_Credits_Theme,		"credits_beelzeboss.mp3" ));
+	sounds->insert(	std::pair<int, std::string>( Sound_Horn, "horn.mp3"));
+
 }
 
 /* Singleton */
@@ -51,7 +53,7 @@ void Sound::playSound(SoundFiles file, ik_f32 volume){
 	const char *filepath = temp.c_str();
 
 	ISoundSource* currentSound = engine->addSoundSourceFromFile(filepath);
-	currentSound->setDefaultVolume(volume);
+		currentSound->setDefaultVolume(volume);
 
 	engine->play2D(currentSound, false);
 }

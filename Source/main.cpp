@@ -71,7 +71,7 @@ public:
 		levelWidth = 3072;
 		levelHeight = 3072;
 
-		if( !fullScreen )
+		if( fullScreen )
 		{
 			getDesktopResolution( windowWidth, windowHeight );
 			flags = SDL_WINDOW_FULLSCREEN;

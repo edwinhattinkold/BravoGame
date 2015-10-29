@@ -15,12 +15,16 @@
 #endif
 
 #include "IUpdateable.h"
+#include "Sound.h"
 
 class TDCar : public B2Content
 {
+
+	SDL_Scancode keys[5];
 	TDTire* tireLEFT;
 	std::vector<TDTire*> m_tires;
 	b2RevoluteJoint *flJoint, *frJoint;
+	int m_controlState;
 	
 public:
 	int w, h;
@@ -28,7 +32,8 @@ public:
 
 	~TDCar();
 
-	void update(int controlState);
+	void update(const Uint8 *keyState);
+	void soundHorn();
 	virtual void accept(DrawVisitor *dv);
 	//custom
 };

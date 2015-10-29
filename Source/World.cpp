@@ -10,10 +10,6 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	isRunning = true;
 	m_controlState = 0;
 
-	keys[0] = SDL_SCANCODE_W;
-	keys[1] = SDL_SCANCODE_S;
-	keys[2] = SDL_SCANCODE_A;
-	keys[3] = SDL_SCANCODE_D;
 
 	velocityIterations = new int32( 8 );
 	positionIterations = new int32( 3 );
@@ -45,12 +41,12 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	
 	myCar = new TDCar(physics, renderTarget, 6, 10);
 
-	myTree = new Tree(physics, renderTarget, 3, 6, 0, -15);
+	//myTree = new Tree(physics, renderTarget, 3, 6, 0, -15);
 
 
 	drawContainer->add(mapDrawer);
 	drawContainer->add( myCar );
-	drawContainer->add(myTree);
+	//drawContainer->add(myTree);
 	updateContainer->add( mapDrawer );
 }
 
@@ -95,32 +91,8 @@ void World::tick()
 	keyState = SDL_GetKeyboardState(NULL);
 
 	//SVEN
-	//W
-	if (keyState[keys[0]])
-		m_controlState |= TDC_UP;
-	else
-		m_controlState &= ~TDC_UP;
-
-	//S
-	if (keyState[keys[1]])
-		m_controlState |= TDC_DOWN;
-	else
-		m_controlState &= ~TDC_DOWN;
-
-
-	//A
-	if (keyState[keys[2]])
-		m_controlState |= TDC_LEFT;
-	else
-		m_controlState &= ~TDC_LEFT;
-
-	//D
-	if (keyState[keys[3]])
-		m_controlState |= TDC_RIGHT;
-	else
-		m_controlState &= ~TDC_RIGHT;
-
-	myCar->update(m_controlState);
+	
+	myCar->update(keyState);
 
 	///SVEN
 	handleBodyRemoveStack();
@@ -128,7 +100,7 @@ void World::tick()
 	physics->Step(deltaTime, *velocityIterations, *positionIterations);
 
 	camera->update(myCar->getOriginX(), myCar->getOriginY());
-	camera->update(0,0);
+	//camera->update(0,0);
 
 	updateContainer->update(deltaTime, keyState);
 

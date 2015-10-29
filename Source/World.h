@@ -33,7 +33,6 @@ private:
 	//Menus
 	MainMenu* menu;
 
-	SDL_Scancode keys[4];
 
 	//physics
 	const b2Vec2 *gravity;

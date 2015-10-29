@@ -70,7 +70,7 @@ void Animation::drawTree(SDL_Renderer* renderTarget, SDL_Rect drawingRect, int a
 
 void Animation::drawCar(SDL_Renderer* renderTarget, SDL_Rect drawingRect, int angle){
 	const SDL_Point startRenderPoint = { drawingRect.x, drawingRect.y };
-	SDL_RenderCopy(renderTarget, texture, NULL, &drawingRect);
+	SDL_RenderCopyEx(renderTarget, texture, NULL, &drawingRect, angle, NULL, SDL_FLIP_NONE);
 }
 
 void Animation::standStill()

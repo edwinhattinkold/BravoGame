@@ -6,16 +6,22 @@ TDCar::~TDCar() {
 }
 
 TDCar::TDCar(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM)
-	:B2Content(world, renderTarget, "Images/Car/car.png"){
+	:B2Content(world, renderTarget, "Images/Car/buggy.png"){
+	m_controlState = 0;
 	w = widthM;
 	h = heightM;
 	//create car body=
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
-	m_body = world->CreateBody(&bodyDef);
-		
-	m_body->SetAngularDamping(3);
 
+	
+
+	m_body = world->CreateBody(&bodyDef);
+	
+	
+
+	m_body->SetAngularDamping(3);
+	
 	b2Vec2 vertices[4];
 	//het figuur van de auto.
 	// W en h worden meegegeven door de user
@@ -36,7 +42,7 @@ TDCar::TDCar(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM
 	jointDef.localAnchorB.SetZero();//center of tire
 
 	// standaard 250 aanpassen zodat de wagen niet mega snel gaat
-	float maxForwardSpeed = 30;
+	float maxForwardSpeed = 50;
 	float maxBackwardSpeed = -30;
 	float backTireMaxDriveForce = 300;
 	float frontTireMaxDriveForce = 500;
@@ -78,19 +84,68 @@ TDCar::TDCar(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM
 	frJoint = (b2RevoluteJoint*)world->CreateJoint(&jointDef);
 	m_tires.push_back(tire);
 
-	m_body->SetTransform(m_body->GetPosition(), DEGTORAD * 180);
+	//m_body->SetTransform(b2Vec2(60, -60), DEGTORAD * 180);
 
 	updateSDLPosition(this->getSDLPosition().x, this->getSDLPosition().y, w, h, getAngle());
 	updateOrigin();
 
+	//toetsen instellen
+	//vooruit
+	keys[0] = SDL_SCANCODE_W;
+	//achteruit
+	keys[1] = SDL_SCANCODE_S;
+	//links
+	keys[2] = SDL_SCANCODE_A;
+	//recht
+	keys[3] = SDL_SCANCODE_D;
+	//Toeter
+	keys[4] = SDL_SCANCODE_H;
+
 	std::cout << "Position: " << this->getB2DPosition().x << " - " << this->getB2DPosition().y << " Center: " << int(this->m_body->GetWorldCenter().x) << " - " << this->m_body->GetWorldCenter().y << std::endl;
 }
 
-void TDCar::update(int controlState) {
+void TDCar::update(const Uint8 *keyState) {
+
+	// AUTO BESTUREN
+	//W
+	if (keyState[keys[0]])
+		m_controlState |= TDC_UP;
+	else
+		m_controlState &= ~TDC_UP;
+
+	//S
+	if (keyState[keys[1]])
+		m_controlState |= TDC_DOWN;
+	else
+		m_controlState &= ~TDC_DOWN;
+
+
+	//A
+	if (keyState[keys[2]])
+		m_controlState |= TDC_LEFT;
+	else
+		m_controlState &= ~TDC_LEFT;
+
+	//D
+	if (keyState[keys[3]])
+		m_controlState |= TDC_RIGHT;
+	else
+		m_controlState &= ~TDC_RIGHT;
+
+	// !AUTO BESTUREN
+
+
+	//Toeter
+	if (keyState[keys[4]]){
+		soundHorn();
+	}
+		
+
+
 	for (int i = 0; i < m_tires.size(); i++)
 		m_tires[i]->updateFriction();
 	for (int i = 0; i < m_tires.size(); i++)
-		m_tires[i]->updateDrive(controlState);
+		m_tires[i]->updateDrive(m_controlState);
 
 	//control steering
 	float lockAngle = 35 * DEGTORAD;
@@ -98,7 +153,7 @@ void TDCar::update(int controlState) {
 	//from lock to lock in 0.5 sec
 	float turnPerTimeStep = turnSpeedPerSec / 60.0f;
 	float desiredAngle = 0;
-	switch (controlState & (TDC_LEFT | TDC_RIGHT)) {
+	switch (m_controlState & (TDC_LEFT | TDC_RIGHT)) {
 		case TDC_LEFT:  desiredAngle = lockAngle;  break;
 		case TDC_RIGHT: desiredAngle = -lockAngle; break;
 		default:;//nothing
@@ -126,3 +181,7 @@ void TDCar::accept(DrawVisitor *dv)
 	dv->visit(this);
 }
 
+
+void TDCar::soundHorn(){
+	Sound::getInstance()->playSound(Sound_Horn);
+}
