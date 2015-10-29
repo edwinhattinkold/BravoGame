@@ -10,6 +10,83 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Animation.h" />
+    <ClInclude Include="Source\Camera.h" />
+    <ClInclude Include="Source\ChunkFactory.h" />
+    <ClInclude Include="Source\Car.h" />
+    <ClInclude Include="Source\CarTireFUD.h" />
+    <ClInclude Include="Source\CreditsMenu.h" />
+    <ClInclude Include="Source\CustomCursor.h" />
+    <ClInclude Include="Source\DrawContainer.h" />
+    <ClInclude Include="Source\DrawFactory.h" />
+    <ClInclude Include="Source\DrawVisitor.h" />
+    <ClInclude Include="Source\FixtureUserData.h" />
+    <ClInclude Include="Source\GroundAreaFUD.h" />
+    <ClInclude Include="Source\IDrawable.h" />
+    <ClInclude Include="Source\IUpdateable.h" />
+    <ClInclude Include="Source\Location.h" />
+    <ClInclude Include="Source\MainMenu.h" />
+    <ClInclude Include="Source\MapDrawer.h" />
+    <ClInclude Include="Source\Chunk.h" />
+    <ClInclude Include="Source\MenuItem.h" />
+    <ClInclude Include="Source\MyDestructionListener.h" />
+    <ClInclude Include="Source\OptionsMenu.h" />
+    <ClInclude Include="Source\PhysicsWorld.h" />
+    <ClInclude Include="Source\Player.h" />
+    <ClInclude Include="Source\rapidxml.hpp" />
+    <ClInclude Include="Source\rapidxml_utils.hpp" />
+    <ClInclude Include="Source\Settings.h" />
+    <ClInclude Include="Source\B2Content.h" />
+    <ClInclude Include="Source\Sound.h" />
+    <ClInclude Include="Source\Sprite.h" />
+    <ClInclude Include="Source\TDCar.h" />
+    <ClInclude Include="Source\TDTire.h" />
+    <ClInclude Include="Source\Tile.h" />
+    <ClInclude Include="Source\Tree.h" />
+    <ClInclude Include="Source\UpdateContainer.h" />
+    <ClInclude Include="Source\UpdateVisitor.h" />
+    <ClInclude Include="Source\World.h" />
+    <ClInclude Include="Source\XMLReader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Animation.cpp" />
+    <ClCompile Include="Source\B2Content.cpp" />
+    <ClCompile Include="Source\Camera.cpp" />
+    <ClCompile Include="Source\ChunkFactory.cpp" />
+    <ClCompile Include="Source\Car.cpp" />
+    <ClCompile Include="Source\CarTireFUD.cpp" />
+    <ClCompile Include="Source\CreditsMenu.cpp" />
+    <ClCompile Include="Source\CustomCursor.cpp" />
+    <ClCompile Include="Source\DrawContainer.cpp" />
+    <ClCompile Include="Source\DrawFactory.cpp" />
+    <ClCompile Include="Source\DrawVisitor.cpp" />
+    <ClCompile Include="Source\FixtureUserData.cpp" />
+    <ClCompile Include="Source\GroundAreaFUD.cpp" />
+    <ClCompile Include="Source\IDrawable.cpp" />
+    <ClCompile Include="Source\IUpdateable.cpp" />
+    <ClCompile Include="Source\Location.cpp" />
+    <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\MainMenu.cpp" />
+    <ClCompile Include="Source\MapDrawer.cpp" />
+    <ClCompile Include="Source\Chunk.cpp" />
+    <ClCompile Include="Source\MenuItem.cpp" />
+    <ClCompile Include="Source\MyDestructionListener.cpp" />
+    <ClCompile Include="Source\OptionsMenu.cpp" />
+    <ClCompile Include="Source\PhysicsWorld.cpp" />
+    <ClCompile Include="Source\Player.cpp" />
+    <ClCompile Include="Source\Settings.cpp" />
+    <ClCompile Include="Source\Sound.cpp" />
+    <ClCompile Include="Source\Sprite.cpp" />
+    <ClCompile Include="Source\TDCar.cpp" />
+    <ClCompile Include="Source\TDTire.cpp" />
+    <ClCompile Include="Source\Tile.cpp" />
+    <ClCompile Include="Source\Tree.cpp" />
+    <ClCompile Include="Source\UpdateContainer.cpp" />
+    <ClCompile Include="Source\UpdateVisitor.cpp" />
+    <ClCompile Include="Source\World.cpp" />
+    <ClCompile Include="Source\XMLReader.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A3E3BA3A-267A-481D-8F03-18989DFF70BE}</ProjectGuid>
     <RootNamespace>TerrorEdje</RootNamespace>
@@ -52,6 +129,7 @@
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -80,40 +158,6 @@
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="animation.h" />
-    <ClInclude Include="camera.h" />
-    <ClInclude Include="Location.h" />
-    <ClInclude Include="main.h" />
-    <ClInclude Include="mainmenu.h" />
-    <ClInclude Include="MenuItem.h" />
-    <ClInclude Include="MapDrawer.h" />
-    <ClInclude Include="MapGenerator.h" />
-    <ClInclude Include="player.h" />
-    <ClInclude Include="rapidxml.hpp" />
-    <ClInclude Include="rapidxml_utils.hpp" />
-    <ClInclude Include="OptionsMenu.h" />
-    <ClInclude Include="Sound.h" />
-    <ClInclude Include="sprite.h" />
-    <ClInclude Include="Tile.h" />
-    <ClInclude Include="XMLReader.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="animation.cpp" />
-    <ClCompile Include="camera.cpp" />
-    <ClCompile Include="Location.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="mainmenu.cpp" />
-    <ClCompile Include="MenuItem.cpp" />
-    <ClCompile Include="MapDrawer.cpp" />
-    <ClCompile Include="MapGenerator.cpp" />
-    <ClCompile Include="OptionsMenu.cpp" />
-    <ClCompile Include="player.cpp" />
-    <ClCompile Include="Sound.cpp" />
-    <ClCompile Include="sprite.cpp" />
-    <ClCompile Include="Tile.cpp" />
-    <ClCompile Include="XMLReader.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
