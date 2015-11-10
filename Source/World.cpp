@@ -34,6 +34,7 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 
 	//TODO: main menu in separate class, drawable maybe?
 	mainMenuBackground = loadTexture( "Images/Mainmenu/background.png", renderTarget );
+	arrow = loadTexture( "Images/Car/arrow.png", renderTarget );
 	menu = new MainMenu( renderTarget, window, mainMenuBackground, camera, font );
 
 	//Creation of sprites should be placed elsewhere as well, I'm just running out of time
@@ -41,12 +42,12 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	
 	myCar = new TDCar(physics, renderTarget, 6, 10);
 
-	//myTree = new Tree(physics, renderTarget, 3, 6, 0, -15);
+	myTree = new Tree(physics, renderTarget, 3, 6, 0, 0);
 
 
 	drawContainer->add(mapDrawer);
 	drawContainer->add( myCar );
-	//drawContainer->add(myTree);
+	drawContainer->add(myTree);
 	updateContainer->add( mapDrawer );
 }
 
@@ -128,11 +129,24 @@ void World::run()
 void World::updateSDL()
 {
 	SDL_RenderClear( renderTarget );
+	SDL_Rect srcrect;
+	SDL_Rect dstrect;
+
+	srcrect.x = 0;
+	srcrect.y = 0;
+	srcrect.w = 50;
+	srcrect.h = 50;
+	dstrect.x = 0 - camera->getCamera()->x;
+	dstrect.y = 0 - camera->getCamera()->y;
+	dstrect.w = 50;
+	dstrect.h = 50;	
+	
 	drawContainer->draw();
-	SDL_Rect texture_rect;
+	SDL_RenderCopy( renderTarget, arrow, &srcrect, &dstrect );
 	int scale = 20;
 	//std::cout << "x " << myCar->getPosition().x << "y " << myCar->getPosition().y * scale << "" << std::endl;
-
+	
+	
 	
 	SDL_RenderPresent( renderTarget );
 }

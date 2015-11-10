@@ -25,6 +25,7 @@ private:
 	SDL_Renderer *renderTarget;
 	SDL_Texture *carTexture;
 	SDL_Texture *mainMenuBackground;
+	SDL_Texture *arrow;
 	Camera* camera;
 	SDL_Event ev;
 	void updateSDL();
