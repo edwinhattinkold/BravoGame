@@ -8,6 +8,7 @@
 #include "MenuItem.h"
 #include "Sound.h"
 #include "Camera.h"
+#include "HowToPlay.h"
 
 class MainMenu
 {
@@ -22,10 +23,11 @@ private:
 
 	OptionsMenu* optionsMenu;
 	CreditsMenu* creditsMenu;
+	HowToPlay* howToPlay;
 	int optionsChoice, creditsChoice, howToPlayChoise;
 	void center();
 
-	static enum Choices { Continue, Load_Game, HowToPlay, Options, Credits, Exit };
+	static enum Choices { Continue, Load_Game, How_To_Play, Options, Credits, Exit };
 
 public:
 	MainMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, Camera* camera, TTF_Font* font );

@@ -3,13 +3,19 @@
 HowToPlay::HowToPlay(SDL_Renderer* renderTarget, SDL_Texture* backgroundImage, Camera* camera, TTF_Font* font){
 	this->camera = camera;
 	sound = Sound::getInstance();
-	sound->playSoundLooping(Sound_MainMenu_Theme, 0.50f);
+	//sound->playSoundLooping(Sound_MainMenu_Theme, 0.50f);
 
 	backgroundImageRect.x = 0;
 	backgroundImageRect.y = 0;
 	backgroundImageRect.w = camera->getCamera()->w;
 	backgroundImageRect.h = camera->getCamera()->h;
 	this->backgroundImage = backgroundImage;
+	menuItems = new std::vector<MenuItem*>();
+
+	MenuItem* backButton = new MenuItem(renderTarget, font, "Back");
+	menuItems->push_back(backButton);
+	backButton->setXPosition(20);
+	backButton->setYPosition(camera->getCamera()->h - backButton->getHeight() - 10);
 }
 
 
@@ -28,4 +34,50 @@ int HowToPlay::showMenu(SDL_Renderer* renderTarget){
 		break;
 	}
 	return choice;
+}
+
+int HowToPlay::createMenu(SDL_Renderer* renderTarget){
+	while (1)
+	{
+		time = SDL_GetTicks();
+		while (SDL_PollEvent(&ev)){
+			switch (ev.type){
+			case SDL_QUIT:
+				return Choices::Exit;
+			case SDL_MOUSEMOTION:
+				mouseX = ev.motion.x;
+				mouseY = ev.motion.y;
+				for (size_t i = 0; i < menuItems->size(); i++)
+				if (menuItems->at(i)->checkHover(mouseX, mouseY))
+					sound->playSound(Sound_MainMenu_Tick);
+				break;
+			case SDL_MOUSEBUTTONDOWN:
+				mouseX = ev.motion.x;
+				mouseY = ev.motion.y;
+				for (size_t index = 0; index < menuItems->size(); index++)
+				if (mouseX >= menuItems->at(index)->getXPosition() && mouseX <= menuItems->at(index)->getXPosition() + menuItems->at(index)->getWidth() &&
+					mouseY >= menuItems->at(index)->getYPosition() && mouseY <= menuItems->at(index)->getYPosition() + menuItems->at(index)->getHeight()){
+					sound->playSound(Sound_MainMenu_Click);
+						return index;
+				}
+
+				break;
+			}
+		}
+		SDL_RenderClear(renderTarget);
+		SDL_RenderCopy(renderTarget, backgroundImage, NULL, NULL);
+		draw(renderTarget);
+		CustomCursor::getInstance()->draw(mouseX, mouseY);
+		SDL_RenderPresent(renderTarget);
+	}
+}
+
+void HowToPlay::draw(SDL_Renderer* renderTarget)
+{
+	
+	for (size_t x = 0; x < menuItems->size(); x++)
+		menuItems->at(x)->draw(renderTarget);
+}
+int HowToPlay::getBackCode(){
+	return Back;
 }

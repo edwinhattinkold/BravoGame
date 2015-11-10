@@ -1,6 +1,5 @@
 #include "MainMenu.h"
 #include "CustomCursor.h"
-
 MainMenu::MainMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, Camera* camera, TTF_Font* font )
 {
 	this->camera = camera;
@@ -8,7 +7,7 @@ MainMenu::MainMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture*
 	sound->playSoundLooping(Sound_MainMenu_Theme, 0.50f);
 	optionsMenu = new OptionsMenu(renderTarget, window, backgroundImage, camera, font);
 	creditsMenu = new CreditsMenu(renderTarget, camera);
-
+	howToPlay = new HowToPlay(renderTarget, backgroundImage, camera, font);
 	backgroundImageRect.x = 0;
 	backgroundImageRect.y = 0;
 	backgroundImageRect.w = camera->getCamera()->w;
@@ -56,15 +55,15 @@ int MainMenu::showMenu(SDL_Renderer* renderTarget){
 		return Choices::Load_Game;
 		break;
 	case(Choices::Options) :
-		howToPlayChoise = optionsMenu->showMenu(renderTarget);
-		if (howToPlayChoise == optionsMenu->getBackCode())
+		optionsChoice = optionsMenu->showMenu(renderTarget);
+		if (optionsChoice == optionsMenu->getBackCode())
 			return showMenu(renderTarget);
 		else
 			return Choices::Exit;
 		break;
-	case(Choices::HowToPlay) :
-		optionsChoice = optionsMenu->showMenu(renderTarget);
-		if (optionsChoice == optionsMenu->getBackCode())
+	case(Choices::How_To_Play) :
+		howToPlayChoise = howToPlay->showMenu(renderTarget);
+		if (howToPlayChoise == howToPlay->getBackCode())
 			return showMenu(renderTarget);
 		else
 			return Choices::Exit;

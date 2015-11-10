@@ -5,12 +5,15 @@
 #include <vector>
 #include "Sound.h"
 #include "CustomCursor.h"
-class HowToPlay{
+#include "MenuItem.h"
+class HowToPlay
+{
 private:
 	SDL_Rect backgroundImageRect;
 	Camera* camera;
 	SDL_Texture* backgroundImage;
-	//std::vector<MenuItem*>* menuItems;
+	SDL_Event ev;
+	std::vector<MenuItem*>* menuItems;
 	Sound* sound;
 	Uint32 time;
 	int mouseX, mouseY, margin, combinedHeight;
