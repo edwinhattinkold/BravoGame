@@ -20,9 +20,9 @@ private:
 	static enum Choices { Back, Exit };
 	int optionsChoice, creditsChoice;
 	void center();
-
+	SDL_Texture* loadTexture(std::string filePath, SDL_Renderer *renderTarget);
 public:
-	HowToPlay(SDL_Renderer* renderTarget, SDL_Texture* backgroundImage, Camera* camera, TTF_Font* font);
+	HowToPlay(SDL_Renderer* renderTarget, Camera* camera, TTF_Font* font);
 	~HowToPlay();
 
 	int getBackCode();

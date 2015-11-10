@@ -1,6 +1,6 @@
 #include "HowToPlay.h"
 
-HowToPlay::HowToPlay(SDL_Renderer* renderTarget, SDL_Texture* backgroundImage, Camera* camera, TTF_Font* font){
+HowToPlay::HowToPlay(SDL_Renderer* renderTarget, Camera* camera, TTF_Font* font){
 	this->camera = camera;
 	sound = Sound::getInstance();
 	//sound->playSoundLooping(Sound_MainMenu_Theme, 0.50f);
@@ -9,7 +9,7 @@ HowToPlay::HowToPlay(SDL_Renderer* renderTarget, SDL_Texture* backgroundImage, C
 	backgroundImageRect.y = 0;
 	backgroundImageRect.w = camera->getCamera()->w;
 	backgroundImageRect.h = camera->getCamera()->h;
-	this->backgroundImage = backgroundImage;
+	this->backgroundImage = loadTexture("Images/Mainmenu/howto.png", renderTarget);
 	menuItems = new std::vector<MenuItem*>();
 
 	MenuItem* backButton = new MenuItem(renderTarget, font, "Back");
@@ -23,7 +23,7 @@ HowToPlay::~HowToPlay(){
 		delete menuItems->at(i);	menuItems->at(i) = nullptr;
 	}
 	delete menuItems;				menuItems = nullptr;
-
+	SDL_DestroyTexture(backgroundImage);
 }
 
 
@@ -88,4 +88,21 @@ void HowToPlay::draw(SDL_Renderer* renderTarget)
 }
 int HowToPlay::getBackCode(){
 	return Back;
+}
+
+SDL_Texture* HowToPlay::loadTexture(std::string filePath, SDL_Renderer *renderTarget)
+{
+	SDL_Texture *texture = nullptr;
+	SDL_Surface *surface = IMG_Load(filePath.c_str());
+	if (surface == NULL)
+		std::cout << "Error" << std::endl;
+	else
+	{
+		texture = SDL_CreateTextureFromSurface(renderTarget, surface);
+		if (texture == NULL)
+			std::cout << "Error" << std::endl;
+	}
+
+	SDL_FreeSurface(surface);
+	return texture;
 }

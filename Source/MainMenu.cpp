@@ -7,7 +7,7 @@ MainMenu::MainMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture*
 	sound->playSoundLooping(Sound_MainMenu_Theme, 0.50f);
 	optionsMenu = new OptionsMenu(renderTarget, window, backgroundImage, camera, font);
 	creditsMenu = new CreditsMenu(renderTarget, camera);
-	howToPlay = new HowToPlay(renderTarget, backgroundImage, camera, font);
+	howToPlay = new HowToPlay(renderTarget, camera, font);
 	backgroundImageRect.x = 0;
 	backgroundImageRect.y = 0;
 	backgroundImageRect.w = camera->getCamera()->w;
