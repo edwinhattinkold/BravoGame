@@ -146,7 +146,7 @@
     </ClInclude>
     <ClInclude Include="Source\Settings.h">
       <Filter>Header Files\Settings</Filter>
-	  </ClInclude>
+    </ClInclude>
     <ClInclude Include="Source\UpdateContainer.h">
       <Filter>Header Files\Containers</Filter>
     </ClInclude>
@@ -182,6 +182,12 @@
     </ClInclude>
     <ClInclude Include="Source\Tree.h">
       <Filter>Header Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="InputContainer.h">
+      <Filter>Header Files\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="InputFactory.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -232,7 +238,7 @@
     </ClCompile>
     <ClCompile Include="Source\Settings.cpp">
       <Filter>Source Files\Settings</Filter>
-	</ClCompile>
+    </ClCompile>
     <ClCompile Include="Source\ChunkFactory.cpp">
       <Filter>Source Files\Factories</Filter>
     </ClCompile>
@@ -265,6 +271,12 @@
     </ClCompile>
     <ClCompile Include="Source\Tree.cpp">
       <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="InputContainer.cpp">
+      <Filter>Source Files\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="InputFactory.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
