@@ -18,6 +18,14 @@ HowToPlay::HowToPlay(SDL_Renderer* renderTarget, SDL_Texture* backgroundImage, C
 	backButton->setYPosition(camera->getCamera()->h - backButton->getHeight() - 10);
 }
 
+HowToPlay::~HowToPlay(){
+	for (size_t i = 0; i < menuItems->size(); i++){
+		delete menuItems->at(i);	menuItems->at(i) = nullptr;
+	}
+	delete menuItems;				menuItems = nullptr;
+
+}
+
 
 int HowToPlay::showMenu(SDL_Renderer* renderTarget){
 	SDL_GetMouseState(&mouseX, &mouseY);

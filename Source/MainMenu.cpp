@@ -33,6 +33,7 @@ MainMenu::~MainMenu()
 	delete menuItems;						menuItems = nullptr;
 	delete optionsMenu;						optionsMenu = nullptr;
 	delete creditsMenu;						creditsMenu = nullptr;
+	delete howToPlay;						howToPlay = nullptr;
 }
 
 int MainMenu::getExitCode(){
