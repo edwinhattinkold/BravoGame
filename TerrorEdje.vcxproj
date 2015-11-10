@@ -23,6 +23,7 @@
     <ClInclude Include="Source\DrawVisitor.h" />
     <ClInclude Include="Source\FixtureUserData.h" />
     <ClInclude Include="Source\GroundAreaFUD.h" />
+    <ClInclude Include="Source\HowToPlay.h" />
     <ClInclude Include="Source\IDrawable.h" />
     <ClInclude Include="Source\IUpdateable.h" />
     <ClInclude Include="Source\Location.h" />
@@ -63,6 +64,7 @@
     <ClCompile Include="Source\DrawVisitor.cpp" />
     <ClCompile Include="Source\FixtureUserData.cpp" />
     <ClCompile Include="Source\GroundAreaFUD.cpp" />
+    <ClCompile Include="Source\HowToPlay.cpp" />
     <ClCompile Include="Source\IDrawable.cpp" />
     <ClCompile Include="Source\IUpdateable.cpp" />
     <ClCompile Include="Source\Location.cpp" />

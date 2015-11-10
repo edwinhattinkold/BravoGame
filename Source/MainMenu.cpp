@@ -20,6 +20,7 @@ MainMenu::MainMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture*
 	menuItems = new std::vector<MenuItem*>();
 	menuItems->push_back(new MenuItem(renderTarget, font, "Continue"));
 	menuItems->push_back(new MenuItem(renderTarget, font, "Load Game"));
+	menuItems->push_back(new MenuItem(renderTarget, font, "How To Play"));
 	menuItems->push_back(new MenuItem(renderTarget, font, "Options"));
 	menuItems->push_back(new MenuItem(renderTarget, font, "Credits"));
 	menuItems->push_back(new MenuItem(renderTarget, font, "Exit"));
@@ -55,6 +56,13 @@ int MainMenu::showMenu(SDL_Renderer* renderTarget){
 		return Choices::Load_Game;
 		break;
 	case(Choices::Options) :
+		howToPlayChoise = optionsMenu->showMenu(renderTarget);
+		if (howToPlayChoise == optionsMenu->getBackCode())
+			return showMenu(renderTarget);
+		else
+			return Choices::Exit;
+		break;
+	case(Choices::HowToPlay) :
 		optionsChoice = optionsMenu->showMenu(renderTarget);
 		if (optionsChoice == optionsMenu->getBackCode())
 			return showMenu(renderTarget);

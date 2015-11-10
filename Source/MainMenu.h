@@ -22,10 +22,10 @@ private:
 
 	OptionsMenu* optionsMenu;
 	CreditsMenu* creditsMenu;
-	int optionsChoice, creditsChoice;
+	int optionsChoice, creditsChoice, howToPlayChoise;
 	void center();
 
-	static enum Choices { Continue, Load_Game, Options, Credits, Exit };
+	static enum Choices { Continue, Load_Game, HowToPlay, Options, Credits, Exit };
 
 public:
 	MainMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, Camera* camera, TTF_Font* font );
