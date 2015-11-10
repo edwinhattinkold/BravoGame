@@ -68,6 +68,7 @@ World::~World()
 
 	SDL_DestroyTexture(this->mainMenuBackground);	this->mainMenuBackground = nullptr;
 	SDL_DestroyRenderer(this->renderTarget);		this->renderTarget = nullptr;
+	
 }
 
 //Update the world

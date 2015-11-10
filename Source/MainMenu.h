@@ -8,6 +8,7 @@
 #include "MenuItem.h"
 #include "Sound.h"
 #include "Camera.h"
+#include "Sprite.h"
 
 class MainMenu
 {
@@ -16,6 +17,7 @@ private:
 	Camera* camera;
 	SDL_Renderer* renderTarget;
 	SDL_Texture* backgroundImage;
+	Sprite* arrow;
 	std::vector<MenuItem*>* menuItems;
 	Sound* sound;
 	Uint32 time;
@@ -25,7 +27,7 @@ private:
 	CreditsMenu* creditsMenu;
 	int optionsChoice, creditsChoice;
 	void center();
-	static enum Choices { Continue, Load_Game, Options, Credits, Exit, Size };
+	static enum Choices { Continue, Load_Game, Options, Credits, Exit };
 
 	int selected;
 public:
@@ -33,7 +35,7 @@ public:
 	~MainMenu();
 
 	int getExitCode();
-	void draw(SDL_Renderer* renderTarget);
+	void drawMenuItems( SDL_Renderer* renderTarget );
 	int showMenu(SDL_Renderer* renderTarget);
 	int createMenu(SDL_Renderer* renderTarget);
 	void handleKeyboardInput(SDL_Keycode keyPressed);

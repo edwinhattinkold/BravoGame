@@ -7,6 +7,7 @@
 #include "Settings.h"
 #include "wtypes.h"
 #include "Camera.h"
+#include "Sprite.h"
 
 class OptionsMenu
 {
@@ -16,6 +17,7 @@ private:
 	SDL_Rect backgroundImageRect;
 	Camera* camera;
 	SDL_Texture* backgroundImage;
+	Sprite* arrow;
 	SDL_Event ev;
 	std::vector<MenuItem*>* menuItems;
 	Sound* sound;
@@ -23,7 +25,7 @@ private:
 	int mouseX, mouseY, margin, combinedHeight;
 	bool soundOn;
 	bool fullscreen;
-	static enum Choices { FullScreen_On_Off, Sound_On_Off, Back, Exit, Size };
+	static enum Choices { FullScreen_On_Off, Sound_On_Off, Back, Exit };
 	void center();
 	Settings* settings;
 	void updateSound( SDL_Renderer* renderTarget );
@@ -35,12 +37,12 @@ private:
 	int selected;
 
 public:
-	OptionsMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, Camera* camera, TTF_Font* font );
+	OptionsMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, Sprite* arrow, Camera* camera, TTF_Font* font );
 	~OptionsMenu();
 
 	int getBackCode();
 	int getExitCode();
-	void draw(SDL_Renderer* renderTarget);
+	void drawMenuItems( SDL_Renderer* renderTarget );
 	int showMenu(SDL_Renderer* renderTarget);
 	int createMenu(SDL_Renderer* renderTarget);
 	void getDesktopResolution( int& horizontal, int& vertical );

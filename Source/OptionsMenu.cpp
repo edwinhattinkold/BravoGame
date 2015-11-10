@@ -1,8 +1,9 @@
 #include "OptionsMenu.h"
 #include "CustomCursor.h"
 
-OptionsMenu::OptionsMenu(SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, Camera* camera, TTF_Font* font)
+OptionsMenu::OptionsMenu(SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, Sprite* arrow, Camera* camera, TTF_Font* font)
 {
+	this->arrow = arrow;
 	this->renderTarget = renderTarget;
 	this->window = window;
 	settings = Settings::getInstance();
@@ -31,14 +32,12 @@ OptionsMenu::OptionsMenu(SDL_Renderer* renderTarget, SDL_Window* window, SDL_Tex
 	int marginHeight = ((menuItems->size() - 1) * margin);
 	combinedHeight += marginHeight;
 
+	selected = 0;
 	center();
 	soundOn = settings->getBoolean( Settings_SoundOn );
 	fullscreen = settings->getBoolean( Settings_fullscreen );
 	updateSound( renderTarget );
 	updateFullscreen( renderTarget );
-
-	selected = 0;
-	updateSelected();
 }
 
 OptionsMenu::~OptionsMenu()
@@ -59,6 +58,7 @@ int OptionsMenu::getExitCode(){
 int OptionsMenu::showMenu(SDL_Renderer* renderTarget){
 	SDL_GetMouseState( &mouseX, &mouseY );
 	CustomCursor::getInstance( )->draw( mouseX, mouseY );
+	updateSelected();
 	int choice = createMenu(renderTarget);
 	switch (choice){
 	case(Choices::Back) :
@@ -105,23 +105,28 @@ int OptionsMenu::createMenu(SDL_Renderer* renderTarget){
 			case SDL_KEYDOWN:
 				SDL_Keycode keyPressed = ev.key.keysym.sym;
 				handleKeyboardInput( keyPressed );
-				if( keyPressed == SDLK_RETURN )
+				if( keyPressed == SDLK_RETURN || keyPressed == SDLK_SPACE)
+				{
+					sound->playSound( Sound_MainMenu_Click );
 					if( selected == Choices::Back )
 						return selected;
 					else
 						handleSelection( selected );
+				}
 				break;
 			}
 		}
 		SDL_RenderClear(renderTarget);
 		SDL_RenderCopy(renderTarget, backgroundImage, NULL, NULL);
-		draw(renderTarget);
+		drawMenuItems(renderTarget);
+		arrow->draw( renderTarget );
 		CustomCursor::getInstance( )->draw( mouseX, mouseY );
 		SDL_RenderPresent(renderTarget);
 	}
 }
 
-void OptionsMenu::draw(SDL_Renderer* renderTarget){
+void OptionsMenu::drawMenuItems( SDL_Renderer* renderTarget )
+{
 	for (std::vector<int>::size_type j = menuItems->size() - 1; j != (std::vector<int>::size_type) - 1; j--) {
 		menuItems->at(j)->draw(renderTarget);
 	}
@@ -226,24 +231,32 @@ void OptionsMenu::handleKeyboardInput( SDL_Keycode keyPressed )
 	switch( keyPressed )
 	{
 		case(SDLK_w) :
-		case(SDLK_UP):
+		case(SDLK_UP) :
 			if( selected != 0 )
 				selected--;
+			else
+				selected = menuItems->size() - 1;
 			break;
 		case(SDLK_s) :
-		case(SDLK_DOWN):
+		case(SDLK_DOWN) :
 			if( selected != menuItems->size() - 1 )
 				selected++;
+			else
+				selected = 0;
 			break;
 	}
+	sound->playSound( Sound_MainMenu_Tick );
 	updateSelected();
 }
 
 void OptionsMenu::updateSelected()
 {
+	MenuItem* selectedItem = menuItems->at( selected );
 	for( size_t c = 0; c < menuItems->size(); c++ )
 		menuItems->at( c )->setColor( renderTarget, Red );
 	menuItems->at( selected )->setColor( renderTarget, SelectedRed );
+	arrow->positionRect.x = selectedItem->getXPosition() - arrow->positionRect.w - 20;
+	arrow->positionRect.y = selectedItem->getYPosition() + selectedItem->getHeight() / 2 - arrow->positionRect.h / 2 - 3;
 }
 
 void OptionsMenu::handleSelection(int index)

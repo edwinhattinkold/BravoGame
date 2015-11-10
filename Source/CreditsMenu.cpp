@@ -16,6 +16,7 @@ CreditsMenu::CreditsMenu( SDL_Renderer* renderTarget, Camera* camera )
 	menuItems = new std::vector<MenuItem*>();
 
 	backButton = new MenuItem( renderTarget, creditsTitelFont, "Back" );
+	backButton->setColor( renderTarget, SelectedRed );
 	menuItems->push_back( backButton );
 
 	lines = new std::vector<std::pair<MenuItem*, int>*>();
@@ -173,8 +174,6 @@ int CreditsMenu::createMenu( SDL_Renderer* renderTarget )
 				case SDL_MOUSEMOTION:
 					mouseX = event.motion.x;
 					mouseY = event.motion.y;
-					for( size_t i = 0; i < menuItems->size(); i++ )
-						menuItems->at( i )->checkHover( mouseX, mouseY );
 					break;
 				case SDL_MOUSEBUTTONDOWN:
 					mouseX = event.motion.x;
@@ -186,6 +185,14 @@ int CreditsMenu::createMenu( SDL_Renderer* renderTarget )
 							sound->playSound( Sound_MainMenu_Click );
 							return index;
 						}
+					break;
+				case SDL_KEYDOWN:
+					SDL_Keycode keyPressed = event.key.keysym.sym;
+					if( keyPressed == SDLK_RETURN || keyPressed == SDLK_SPACE || keyPressed == SDLK_ESCAPE )
+					{
+						sound->playSound( Sound_MainMenu_Click );
+						return Choices::Back;
+					}
 					break;
 			}
 		}
