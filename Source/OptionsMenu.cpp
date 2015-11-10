@@ -3,6 +3,7 @@
 
 OptionsMenu::OptionsMenu(SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, Camera* camera, TTF_Font* font)
 {
+	this->renderTarget = renderTarget;
 	this->window = window;
 	settings = Settings::getInstance();
 	this->camera = camera;
@@ -35,6 +36,9 @@ OptionsMenu::OptionsMenu(SDL_Renderer* renderTarget, SDL_Window* window, SDL_Tex
 	fullscreen = settings->getBoolean( Settings_fullscreen );
 	updateSound( renderTarget );
 	updateFullscreen( renderTarget );
+
+	selected = 0;
+	updateSelected();
 }
 
 OptionsMenu::~OptionsMenu()
@@ -81,7 +85,7 @@ int OptionsMenu::createMenu(SDL_Renderer* renderTarget){
 				mouseX = ev.motion.x;
 				mouseY = ev.motion.y;
 				for (size_t i = 0; i < menuItems->size(); i++)
-					if (menuItems->at(i)->checkHover(mouseX, mouseY))
+					if (i != selected && menuItems->at(i)->checkHover(mouseX, mouseY))
 						sound->playSound(Sound_MainMenu_Tick);
 				break;
 			case SDL_MOUSEBUTTONDOWN:
@@ -92,14 +96,20 @@ int OptionsMenu::createMenu(SDL_Renderer* renderTarget){
 						mouseY >= menuItems->at(index)->getYPosition() && mouseY <= menuItems->at(index)->getYPosition() + menuItems->at(index)->getHeight()){
 						sound->playSound(Sound_MainMenu_Click);
 						
-						if( index == Choices::Sound_On_Off )
-							toggleSound( renderTarget );
-						else if( index == Choices::FullScreen_On_Off )
-							toggleFullscreen( renderTarget );
-						else
+						if( index == Choices::Back )
 							return index;
+						else
+							handleSelection( index );
 					}
-
+				break;
+			case SDL_KEYDOWN:
+				SDL_Keycode keyPressed = ev.key.keysym.sym;
+				handleKeyboardInput( keyPressed );
+				if( keyPressed == SDLK_RETURN )
+					if( selected == Choices::Back )
+						return selected;
+					else
+						handleSelection( selected );
 				break;
 			}
 		}
@@ -183,13 +193,9 @@ void OptionsMenu::toggleFullscreen( SDL_Renderer* renderTarget )
 void OptionsMenu::updateFullscreen( SDL_Renderer* renderTarget )
 {
 	if( fullscreen )
-	{
 		menuItems->at( Choices::FullScreen_On_Off )->setText( renderTarget, "Fullscreen On" );
-	}
 	else
-	{
 		menuItems->at( Choices::FullScreen_On_Off )->setText( renderTarget, "Fullscreen Off" );
-	}
 	center();
 }
 
@@ -213,4 +219,37 @@ void OptionsMenu::getDesktopResolution( int& horizontal, int& vertical )
 	GetWindowRect( hDesktop, &desktop );
 	horizontal = desktop.right;
 	vertical = desktop.bottom;
+}
+
+void OptionsMenu::handleKeyboardInput( SDL_Keycode keyPressed )
+{
+	switch( keyPressed )
+	{
+		case(SDLK_w) :
+		case(SDLK_UP):
+			if( selected != 0 )
+				selected--;
+			break;
+		case(SDLK_s) :
+		case(SDLK_DOWN):
+			if( selected != menuItems->size() - 1 )
+				selected++;
+			break;
+	}
+	updateSelected();
+}
+
+void OptionsMenu::updateSelected()
+{
+	for( size_t c = 0; c < menuItems->size(); c++ )
+		menuItems->at( c )->setColor( renderTarget, Red );
+	menuItems->at( selected )->setColor( renderTarget, SelectedRed );
+}
+
+void OptionsMenu::handleSelection(int index)
+{
+	if( index == Choices::Sound_On_Off )
+		toggleSound( renderTarget );
+	else if( index == Choices::FullScreen_On_Off )
+		toggleFullscreen( renderTarget );
 }

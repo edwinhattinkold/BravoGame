@@ -3,6 +3,7 @@
 
 MainMenu::MainMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, Camera* camera, TTF_Font* font )
 {
+	this->renderTarget = renderTarget;
 	this->camera = camera;
 	sound = Sound::getInstance();
 	sound->playSoundLooping(Sound_MainMenu_Theme, 0.50f);
@@ -23,6 +24,8 @@ MainMenu::MainMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture*
 	menuItems->push_back(new MenuItem(renderTarget, font, "Options"));
 	menuItems->push_back(new MenuItem(renderTarget, font, "Credits"));
 	menuItems->push_back(new MenuItem(renderTarget, font, "Exit"));
+	selected = 0;
+	updateSelected();
 }
 
 MainMenu::~MainMenu()
@@ -94,7 +97,7 @@ int MainMenu::createMenu(SDL_Renderer* renderTarget){
 				mouseX = event.motion.x;
 				mouseY = event.motion.y;
 				for (size_t i = 0; i < menuItems->size(); i++)
-					if (menuItems->at(i)->checkHover(mouseX, mouseY))
+					if( i != selected && menuItems->at( i )->checkHover( mouseX, mouseY ) )
 						sound->playSound(Sound_MainMenu_Tick);
 				break;
 			case SDL_MOUSEBUTTONDOWN:
@@ -106,6 +109,12 @@ int MainMenu::createMenu(SDL_Renderer* renderTarget){
 						sound->playSound(Sound_MainMenu_Click);
 						return index;
 					}
+				break;
+			case SDL_KEYDOWN:
+				SDL_Keycode keyPressed = event.key.keysym.sym;
+				handleKeyboardInput(keyPressed);
+				if( keyPressed == SDLK_RETURN )
+					return selected;
 				break;
 			}
 		}
@@ -144,4 +153,29 @@ void MainMenu::center()
 		int yPosition = (camera->getCamera()->h / 2) - (combinedHeight / 2) + (j * margin) + previousHeight;
 		menuItems->at( j )->setYPosition( yPosition );
 	}
+}
+
+void MainMenu::handleKeyboardInput( SDL_Keycode keyPressed )
+{
+	switch( keyPressed )
+	{
+		case(SDLK_w) :
+		case(SDLK_UP):
+			if( selected != 0 )
+				selected--;
+			break;
+		case(SDLK_s) :
+		case(SDLK_DOWN):
+			if( selected != menuItems->size() - 1 )
+				selected++;
+			break;
+	}
+	updateSelected();
+}
+
+void MainMenu::updateSelected()
+{
+	for( size_t c = 0; c < menuItems->size(); c++ )
+		menuItems->at( c )->setColor( renderTarget, Red );
+	menuItems->at( selected )->setColor( renderTarget, SelectedRed );
 }
