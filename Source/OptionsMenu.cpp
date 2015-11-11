@@ -33,7 +33,7 @@ OptionsMenu::OptionsMenu(SDL_Renderer* renderTarget, SDL_Window* window, SDL_Tex
 	combinedHeight += marginHeight;
 
 	selected = 0;
-	center();
+	
 	soundOn = settings->getBoolean( Settings_SoundOn );
 	fullscreen = settings->getBoolean( Settings_fullscreen );
 	updateSound( renderTarget );
@@ -58,7 +58,7 @@ int OptionsMenu::getExitCode(){
 int OptionsMenu::showMenu(SDL_Renderer* renderTarget){
 	SDL_GetMouseState( &mouseX, &mouseY );
 	CustomCursor::getInstance( )->draw( mouseX, mouseY );
-	updateSelected();
+	center();
 	int choice = createMenu(renderTarget);
 	switch (choice){
 	case(Choices::Back) :
@@ -215,6 +215,7 @@ void OptionsMenu::center(){
 		int yPosition = (camera->getCamera()->h / 2) - (combinedHeight / 2) + (j * margin) + previousHeight;
 		menuItems->at(j)->setYPosition(yPosition);
 	}
+	updateSelected();
 }
 
 void OptionsMenu::getDesktopResolution( int& horizontal, int& vertical )
