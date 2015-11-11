@@ -99,7 +99,11 @@ int MainMenu::createMenu(SDL_Renderer* renderTarget){
 				mouseY = event.motion.y;
 				for (size_t i = 0; i < menuItems->size(); i++)
 					if( i != selected && menuItems->at( i )->checkHover( mouseX, mouseY ) )
-						sound->playSound(Sound_MainMenu_Tick);
+					{
+						sound->playSound( Sound_MainMenu_Tick );
+						selected = i;
+						updateSelected();
+					}
 				break;
 			case SDL_MOUSEBUTTONDOWN:
 				mouseX = event.motion.x;

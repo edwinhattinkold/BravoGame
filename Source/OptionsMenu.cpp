@@ -85,8 +85,12 @@ int OptionsMenu::createMenu(SDL_Renderer* renderTarget){
 				mouseX = ev.motion.x;
 				mouseY = ev.motion.y;
 				for (size_t i = 0; i < menuItems->size(); i++)
-					if (i != selected && menuItems->at(i)->checkHover(mouseX, mouseY))
-						sound->playSound(Sound_MainMenu_Tick);
+					if( i != selected && menuItems->at( i )->checkHover( mouseX, mouseY ) )
+					{
+						sound->playSound( Sound_MainMenu_Tick );
+						selected = i;
+						updateSelected();
+					}
 				break;
 			case SDL_MOUSEBUTTONDOWN:
 				mouseX = ev.motion.x;
@@ -113,6 +117,8 @@ int OptionsMenu::createMenu(SDL_Renderer* renderTarget){
 					else
 						handleSelection( selected );
 				}
+				else if( keyPressed == SDLK_ESCAPE )
+					return Choices::Back;
 				break;
 			}
 		}
