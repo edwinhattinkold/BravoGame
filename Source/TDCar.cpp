@@ -38,8 +38,12 @@ TDCar::TDCar(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM
 	vertices[3].Set(-w / 2, 0);
 	b2PolygonShape polygonShape;
 	polygonShape.Set(vertices, 4);
-	b2Fixture* fixture = m_body->CreateFixture(&polygonShape, 0.1f);//shape, density
+	fixture = m_body->CreateFixture(&polygonShape, 0.1f);//shape, density
 
+
+	
+
+	
 	//prepare common joint parameters
 	b2RevoluteJointDef jointDef;
 	jointDef.bodyA = m_body;
@@ -115,6 +119,58 @@ float TDCar::getAngleB2D()
 	return m_body->GetAngle();
 }
 
+float TDCar::getCenterX()
+{
+	float xCenter = 0;
+	float yCenter = 0;
+	b2PolygonShape* polygonShape2 = (b2PolygonShape*)fixture->GetShape();
+	float vertexCount = polygonShape2->GetVertexCount();
+	for (int i = 0; i < vertexCount; ++i)
+	{
+		//get the vertex in body coordinates
+		b2Vec2 bcVertex = polygonShape2->GetVertex(i);
+		//get the vertex in world coordinates
+		b2Vec2 wcVertex = fixture->GetBody()->GetWorldPoint(bcVertex);
+		xCenter += wcVertex.x;
+		yCenter += wcVertex.y;
+		std::cout << wcVertex.x << " " << wcVertex.y << std::endl;
+	}
+	return xCenter / 4;
+}
+
+float TDCar::getCenterY()
+{
+	float xCenter = 0;
+	float yCenter = 0;
+	b2PolygonShape* polygonShape2 = (b2PolygonShape*)fixture->GetShape();
+	float vertexCount = polygonShape2->GetVertexCount();
+	for (int i = 0; i < vertexCount; ++i)
+	{
+		//get the vertex in body coordinates
+		b2Vec2 bcVertex = polygonShape2->GetVertex(i);
+		//get the vertex in world coordinates
+		b2Vec2 wcVertex = fixture->GetBody()->GetWorldPoint(bcVertex);
+		xCenter += wcVertex.x;
+		yCenter += wcVertex.y;
+		std::cout << wcVertex.x << " " << wcVertex.y << std::endl;
+	}
+	return yCenter / 4;
+}
+
+
+void TDCar::printFixtures()
+{
+	b2PolygonShape* polygonShape2 = (b2PolygonShape*)fixture->GetShape();
+	int vertexCount = polygonShape2->GetVertexCount();
+	for (int i = 0; i < vertexCount; ++i)
+	{
+		//get the vertex in body coordinates
+		b2Vec2 bcVertex = polygonShape2->GetVertex(i);
+		//get the vertex in world coordinates
+		b2Vec2 wcVertex = fixture->GetBody()->GetWorldPoint(bcVertex);
+		std::cout << wcVertex.x << " " << wcVertex.y << std::endl;
+	}
+}
 std::vector<TDTire*> TDCar::getTires()
 {
 	return m_tires;
@@ -215,7 +271,7 @@ void TDCar::update(const Uint8 *keyState) {
 	float newY = oldY + h;
 	updateSDLPosition(oldX, oldY);
 	updateOrigin();
-
+	printFixtures();
 	//std::cout << "Position: " << this->getB2DPosition().x << " - " << this->getB2DPosition().y << " Center: " << int(this->m_body->GetWorldCenter().x) << " - " << this->m_body->GetWorldCenter().y << std::endl;
 	angle = int(getAngle());
 }

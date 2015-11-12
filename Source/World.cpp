@@ -138,7 +138,7 @@ void World::tick()
 
 		SDL_RenderClear(renderTarget);
 
-		drawObject(6, 10, myCar->getB2DPosition().x, myCar->getB2DPosition().y, myCar->getAngleB2D());
+		drawObject(6, 10, myCar->getCenterX(), myCar->getCenterY(), myCar->getAngleB2D());
 
 		drawObject(6, 10, myTree->getB2DPosition().x, myTree->getB2DPosition().y, myTree->getAngleB2D());
 		drawObject(4, 4, myTree2->getB2DPosition().x, myTree2->getB2DPosition().y, myTree2->getAngleB2D());
