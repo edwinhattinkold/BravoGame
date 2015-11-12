@@ -26,7 +26,7 @@ private:
 	void fadeIn();
 
 	static enum LineType { MainTitel, Titel, Default };
-	static enum Choices { Back, Sound_On_Off, Exit };
+	static enum Choices { Back, Exit };
 
 	std::pair<MenuItem*, int>* createLine(SDL_Renderer* renderTarget, char * line, LineType lineType, int margin);
 	bool shouldMove(float deltaTime);

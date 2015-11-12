@@ -31,6 +31,7 @@ public:
 
 	virtual void update(float delta, const Uint8 *keyState);
 	virtual void draw(SDL_Renderer *renderTarget, SDL_Rect camerRect);
+	virtual void draw( SDL_Renderer *renderTarget );
 	virtual void drawTree(SDL_Renderer *renderTarget, SDL_Rect camerRect);
 	virtual void drawCar(SDL_Renderer *renderTarget, SDL_Rect cameraRect);
 	bool intersectsWith(Sprite &p);
