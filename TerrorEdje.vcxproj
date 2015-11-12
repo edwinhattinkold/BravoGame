@@ -11,6 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="InputContainer.h" />
+    <ClInclude Include="InputFactory.h" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\ChunkFactory.h" />
@@ -51,6 +53,8 @@
     <ClInclude Include="Source\XMLReader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="InputContainer.cpp" />
+    <ClCompile Include="InputFactory.cpp" />
     <ClCompile Include="Source\Animation.cpp" />
     <ClCompile Include="Source\B2Content.cpp" />
     <ClCompile Include="Source\Camera.cpp" />

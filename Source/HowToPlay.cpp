@@ -7,12 +7,13 @@ HowToPlay::HowToPlay(SDL_Renderer* renderTarget, Camera* camera, TTF_Font* font)
 	backgroundImageRect.y = 0;
 	backgroundImageRect.w = camera->getCamera()->w;
 	backgroundImageRect.h = camera->getCamera()->h;
-	this->backgroundImage = new Sprite(renderTarget, "Images/Mainmenu/howto.png", 0, 0, 1, 1, 0);
+	backgroundImage = new Sprite(renderTarget, "Images/Mainmenu/howto.png", 0, 0, 1, 1, 0);
 	menuItems = new std::vector<MenuItem*>();
 
 	backButton = new MenuItem(renderTarget, font, "Back");
 	menuItems->push_back(backButton);
 	backButton->setXPosition(20);
+	backButton->setColor(renderTarget, SelectedRed);
 }
 
 HowToPlay::~HowToPlay(){
@@ -63,18 +64,20 @@ int HowToPlay::createMenu(SDL_Renderer* renderTarget){
 				if (mouseX >= menuItems->at(index)->getXPosition() && mouseX <= menuItems->at(index)->getXPosition() + menuItems->at(index)->getWidth() &&
 					mouseY >= menuItems->at(index)->getYPosition() && mouseY <= menuItems->at(index)->getYPosition() + menuItems->at(index)->getHeight()){
 					sound->playSound(Sound_MainMenu_Click);
-						return index;
+					return index;
 				}
 				break;
 			case SDL_KEYDOWN:
 				SDL_Keycode keyPressed = ev.key.keysym.sym;
-				if (keyPressed == SDLK_ESCAPE)
+				if (keyPressed == SDLK_RETURN || keyPressed == SDLK_SPACE || keyPressed == SDLK_ESCAPE){
 					sound->playSound(Sound_MainMenu_Click);
 					return Choices::Back;
+				}
 				break;
 			}
 		}
 		SDL_RenderClear(renderTarget);
+		backgroundImage->positionRect = *camera->getCamera();
 		backgroundImage->draw(renderTarget);
 		backButton->setYPosition(camera->getCamera()->h - backButton->getHeight() - 10);
 		draw(renderTarget);
@@ -91,21 +94,4 @@ void HowToPlay::draw(SDL_Renderer* renderTarget)
 }
 int HowToPlay::getBackCode(){
 	return Back;
-}
-
-SDL_Texture* HowToPlay::loadTexture(std::string filePath, SDL_Renderer *renderTarget)
-{
-	SDL_Texture *texture = nullptr;
-	SDL_Surface *surface = IMG_Load(filePath.c_str());
-	if (surface == NULL)
-		std::cout << "Error" << std::endl;
-	else
-	{
-		texture = SDL_CreateTextureFromSurface(renderTarget, surface);
-		if (texture == NULL)
-			std::cout << "Error" << std::endl;
-	}
-
-	SDL_FreeSurface(surface);
-	return texture;
 }

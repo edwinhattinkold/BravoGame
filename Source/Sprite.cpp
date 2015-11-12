@@ -59,6 +59,12 @@ void Sprite::draw( SDL_Renderer *renderTarget, SDL_Rect camerRect )
 	animations->at( currentAnimation )->draw( renderTarget, drawingRect );
 }
 
+void Sprite::draw( SDL_Renderer *renderTarget)
+{
+	SDL_Rect drawingRect = { positionRect.x, positionRect.y, positionRect.w, positionRect.h };
+	animations->at( currentAnimation )->draw( renderTarget, drawingRect );
+}
+
 void Sprite::drawTree(SDL_Renderer *renderTarget, SDL_Rect camerRect)
 {
 	int halfWidth = this->positionRect.w / 2;

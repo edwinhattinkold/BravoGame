@@ -1,8 +1,10 @@
 #include "OptionsMenu.h"
 #include "CustomCursor.h"
 
-OptionsMenu::OptionsMenu(SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, Camera* camera, TTF_Font* font)
+OptionsMenu::OptionsMenu(SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, Sprite* arrow, Camera* camera, TTF_Font* font)
 {
+	this->arrow = arrow;
+	this->renderTarget = renderTarget;
 	this->window = window;
 	settings = Settings::getInstance();
 	this->camera = camera;
@@ -30,7 +32,8 @@ OptionsMenu::OptionsMenu(SDL_Renderer* renderTarget, SDL_Window* window, SDL_Tex
 	int marginHeight = ((menuItems->size() - 1) * margin);
 	combinedHeight += marginHeight;
 
-	center();
+	selected = 0;
+	
 	soundOn = settings->getBoolean( Settings_SoundOn );
 	fullscreen = settings->getBoolean( Settings_fullscreen );
 	updateSound( renderTarget );
@@ -55,6 +58,7 @@ int OptionsMenu::getExitCode(){
 int OptionsMenu::showMenu(SDL_Renderer* renderTarget){
 	SDL_GetMouseState( &mouseX, &mouseY );
 	CustomCursor::getInstance( )->draw( mouseX, mouseY );
+	center();
 	int choice = createMenu(renderTarget);
 	switch (choice){
 	case(Choices::Back) :
@@ -81,8 +85,12 @@ int OptionsMenu::createMenu(SDL_Renderer* renderTarget){
 				mouseX = ev.motion.x;
 				mouseY = ev.motion.y;
 				for (size_t i = 0; i < menuItems->size(); i++)
-					if (menuItems->at(i)->checkHover(mouseX, mouseY))
-						sound->playSound(Sound_MainMenu_Tick);
+					if( i != selected && menuItems->at( i )->checkHover( mouseX, mouseY ) )
+					{
+						sound->playSound( Sound_MainMenu_Tick );
+						selected = i;
+						updateSelected();
+					}
 				break;
 			case SDL_MOUSEBUTTONDOWN:
 				mouseX = ev.motion.x;
@@ -92,26 +100,39 @@ int OptionsMenu::createMenu(SDL_Renderer* renderTarget){
 						mouseY >= menuItems->at(index)->getYPosition() && mouseY <= menuItems->at(index)->getYPosition() + menuItems->at(index)->getHeight()){
 						sound->playSound(Sound_MainMenu_Click);
 						
-						if( index == Choices::Sound_On_Off )
-							toggleSound( renderTarget );
-						else if( index == Choices::FullScreen_On_Off )
-							toggleFullscreen( renderTarget );
-						else
+						if( index == Choices::Back )
 							return index;
+						else
+							handleSelection( index );
 					}
-
+				break;
+			case SDL_KEYDOWN:
+				SDL_Keycode keyPressed = ev.key.keysym.sym;
+				handleKeyboardInput( keyPressed );
+				if( keyPressed == SDLK_RETURN || keyPressed == SDLK_SPACE)
+				{
+					sound->playSound( Sound_MainMenu_Click );
+					if( selected == Choices::Back )
+						return selected;
+					else
+						handleSelection( selected );
+				}
+				else if( keyPressed == SDLK_ESCAPE )
+					return Choices::Back;
 				break;
 			}
 		}
 		SDL_RenderClear(renderTarget);
 		SDL_RenderCopy(renderTarget, backgroundImage, NULL, NULL);
-		draw(renderTarget);
+		drawMenuItems(renderTarget);
+		arrow->draw( renderTarget );
 		CustomCursor::getInstance( )->draw( mouseX, mouseY );
 		SDL_RenderPresent(renderTarget);
 	}
 }
 
-void OptionsMenu::draw(SDL_Renderer* renderTarget){
+void OptionsMenu::drawMenuItems( SDL_Renderer* renderTarget )
+{
 	for (std::vector<int>::size_type j = menuItems->size() - 1; j != (std::vector<int>::size_type) - 1; j--) {
 		menuItems->at(j)->draw(renderTarget);
 	}
@@ -183,13 +204,9 @@ void OptionsMenu::toggleFullscreen( SDL_Renderer* renderTarget )
 void OptionsMenu::updateFullscreen( SDL_Renderer* renderTarget )
 {
 	if( fullscreen )
-	{
 		menuItems->at( Choices::FullScreen_On_Off )->setText( renderTarget, "Fullscreen On" );
-	}
 	else
-	{
 		menuItems->at( Choices::FullScreen_On_Off )->setText( renderTarget, "Fullscreen Off" );
-	}
 	center();
 }
 
@@ -204,6 +221,7 @@ void OptionsMenu::center(){
 		int yPosition = (camera->getCamera()->h / 2) - (combinedHeight / 2) + (j * margin) + previousHeight;
 		menuItems->at(j)->setYPosition(yPosition);
 	}
+	updateSelected();
 }
 
 void OptionsMenu::getDesktopResolution( int& horizontal, int& vertical )
@@ -213,4 +231,46 @@ void OptionsMenu::getDesktopResolution( int& horizontal, int& vertical )
 	GetWindowRect( hDesktop, &desktop );
 	horizontal = desktop.right;
 	vertical = desktop.bottom;
+}
+
+void OptionsMenu::handleKeyboardInput( SDL_Keycode keyPressed )
+{
+	switch( keyPressed )
+	{
+		case(SDLK_w) :
+		case(SDLK_UP) :
+			if( selected != 0 )
+				selected--;
+			else
+				selected = menuItems->size() - 1;
+			sound->playSound( Sound_MainMenu_Tick );
+			break;
+		case(SDLK_s) :
+		case(SDLK_DOWN) :
+			if( selected != menuItems->size() - 1 )
+				selected++;
+			else
+				selected = 0;
+			sound->playSound( Sound_MainMenu_Tick );
+			break;
+	}
+	updateSelected();
+}
+
+void OptionsMenu::updateSelected()
+{
+	MenuItem* selectedItem = menuItems->at( selected );
+	for( size_t c = 0; c < menuItems->size(); c++ )
+		menuItems->at( c )->setColor( renderTarget, Red );
+	menuItems->at( selected )->setColor( renderTarget, SelectedRed );
+	arrow->positionRect.x = selectedItem->getXPosition() - arrow->positionRect.w - 20;
+	arrow->positionRect.y = selectedItem->getYPosition() + selectedItem->getHeight() / 2 - arrow->positionRect.h / 2 - 3;
+}
+
+void OptionsMenu::handleSelection(int index)
+{
+	if( index == Choices::Sound_On_Off )
+		toggleSound( renderTarget );
+	else if( index == Choices::FullScreen_On_Off )
+		toggleFullscreen( renderTarget );
 }
