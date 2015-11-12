@@ -41,7 +41,9 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	
 	myCar = new TDCar(physics, renderTarget, 6, 10);
 
-	myTree = new Tree(physics, renderTarget, 6, 10, 10, -15);
+	myTree = new Tree(physics, renderTarget, 6, 10, 20, -15);
+
+	myTree2 = new Tree(physics, renderTarget, 4, 4, 30, -15);
 
 
 	drawContainer->add(mapDrawer);
@@ -139,7 +141,8 @@ void World::tick()
 		drawObject(6, 10, myCar->getB2DPosition().x, myCar->getB2DPosition().y, myCar->getAngleB2D());
 
 		drawObject(6, 10, myTree->getB2DPosition().x, myTree->getB2DPosition().y, myTree->getAngleB2D());
-
+		drawObject(4, 4, myTree2->getB2DPosition().x, myTree2->getB2DPosition().y, myTree2->getAngleB2D());
+		
 		std::vector<TDTire*> tires = myCar->getTires();
 		for (int i = 0; i < tires.size(); i++)
 		{

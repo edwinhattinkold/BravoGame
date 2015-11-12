@@ -22,6 +22,7 @@ private:
 
 	TDCar* myCar;
 	Tree* myTree;
+	Tree* myTree2;
 	//SDL
 	SDL_Renderer *renderTarget;
 	SDL_Texture *carTexture;
