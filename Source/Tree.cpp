@@ -11,7 +11,7 @@ Tree::Tree(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM, 
 	h = heightM;
 	//create car body
 	b2BodyDef bodyDef;
-	bodyDef.type = b2_staticBody;
+	bodyDef.type = b2_dynamicBody;
 
 	bodyDef.position.Set(posX, posY);
 	m_body = world->CreateBody(&bodyDef);
@@ -43,7 +43,17 @@ Tree::~Tree()
 {
 }
 
+b2Body * Tree::getBody()
+{
+	return m_body;
+}
+
 void Tree::accept(DrawVisitor *dv)
 {
 	dv->visit(this);
+}
+
+float Tree::getAngleB2D()
+{
+	return m_body->GetAngle();
 }

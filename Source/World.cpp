@@ -41,13 +41,25 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	
 	myCar = new TDCar(physics, renderTarget, 6, 10);
 
-	//myTree = new Tree(physics, renderTarget, 3, 6, 0, -15);
+	myTree = new Tree(physics, renderTarget, 6, 10, 10, -15);
 
 
 	drawContainer->add(mapDrawer);
 	drawContainer->add( myCar );
-	//drawContainer->add(myTree);
+	drawContainer->add(myTree);
 	updateContainer->add( mapDrawer );
+
+	//CAR
+	surfaceCar = IMG_Load("Images/Car/car2.png");
+	if (surfaceCar == NULL)
+		std::cout << "Error" << std::endl;
+	else
+	{
+		textureCar = SDL_CreateTextureFromSurface(renderTarget, surfaceCar);
+		if (textureCar == NULL)
+			std::cout << "Error 123 4 " << std::endl;
+	}
+	center = new SDL_Point;
 }
 
 
@@ -100,14 +112,72 @@ void World::tick()
 	//update physics
 	physics->Step(deltaTime, *velocityIterations, *positionIterations);
 
-	camera->update(myCar->getOriginX(), myCar->getOriginY());
+	//camera->update(myCar->getOriginX(), myCar->getOriginY());
 	//camera->update(0,0);
 
 	updateContainer->update(deltaTime, keyState);
 
+	drawCar();
 	//update SDL
-	updateSDL();
+	//updateSDL();
 }
+
+	void World::drawObject(float nwidth, float nheight, float nx, float ny, float nangle)
+	{
+		float angle = nangle * RADTODEG;
+		float x = nx - (nwidth / 2);
+		float y = ny + (nheight / 2);
+
+		SDL_Rect drawingRect = { x * scale, - y * scale, nwidth * scale, nheight * scale };
+	
+		SDL_RenderCopyEx(renderTarget, textureCar, NULL, &drawingRect, transfrom(angle), NULL, SDL_FLIP_VERTICAL);
+	}
+	void World::drawCar(){
+
+		SDL_RenderClear(renderTarget);
+
+		drawObject(6, 10, myCar->getB2DPosition().x, myCar->getB2DPosition().y, myCar->getAngleB2D());
+
+		drawObject(6, 10, myTree->getB2DPosition().x, myTree->getB2DPosition().y, myTree->getAngleB2D());
+
+		std::vector<TDTire*> tires = myCar->getTires();
+		for (int i = 0; i < tires.size(); i++)
+		{
+			drawObject(0.5, 1.25, tires[i]->getX(), tires[i]->getY(), tires[i]->getAngle());
+		}
+
+
+
+		SDL_RenderPresent(renderTarget);
+	}
+	int World::transfrom(float dgrs)
+	{
+
+		int add360 = dgrs + 360;
+		int newAngle = 0;
+		int gradenBox2d = add360 % 360;
+		if (gradenBox2d < 90)
+		{
+			int temp = 90 - gradenBox2d;
+			newAngle = 90 + temp;
+		}
+		if (gradenBox2d < 180)
+		{
+			int temp = gradenBox2d - 90;
+			newAngle = 90 - temp;
+		}
+		if (gradenBox2d < 270)
+		{
+			int temp = 270 - gradenBox2d;
+			newAngle = 270 + temp;
+		}
+		else{
+			int temp = gradenBox2d - 270;
+			newAngle = 270 - temp;
+		}
+		int newNewAngle = newAngle % 360;
+		return newNewAngle;
+	}
 
 void World::run()
 {

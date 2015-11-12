@@ -13,10 +13,22 @@ TDTire::TDTire(b2World* world)
 	fixture->SetUserData(ctfud);
 
 	m_body->SetUserData(this);
-
 	m_currentTraction = 1;
 }
 
+float TDTire::getAngle()
+{
+	return m_body->GetAngle();
+}
+float TDTire::getX()
+{
+	return m_body->GetPosition().x;
+}
+
+float TDTire::getY()
+{
+	return m_body->GetPosition().y;
+}
 
 TDTire::~TDTire()
 {

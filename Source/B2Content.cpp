@@ -25,6 +25,7 @@ b2Vec2 B2Content::getSDLPosition(){
 float B2Content::getAngle(){
 	
 	float degrees = 360 - m_body->GetAngle() * RADTODEG;
+	//float degrees =  m_body->GetAngle() * RADTODEG;
 	return degrees;
 	/*
 	int add360 = degrees + 360;

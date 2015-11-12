@@ -15,6 +15,7 @@
 for the window. Its purpose is to render the world, run the physics
 update the objects, etc. Not all in this class of course.			*/
 /************************************************************************/
+const int scale = 10;
 class World
 {
 private:
@@ -58,14 +59,25 @@ private:
 	SDL_Texture *loadTexture(std::string filePath, SDL_Renderer *renderTarget);
 	void createCamera(SDL_Window *window, int levelWidth, int levelHeight);
 	void handleBodyRemoveStack();
+
+	SDL_Point * center;
+	//CAR
+
+	SDL_Texture *textureCar;
+	SDL_Surface *surfaceCar;
 public:
 	Player *player1;
 	World(SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font);
 	~World();
 	void run();
+	void drawCar();
+	
 	//Box2d wrapper function
 	b2Body* createBody(b2BodyDef *bodyDef);
 	void destroyBody(b2Body *body);
+	int transfrom(float);
+	void drawObject(float nwidth, float nheight, float nx, float ny, float nangle);
+	
 };
 
 

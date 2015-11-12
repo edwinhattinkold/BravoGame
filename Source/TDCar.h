@@ -37,7 +37,9 @@ public:
 
 	void update(const Uint8 *keyState);
 	void soundHorn();
+	float getAngleB2D();
 	virtual void accept(DrawVisitor *dv);
+	std::vector<TDTire*> getTires();
 	//custom
 };
 

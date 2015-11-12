@@ -9,7 +9,7 @@ TDCar::~TDCar() {
 }
 
 TDCar::TDCar(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM)
-	:B2Content(world, renderTarget, "Images/Car/buggy.png"){
+	:B2Content(world, renderTarget, "Images/Car/debugbuggy.png"){
 	m_controlState = 0;
 	w = widthM;
 	h = heightM;
@@ -110,6 +110,15 @@ TDCar::TDCar(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM
 
 	std::cout << "Position: " << this->getB2DPosition().x << " - " << this->getB2DPosition().y << " Center: " << int(this->m_body->GetWorldCenter().x) << " - " << this->m_body->GetWorldCenter().y << std::endl;
 }
+float TDCar::getAngleB2D()
+{
+	return m_body->GetAngle();
+}
+
+std::vector<TDTire*> TDCar::getTires()
+{
+	return m_tires;
+}
 
 void TDCar::update(const Uint8 *keyState) {
 
@@ -204,7 +213,7 @@ void TDCar::update(const Uint8 *keyState) {
 	float newX = oldX - w/ 2;
 	float oldY = this->getSDLPosition().y;
 	float newY = oldY + h;
-	updateSDLPosition(newX, newY);
+	updateSDLPosition(oldX, oldY);
 	updateOrigin();
 
 	//std::cout << "Position: " << this->getB2DPosition().x << " - " << this->getB2DPosition().y << " Center: " << int(this->m_body->GetWorldCenter().x) << " - " << this->m_body->GetWorldCenter().y << std::endl;

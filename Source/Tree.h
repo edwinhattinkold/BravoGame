@@ -10,5 +10,7 @@ public:
 	~Tree();
 
 	virtual void accept(DrawVisitor *dv);
+	b2Body * getBody();
+	float getAngleB2D();
 };
 

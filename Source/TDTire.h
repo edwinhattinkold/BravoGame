@@ -23,7 +23,8 @@ public:
 	float m_maxLateralImpulse;
 	std::set<GroundAreaFUD*> m_groundAreas;
 	float m_currentTraction;
-	
+
+	float getAngle();
 	~TDTire();
 	TDTire(b2World* world);
 
@@ -36,7 +37,8 @@ public:
 
 	void addGroundArea(GroundAreaFUD* ga) { m_groundAreas.insert(ga); updateTraction(); }
 	void removeGroundArea(GroundAreaFUD* ga) { m_groundAreas.erase(ga); updateTraction(); }
-
+	float getX();
+	float getY();
 	void updateTraction()
 	{
 		if (m_groundAreas.empty())
@@ -80,6 +82,7 @@ public:
 		float dragForceMagnitude = -2 * currentForwardSpeed;
 		m_body->ApplyForce(m_currentTraction * dragForceMagnitude * currentForwardNormal, m_body->GetWorldCenter(), true);
 	}
+
 
 	void updateDrive(int controlState) {
 
