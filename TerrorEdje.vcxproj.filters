@@ -183,6 +183,9 @@
     <ClInclude Include="Source\Tree.h">
       <Filter>Header Files\Model</Filter>
     </ClInclude>
+    <ClInclude Include="Source\HowToPlay.h">
+      <Filter>Header Files\Menu</Filter>
+    </ClInclude>
     <ClInclude Include="InputContainer.h">
       <Filter>Header Files\Containers</Filter>
     </ClInclude>
@@ -271,6 +274,9 @@
     </ClCompile>
     <ClCompile Include="Source\Tree.cpp">
       <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\HowToPlay.cpp">
+      <Filter>Source Files\Menu</Filter>
     </ClCompile>
     <ClCompile Include="InputContainer.cpp">
       <Filter>Source Files\Containers</Filter>

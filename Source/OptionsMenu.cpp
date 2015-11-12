@@ -178,8 +178,8 @@ void OptionsMenu::toggleFullscreen( SDL_Renderer* renderTarget )
 	if( fullscreen )
 	{
 		flags = 0;
-		windowWidth = 1024;
-		windowHeight = 576;
+		windowWidth = 1280;
+		windowHeight = 720;
 		fullscreen = false;
 		menuItems->at( Choices::FullScreen_On_Off )->setText( renderTarget, "Fullscreen off" );
 	}
