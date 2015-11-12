@@ -3,6 +3,7 @@
 
 class Tree : public B2Content
 {
+	b2Fixture* fixture;
 public:
 
 	int w, h;
@@ -12,5 +13,8 @@ public:
 	virtual void accept(DrawVisitor *dv);
 	b2Body * getBody();
 	float getAngleB2D();
+
+	float getCenterX();
+	float getCenterY();
 };
 

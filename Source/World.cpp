@@ -140,8 +140,8 @@ void World::tick()
 
 		drawObject(6, 10, myCar->getCenterX(), myCar->getCenterY(), myCar->getAngleB2D());
 
-		drawObject(6, 10, myTree->getB2DPosition().x, myTree->getB2DPosition().y, myTree->getAngleB2D());
-		drawObject(4, 4, myTree2->getB2DPosition().x, myTree2->getB2DPosition().y, myTree2->getAngleB2D());
+		drawObject(6, 10, myTree->getCenterX(), myTree->getCenterY(), myTree->getAngleB2D());
+		drawObject(4, 4, myTree2->getCenterX(), myTree2->getCenterY(), myTree2->getAngleB2D());
 		
 		std::vector<TDTire*> tires = myCar->getTires();
 		for (int i = 0; i < tires.size(); i++)
