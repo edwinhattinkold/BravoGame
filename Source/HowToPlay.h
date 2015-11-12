@@ -6,12 +6,15 @@
 #include "Sound.h"
 #include "CustomCursor.h"
 #include "MenuItem.h"
+#include "Sprite.h"
+
 class HowToPlay
 {
 private:
 	SDL_Rect backgroundImageRect;
 	Camera* camera;
-	SDL_Texture* backgroundImage;
+	Sprite* backgroundImage;
+	MenuItem* backButton;
 	SDL_Event ev;
 	std::vector<MenuItem*>* menuItems;
 	Sound* sound;

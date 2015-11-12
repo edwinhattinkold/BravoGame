@@ -1,21 +1,18 @@
 #include "HowToPlay.h"
-
 HowToPlay::HowToPlay(SDL_Renderer* renderTarget, Camera* camera, TTF_Font* font){
 	this->camera = camera;
 	sound = Sound::getInstance();
 	//sound->playSoundLooping(Sound_MainMenu_Theme, 0.50f);
-
 	backgroundImageRect.x = 0;
 	backgroundImageRect.y = 0;
 	backgroundImageRect.w = camera->getCamera()->w;
 	backgroundImageRect.h = camera->getCamera()->h;
-	this->backgroundImage = loadTexture("Images/Mainmenu/howto.png", renderTarget);
+	this->backgroundImage = new Sprite(renderTarget, "Images/Mainmenu/howto.png", 0, 0, 1, 1, 0);
 	menuItems = new std::vector<MenuItem*>();
 
-	MenuItem* backButton = new MenuItem(renderTarget, font, "Back");
+	backButton = new MenuItem(renderTarget, font, "Back");
 	menuItems->push_back(backButton);
 	backButton->setXPosition(20);
-	backButton->setYPosition(camera->getCamera()->h - backButton->getHeight() - 10);
 }
 
 HowToPlay::~HowToPlay(){
@@ -23,7 +20,7 @@ HowToPlay::~HowToPlay(){
 		delete menuItems->at(i);	menuItems->at(i) = nullptr;
 	}
 	delete menuItems;				menuItems = nullptr;
-	SDL_DestroyTexture(backgroundImage);
+	delete backgroundImage;			backgroundImage = nullptr;
 }
 
 
@@ -68,12 +65,18 @@ int HowToPlay::createMenu(SDL_Renderer* renderTarget){
 					sound->playSound(Sound_MainMenu_Click);
 						return index;
 				}
-
+				break;
+			case SDL_KEYDOWN:
+				SDL_Keycode keyPressed = ev.key.keysym.sym;
+				if (keyPressed == SDLK_ESCAPE)
+					sound->playSound(Sound_MainMenu_Click);
+					return Choices::Back;
 				break;
 			}
 		}
 		SDL_RenderClear(renderTarget);
-		SDL_RenderCopy(renderTarget, backgroundImage, NULL, NULL);
+		backgroundImage->draw(renderTarget);
+		backButton->setYPosition(camera->getCamera()->h - backButton->getHeight() - 10);
 		draw(renderTarget);
 		CustomCursor::getInstance()->draw(mouseX, mouseY);
 		SDL_RenderPresent(renderTarget);
