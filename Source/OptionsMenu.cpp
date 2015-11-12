@@ -243,6 +243,7 @@ void OptionsMenu::handleKeyboardInput( SDL_Keycode keyPressed )
 				selected--;
 			else
 				selected = menuItems->size() - 1;
+			sound->playSound( Sound_MainMenu_Tick );
 			break;
 		case(SDLK_s) :
 		case(SDLK_DOWN) :
@@ -250,9 +251,9 @@ void OptionsMenu::handleKeyboardInput( SDL_Keycode keyPressed )
 				selected++;
 			else
 				selected = 0;
+			sound->playSound( Sound_MainMenu_Tick );
 			break;
 	}
-	sound->playSound( Sound_MainMenu_Tick );
 	updateSelected();
 }
 
