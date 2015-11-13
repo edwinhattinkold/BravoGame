@@ -69,8 +69,8 @@ public:
 		font = TTF_OpenFont( "Fonts/Frontman.ttf", 40 );
 
 		Uint32 flags = SDL_WINDOW_SHOWN;
-		windowWidth = 1024;
-		windowHeight = 576;
+		windowWidth = 1280;
+		windowHeight = 720;
 		levelWidth = 3072;
 		levelHeight = 3072;
 

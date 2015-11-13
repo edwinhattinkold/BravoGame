@@ -1,6 +1,5 @@
 #include "MainMenu.h"
 #include "CustomCursor.h"
-
 MainMenu::MainMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, Camera* camera, TTF_Font* font )
 {
 	this->arrow = new Sprite( renderTarget, "Images/Cursor/menuArrow.png" );
@@ -10,7 +9,7 @@ MainMenu::MainMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture*
 	sound->playSoundLooping(Sound_MainMenu_Theme, 0.50f);
 	optionsMenu = new OptionsMenu(renderTarget, window, backgroundImage, arrow, camera, font);
 	creditsMenu = new CreditsMenu(renderTarget, camera);
-
+	howToPlay = new HowToPlay(renderTarget, camera, font);
 	backgroundImageRect.x = 0;
 	backgroundImageRect.y = 0;
 	backgroundImageRect.w = camera->getCamera()->w;
@@ -22,6 +21,7 @@ MainMenu::MainMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture*
 	menuItems = new std::vector<MenuItem*>();
 	menuItems->push_back(new MenuItem(renderTarget, font, "Continue"));
 	menuItems->push_back(new MenuItem(renderTarget, font, "Load Game"));
+	menuItems->push_back(new MenuItem(renderTarget, font, "How To Play"));
 	menuItems->push_back(new MenuItem(renderTarget, font, "Options"));
 	menuItems->push_back(new MenuItem(renderTarget, font, "Credits"));
 	menuItems->push_back(new MenuItem(renderTarget, font, "Exit"));
@@ -36,6 +36,7 @@ MainMenu::~MainMenu()
 	delete menuItems;						menuItems = nullptr;
 	delete optionsMenu;						optionsMenu = nullptr;
 	delete creditsMenu;						creditsMenu = nullptr;
+	delete howToPlay;						howToPlay = nullptr;
 	delete arrow;							arrow = nullptr;
 }
 
@@ -62,6 +63,13 @@ int MainMenu::showMenu(SDL_Renderer* renderTarget){
 	case(Choices::Options) :
 		optionsChoice = optionsMenu->showMenu(renderTarget);
 		if (optionsChoice == optionsMenu->getBackCode())
+			return showMenu(renderTarget);
+		else
+			return Choices::Exit;
+		break;
+	case(Choices::How_To_Play) :
+		howToPlayChoise = howToPlay->showMenu(renderTarget);
+		if (howToPlayChoise == howToPlay->getBackCode())
 			return showMenu(renderTarget);
 		else
 			return Choices::Exit;

@@ -183,11 +183,8 @@
     <ClInclude Include="Source\Tree.h">
       <Filter>Header Files\Model</Filter>
     </ClInclude>
-    <ClInclude Include="InputContainer.h">
-      <Filter>Header Files\Containers</Filter>
-    </ClInclude>
-    <ClInclude Include="InputFactory.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\HowToPlay.h">
+      <Filter>Header Files\Menu</Filter>
     </ClInclude>
     <ClInclude Include="Source\PauseMenu.h">
       <Filter>Header Files\Menu</Filter>
@@ -275,11 +272,8 @@
     <ClCompile Include="Source\Tree.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
-    <ClCompile Include="InputContainer.cpp">
-      <Filter>Source Files\Containers</Filter>
-    </ClCompile>
-    <ClCompile Include="InputFactory.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\HowToPlay.cpp">
+      <Filter>Source Files\Menu</Filter>
     </ClCompile>
     <ClCompile Include="Source\PauseMenu.cpp">
       <Filter>Source Files\Menu</Filter>

@@ -11,8 +11,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="InputContainer.h" />
-    <ClInclude Include="InputFactory.h" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\ChunkFactory.h" />
@@ -25,6 +23,7 @@
     <ClInclude Include="Source\DrawVisitor.h" />
     <ClInclude Include="Source\FixtureUserData.h" />
     <ClInclude Include="Source\GroundAreaFUD.h" />
+    <ClInclude Include="Source\HowToPlay.h" />
     <ClInclude Include="Source\IDrawable.h" />
     <ClInclude Include="Source\IUpdateable.h" />
     <ClInclude Include="Source\Location.h" />
@@ -53,8 +52,6 @@
     <ClInclude Include="Source\XMLReader.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="InputContainer.cpp" />
-    <ClCompile Include="InputFactory.cpp" />
     <ClCompile Include="Source\Animation.cpp" />
     <ClCompile Include="Source\B2Content.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
@@ -68,6 +65,7 @@
     <ClCompile Include="Source\DrawVisitor.cpp" />
     <ClCompile Include="Source\FixtureUserData.cpp" />
     <ClCompile Include="Source\GroundAreaFUD.cpp" />
+    <ClCompile Include="Source\HowToPlay.cpp" />
     <ClCompile Include="Source\IDrawable.cpp" />
     <ClCompile Include="Source\IUpdateable.cpp" />
     <ClCompile Include="Source\Location.cpp" />
