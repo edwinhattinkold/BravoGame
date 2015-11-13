@@ -78,6 +78,8 @@ int HowToPlay::createMenu(SDL_Renderer* renderTarget){
 		}
 		SDL_RenderClear(renderTarget);
 		backgroundImage->positionRect = *camera->getCamera();
+		backgroundImage->positionRect.x = 0;
+		backgroundImage->positionRect.y = 0;
 		backgroundImage->draw(renderTarget);
 		backButton->setYPosition(camera->getCamera()->h - backButton->getHeight() - 10);
 		draw(renderTarget);
