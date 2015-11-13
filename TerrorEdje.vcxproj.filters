@@ -189,6 +189,9 @@
     <ClInclude Include="InputFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\PauseMenu.h">
+      <Filter>Header Files\Menu</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\main.cpp">
@@ -277,6 +280,9 @@
     </ClCompile>
     <ClCompile Include="InputFactory.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PauseMenu.cpp">
+      <Filter>Source Files\Menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

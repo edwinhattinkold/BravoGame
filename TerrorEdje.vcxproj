@@ -34,6 +34,7 @@
     <ClInclude Include="Source\MenuItem.h" />
     <ClInclude Include="Source\MyDestructionListener.h" />
     <ClInclude Include="Source\OptionsMenu.h" />
+    <ClInclude Include="Source\PauseMenu.h" />
     <ClInclude Include="Source\PhysicsWorld.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\rapidxml.hpp" />
@@ -77,6 +78,7 @@
     <ClCompile Include="Source\MenuItem.cpp" />
     <ClCompile Include="Source\MyDestructionListener.cpp" />
     <ClCompile Include="Source\OptionsMenu.cpp" />
+    <ClCompile Include="Source\PauseMenu.cpp" />
     <ClCompile Include="Source\PhysicsWorld.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\Settings.cpp" />

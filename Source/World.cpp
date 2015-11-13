@@ -1,15 +1,12 @@
 #include "World.h"
 #include "CustomCursor.h"
 
-
 World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font )
 {
 	prevTime = 0;
 	currentTime = 0;
 	deltaTime = 0.0f;
-	isRunning = true;
 	m_controlState = 0;
-
 
 	velocityIterations = new int32( 8 );
 	positionIterations = new int32( 3 );
@@ -35,6 +32,9 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	//TODO: main menu in separate class, drawable maybe?
 	mainMenuBackground = loadTexture( "Images/Mainmenu/background.png", renderTarget );
 	menu = new MainMenu( renderTarget, window, mainMenuBackground, camera, font );
+
+	//Paused screen
+	pauseMenu = new PauseMenu(this, renderTarget, camera);
 
 	//Creation of sprites should be placed elsewhere as well, I'm just running out of time
 	mapDrawer = new MapDrawer( renderTarget, camera->getCamera(),this );
@@ -63,8 +63,9 @@ World::~World()
 	delete this->positionIterations;				this->positionIterations = nullptr;
 	delete this->camera;							this->camera = nullptr;
 	delete this->menu;								this->menu = nullptr;
-	delete drawContainer;						this->drawContainer = nullptr;
-	delete updateContainer;					this->updateContainer = nullptr;
+	delete this->pauseMenu;							this->pauseMenu = nullptr;
+	delete drawContainer;							this->drawContainer = nullptr;
+	delete updateContainer;							this->updateContainer = nullptr;
 
 	SDL_DestroyTexture(this->mainMenuBackground);	this->mainMenuBackground = nullptr;
 	SDL_DestroyRenderer(this->renderTarget);		this->renderTarget = nullptr;
@@ -80,31 +81,48 @@ void World::tick()
 	//Input handling
 	while (SDL_PollEvent(&ev) != 0)
 	{
-		if (ev.type == SDL_QUIT)
-			isRunning = false;
-		if (ev.key.keysym.sym == SDLK_ESCAPE)
+		switch( ev.type )
 		{
-			Sound::getInstance()->playSoundLooping(Sound_MainMenu_Theme);
-			int i = menu->showMenu(renderTarget);
-			if (i == menu->getExitCode())
-				isRunning = false;
+			case(SDL_QUIT):
+				currentGameState = GameState_Closing;
+				break;
+			case(SDL_MOUSEMOTION) :
+				mouseX = ev.motion.x;
+				mouseY = ev.motion.y;
+				break;
+			case(SDL_KEYDOWN) :
+				if( ev.key.keysym.sym == SDLK_ESCAPE )
+				{
+					currentGameState == GameState_Running ? currentGameState = GameState_Paused : currentGameState = GameState_Running;
+					pauseMenu->center();
+				}
+				else if( currentGameState == GameState_Paused )
+					pauseMenu->handleKeyboardInput( ev.key.keysym.sym );
+				break;
+			case(SDL_MOUSEBUTTONDOWN) :
+				if( currentGameState == GameState_Paused )
+					pauseMenu->mouseButtonClicked(mouseX, mouseY);
+				break;
 		}
 	}
 	keyState = SDL_GetKeyboardState(NULL);
 
 	//SVEN
 	
-	myCar->update(keyState);
+	if( currentGameState != GameState_Paused )
+	{
+		myCar->update( keyState );
 
-	///SVEN
-	handleBodyRemoveStack();
-	//update physics
-	physics->Step(deltaTime, *velocityIterations, *positionIterations);
+		///SVEN
+		handleBodyRemoveStack();
+		//update physics
+		physics->Step( deltaTime, *velocityIterations, *positionIterations );
 
-	camera->update(myCar->getOriginX(), myCar->getOriginY());
-	//camera->update(0,0);
+		camera->update( myCar->getOriginX(), myCar->getOriginY() );
+		//camera->update(0,0);
 
-	updateContainer->update(deltaTime, keyState);
+		updateContainer->update( deltaTime, keyState );
+	}
 
 	//update SDL
 	updateSDL();
@@ -112,18 +130,28 @@ void World::tick()
 
 void World::run()
 {
-	isRunning = true;
+	setGameState( GameState_In_MainMenu );
+	
 
-	//Show the menu
-	int i = menu->showMenu( renderTarget );
-	if( i == menu->getExitCode() )
-		isRunning = false;
-
-	while( isRunning )
+	while( currentGameState != GameState_Closing)
 		tick();
 
 	SDL_DestroyRenderer( renderTarget );
 	renderTarget = nullptr;
+}
+
+void World::setGameState( GameState gameState )
+{
+	currentGameState = gameState;
+
+	if( currentGameState == GameState_In_MainMenu ) 
+	{ 
+		int i = menu->showMenu( renderTarget );
+		if( i == menu->getExitCode() )
+			currentGameState = GameState_Closing;
+		else
+			currentGameState = GameState_Running;
+	}
 }
 
 void World::updateSDL()
@@ -134,6 +162,8 @@ void World::updateSDL()
 	int scale = 20;
 	//std::cout << "x " << myCar->getPosition().x << "y " << myCar->getPosition().y * scale << "" << std::endl;
 
+	if( currentGameState == GameState_Paused )
+		pauseMenu->tick( mouseX, mouseY );
 	
 	SDL_RenderPresent( renderTarget );
 }
