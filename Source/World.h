@@ -12,6 +12,7 @@
 #include <Windows.h>
 #include "Tree.h"
 #include "Sprite.h"
+#include "Sound.h"
 
 /************************************************************************/
 /* The World class contains everything a the game needs to render except
@@ -25,6 +26,7 @@ class World
 private:
 	TDCar* myCar;
 	Tree* myTree;
+	Sound* sound;
 	//SDL
 	SDL_Renderer *renderTarget;
 	SDL_Texture *carTexture;

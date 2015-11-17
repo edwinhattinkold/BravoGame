@@ -133,6 +133,7 @@ void PauseMenu::handleChoice( int index )
 	switch( index )
 	{
 		case(Choices::Main_Menu) :
+			sound->playSoundLooping( Sound_MainMenu_Theme, 0.5f );
 			world->setGameState( GameState_In_MainMenu );
 			break;
 		case(Choices::Continue) :

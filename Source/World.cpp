@@ -21,6 +21,7 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	//create graphics world (SDL)
 	renderTarget = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
 	CustomCursor::getInstance()->setRenderTarget( renderTarget );
+	sound = Sound::getInstance();
 
 	//TODO: Level in separate class, camera too maybe?
 	createCamera( window, levelWidth, levelHeight );
@@ -95,6 +96,8 @@ void World::tick()
 				{
 					currentGameState == GameState_Running ? currentGameState = GameState_Paused : currentGameState = GameState_Running;
 					pauseMenu->center();
+					if( currentGameState == GameState_Paused );
+						sound->pauseAllSounds();
 				}
 				else if( currentGameState == GameState_Paused )
 					pauseMenu->handleKeyboardInput( ev.key.keysym.sym );
