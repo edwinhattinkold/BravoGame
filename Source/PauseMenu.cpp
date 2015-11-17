@@ -42,8 +42,6 @@ void PauseMenu::tick(int mouseX, int mouseY)
 			updateSelected();
 		}
 
-	/* Draw overlay */
-
 	/* Draw menu items */
 	for( size_t c = 0; c < menuItems->size(); c++ )
 		menuItems->at( c )->draw( renderTarget );
