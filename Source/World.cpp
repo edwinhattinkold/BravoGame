@@ -39,7 +39,7 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	//Creation of sprites should be placed elsewhere as well, I'm just running out of time
 	mapDrawer = new MapDrawer( renderTarget, camera->getCamera(),this );
 	
-	myCar = new TDCar(physics, renderTarget, 6, 10);
+	myCar = new TDCar(physics, renderTarget, 6, 12);
 
 	myTree = new Tree(physics, renderTarget, 6, 10, 20, -15);
 
@@ -47,10 +47,18 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 
 
 	drawContainer->add(mapDrawer);
-	drawContainer->add( myCar );
+
 	drawContainer->add(myTree);
 //	drawContainer->add(myTree2);
 	updateContainer->add( mapDrawer );
+
+		
+		std::vector<TDTire*> tires = myCar->getTires();
+		for (int i = 0; i < tires.size(); i++)
+		{
+			drawContainer->add(tires[i]);
+		}
+	drawContainer->add( myCar );
 
 	//CAR
 	surfaceCar = IMG_Load("Images/Car/debugbuggy.png");
@@ -147,7 +155,7 @@ void World::tick()
 		std::vector<TDTire*> tires = myCar->getTires();
 		for (int i = 0; i < tires.size(); i++)
 		{
-			drawObject(0.5, 1.25, tires[i]->getX(), tires[i]->getY(), tires[i]->getAngle());
+			//drawObject(0.5, 1.25, tires[i]->getX(), tires[i]->getY(), tires[i]->getAngle());
 		}
 
 
@@ -175,11 +183,6 @@ void World::updateSDL()
 {
 	SDL_RenderClear( renderTarget );
 	drawContainer->draw();
-	SDL_Rect texture_rect;
-	int scale = 20;
-	//std::cout << "x " << myCar->getPosition().x << "y " << myCar->getPosition().y * scale << "" << std::endl;
-
-	
 	SDL_RenderPresent( renderTarget );
 }
 

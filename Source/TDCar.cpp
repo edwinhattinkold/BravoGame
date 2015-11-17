@@ -9,7 +9,7 @@ TDCar::~TDCar() {
 }
 
 TDCar::TDCar(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM)
-	:B2Content(world, renderTarget, "Images/Car/debugbuggy.png"){
+	:B2Content(world, renderTarget, "Images/Car/topview.png"){
 	m_controlState = 0;
 	w = widthM;
 	h = heightM;
@@ -53,45 +53,45 @@ TDCar::TDCar(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM
 	jointDef.localAnchorB.SetZero();//center of tire
 
 	// standaard 250 aanpassen zodat de wagen niet mega snel gaat
-	float maxForwardSpeed = 50;
-	float maxBackwardSpeed = -30;
+	float maxForwardSpeed = 70;
+	float maxBackwardSpeed = -40;
 	float backTireMaxDriveForce = 300;
 	float frontTireMaxDriveForce = 500;
 	float backTireMaxLateralImpulse = 8.5;
 	float frontTireMaxLateralImpulse = 7.5;
 
 	//back left tire
-	TDTire* tire = new TDTire(world);
+	TDTire* tire = new TDTire(world, renderTarget);
 	tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, backTireMaxDriveForce, backTireMaxLateralImpulse);
 	jointDef.bodyB = tire->m_body;
-	jointDef.localAnchorA.Set(-3, 0.75f);
+	jointDef.localAnchorA.Set(-3, 1.75f);
 	world->CreateJoint(&jointDef);
 	m_tires.push_back(tire);
 
 	//back right tire
-	tire = new TDTire(world);
+	tire = new TDTire(world, renderTarget);
 	tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, backTireMaxDriveForce, backTireMaxLateralImpulse);
 	jointDef.bodyB = tire->m_body;
-	jointDef.localAnchorA.Set(3, 0.75f);
+	jointDef.localAnchorA.Set(3, 1.75f);
 	world->CreateJoint(&jointDef);
 	m_tires.push_back(tire);
 
 	
 
 	//front left tire
-	tire = new TDTire(world);
+	tire = new TDTire(world, renderTarget);
 	tireLEFT = tire;
 	tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, frontTireMaxDriveForce, frontTireMaxLateralImpulse);
 	jointDef.bodyB = tire->m_body;
-	jointDef.localAnchorA.Set(-3, 8.5f);
+	jointDef.localAnchorA.Set(-3, 11.4f);
 	flJoint = (b2RevoluteJoint*)world->CreateJoint(&jointDef);
 	m_tires.push_back(tire);
 
 	//front right tire
-	tire = new TDTire(world);
+	tire = new TDTire(world, renderTarget);
 	tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, frontTireMaxDriveForce, frontTireMaxLateralImpulse);
 	jointDef.bodyB = tire->m_body;
-	jointDef.localAnchorA.Set(3, 8.5f);
+	jointDef.localAnchorA.Set(3, 11.4f);
 	frJoint = (b2RevoluteJoint*)world->CreateJoint(&jointDef);
 	m_tires.push_back(tire);
 
@@ -235,6 +235,10 @@ void TDCar::update(const Uint8 *keyState) {
 	updateSDLPosition( getCenterXSDL(), getCenterYSDL(), getSDLWidth(), getSDLHeight(), getAngleSDL() );
 	updateOrigin();
 	printFixtures();
+	for (int c = 0; c < m_tires.size(); c++)
+	{
+		m_tires[c]->update();
+	}
 	//std::cout << "Position: " << this->getB2DPosition().x << " - " << this->getB2DPosition().y << " Center: " << int(this->m_body->GetWorldCenter().x) << " - " << this->m_body->GetWorldCenter().y << std::endl;
 }
 

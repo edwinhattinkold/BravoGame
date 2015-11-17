@@ -48,7 +48,10 @@ float B2Content::getCenterXSDL()
 		xCenter += wcVertex.x;
 		yCenter += wcVertex.y;
 	}
-	return ((xCenter / 4) * sdlScale) - (getSDLWidth() /2 );
+	float centerx = xCenter / 4;
+	float widthx = getSDLWidth() / sdlScale;
+	float sol1 = centerx - (widthx / 2);
+	return sol1 *sdlScale;
 }
 
 float B2Content::getCenterYSDL()
@@ -66,7 +69,11 @@ float B2Content::getCenterYSDL()
 		xCenter += wcVertex.x;
 		yCenter += wcVertex.y;
 	}
-	return -((yCenter / 4) * sdlScale) + (getSDLHeight() / 2);
+	float center = (yCenter / 4);
+	float zheight = getSDLHeight() / sdlScale;
+	float sol1 = center + (zheight / 2);
+	float sol2 = sol1 * sdlScale;
+	return -1 * sol2;
 }
 
 float B2Content::getSDLWidth()

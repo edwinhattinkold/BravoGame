@@ -204,7 +204,7 @@ public:
 
 		
 		int w = 6;
-		int h = 10;
+		int h = 12;
 		b2Vec2 vertices[4];
 		vertices[0].Set(w / 2, 0);
 		vertices[1].Set(w / 2, h );
@@ -249,7 +249,7 @@ public:
 		TDTire* tire = new TDTire(world);
 		tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, backTireMaxDriveForce, backTireMaxLateralImpulse);
 		jointDef.bodyB = tire->m_body;
-		jointDef.localAnchorA.Set(-3, 0.75f);
+		jointDef.localAnchorA.Set(-3, 1.75f);
 		world->CreateJoint(&jointDef);
 		m_tires.push_back(tire);
 
@@ -257,7 +257,7 @@ public:
 		tire = new TDTire(world);
 		tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, backTireMaxDriveForce, backTireMaxLateralImpulse);
 		jointDef.bodyB = tire->m_body;
-		jointDef.localAnchorA.Set(3, 0.75f);
+		jointDef.localAnchorA.Set(3, 1.75f);
 		world->CreateJoint(&jointDef);
 		m_tires.push_back(tire);
 
@@ -265,7 +265,7 @@ public:
 		tire = new TDTire(world);
 		tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, frontTireMaxDriveForce, frontTireMaxLateralImpulse);
 		jointDef.bodyB = tire->m_body;
-		jointDef.localAnchorA.Set(-3, 8.5f);
+		jointDef.localAnchorA.Set(-3, 11.4f);
 		flJoint = (b2RevoluteJoint*)world->CreateJoint(&jointDef);
 		m_tires.push_back(tire);
 
@@ -273,7 +273,7 @@ public:
 		tire = new TDTire(world);
 		tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, frontTireMaxDriveForce, frontTireMaxLateralImpulse);
 		jointDef.bodyB = tire->m_body;
-		jointDef.localAnchorA.Set(3, 8.5f);
+		jointDef.localAnchorA.Set(3, 11.4f);
 		frJoint = (b2RevoluteJoint*)world->CreateJoint(&jointDef);
 		m_tires.push_back(tire);
 	}
