@@ -43,16 +43,17 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 
 	myTree = new Tree(physics, renderTarget, 6, 10, 20, -15);
 
-	myTree2 = new Tree(physics, renderTarget, 4, 4, 30, -15);
+	//myTree2 = new Tree(physics, renderTarget, 4, 4, 30, -15);
 
 
 	drawContainer->add(mapDrawer);
 	drawContainer->add( myCar );
 	drawContainer->add(myTree);
+//	drawContainer->add(myTree2);
 	updateContainer->add( mapDrawer );
 
 	//CAR
-	surfaceCar = IMG_Load("Images/Car/car2.png");
+	surfaceCar = IMG_Load("Images/Car/debugbuggy.png");
 	if (surfaceCar == NULL)
 		std::cout << "Error" << std::endl;
 	else
@@ -114,34 +115,34 @@ void World::tick()
 	//update physics
 	physics->Step(deltaTime, *velocityIterations, *positionIterations);
 
-	//camera->update(myCar->getOriginX(), myCar->getOriginY());
+    camera->update(myCar->getCenterXSDL(), myCar->getCenterYSDL());
 	//camera->update(0,0);
 
 	updateContainer->update(deltaTime, keyState);
 
-	drawCar();
+	//drawCar();
 	//update SDL
-	//updateSDL();
+	updateSDL();
 }
 
 	void World::drawObject(float nwidth, float nheight, float nx, float ny, float nangle)
 	{
-		float angle = nangle * RADTODEG;
-		float x = nx - (nwidth / 2);
-		float y = ny + (nheight / 2);
+		std::cout << "222 drawing " <<  nangle << std::endl;
 
-		SDL_Rect drawingRect = { x * scale, - y * scale, nwidth * scale, nheight * scale };
+		SDL_Rect drawingRect = { nx , ny , nwidth, nheight};
 	
-		SDL_RenderCopyEx(renderTarget, textureCar, NULL, &drawingRect, transfrom(angle), NULL, SDL_FLIP_VERTICAL);
+		SDL_RenderCopyEx(renderTarget, textureCar, NULL, &drawingRect, nangle, NULL, SDL_FLIP_VERTICAL);
 	}
+
+
 	void World::drawCar(){
 
 		SDL_RenderClear(renderTarget);
 
-		drawObject(6, 10, myCar->getCenterX(), myCar->getCenterY(), myCar->getAngleB2D());
+		drawObject(myCar->getSDLWidth(), myCar->getSDLHeight(), myCar->getCenterXSDL(), myCar->getCenterYSDL(), myCar->getAngleSDL());
 
-		drawObject(6, 10, myTree->getCenterX(), myTree->getCenterY(), myTree->getAngleB2D());
-		drawObject(4, 4, myTree2->getCenterX(), myTree2->getCenterY(), myTree2->getAngleB2D());
+		drawObject(myTree->getSDLWidth(), myTree->getSDLHeight(), myTree->getCenterXSDL(), myTree->getCenterYSDL(), myTree->getAngleSDL());
+		drawObject(myTree2->getSDLWidth(), myTree2->getSDLHeight(), myTree2->getCenterXSDL(), myTree2->getCenterYSDL(), myTree2->getAngleSDL());
 		
 		std::vector<TDTire*> tires = myCar->getTires();
 		for (int i = 0; i < tires.size(); i++)
@@ -152,34 +153,6 @@ void World::tick()
 
 
 		SDL_RenderPresent(renderTarget);
-	}
-	int World::transfrom(float dgrs)
-	{
-
-		int add360 = dgrs + 360;
-		int newAngle = 0;
-		int gradenBox2d = add360 % 360;
-		if (gradenBox2d < 90)
-		{
-			int temp = 90 - gradenBox2d;
-			newAngle = 90 + temp;
-		}
-		if (gradenBox2d < 180)
-		{
-			int temp = gradenBox2d - 90;
-			newAngle = 90 - temp;
-		}
-		if (gradenBox2d < 270)
-		{
-			int temp = 270 - gradenBox2d;
-			newAngle = 270 + temp;
-		}
-		else{
-			int temp = gradenBox2d - 270;
-			newAngle = 270 - temp;
-		}
-		int newNewAngle = newAngle % 360;
-		return newNewAngle;
 	}
 
 void World::run()

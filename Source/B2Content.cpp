@@ -22,13 +22,67 @@ b2Vec2 B2Content::getSDLPosition(){
 	return b2Vec2(x, y);
 }
 
-float B2Content::getAngle(){
+float B2Content::getAngleSDL(){
 	
-	float degrees = 360 - m_body->GetAngle() * RADTODEG;
-	//float degrees =  m_body->GetAngle() * RADTODEG;
-	return degrees;
-	/*
-	int add360 = degrees + 360;
+	return transform(m_body->GetAngle() * RADTODEG);
+}
+
+void B2Content::accept(DrawVisitor *dv)
+{
+	dv->visit(this);
+}
+
+
+float B2Content::getCenterXSDL()
+{
+	float xCenter = 0;
+	float yCenter = 0;
+	b2PolygonShape* polygonShape2 = (b2PolygonShape*)fixture->GetShape();
+	float vertexCount = polygonShape2->GetVertexCount();
+	for (int i = 0; i < vertexCount; ++i)
+	{
+		//get the vertex in body coordinates
+		b2Vec2 bcVertex = polygonShape2->GetVertex(i);
+		//get the vertex in world coordinates
+		b2Vec2 wcVertex = fixture->GetBody()->GetWorldPoint(bcVertex);
+		xCenter += wcVertex.x;
+		yCenter += wcVertex.y;
+	}
+	return ((xCenter / 4) * sdlScale) - (getSDLWidth() /2 );
+}
+
+float B2Content::getCenterYSDL()
+{
+	float xCenter = 0;
+	float yCenter = 0;
+	b2PolygonShape* polygonShape2 = (b2PolygonShape*)fixture->GetShape();
+	float vertexCount = polygonShape2->GetVertexCount();
+	for (int i = 0; i < vertexCount; ++i)
+	{
+		//get the vertex in body coordinates
+		b2Vec2 bcVertex = polygonShape2->GetVertex(i);
+		//get the vertex in world coordinates
+		b2Vec2 wcVertex = fixture->GetBody()->GetWorldPoint(bcVertex);
+		xCenter += wcVertex.x;
+		yCenter += wcVertex.y;
+	}
+	return -((yCenter / 4) * sdlScale) + (getSDLHeight() / 2);
+}
+
+float B2Content::getSDLWidth()
+{
+	return w * sdlScale;
+}
+
+float B2Content::getSDLHeight()
+{
+	return h * sdlScale;
+}
+
+int B2Content::transform(float dgrs)
+{
+
+	int add360 = dgrs + 360;
 	int newAngle = 0;
 	int gradenBox2d = add360 % 360;
 	if (gradenBox2d < 90)
@@ -50,11 +104,6 @@ float B2Content::getAngle(){
 		int temp = gradenBox2d - 270;
 		newAngle = 270 - temp;
 	}
-	float newNewAngle = newAngle % 360;*/
-	
-}
-
-void B2Content::accept(DrawVisitor *dv)
-{
-	dv->visit(this);
+	int newNewAngle = newAngle % 360;
+	return newNewAngle;
 }

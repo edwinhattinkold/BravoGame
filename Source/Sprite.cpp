@@ -61,10 +61,8 @@ void Sprite::draw( SDL_Renderer *renderTarget, SDL_Rect camerRect )
 
 void Sprite::drawTree(SDL_Renderer *renderTarget, SDL_Rect camerRect)
 {
-	int halfWidth = this->positionRect.w / 2;
-	int halfHeight = this->positionRect.h / 2;
-	SDL_Rect drawingRect = { positionRect.x - halfWidth - camerRect.x, positionRect.y - halfHeight - camerRect.y, positionRect.w, positionRect.h };
-	animations->at(currentAnimation)->drawTree(renderTarget, drawingRect, angle);
+	SDL_Rect drawingRect = { positionRect.x - camerRect.x, positionRect.y - camerRect.y, positionRect.w, positionRect.h };
+	animations->at(currentAnimation)->drawCar(renderTarget, drawingRect, angle);
 }
 
 void Sprite::drawCar(SDL_Renderer *renderTarget, SDL_Rect cameraRect){
@@ -102,15 +100,11 @@ void Sprite::subscribe()
 	throw new std::logic_error( "not yet implemented" );
 }
 
-void Sprite::updateSDLPosition(float x, float y){
-	positionRect.x = x * scale;
-	positionRect.y = y * scale;
-}
 
-void Sprite::updateSDLPosition(int x, int y, int w, int h, float a){
-	positionRect.x = x * scale;
-	positionRect.y = y * scale;
-	positionRect.w = w * scale;
-	positionRect.h = h * scale;
+void Sprite::updateSDLPosition(float x, float y, float w, float h, float a){
+	positionRect.x = x;
+	positionRect.y = y;
+	positionRect.w = w;
+	positionRect.h = h;
 	angle = a;
 }

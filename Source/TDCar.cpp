@@ -97,7 +97,9 @@ TDCar::TDCar(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM
 
 	//m_body->SetTransform(b2Vec2(60, -60), DEGTORAD * 180);
 
-	updateSDLPosition(this->getSDLPosition().x, this->getSDLPosition().y, w, h, getAngle());
+	//updateSDLPosition(this->getSDLPosition().x, this->getSDLPosition().y, w, h, getAngle());
+
+	updateSDLPosition(getCenterXSDL(), getCenterYSDL(), float(w), float(h), getAngleSDL());
 	updateOrigin();
 
 	//toetsen instellen
@@ -112,49 +114,11 @@ TDCar::TDCar(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM
 	//Toeter
 	keys[4] = SDL_SCANCODE_H;
 
-	std::cout << "Position: " << this->getB2DPosition().x << " - " << this->getB2DPosition().y << " Center: " << int(this->m_body->GetWorldCenter().x) << " - " << this->m_body->GetWorldCenter().y << std::endl;
+	
 }
 float TDCar::getAngleB2D()
 {
-	return m_body->GetAngle();
-}
-
-float TDCar::getCenterX()
-{
-	float xCenter = 0;
-	float yCenter = 0;
-	b2PolygonShape* polygonShape2 = (b2PolygonShape*)fixture->GetShape();
-	float vertexCount = polygonShape2->GetVertexCount();
-	for (int i = 0; i < vertexCount; ++i)
-	{
-		//get the vertex in body coordinates
-		b2Vec2 bcVertex = polygonShape2->GetVertex(i);
-		//get the vertex in world coordinates
-		b2Vec2 wcVertex = fixture->GetBody()->GetWorldPoint(bcVertex);
-		xCenter += wcVertex.x;
-		yCenter += wcVertex.y;
-		std::cout << wcVertex.x << " " << wcVertex.y << std::endl;
-	}
-	return xCenter / 4;
-}
-
-float TDCar::getCenterY()
-{
-	float xCenter = 0;
-	float yCenter = 0;
-	b2PolygonShape* polygonShape2 = (b2PolygonShape*)fixture->GetShape();
-	float vertexCount = polygonShape2->GetVertexCount();
-	for (int i = 0; i < vertexCount; ++i)
-	{
-		//get the vertex in body coordinates
-		b2Vec2 bcVertex = polygonShape2->GetVertex(i);
-		//get the vertex in world coordinates
-		b2Vec2 wcVertex = fixture->GetBody()->GetWorldPoint(bcVertex);
-		xCenter += wcVertex.x;
-		yCenter += wcVertex.y;
-		std::cout << wcVertex.x << " " << wcVertex.y << std::endl;
-	}
-	return yCenter / 4;
+	return m_body->GetAngle()  * RADTODEG;
 }
 
 
@@ -168,7 +132,6 @@ void TDCar::printFixtures()
 		b2Vec2 bcVertex = polygonShape2->GetVertex(i);
 		//get the vertex in world coordinates
 		b2Vec2 wcVertex = fixture->GetBody()->GetWorldPoint(bcVertex);
-		std::cout << wcVertex.x << " " << wcVertex.y << std::endl;
 	}
 }
 std::vector<TDTire*> TDCar::getTires()
@@ -269,11 +232,10 @@ void TDCar::update(const Uint8 *keyState) {
 	float newX = oldX - w/ 2;
 	float oldY = this->getSDLPosition().y;
 	float newY = oldY + h;
-	updateSDLPosition(oldX, oldY);
+	updateSDLPosition( getCenterXSDL(), getCenterYSDL(), getSDLWidth(), getSDLHeight(), getAngleSDL() );
 	updateOrigin();
 	printFixtures();
 	//std::cout << "Position: " << this->getB2DPosition().x << " - " << this->getB2DPosition().y << " Center: " << int(this->m_body->GetWorldCenter().x) << " - " << this->m_body->GetWorldCenter().y << std::endl;
-	angle = int(getAngle());
 }
 
 void TDCar::accept(DrawVisitor *dv)

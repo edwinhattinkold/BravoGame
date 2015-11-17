@@ -11,7 +11,7 @@ Tree::Tree(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM, 
 	h = heightM;
 	//create car body
 	b2BodyDef bodyDef;
-	bodyDef.type = b2_dynamicBody;
+	bodyDef.type = b2_staticBody;
 
 	bodyDef.position.Set(posX, posY);
 	m_body = world->CreateBody(&bodyDef);
@@ -23,7 +23,7 @@ Tree::Tree(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM, 
 	// W en h worden meegegeven door de user
 	vertices[0].Set(w / 2, 0);
 	vertices[1].Set(w / 2, h);
-	vertices[2].Set(w, h);
+	vertices[2].Set(-w / 2, h);
 	vertices[3].Set(-w / 2, 0);
 	b2PolygonShape polygonShape;
 	polygonShape.Set(vertices, 4);
@@ -32,7 +32,8 @@ Tree::Tree(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM, 
 	m_body->SetTransform(m_body->GetPosition(), DEGTORAD * 0);
 	fixture = m_body->CreateFixture(&polygonShape, 0.8f);//shape, density
 	
-	updateSDLPosition(this->getSDLPosition().x, this->getSDLPosition().y, w, h, getAngle());
+
+	updateSDLPosition(getCenterXSDL(), getCenterYSDL(), getSDLWidth(), getSDLHeight(), getAngleSDL());
 
 	
 	updateOrigin();
@@ -51,48 +52,4 @@ b2Body * Tree::getBody()
 void Tree::accept(DrawVisitor *dv)
 {
 	dv->visit(this);
-}
-
-float Tree::getAngleB2D()
-{
-	return m_body->GetAngle();
-}
-
-
-float Tree::getCenterX()
-{
-	float xCenter = 0;
-	float yCenter = 0;
-	b2PolygonShape* polygonShape2 = (b2PolygonShape*)fixture->GetShape();
-	float vertexCount = polygonShape2->GetVertexCount();
-	for (int i = 0; i < vertexCount; ++i)
-	{
-		//get the vertex in body coordinates
-		b2Vec2 bcVertex = polygonShape2->GetVertex(i);
-		//get the vertex in world coordinates
-		b2Vec2 wcVertex = fixture->GetBody()->GetWorldPoint(bcVertex);
-		xCenter += wcVertex.x;
-		yCenter += wcVertex.y;
-		std::cout << wcVertex.x << " " << wcVertex.y << std::endl;
-	}
-	return xCenter / 4;
-}
-
-float Tree::getCenterY()
-{
-	float xCenter = 0;
-	float yCenter = 0;
-	b2PolygonShape* polygonShape2 = (b2PolygonShape*)fixture->GetShape();
-	float vertexCount = polygonShape2->GetVertexCount();
-	for (int i = 0; i < vertexCount; ++i)
-	{
-		//get the vertex in body coordinates
-		b2Vec2 bcVertex = polygonShape2->GetVertex(i);
-		//get the vertex in world coordinates
-		b2Vec2 wcVertex = fixture->GetBody()->GetWorldPoint(bcVertex);
-		xCenter += wcVertex.x;
-		yCenter += wcVertex.y;
-		std::cout << wcVertex.x << " " << wcVertex.y << std::endl;
-	}
-	return yCenter / 4;
 }

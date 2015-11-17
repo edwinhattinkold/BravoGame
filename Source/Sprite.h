@@ -42,8 +42,7 @@ public:
 
 	void setOriginX(int newOriginX);
 	void setOriginY(int newOriginY);
-	void updateSDLPosition(int, int, int, int, float);
-	void updateSDLPosition(float, float);
+	void updateSDLPosition(float, float, float, float, float);
 
 	int getOriginX();
 	int getOriginY();
