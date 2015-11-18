@@ -71,7 +71,6 @@ void Sprite::drawCar(SDL_Renderer *renderTarget, SDL_Rect cameraRect){
 }
 
 void Sprite::drawTire(SDL_Renderer *renderTarget, SDL_Rect cameraRect){
-	std::cout << angle << std::endl;
 	SDL_Rect drawingRect = { positionRect.x - cameraRect.x, positionRect.y - cameraRect.y, positionRect.w, positionRect.h };
 	animations->at(currentAnimation)->drawCar(renderTarget, drawingRect, angle);
 }

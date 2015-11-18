@@ -1,7 +1,3 @@
-#define _CRTDBG_MAP_ALLOC
-#include <stdlib.h>
-#include <crtdbg.h>
-
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_ttf.h"
@@ -15,7 +11,7 @@
 #include "Sound.h"
 #include "CustomCursor.h"
 #include "Settings.h"
-
+#include "vld.h"
 #include "Car.h"
 #include "PhysicsWorld.h"
 
@@ -122,6 +118,5 @@ int main( int argc, char *argv[] )
 	delete mainHelper;
 	mainHelper = nullptr;
 
-	_CrtDumpMemoryLeaks();
 	return 0;
 }

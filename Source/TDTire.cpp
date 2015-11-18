@@ -21,13 +21,12 @@ TDTire::TDTire(b2World* world, SDL_Renderer * renderTarget)
 
 TDTire::~TDTire()
 {
-	m_body->GetWorld()->DestroyBody(m_body);
 	m_groundAreas.clear();
 	delete ctfud; ctfud = nullptr;
 }
 
-void TDTire::update(){
-	std::cout << getAngleSDL() << std::endl;
+void TDTire::update()
+{
 	updateSDLPosition(getCenterXSDL(), getCenterYSDL(), getSDLWidth(), getSDLHeight(), getAngleSDL());
 }
 

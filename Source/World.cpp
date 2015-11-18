@@ -42,6 +42,7 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	myCar = new TDCar(physics, renderTarget, 6, 12);
 
 	myTree = new Tree(physics, renderTarget, 6, 10, 20, -15);
+	myTree2 = new Tree( physics, renderTarget, 6, 10, 40, -30 );
 
 	//myTree2 = new Tree(physics, renderTarget, 4, 4, 30, -15);
 
@@ -49,15 +50,13 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	drawContainer->add(mapDrawer);
 
 	drawContainer->add(myTree);
-//	drawContainer->add(myTree2);
+	drawContainer->add(myTree2);
 	updateContainer->add( mapDrawer );
 
 		
-		std::vector<TDTire*> tires = myCar->getTires();
-		for (int i = 0; i < tires.size(); i++)
-		{
-			drawContainer->add(tires[i]);
-		}
+	std::vector<TDTire*> tires = myCar->getTires();
+	for (int i = 0; i < tires.size(); i++)
+		drawContainer->add(tires[i]);
 	drawContainer->add( myCar );
 
 	//CAR
@@ -76,7 +75,9 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 
 World::~World()
 {
-	delete this->myCar;								this->myCar = nullptr;;
+	delete this->myCar;								this->myCar = nullptr;
+	delete this->myTree;							this->myTree = nullptr;
+	delete this->myTree2;							this->myTree2 = nullptr;
 	delete this->mapDrawer;							this->mapDrawer = nullptr;
 	handleBodyRemoveStack();
 	delete bodyRemoveStack;							bodyRemoveStack = nullptr;
@@ -86,11 +87,12 @@ World::~World()
 	delete this->positionIterations;				this->positionIterations = nullptr;
 	delete this->camera;							this->camera = nullptr;
 	delete this->menu;								this->menu = nullptr;
-	delete drawContainer;						this->drawContainer = nullptr;
-	delete updateContainer;					this->updateContainer = nullptr;
+	delete drawContainer;							this->drawContainer = nullptr;
+	delete updateContainer;							this->updateContainer = nullptr;
 
 	SDL_DestroyTexture(this->mainMenuBackground);	this->mainMenuBackground = nullptr;
 	SDL_DestroyRenderer(this->renderTarget);		this->renderTarget = nullptr;
+	delete center;									this->center = nullptr;
 }
 
 //Update the world
@@ -100,68 +102,38 @@ void World::tick()
 	calcDeltaTime();
 
 	//Input handling
-	while (SDL_PollEvent(&ev) != 0)
+	while( SDL_PollEvent( &ev ) != 0 )
 	{
-		if (ev.type == SDL_QUIT)
+		if( ev.type == SDL_QUIT )
 			isRunning = false;
-		if (ev.key.keysym.sym == SDLK_ESCAPE)
+		if( ev.key.keysym.sym == SDLK_ESCAPE )
 		{
-			Sound::getInstance()->playSoundLooping(Sound_MainMenu_Theme);
-			int i = menu->showMenu(renderTarget);
-			if (i == menu->getExitCode())
+			Sound::getInstance()->playSoundLooping( Sound_MainMenu_Theme );
+			int i = menu->showMenu( renderTarget );
+			if( i == menu->getExitCode() )
 				isRunning = false;
 		}
 	}
-	keyState = SDL_GetKeyboardState(NULL);
+	keyState = SDL_GetKeyboardState( NULL );
 
 	//SVEN
-	
-	myCar->update(keyState);
+
+	myCar->update( keyState );
 
 	///SVEN
 	handleBodyRemoveStack();
 	//update physics
-	physics->Step(deltaTime, *velocityIterations, *positionIterations);
+	physics->Step( deltaTime, *velocityIterations, *positionIterations );
 
-    camera->update(myCar->getCenterXSDL(), myCar->getCenterYSDL());
+	camera->update( myCar->getCenterXSDL(), myCar->getCenterYSDL() );
 	//camera->update(0,0);
 
-	updateContainer->update(deltaTime, keyState);
+	updateContainer->update( deltaTime, keyState );
 
-	//drawCar();
 	//update SDL
 	updateSDL();
 }
 
-	void World::drawObject(float nwidth, float nheight, float nx, float ny, float nangle)
-	{
-		std::cout << "222 drawing " <<  nangle << std::endl;
-
-		SDL_Rect drawingRect = { nx , ny , nwidth, nheight};
-	
-		SDL_RenderCopyEx(renderTarget, textureCar, NULL, &drawingRect, nangle, NULL, SDL_FLIP_VERTICAL);
-	}
-
-
-	void World::drawCar(){
-
-		SDL_RenderClear(renderTarget);
-
-		drawObject(myCar->getSDLWidth(), myCar->getSDLHeight(), myCar->getCenterXSDL(), myCar->getCenterYSDL(), myCar->getAngleSDL());
-
-		drawObject(myTree->getSDLWidth(), myTree->getSDLHeight(), myTree->getCenterXSDL(), myTree->getCenterYSDL(), myTree->getAngleSDL());
-		drawObject(myTree2->getSDLWidth(), myTree2->getSDLHeight(), myTree2->getCenterXSDL(), myTree2->getCenterYSDL(), myTree2->getAngleSDL());
-		
-		std::vector<TDTire*> tires = myCar->getTires();
-		for (int i = 0; i < tires.size(); i++)
-		{
-			//drawObject(0.5, 1.25, tires[i]->getX(), tires[i]->getY(), tires[i]->getAngle());
-		}
-
-
-
-		SDL_RenderPresent(renderTarget);
-	}
 
 void World::run()
 {

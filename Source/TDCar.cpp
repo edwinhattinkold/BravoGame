@@ -236,10 +236,7 @@ void TDCar::update(const Uint8 *keyState) {
 	updateOrigin();
 	printFixtures();
 	for (int c = 0; c < m_tires.size(); c++)
-	{
 		m_tires[c]->update();
-	}
-	//std::cout << "Position: " << this->getB2DPosition().x << " - " << this->getB2DPosition().y << " Center: " << int(this->m_body->GetWorldCenter().x) << " - " << this->m_body->GetWorldCenter().y << std::endl;
 }
 
 void TDCar::accept(DrawVisitor *dv)
