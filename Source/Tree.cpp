@@ -23,16 +23,17 @@ Tree::Tree(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM, 
 	// W en h worden meegegeven door de user
 	vertices[0].Set(w / 2, 0);
 	vertices[1].Set(w / 2, h);
-	vertices[2].Set(w, h);
+	vertices[2].Set(-w / 2, h);
 	vertices[3].Set(-w / 2, 0);
 	b2PolygonShape polygonShape;
 	polygonShape.Set(vertices, 4);
 
 	//Draaien
 	m_body->SetTransform(m_body->GetPosition(), DEGTORAD * 0);
-	b2Fixture* fixture = m_body->CreateFixture(&polygonShape, 0.1f);//shape, density
+	fixture = m_body->CreateFixture(&polygonShape, 0.8f);//shape, density
 	
-	updateSDLPosition(this->getSDLPosition().x, this->getSDLPosition().y, w, h, getAngle());
+
+	updateSDLPosition(getCenterXSDL(), getCenterYSDL(), getSDLWidth(), getSDLHeight(), getAngleSDL());
 
 	
 	updateOrigin();
@@ -41,6 +42,11 @@ Tree::Tree(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM, 
 
 Tree::~Tree()
 {
+}
+
+b2Body * Tree::getBody()
+{
+	return m_body;
 }
 
 void Tree::accept(DrawVisitor *dv)

@@ -59,6 +59,35 @@ void Animation::update( float deltaTime )
 	}
 }
 
+int Animation::transfrom(float dgrs)
+{
+
+	int add360 = dgrs + 360;
+	int newAngle = 0;
+	int gradenBox2d = add360 % 360;
+	if (gradenBox2d < 90)
+	{
+		int temp = 90 - gradenBox2d;
+		newAngle = 90 + temp;
+	}
+	if (gradenBox2d < 180)
+	{
+		int temp = gradenBox2d - 90;
+		newAngle = 90 - temp;
+	}
+	if (gradenBox2d < 270)
+	{
+		int temp = 270 - gradenBox2d;
+		newAngle = 270 + temp;
+	}
+	else{
+		int temp = gradenBox2d - 270;
+		newAngle = 270 - temp;
+	}
+	int newNewAngle = newAngle % 360;
+	return newNewAngle;
+}
+
 void Animation::draw( SDL_Renderer* renderTarget, SDL_Rect drawingRect )
 {
 	SDL_RenderCopy( renderTarget, texture, &cropRect, &drawingRect );
@@ -69,8 +98,8 @@ void Animation::drawTree(SDL_Renderer* renderTarget, SDL_Rect drawingRect, int a
 }
 
 void Animation::drawCar(SDL_Renderer* renderTarget, SDL_Rect drawingRect, int angle){
-	const SDL_Point startRenderPoint = { drawingRect.x, drawingRect.y };
-	SDL_RenderCopyEx(renderTarget, texture, NULL, &drawingRect, angle, NULL, SDL_FLIP_NONE);
+	SDL_RenderCopyEx(renderTarget, texture, NULL, &drawingRect, angle, NULL, SDL_FLIP_VERTICAL);
+
 }
 
 void Animation::standStill()

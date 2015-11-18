@@ -5,6 +5,7 @@ class B2Content;
 class IDrawable;
 class TDCar;
 class Tree;
+class TDTire;
 
 class DrawVisitor
 {
@@ -16,6 +17,7 @@ public:
 	~DrawVisitor();
 	void visit(IDrawable *db);
 	void visit(B2Content *content);
+	void visit(TDTire *tire);
 	void visit(TDCar *car);
 	void visit(Tree *tree);
 };

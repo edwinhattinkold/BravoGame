@@ -3,6 +3,7 @@
 
 #include "MapDrawer.h"
 #include "Sprite.h"
+#include "TDTire.h"
 #include "TDCar.h"
 #include "Tree.h"
 #include "B2Content.h"
@@ -29,6 +30,10 @@ void DrawVisitor::visit(B2Content *content)
 
 void DrawVisitor::visit(Tree *tree){
 	tree->drawTree(renderTarget, *cameraRect);
+}
+
+void DrawVisitor::visit(TDTire *tire){
+	tire->drawTire(renderTarget, *cameraRect);
 }
 
 void DrawVisitor::visit(TDCar *car){

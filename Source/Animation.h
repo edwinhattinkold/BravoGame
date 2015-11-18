@@ -26,6 +26,7 @@ public:
 	void standStill();
 
 	int getOriginX();
+	int transfrom(float dgrs);
 	int getOriginY();
 	void setOriginX(int newOriginX);
 	void setOriginY(int newOriginY);

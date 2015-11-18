@@ -28,16 +28,19 @@ class TDCar : public B2Content
 	std::vector<TDTire*> m_tires;
 	b2RevoluteJoint *flJoint, *frJoint;
 	int m_controlState;
-	
+
 public:
-	int w, h;
+	
 	TDCar(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM);
 
 	~TDCar();
 
 	void update(const Uint8 *keyState);
 	void soundHorn();
+	void printFixtures();
+	float getAngleB2D();
 	virtual void accept(DrawVisitor *dv);
+	std::vector<TDTire*> getTires();
 	//custom
 };
 

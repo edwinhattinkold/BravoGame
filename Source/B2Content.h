@@ -13,19 +13,27 @@
 #define DEGTORAD 0.0174532925199432957f
 #define RADTODEG 57.295779513082320876f
 #endif
-
+const int sdlScale = 10;
 class B2Content : public Sprite
 {
 	
-
+private:
+	int transform(float dgrs);
 public:
 	b2Body* m_body;
+	float w, h;
+	b2Fixture* fixture;
 	B2Content(b2World* world, SDL_Renderer* renderTarget, std::string filePath);
 	~B2Content();
 	//custom
 	b2Vec2 getB2DPosition();
 	b2Vec2 getSDLPosition();
-	float getAngle();
+	float getAngleSDL();
+
+	float getCenterXSDL();
+	float getCenterYSDL();
+	float getSDLWidth();
+	float getSDLHeight();
 
 	virtual void accept(DrawVisitor *dv);
 

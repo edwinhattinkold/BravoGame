@@ -70,9 +70,11 @@
 #include "VaryingRestitution.h"
 #include "VerticalStack.h"
 #include "Web.h"
+#include "FooTest5.h"
 
 TestEntry g_testEntries[] =
 {
+	{ "FooTest", FooTest5::Create },
 	{"Tiles", Tiles::Create},
 	{"Heavy on Light", HeavyOnLight::Create},
 	{"Heavy on Light Two", HeavyOnLightTwo::Create},

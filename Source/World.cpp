@@ -40,21 +40,45 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	//Creation of sprites should be placed elsewhere as well, I'm just running out of time
 	mapDrawer = new MapDrawer( renderTarget, camera->getCamera(),this );
 	
-	myCar = new TDCar(physics, renderTarget, 6, 10);
+	myCar = new TDCar(physics, renderTarget, 6, 12);
 
-	//myTree = new Tree(physics, renderTarget, 3, 6, 0, -15);
+	myTree = new Tree(physics, renderTarget, 6, 10, 20, -15);
+	myTree2 = new Tree( physics, renderTarget, 6, 10, 40, -30 );
+
+	//myTree2 = new Tree(physics, renderTarget, 4, 4, 30, -15);
 
 
 	drawContainer->add(mapDrawer);
-	drawContainer->add( myCar );
-	//drawContainer->add(myTree);
+
+	drawContainer->add(myTree);
+	drawContainer->add(myTree2);
 	updateContainer->add( mapDrawer );
+
+		
+	std::vector<TDTire*> tires = myCar->getTires();
+	for (int i = 0; i < tires.size(); i++)
+		drawContainer->add(tires[i]);
+	drawContainer->add( myCar );
+
+	//CAR
+	surfaceCar = IMG_Load("Images/Car/debugbuggy.png");
+	if (surfaceCar == NULL)
+		std::cout << "Error" << std::endl;
+	else
+	{
+		textureCar = SDL_CreateTextureFromSurface(renderTarget, surfaceCar);
+		if (textureCar == NULL)
+			std::cout << "Error 123 4 " << std::endl;
+	}
+	center = new SDL_Point;
 }
 
 
 World::~World()
 {
-	delete this->myCar;								this->myCar = nullptr;;
+	delete this->myCar;								this->myCar = nullptr;
+	delete this->myTree;							this->myTree = nullptr;
+	delete this->myTree2;							this->myTree2 = nullptr;
 	delete this->mapDrawer;							this->mapDrawer = nullptr;
 	handleBodyRemoveStack();
 	delete bodyRemoveStack;							bodyRemoveStack = nullptr;
@@ -70,7 +94,7 @@ World::~World()
 
 	SDL_DestroyTexture(this->mainMenuBackground);	this->mainMenuBackground = nullptr;
 	SDL_DestroyRenderer(this->renderTarget);		this->renderTarget = nullptr;
-	
+	delete center;									this->center = nullptr;
 }
 
 //Update the world
@@ -80,7 +104,7 @@ void World::tick()
 	calcDeltaTime();
 
 	//Input handling
-	while (SDL_PollEvent(&ev) != 0)
+	while( SDL_PollEvent( &ev ) != 0 )
 	{
 		switch( ev.type )
 		{
@@ -108,7 +132,7 @@ void World::tick()
 				break;
 		}
 	}
-	keyState = SDL_GetKeyboardState(NULL);
+	keyState = SDL_GetKeyboardState( NULL );
 
 	//SVEN
 	
@@ -130,6 +154,7 @@ void World::tick()
 	//update SDL
 	updateSDL();
 }
+
 
 void World::run()
 {
@@ -161,13 +186,8 @@ void World::updateSDL()
 {
 	SDL_RenderClear( renderTarget );
 	drawContainer->draw();
-	SDL_Rect texture_rect;
-	int scale = 20;
-	//std::cout << "x " << myCar->getPosition().x << "y " << myCar->getPosition().y * scale << "" << std::endl;
-
 	if( currentGameState == GameState_Paused )
 		pauseMenu->tick( mouseX, mouseY );
-	
 	SDL_RenderPresent( renderTarget );
 }
 

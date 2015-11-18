@@ -34,6 +34,7 @@ public:
 	virtual void draw( SDL_Renderer *renderTarget );
 	virtual void drawTree(SDL_Renderer *renderTarget, SDL_Rect camerRect);
 	virtual void drawCar(SDL_Renderer *renderTarget, SDL_Rect cameraRect);
+	virtual void drawTire(SDL_Renderer *renderTarget, SDL_Rect cameraRect);
 	bool intersectsWith(Sprite &p);
 
 	SDL_Rect positionRect;
@@ -43,8 +44,7 @@ public:
 
 	void setOriginX(int newOriginX);
 	void setOriginY(int newOriginY);
-	void updateSDLPosition(int, int, int, int, float);
-	void updateSDLPosition(float, float);
+	void updateSDLPosition(float, float, float, float, float);
 
 	int getOriginX();
 	int getOriginY();

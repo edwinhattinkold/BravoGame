@@ -227,12 +227,14 @@
     <ClInclude Include="..\..\Testbed\Tests\ConvexHull.h" />
     <ClInclude Include="..\..\Testbed\Tests\ConveyorBelt.h" />
     <ClInclude Include="..\..\Testbed\Tests\Cord.h" />
+    <ClInclude Include="..\..\Testbed\Tests\CustomCar.h" />
     <ClInclude Include="..\..\Testbed\Tests\DistanceTest.h" />
     <ClInclude Include="..\..\Testbed\Tests\Dominos.h" />
     <ClInclude Include="..\..\Testbed\Tests\DumpShell.h" />
     <ClInclude Include="..\..\Testbed\Tests\DynamicTreeTest.h" />
     <ClInclude Include="..\..\Testbed\Tests\EdgeShapes.h" />
     <ClInclude Include="..\..\Testbed\Tests\EdgeTest.h" />
+    <ClInclude Include="..\..\Testbed\Tests\FooTest5.h" />
     <ClInclude Include="..\..\Testbed\Tests\Gears.h" />
     <ClInclude Include="..\..\Testbed\Tests\Mobile.h" />
     <ClInclude Include="..\..\Testbed\Tests\MobileBalanced.h" />

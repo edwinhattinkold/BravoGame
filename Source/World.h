@@ -19,6 +19,7 @@
 for the window. Its purpose is to render the world, run the physics
 update the objects, etc. Not all in this class of course.			*/
 /************************************************************************/
+
 enum GameState { GameState_Running, GameState_Paused, GameState_In_MainMenu, GameState_Closing };
 
 class World
@@ -27,6 +28,7 @@ private:
 	TDCar* myCar;
 	Tree* myTree;
 	Sound* sound;
+	Tree* myTree2;
 	//SDL
 	SDL_Renderer *renderTarget;
 	SDL_Texture *carTexture;
@@ -67,6 +69,12 @@ private:
 	SDL_Texture *loadTexture(std::string filePath, SDL_Renderer *renderTarget);
 	void createCamera(SDL_Window *window, int levelWidth, int levelHeight);
 	void handleBodyRemoveStack();
+
+	SDL_Point * center;
+	//CAR
+
+	SDL_Texture *textureCar;
+	SDL_Surface *surfaceCar;
 public:
 	Player *player1;
 	World(SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font);
@@ -77,6 +85,9 @@ public:
 	//Box2d wrapper function
 	b2Body* createBody(b2BodyDef *bodyDef);
 	void destroyBody(b2Body *body);
+	int transfrom(float);
+	void drawObject(float nwidth, float nheight, float nx, float ny, float nangle);
+	
 };
 
 
