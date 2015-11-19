@@ -70,6 +70,12 @@
     <Filter Include="Source Files\Model">
       <UniqueIdentifier>{0b72afb4-ec52-4902-9163-f21402da7492}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Model\Shooting">
+      <UniqueIdentifier>{99ff1eac-17e2-4ec4-84ad-ff23f21baf15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Model\Shooting">
+      <UniqueIdentifier>{77662d4a-30bb-4e4d-b85d-8042a6e7672f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Animation.h">
@@ -189,6 +195,9 @@
     <ClInclude Include="Source\PauseMenu.h">
       <Filter>Header Files\Menu</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Projectile.h">
+      <Filter>Header Files\Model\Shooting</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\main.cpp">
@@ -277,6 +286,9 @@
     </ClCompile>
     <ClCompile Include="Source\PauseMenu.cpp">
       <Filter>Source Files\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Projectile.cpp">
+      <Filter>Source Files\Model\Shooting</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
