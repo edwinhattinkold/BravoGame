@@ -1,4 +1,5 @@
 #include "TDCar.h"
+#include "World.h";
 
 TDCar::~TDCar() {
 	m_body->GetWorld()->DestroyJoint(flJoint);	flJoint = nullptr;
@@ -6,10 +7,20 @@ TDCar::~TDCar() {
 	for (size_t i = 0; i < m_tires.size(); i++){
 		delete m_tires[i];	m_tires[i] = nullptr;
 	}
+	delete weapon;		 weapon = nullptr;
 }
 
-TDCar::TDCar(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM)
-	:B2Content(world, renderTarget, "Images/Car/topview.png"){
+TDCar::TDCar(World* world, b2World* physics_world, SDL_Renderer* renderTarget, int widthM, int heightM)
+	:B2Content( renderTarget, "Images/Car/topview.png" ){
+	keyMap.insert( std::pair<Car_Controls, SDL_Scancode>{ Car_Throttle,		SDL_SCANCODE_W } );
+	keyMap.insert( std::pair<Car_Controls, SDL_Scancode>{ Car_Brakes,		SDL_SCANCODE_S } );
+	keyMap.insert( std::pair<Car_Controls, SDL_Scancode>{ Car_Steer_Left,	SDL_SCANCODE_A } );
+	keyMap.insert( std::pair<Car_Controls, SDL_Scancode>{ Car_Steer_Right,	SDL_SCANCODE_D } );
+	keyMap.insert( std::pair<Car_Controls, SDL_Scancode>{ Car_Horn,			SDL_SCANCODE_H } );
+	keyMap.insert( std::pair<Car_Controls, SDL_Scancode>{ Car_Shoot,		SDL_SCANCODE_SPACE } );
+
+	weapon = new Weapon( world, this, physics_world, renderTarget );
+
 	m_controlState = 0;
 	w = widthM;
 	h = heightM;
@@ -21,12 +32,7 @@ TDCar::TDCar(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
 
-	
-
-	m_body = world->CreateBody(&bodyDef);
-	
-	
-
+	m_body = physics_world->CreateBody( &bodyDef );
 	m_body->SetAngularDamping(3);
 	
 	b2Vec2 vertices[4];
@@ -39,9 +45,6 @@ TDCar::TDCar(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM
 	b2PolygonShape polygonShape;
 	polygonShape.Set(vertices, 4);
 	fixture = m_body->CreateFixture(&polygonShape, 0.1f);//shape, density
-
-
-	
 
 	
 	//prepare common joint parameters
@@ -61,66 +64,45 @@ TDCar::TDCar(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM
 	float frontTireMaxLateralImpulse = 7.5;
 
 	//back left tire
-	TDTire* tire = new TDTire(world, renderTarget);
+	TDTire* tire = new TDTire( physics_world, renderTarget );
 	tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, backTireMaxDriveForce, backTireMaxLateralImpulse);
 	jointDef.bodyB = tire->m_body;
 	jointDef.localAnchorA.Set(-3, 1.75f);
-	world->CreateJoint(&jointDef);
+	physics_world->CreateJoint( &jointDef );
 	m_tires.push_back(tire);
 
 	//back right tire
-	tire = new TDTire(world, renderTarget);
+	tire = new TDTire( physics_world, renderTarget );
 	tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, backTireMaxDriveForce, backTireMaxLateralImpulse);
 	jointDef.bodyB = tire->m_body;
 	jointDef.localAnchorA.Set(3, 1.75f);
-	world->CreateJoint(&jointDef);
+	physics_world->CreateJoint( &jointDef );
 	m_tires.push_back(tire);
 
-	
-
 	//front left tire
-	tire = new TDTire(world, renderTarget);
+	tire = new TDTire( physics_world, renderTarget );
 	tireLEFT = tire;
 	tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, frontTireMaxDriveForce, frontTireMaxLateralImpulse);
 	jointDef.bodyB = tire->m_body;
 	jointDef.localAnchorA.Set(-3, 11.4f);
-	flJoint = (b2RevoluteJoint*)world->CreateJoint(&jointDef);
+	flJoint = (b2RevoluteJoint*) physics_world->CreateJoint( &jointDef );
 	m_tires.push_back(tire);
 
 	//front right tire
-	tire = new TDTire(world, renderTarget);
+	tire = new TDTire( physics_world, renderTarget );
 	tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, frontTireMaxDriveForce, frontTireMaxLateralImpulse);
 	jointDef.bodyB = tire->m_body;
 	jointDef.localAnchorA.Set(3, 11.4f);
-	frJoint = (b2RevoluteJoint*)world->CreateJoint(&jointDef);
+	frJoint = (b2RevoluteJoint*) physics_world->CreateJoint( &jointDef );
 	m_tires.push_back(tire);
-
-	//m_body->SetTransform(b2Vec2(60, -60), DEGTORAD * 180);
-
-	//updateSDLPosition(this->getSDLPosition().x, this->getSDLPosition().y, w, h, getAngle());
 
 	updateSDLPosition(getCenterXSDL(), getCenterYSDL(), float(w), float(h), getAngleSDL());
 	updateOrigin();
-
-	//toetsen instellen
-	//vooruit
-	keys[0] = SDL_SCANCODE_W;
-	//achteruit
-	keys[1] = SDL_SCANCODE_S;
-	//links
-	keys[2] = SDL_SCANCODE_A;
-	//recht
-	keys[3] = SDL_SCANCODE_D;
-	//Toeter
-	keys[4] = SDL_SCANCODE_H;
-
-	
 }
 float TDCar::getAngleB2D()
 {
 	return m_body->GetAngle()  * RADTODEG;
 }
-
 
 void TDCar::printFixtures()
 {
@@ -139,11 +121,13 @@ std::vector<TDTire*> TDCar::getTires()
 	return m_tires;
 }
 
-void TDCar::update(const Uint8 *keyState) {
+void TDCar::update( float deltaTime, const Uint8 *keyState )
+{
+	weapon->update( deltaTime );
 
 	// AUTO BESTUREN
 	//W
-	if (keyState[keys[0]])
+	if (keyState[keyMap.at(Car_Throttle)])
 	{
 		m_controlState |= TDC_UP;
 		if (!soundWStarted)
@@ -166,9 +150,8 @@ void TDCar::update(const Uint8 *keyState) {
 		m_controlState &= ~TDC_UP;
 	}
 		
-
-	//A
-	if (keyState[keys[1]]){
+	if( keyState[keyMap.at( Car_Brakes )] )
+	{
 		m_controlState |= TDC_DOWN;
 		if (!soundAStarted){
 			Sound::getInstance()->playSound(Sound_Skid);
@@ -182,28 +165,21 @@ void TDCar::update(const Uint8 *keyState) {
 	else
 		m_controlState &= ~TDC_DOWN;
 
-
-	//S
-	if (keyState[keys[2]])
+	if( keyState[keyMap.at( Car_Steer_Left )] )
 		m_controlState |= TDC_LEFT;
 	else
 		m_controlState &= ~TDC_LEFT;
 
-	//D
-	if (keyState[keys[3]])
+	if( keyState[keyMap.at( Car_Steer_Right )] )
 		m_controlState |= TDC_RIGHT;
 	else
 		m_controlState &= ~TDC_RIGHT;
 
-	// !AUTO BESTUREN
-
-
-	//Toeter
-	if (keyState[keys[4]]){
+	if( keyState[keyMap.at( Car_Horn )] )
 		soundHorn();
-	}
-		
 
+	if( keyState[keyMap.at( Car_Shoot )] )
+		shoot();
 
 	for (int i = 0; i < m_tires.size(); i++)
 		m_tires[i]->updateFriction();
@@ -228,10 +204,6 @@ void TDCar::update(const Uint8 *keyState) {
 	flJoint->SetLimits(newAngle, newAngle);
 	frJoint->SetLimits(newAngle, newAngle);
 
-	float oldX = this->getSDLPosition().x;
-	float newX = oldX - w/ 2;
-	float oldY = this->getSDLPosition().y;
-	float newY = oldY + h;
 	updateSDLPosition( getCenterXSDL(), getCenterYSDL(), getSDLWidth(), getSDLHeight(), getAngleSDL() );
 	updateOrigin();
 	printFixtures();
@@ -244,7 +216,16 @@ void TDCar::accept(DrawVisitor *dv)
 	dv->visit(this);
 }
 
+void TDCar::accept( UpdateVisitor *uv )
+{
+	uv->visit( this );
+}
 
 void TDCar::soundHorn(){
 	Sound::getInstance()->playSound(Sound_Horn);
+}
+
+void TDCar::shoot()
+{
+	weapon->pullTrigger();
 }

@@ -12,6 +12,7 @@
 #include <Windows.h>
 #include "Tree.h"
 #include "Sprite.h"
+#include "Projectile.h"
 #include "Sound.h"
 
 /************************************************************************/
@@ -70,11 +71,6 @@ private:
 	void createCamera(SDL_Window *window, int levelWidth, int levelHeight);
 	void handleBodyRemoveStack();
 
-	SDL_Point * center;
-	//CAR
-
-	SDL_Texture *textureCar;
-	SDL_Surface *surfaceCar;
 public:
 	Player *player1;
 	World(SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font);
@@ -87,6 +83,8 @@ public:
 	void destroyBody(b2Body *body);
 	int transfrom(float);
 	void drawObject(float nwidth, float nheight, float nx, float ny, float nangle);
+	void addProjectile( Projectile* projectile );
+	void removeProjectile( Projectile* projectile );
 	
 };
 

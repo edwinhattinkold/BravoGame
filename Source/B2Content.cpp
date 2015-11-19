@@ -1,7 +1,7 @@
 #include "B2Content.h"
 
 
-B2Content::B2Content(b2World* world, SDL_Renderer* renderTarget, std::string filePath) :Sprite(renderTarget, filePath)
+B2Content::B2Content( SDL_Renderer* renderTarget, std::string filePath) :Sprite(renderTarget, filePath)
 {
 
 }
@@ -9,7 +9,8 @@ B2Content::B2Content(b2World* world, SDL_Renderer* renderTarget, std::string fil
 
 B2Content::~B2Content()
 {
-	m_body->GetWorld()->DestroyBody(m_body);
+	if( m_body != nullptr )
+		m_body->GetWorld()->DestroyBody(m_body);
 }
 
 b2Vec2 B2Content::getB2DPosition(){
@@ -26,12 +27,6 @@ float B2Content::getAngleSDL(){
 	
 	return transform(m_body->GetAngle() * RADTODEG);
 }
-
-void B2Content::accept(DrawVisitor *dv)
-{
-	dv->visit(this);
-}
-
 
 float B2Content::getCenterXSDL()
 {

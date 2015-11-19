@@ -14,7 +14,6 @@
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\ChunkFactory.h" />
-    <ClInclude Include="Source\Car.h" />
     <ClInclude Include="Source\CarTireFUD.h" />
     <ClInclude Include="Source\CreditsMenu.h" />
     <ClInclude Include="Source\CustomCursor.h" />
@@ -49,6 +48,7 @@
     <ClInclude Include="Source\Tree.h" />
     <ClInclude Include="Source\UpdateContainer.h" />
     <ClInclude Include="Source\UpdateVisitor.h" />
+    <ClInclude Include="Source\Weapon.h" />
     <ClInclude Include="Source\World.h" />
     <ClInclude Include="Source\XMLReader.h" />
   </ItemGroup>
@@ -57,7 +57,6 @@
     <ClCompile Include="Source\B2Content.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\ChunkFactory.cpp" />
-    <ClCompile Include="Source\Car.cpp" />
     <ClCompile Include="Source\CarTireFUD.cpp" />
     <ClCompile Include="Source\CreditsMenu.cpp" />
     <ClCompile Include="Source\CustomCursor.cpp" />
@@ -90,6 +89,7 @@
     <ClCompile Include="Source\Tree.cpp" />
     <ClCompile Include="Source\UpdateContainer.cpp" />
     <ClCompile Include="Source\UpdateVisitor.cpp" />
+    <ClCompile Include="Source\Weapon.cpp" />
     <ClCompile Include="Source\World.cpp" />
     <ClCompile Include="Source\XMLReader.cpp" />
   </ItemGroup>

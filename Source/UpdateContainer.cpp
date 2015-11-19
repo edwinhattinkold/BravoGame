@@ -32,8 +32,10 @@ void UpdateContainer::remove( IUpdateable *updateable )
 
 void UpdateContainer::update( float deltaTime, const Uint8* keyState )
 {
+	uv->setDelta( deltaTime );
+	uv->setKeyState( keyState );
 	for( size_t c = 0; c < objects->size(); c++ )
 	{
-		objects->at( c )->accept( uv, deltaTime, keyState );
+		objects->at( c )->accept( uv );
 	}
 }

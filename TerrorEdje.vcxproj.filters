@@ -180,9 +180,6 @@
     <ClInclude Include="Source\TDTire.h">
       <Filter>Header Files\Model</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Car.h">
-      <Filter>Header Files\Model</Filter>
-    </ClInclude>
     <ClInclude Include="Source\B2Content.h">
       <Filter>Header Files\Model</Filter>
     </ClInclude>
@@ -196,6 +193,9 @@
       <Filter>Header Files\Menu</Filter>
     </ClInclude>
     <ClInclude Include="Source\Projectile.h">
+      <Filter>Header Files\Model\Shooting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Weapon.h">
       <Filter>Header Files\Model\Shooting</Filter>
     </ClInclude>
   </ItemGroup>
@@ -251,9 +251,6 @@
     <ClCompile Include="Source\ChunkFactory.cpp">
       <Filter>Source Files\Factories</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Car.cpp">
-      <Filter>Source Files\Model</Filter>
-    </ClCompile>
     <ClCompile Include="Source\CarTireFUD.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
@@ -288,6 +285,9 @@
       <Filter>Source Files\Menu</Filter>
     </ClCompile>
     <ClCompile Include="Source\Projectile.cpp">
+      <Filter>Source Files\Model\Shooting</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Weapon.cpp">
       <Filter>Source Files\Model\Shooting</Filter>
     </ClCompile>
   </ItemGroup>

@@ -7,6 +7,7 @@
 #include "Sprite.h"
 #include <SDL.h>
 #include "DrawContainer.h"
+#include "UpdateContainer.h"
 #include <string>
 
 #ifndef DEGTORAD
@@ -23,7 +24,7 @@ public:
 	b2Body* m_body;
 	float w, h;
 	b2Fixture* fixture;
-	B2Content(b2World* world, SDL_Renderer* renderTarget, std::string filePath);
+	B2Content( SDL_Renderer* renderTarget, std::string filePath);
 	~B2Content();
 	//custom
 	b2Vec2 getB2DPosition();
@@ -34,8 +35,5 @@ public:
 	float getCenterYSDL();
 	float getSDLWidth();
 	float getSDLHeight();
-
-	virtual void accept(DrawVisitor *dv);
-
 };
 
