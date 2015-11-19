@@ -70,6 +70,12 @@
     <Filter Include="Source Files\Model">
       <UniqueIdentifier>{0b72afb4-ec52-4902-9163-f21402da7492}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Enemy">
+      <UniqueIdentifier>{e67c00a3-bf37-438b-8f7b-47f4042c268e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Enemy">
+      <UniqueIdentifier>{3ef393f2-7b68-44bd-8b60-c9866fac6813}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Animation.h">
@@ -189,6 +195,9 @@
     <ClInclude Include="Source\PauseMenu.h">
       <Filter>Header Files\Menu</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Turret.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\main.cpp">
@@ -277,6 +286,9 @@
     </ClCompile>
     <ClCompile Include="Source\PauseMenu.cpp">
       <Filter>Source Files\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Turret.cpp">
+      <Filter>Source Files\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

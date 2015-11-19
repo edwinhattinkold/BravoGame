@@ -33,6 +33,7 @@ public:
 	virtual void draw(SDL_Renderer *renderTarget, SDL_Rect camerRect);
 	virtual void draw( SDL_Renderer *renderTarget );
 	virtual void drawTree(SDL_Renderer *renderTarget, SDL_Rect camerRect);
+	virtual void drawWithAngle(SDL_Renderer *renderTarget, SDL_Rect cameraRect);
 	virtual void drawCar(SDL_Renderer *renderTarget, SDL_Rect cameraRect);
 	virtual void drawTire(SDL_Renderer *renderTarget, SDL_Rect cameraRect);
 	bool intersectsWith(Sprite &p);

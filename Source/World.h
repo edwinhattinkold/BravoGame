@@ -13,6 +13,7 @@
 #include "Tree.h"
 #include "Sprite.h"
 #include "Sound.h"
+#include "Turret.h"
 
 /************************************************************************/
 /* The World class contains everything a the game needs to render except
@@ -29,6 +30,7 @@ private:
 	Tree* myTree;
 	Sound* sound;
 	Tree* myTree2;
+	Turret* myTurret;
 	//SDL
 	SDL_Renderer *renderTarget;
 	SDL_Texture *carTexture;

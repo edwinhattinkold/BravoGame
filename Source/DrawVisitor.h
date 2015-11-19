@@ -6,7 +6,7 @@ class IDrawable;
 class TDCar;
 class Tree;
 class TDTire;
-
+class Turret;
 class DrawVisitor
 {
 private:
@@ -20,5 +20,6 @@ public:
 	void visit(TDTire *tire);
 	void visit(TDCar *car);
 	void visit(Tree *tree);
+	void visit(Turret *turret);
 };
 

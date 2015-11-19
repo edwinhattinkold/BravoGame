@@ -6,6 +6,7 @@
 #include "TDTire.h"
 #include "TDCar.h"
 #include "Tree.h"
+#include "Turret.h"
 #include "B2Content.h"
 
 DrawVisitor::DrawVisitor( SDL_Renderer *renderTarget, SDL_Rect *cameraRect )
@@ -26,6 +27,10 @@ void DrawVisitor::visit(IDrawable *db)
 void DrawVisitor::visit(B2Content *content)
 {
 	content->draw(renderTarget, *cameraRect);
+}
+
+void DrawVisitor::visit(Turret *turret){
+	turret->drawWithAngle(renderTarget, *cameraRect);
 }
 
 void DrawVisitor::visit(Tree *tree){

@@ -46,12 +46,13 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	myTree2 = new Tree( physics, renderTarget, 6, 10, 40, -30 );
 
 	//myTree2 = new Tree(physics, renderTarget, 4, 4, 30, -15);
-
+	myTurret = new Turret(physics, renderTarget, 50, -20);
 
 	drawContainer->add(mapDrawer);
 
 	drawContainer->add(myTree);
 	drawContainer->add(myTree2);
+	drawContainer->add(myTurret);
 	updateContainer->add( mapDrawer );
 
 		
@@ -79,6 +80,7 @@ World::~World()
 	delete this->myCar;								this->myCar = nullptr;
 	delete this->myTree;							this->myTree = nullptr;
 	delete this->myTree2;							this->myTree2 = nullptr;
+	delete this->myTurret;							this->myTurret = nullptr;
 	delete this->mapDrawer;							this->mapDrawer = nullptr;
 	handleBodyRemoveStack();
 	delete bodyRemoveStack;							bodyRemoveStack = nullptr;

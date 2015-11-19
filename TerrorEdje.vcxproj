@@ -46,6 +46,7 @@
     <ClInclude Include="Source\TDTire.h" />
     <ClInclude Include="Source\Tile.h" />
     <ClInclude Include="Source\Tree.h" />
+    <ClInclude Include="Source\Turret.h" />
     <ClInclude Include="Source\UpdateContainer.h" />
     <ClInclude Include="Source\UpdateVisitor.h" />
     <ClInclude Include="Source\World.h" />
@@ -86,6 +87,7 @@
     <ClCompile Include="Source\TDTire.cpp" />
     <ClCompile Include="Source\Tile.cpp" />
     <ClCompile Include="Source\Tree.cpp" />
+    <ClCompile Include="Source\Turret.cpp" />
     <ClCompile Include="Source\UpdateContainer.cpp" />
     <ClCompile Include="Source\UpdateVisitor.cpp" />
     <ClCompile Include="Source\World.cpp" />
