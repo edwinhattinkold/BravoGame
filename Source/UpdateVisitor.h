@@ -5,6 +5,7 @@
 class IUpdateable;
 class TDCar;
 class MapDrawer;
+class Projectile;
 
 class UpdateVisitor
 {
@@ -21,5 +22,6 @@ public:
 	void visit( IUpdateable *iu );
 	void visit( TDCar *car );
 	void visit( MapDrawer *md );
+	void visit( Projectile *projectile );
 };
 

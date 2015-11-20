@@ -2,6 +2,7 @@
 #include "IUpdateable.h"
 #include "TDCar.h"
 #include "MapDrawer.h"
+#include "Projectile.h"
 
 UpdateVisitor::UpdateVisitor()
 {
@@ -38,4 +39,9 @@ void UpdateVisitor::visit( TDCar *car )
 void UpdateVisitor::visit( MapDrawer *md )
 {
 	md->update( deltaTime, keyState );
+}
+
+void UpdateVisitor::visit( Projectile *projectile )
+{
+	projectile->update( deltaTime, keyState );
 }

@@ -198,6 +198,9 @@
     <ClInclude Include="Source\Weapon.h">
       <Filter>Header Files\Model\Shooting</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Random.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\main.cpp">
@@ -289,6 +292,9 @@
     </ClCompile>
     <ClCompile Include="Source\Weapon.cpp">
       <Filter>Source Files\Model\Shooting</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Random.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -36,6 +36,7 @@
     <ClInclude Include="Source\PhysicsWorld.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\Projectile.h" />
+    <ClInclude Include="Source\Random.h" />
     <ClInclude Include="Source\rapidxml.hpp" />
     <ClInclude Include="Source\rapidxml_utils.hpp" />
     <ClInclude Include="Source\Settings.h" />
@@ -80,6 +81,7 @@
     <ClCompile Include="Source\PhysicsWorld.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\Projectile.cpp" />
+    <ClCompile Include="Source\Random.cpp" />
     <ClCompile Include="Source\Settings.cpp" />
     <ClCompile Include="Source\Sound.cpp" />
     <ClCompile Include="Source\Sprite.cpp" />

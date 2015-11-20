@@ -20,7 +20,7 @@
 
 class World;
 
-class TDCar : public B2Content
+class TDCar : public B2Content, public b2ContactListener
 {
 	enum Car_Controls { Car_Throttle, Car_Brakes, Car_Steer_Left, Car_Steer_Right, Car_Horn, Car_Shoot };
 	bool soundWStarted;
@@ -40,6 +40,9 @@ public:
 	~TDCar();
 
 	virtual void update( float deltaTime, const Uint8 *keyState );
+
+	virtual void BeginContact( b2Contact* contact );
+	virtual void EndContact( b2Contact* contact );
 	virtual void accept( DrawVisitor *dv );
 	virtual void accept( UpdateVisitor *dv );
 	void soundHorn();

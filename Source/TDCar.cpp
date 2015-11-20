@@ -211,6 +211,17 @@ void TDCar::update( float deltaTime, const Uint8 *keyState )
 		m_tires[c]->update();
 }
 
+void TDCar::BeginContact( b2Contact* contact )
+{
+	std::cout << "Begin contact car" << std::endl;
+
+}
+
+void TDCar::EndContact( b2Contact* contact )
+{
+	std::cout << "End contact car" << std::endl;
+}
+
 void TDCar::accept(DrawVisitor *dv)
 {
 	dv->visit(this);

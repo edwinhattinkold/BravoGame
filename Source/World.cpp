@@ -64,6 +64,10 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 
 World::~World()
 {
+	for( size_t c = 0; c < projectiles.size(); c++ )
+	{
+		delete projectiles[c]; projectiles[c] = nullptr;
+	}
 	delete this->myCar;								this->myCar = nullptr;
 	delete this->myTree;							this->myTree = nullptr;
 	delete this->myTree2;							this->myTree2 = nullptr;
@@ -229,8 +233,10 @@ void World::destroyBody(b2Body *body){
 
 void World::addProjectile( Projectile *projectile )
 {
+	physics->SetContactListener( projectile );
 	updateContainer->add( projectile );
 	drawContainer->add( projectile );
+	projectiles.push_back( projectile );
 }
 
 void World::removeProjectile( Projectile *projectile )

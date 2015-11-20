@@ -5,10 +5,11 @@ Weapon::Weapon( World* world, B2Content* host, b2World* physics_world, SDL_Rende
 {
 	this->host = host;
 	this->world = world;
-	ammo = new Projectile( physics_world, renderTarget );
+	ammo = new Projectile( world, physics_world, renderTarget );
 	projectileLoaded = true;
-	fireRate = 1.00f; // <--- Measured in projectiles per second
+	fireRate = 11.00f; // <--- Measured in projectiles per second
 	pastTime = 0.00f;
+	spread = 50.0f;
 }
 
 
@@ -37,5 +38,8 @@ void Weapon::pullTrigger( )
 
 void Weapon::fire()
 {
-	world->addProjectile( ammo->clone() );
+	Projectile* newProjectile = ammo->clone();
+	int xVector = Random::getInstance().nextInt( 0 - (spread / 2), 0 + (spread / 2) );
+	newProjectile->applyLinearVelocity( b2Vec2( xVector, 120.0f) );
+	world->addProjectile( newProjectile );
 }

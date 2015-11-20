@@ -26,6 +26,7 @@ enum GameState { GameState_Running, GameState_Paused, GameState_In_MainMenu, Gam
 class World
 {
 private:
+	std::vector<Projectile*> projectiles;
 	TDCar* myCar;
 	Tree* myTree;
 	Sound* sound;

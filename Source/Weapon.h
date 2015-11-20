@@ -1,5 +1,6 @@
 #pragma once
 #include "Projectile.h"
+#include "Random.h"
 
 class World;
 
@@ -10,6 +11,7 @@ private:
 	Projectile* ammo;
 	float fireRate;
 	float pastTime;
+	float spread;
 	bool projectileLoaded;
 	void fire();
 	B2Content *host;
