@@ -38,8 +38,10 @@
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\rapidxml.hpp" />
     <ClInclude Include="Source\rapidxml_utils.hpp" />
+    <ClInclude Include="Source\SearchingTurretState.h" />
     <ClInclude Include="Source\Settings.h" />
     <ClInclude Include="Source\B2Content.h" />
+    <ClInclude Include="Source\ShootingTurretState.h" />
     <ClInclude Include="Source\Sound.h" />
     <ClInclude Include="Source\Sprite.h" />
     <ClInclude Include="Source\TDCar.h" />
@@ -47,6 +49,7 @@
     <ClInclude Include="Source\Tile.h" />
     <ClInclude Include="Source\Tree.h" />
     <ClInclude Include="Source\Turret.h" />
+    <ClInclude Include="Source\TurretState.h" />
     <ClInclude Include="Source\UpdateContainer.h" />
     <ClInclude Include="Source\UpdateVisitor.h" />
     <ClInclude Include="Source\World.h" />
@@ -80,7 +83,9 @@
     <ClCompile Include="Source\PauseMenu.cpp" />
     <ClCompile Include="Source\PhysicsWorld.cpp" />
     <ClCompile Include="Source\Player.cpp" />
+    <ClCompile Include="Source\SearchingTurretState.cpp" />
     <ClCompile Include="Source\Settings.cpp" />
+    <ClCompile Include="Source\ShootingTurretState.cpp" />
     <ClCompile Include="Source\Sound.cpp" />
     <ClCompile Include="Source\Sprite.cpp" />
     <ClCompile Include="Source\TDCar.cpp" />
@@ -88,6 +93,7 @@
     <ClCompile Include="Source\Tile.cpp" />
     <ClCompile Include="Source\Tree.cpp" />
     <ClCompile Include="Source\Turret.cpp" />
+    <ClCompile Include="Source\TurretState.cpp" />
     <ClCompile Include="Source\UpdateContainer.cpp" />
     <ClCompile Include="Source\UpdateVisitor.cpp" />
     <ClCompile Include="Source\World.cpp" />

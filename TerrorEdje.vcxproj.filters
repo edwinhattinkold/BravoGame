@@ -198,6 +198,15 @@
     <ClInclude Include="Source\Turret.h">
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Source\TurretState.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SearchingTurretState.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ShootingTurretState.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\main.cpp">
@@ -288,6 +297,15 @@
       <Filter>Source Files\Menu</Filter>
     </ClCompile>
     <ClCompile Include="Source\Turret.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SearchingTurretState.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TurretState.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ShootingTurretState.cpp">
       <Filter>Source Files\Enemy</Filter>
     </ClCompile>
   </ItemGroup>

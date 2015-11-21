@@ -99,7 +99,10 @@ void Animation::drawTree(SDL_Renderer* renderTarget, SDL_Rect drawingRect, int a
 
 void Animation::drawCar(SDL_Renderer* renderTarget, SDL_Rect drawingRect, int angle){
 	SDL_RenderCopyEx(renderTarget, texture, NULL, &drawingRect, angle, NULL, SDL_FLIP_VERTICAL);
+}
 
+void Animation::DrawWithAngle(SDL_Renderer* renderTarget, SDL_Rect drawingRect, int angle){
+	SDL_RenderCopyEx(renderTarget, texture, NULL, &drawingRect, angle, NULL, SDL_FLIP_VERTICAL);
 }
 
 void Animation::standStill()

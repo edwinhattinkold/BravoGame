@@ -23,6 +23,7 @@ public:
 	void draw(SDL_Renderer* renderTarget, SDL_Rect drawingRect);
 	void drawTree(SDL_Renderer* renderTarget, SDL_Rect drawingRect, int angle);
 	void drawCar(SDL_Renderer* renderTarget, SDL_Rect drawingRect, int angle);
+	void DrawWithAngle(SDL_Renderer* renderTarget, SDL_Rect drawingRect, int angle);
 	void standStill();
 
 	int getOriginX();

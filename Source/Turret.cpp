@@ -1,9 +1,12 @@
 #include "Turret.h"
-
 Turret::Turret(b2World* world, SDL_Renderer* renderTarget,int xPos, int yPos, TDCar* c) :B2Content(world, renderTarget, "Images/Car/car2.png") {
 	w = 6;
+	turretAngle = 0;
+	range = 350;
 	h = 6;
 	car = c;
+	angle = 0;
+	state = new SearchingTurretState(this);
 	//create car body
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_staticBody;
@@ -35,9 +38,8 @@ Turret::Turret(b2World* world, SDL_Renderer* renderTarget,int xPos, int yPos, TD
 }
 
 Turret::~Turret(){
-
+	delete state;			state = nullptr;
 }
-int count = 0;
 b2Body* Turret::getBody()
 {
 	return m_body;
@@ -45,17 +47,11 @@ b2Body* Turret::getBody()
 
 void Turret::accept(DrawVisitor *dv)
 {
-	//Draaien
-	int carX = car->getCenterXSDL();
-	int carY = car->getCenterYSDL();
-	int x = getCenterXSDL();
-	int y = getCenterYSDL();
+	state->checkState();
+	state->update(10);
 	
-
-	float angle = 1 - atan2(y - carY, x - carX);
 	
-	m_body->SetTransform(m_body->GetPosition(),  angle);
-	count++;
+	m_body->SetTransform(m_body->GetPosition(),  turretAngle);
 
 	updateSDLPosition(getCenterXSDL(), getCenterYSDL(), getSDLWidth(), getSDLHeight(), getAngleSDL());
 	dv->visit(this);
@@ -64,4 +60,17 @@ void Turret::accept(DrawVisitor *dv)
 void Turret::accept(UpdateVisitor *uv)
 {
 	//uv->visit(this);
+}
+
+TDCar* Turret::getCar(){
+	return car;
+}
+
+int Turret::getRange(){
+	return range;
+}
+
+void Turret::setState(TurretState* state){
+	delete this->state;
+	this->state = state;
 }

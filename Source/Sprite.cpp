@@ -74,7 +74,7 @@ void Sprite::drawTree(SDL_Renderer *renderTarget, SDL_Rect camerRect)
 void Sprite::drawWithAngle(SDL_Renderer *renderTarget, SDL_Rect camerRect)
 {
 	SDL_Rect drawingRect = { positionRect.x - camerRect.x, positionRect.y - camerRect.y, positionRect.w, positionRect.h };
-	animations->at(currentAnimation)->drawCar(renderTarget, drawingRect, angle);
+	animations->at(currentAnimation)->DrawWithAngle(renderTarget, drawingRect, angle);
 }
 
 void Sprite::drawCar(SDL_Renderer *renderTarget, SDL_Rect cameraRect){
