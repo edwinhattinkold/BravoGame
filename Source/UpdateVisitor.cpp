@@ -13,3 +13,4 @@ void UpdateVisitor::visit( IUpdateable *ip, float deltaTime, const Uint8* keySta
 	//TODO: Input container
 	ip->update( deltaTime, keyState );
 }
+

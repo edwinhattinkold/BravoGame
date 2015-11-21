@@ -46,7 +46,7 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	myTree2 = new Tree( physics, renderTarget, 6, 10, 40, -30 );
 
 	//myTree2 = new Tree(physics, renderTarget, 4, 4, 30, -15);
-	myTurret = new Turret(physics, renderTarget, 50, -20);
+	myTurret = new Turret(physics, renderTarget, 50, -20, myCar);
 
 	drawContainer->add(mapDrawer);
 
