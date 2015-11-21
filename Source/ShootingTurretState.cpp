@@ -16,5 +16,5 @@ void ShootingTurretState::checkState(){
 }
 
 void ShootingTurretState::update(float deltaTime){
-	turret->turretAngle = atan2(turret->getCar()->getCenterXSDL() - turret->getCenterXSDL(), turret->getCar()->getCenterYSDL() - turret->getCenterYSDL());
+	turret->turretAngle = (360 - RADTODEG * atan2(abs(turret->getCar()->getCenterXSDL() - turret->getCenterXSDL()), abs(turret->getCar()->getCenterYSDL() - turret->getCenterYSDL()))) * DEGTORAD;
 }

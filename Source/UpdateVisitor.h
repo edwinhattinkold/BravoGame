@@ -3,6 +3,7 @@
 #include <SDL.h>
 
 class IUpdateable;
+class Turret;
 
 class UpdateVisitor
 {
@@ -13,5 +14,6 @@ public:
 	UpdateVisitor();
 	~UpdateVisitor();
 	void visit(IUpdateable *iu, float deltaTime, const Uint8 *keyState);
+	void visit(Turret* turret, float deltaTime, const Uint8 *keyState);
 };
 

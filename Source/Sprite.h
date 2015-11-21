@@ -7,6 +7,7 @@
 #include "IUpdateable.h"
 #include "Animation.h"
 #include "DrawContainer.h"
+#include "UpdateContainer.h"
 
 class Sprite : public IDrawable, public IUpdateable
 {

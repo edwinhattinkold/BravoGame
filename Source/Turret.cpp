@@ -47,19 +47,15 @@ b2Body* Turret::getBody()
 
 void Turret::accept(DrawVisitor *dv)
 {
-	state->checkState();
-	state->update(10);
-	
-	
 	m_body->SetTransform(m_body->GetPosition(),  turretAngle);
 
 	updateSDLPosition(getCenterXSDL(), getCenterYSDL(), getSDLWidth(), getSDLHeight(), getAngleSDL());
 	dv->visit(this);
 }
 
-void Turret::accept(UpdateVisitor *uv)
+void Turret::accept(UpdateVisitor *uv, float deltaTime, const Uint8 *keyState)
 {
-	//uv->visit(this);
+	uv->visit(this, deltaTime, keyState);
 }
 
 TDCar* Turret::getCar(){
@@ -73,4 +69,8 @@ int Turret::getRange(){
 void Turret::setState(TurretState* state){
 	delete this->state;
 	this->state = state;
+}
+
+TurretState* Turret::getState(){
+	return state;
 }

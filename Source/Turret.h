@@ -17,9 +17,10 @@ public:
 	Turret(b2World* world, SDL_Renderer* renderTarget, int xPos, int yPos, TDCar* c);
 	~Turret();
 	void accept(DrawVisitor* dv);
-	void accept(UpdateVisitor* uv);
+	void accept(UpdateVisitor *uv, float deltaTime, const Uint8 *keyState);
 	b2Body* getBody();
 	TDCar* getCar();
 	int getRange();
 	void setState(TurretState* state);
+	TurretState* getState();
 };

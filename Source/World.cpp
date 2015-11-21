@@ -54,6 +54,7 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	drawContainer->add(myTree2);
 	drawContainer->add(myTurret);
 	updateContainer->add( mapDrawer );
+	updateContainer->add(myTurret);
 
 		
 	std::vector<TDTire*> tires = myCar->getTires();
