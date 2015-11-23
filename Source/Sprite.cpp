@@ -81,6 +81,12 @@ void Sprite::drawTire(SDL_Renderer *renderTarget, SDL_Rect cameraRect){
 	animations->at(currentAnimation)->drawCar(renderTarget, drawingRect, angle);
 }
 
+void Sprite::drawProjectile( SDL_Renderer* renderTarget, SDL_Rect cameraRect )
+{
+	SDL_Rect drawingRect = { positionRect.x - cameraRect.x, positionRect.y - cameraRect.y, positionRect.w, positionRect.h };
+	animations->at( currentAnimation )->drawCar( renderTarget, drawingRect, angle );
+}
+
 int Sprite::getPositionX()
 {
 	return positionRect.x + this->animations->at(currentAnimation)->getOriginX();

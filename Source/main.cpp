@@ -12,7 +12,6 @@
 #include "CustomCursor.h"
 #include "Settings.h"
 #include "vld.h"
-#include "Car.h"
 #include "PhysicsWorld.h"
 
 

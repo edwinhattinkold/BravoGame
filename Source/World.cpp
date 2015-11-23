@@ -40,7 +40,7 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	//Creation of sprites should be placed elsewhere as well, I'm just running out of time
 	mapDrawer = new MapDrawer( renderTarget, camera->getCamera(),this );
 	
-	myCar = new TDCar(physics, renderTarget, 6, 12);
+	myCar = new TDCar(this, physics, renderTarget, 6, 12);
 
 	myTree = new Tree(physics, renderTarget, 6, 10, 20, -15);
 	myTree2 = new Tree( physics, renderTarget, 6, 10, 40, -30 );
@@ -53,29 +53,21 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	drawContainer->add(myTree);
 	drawContainer->add(myTree2);
 	updateContainer->add( mapDrawer );
-
+	updateContainer->add( myCar );
 		
 	std::vector<TDTire*> tires = myCar->getTires();
 	for (int i = 0; i < tires.size(); i++)
 		drawContainer->add(tires[i]);
 	drawContainer->add( myCar );
-
-	//CAR
-	surfaceCar = IMG_Load("Images/Car/debugbuggy.png");
-	if (surfaceCar == NULL)
-		std::cout << "Error" << std::endl;
-	else
-	{
-		textureCar = SDL_CreateTextureFromSurface(renderTarget, surfaceCar);
-		if (textureCar == NULL)
-			std::cout << "Error 123 4 " << std::endl;
-	}
-	center = new SDL_Point;
 }
 
 
 World::~World()
 {
+	for( size_t c = 0; c < projectiles.size(); c++ )
+	{
+		delete projectiles[c]; projectiles[c] = nullptr;
+	}
 	delete this->myCar;								this->myCar = nullptr;
 	delete this->myTree;							this->myTree = nullptr;
 	delete this->myTree2;							this->myTree2 = nullptr;
@@ -94,7 +86,6 @@ World::~World()
 
 	SDL_DestroyTexture(this->mainMenuBackground);	this->mainMenuBackground = nullptr;
 	SDL_DestroyRenderer(this->renderTarget);		this->renderTarget = nullptr;
-	delete center;									this->center = nullptr;
 }
 
 //Update the world
@@ -138,7 +129,7 @@ void World::tick()
 	
 	if( currentGameState != GameState_Paused )
 	{
-		myCar->update( keyState );
+		updateContainer->update( deltaTime, keyState );
 
 		///SVEN
 		handleBodyRemoveStack();
@@ -146,9 +137,8 @@ void World::tick()
 		physics->Step( deltaTime, *velocityIterations, *positionIterations );
 
 		camera->update( myCar->getOriginX(), myCar->getOriginY() );
-		//camera->update(0,0);
 
-		updateContainer->update( deltaTime, keyState );
+		
 	}
 
 	//update SDL
@@ -239,4 +229,18 @@ b2Body* World::createBody(b2BodyDef *def){
 
 void World::destroyBody(b2Body *body){
 	bodyRemoveStack->push_back(body);
+}
+
+void World::addProjectile( Projectile *projectile )
+{
+	physics->SetContactListener( projectile );
+	updateContainer->add( projectile );
+	drawContainer->add( projectile );
+	projectiles.push_back( projectile );
+}
+
+void World::removeProjectile( Projectile *projectile )
+{
+	updateContainer->remove( projectile );
+	drawContainer->remove( projectile );
 }
