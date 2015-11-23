@@ -17,6 +17,11 @@ b2Vec2 B2Content::getB2DPosition(){
 	return m_body->GetPosition();
 }
 
+void B2Content::setB2DPosition(b2Vec2 position)
+{
+	m_body->SetTransform( position, m_body->GetAngle() );
+}
+
 b2Vec2 B2Content::getB2DDirectionalVector()
 {
 	b2Vec2 b2DDirectionalVector = m_body->GetLocalVector( m_body->GetLocalCenter() );

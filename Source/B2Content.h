@@ -28,6 +28,7 @@ public:
 	~B2Content();
 	//custom
 	b2Vec2 getB2DPosition();
+	void setB2DPosition( b2Vec2 position );
 	b2Vec2 getB2DDirectionalVector();
 	b2Vec2 getSDLPosition();
 	b2Vec2 getSDLDirectionalVector();

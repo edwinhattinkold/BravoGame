@@ -44,6 +44,10 @@ void Weapon::fire()
 	float spreadFloat = 0.05f * randomSpread;
 	direction.x += spreadFloat;
 
+	direction.x *= 2.0;
+	direction.y *= 2.0;
+
+	newProjectile->setB2DPosition( host->m_body->GetWorldPoint( b2Vec2{ 0, 12.5 } ));
 	newProjectile->applyLinearVelocity( direction );
 	newProjectile->applyB2DAngle( host->m_body->GetAngle() );
 
