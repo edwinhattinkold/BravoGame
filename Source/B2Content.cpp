@@ -17,10 +17,28 @@ b2Vec2 B2Content::getB2DPosition(){
 	return m_body->GetPosition();
 }
 
-b2Vec2 B2Content::getSDLPosition(){
+b2Vec2 B2Content::getB2DDirectionalVector()
+{
+	b2Vec2 b2DDirectionalVector = m_body->GetLocalVector( m_body->GetLocalCenter() );
+	b2DDirectionalVector.x = b2DDirectionalVector.x * -1;
+	return b2DDirectionalVector;
+}
+
+b2Vec2 B2Content::getSDLPosition()
+{
 	float x = m_body->GetPosition().x;
 	float y = m_body->GetPosition().y * -1;
 	return b2Vec2(x, y);
+}
+
+b2Vec2 B2Content::getSDLDirectionalVector()
+{
+	b2Vec2 direction = m_body->GetLocalVector(m_body->GetLocalCenter());
+	
+	direction.x = direction.x * - 1 * sdlScale;
+	direction.y = direction.y * - 1 * sdlScale;
+	std::cout << direction.x << " , " << direction.y << std::endl;
+	return direction;
 }
 
 float B2Content::getAngleSDL(){

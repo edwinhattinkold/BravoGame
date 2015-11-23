@@ -14,6 +14,7 @@ public:
 	~Projectile();
 	
 	void applyLinearVelocity( b2Vec2 vector );
+	void applyB2DAngle( float rads );
 	virtual void update( float deltaTime, const Uint8 *keyState);
 
 	virtual void BeginContact( b2Contact* contact );

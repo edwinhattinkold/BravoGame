@@ -51,6 +51,11 @@ void Projectile::applyLinearVelocity( b2Vec2 vector )
 	m_body->ApplyLinearImpulse( vector, m_body->GetWorldCenter(), true );
 }
 
+void Projectile::applyB2DAngle( float rads )
+{
+	m_body->SetTransform( m_body->GetPosition(), rads );
+}
+
 void Projectile::update(float deltaTime, const Uint8 *keyState)
 {
 	updateSDLPosition( getCenterXSDL(), getCenterYSDL(), getSDLWidth(), getSDLHeight(), getAngleSDL() );
@@ -74,7 +79,6 @@ void Projectile::accept( UpdateVisitor *uv )
 
 void Projectile::BeginContact( b2Contact* contact )
 {	
-	std::cout << "This projectile has hit something!" << std::endl;
 
 }
 

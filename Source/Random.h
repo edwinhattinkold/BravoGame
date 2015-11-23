@@ -15,5 +15,4 @@ private:
 	{};
 	Random( Random const& ) = delete;
 	void operator=(Random const&) = delete;
-
 };
