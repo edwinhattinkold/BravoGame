@@ -67,7 +67,7 @@ TDCar::TDCar(World* world, b2World* physics_world, SDL_Renderer* renderTarget, i
 	TDTire* tire = new TDTire( physics_world, renderTarget );
 	tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, backTireMaxDriveForce, backTireMaxLateralImpulse);
 	jointDef.bodyB = tire->m_body;
-	jointDef.localAnchorA.Set(-3, 1.75f);
+	jointDef.localAnchorA.Set(-1.5, 0.875f);
 	physics_world->CreateJoint( &jointDef );
 	m_tires.push_back(tire);
 
@@ -75,7 +75,7 @@ TDCar::TDCar(World* world, b2World* physics_world, SDL_Renderer* renderTarget, i
 	tire = new TDTire( physics_world, renderTarget );
 	tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, backTireMaxDriveForce, backTireMaxLateralImpulse);
 	jointDef.bodyB = tire->m_body;
-	jointDef.localAnchorA.Set(3, 1.75f);
+	jointDef.localAnchorA.Set(1.5, 0.875f);
 	physics_world->CreateJoint( &jointDef );
 	m_tires.push_back(tire);
 
@@ -84,7 +84,7 @@ TDCar::TDCar(World* world, b2World* physics_world, SDL_Renderer* renderTarget, i
 	tireLEFT = tire;
 	tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, frontTireMaxDriveForce, frontTireMaxLateralImpulse);
 	jointDef.bodyB = tire->m_body;
-	jointDef.localAnchorA.Set(-3, 11.4f);
+	jointDef.localAnchorA.Set(-1.5, 5.7f);
 	flJoint = (b2RevoluteJoint*) physics_world->CreateJoint( &jointDef );
 	m_tires.push_back(tire);
 
@@ -92,7 +92,7 @@ TDCar::TDCar(World* world, b2World* physics_world, SDL_Renderer* renderTarget, i
 	tire = new TDTire( physics_world, renderTarget );
 	tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, frontTireMaxDriveForce, frontTireMaxLateralImpulse);
 	jointDef.bodyB = tire->m_body;
-	jointDef.localAnchorA.Set(3, 11.4f);
+	jointDef.localAnchorA.Set(1.5, 5.7f);
 	frJoint = (b2RevoluteJoint*) physics_world->CreateJoint( &jointDef );
 	m_tires.push_back(tire);
 

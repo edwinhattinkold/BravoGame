@@ -14,7 +14,7 @@
 #define DEGTORAD 0.0174532925199432957f
 #define RADTODEG 57.295779513082320876f
 #endif
-const int sdlScale = 10;
+const int sdlScale = 20;
 class B2Content : public Sprite
 {
 	

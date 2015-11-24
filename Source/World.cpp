@@ -42,7 +42,7 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	//Creation of sprites should be placed elsewhere as well, I'm just running out of time
 	mapDrawer = new MapDrawer( renderTarget, camera->getCamera(),this );
 	
-	myCar = new TDCar(this, physics, renderTarget, 6, 12);
+	myCar = new TDCar(this, physics, renderTarget, 3, 6);
 
 	myTree = new Tree(physics, renderTarget, 6, 10, 20, -15);
 	myTree2 = new Tree( physics, renderTarget, 6, 10, 40, -30 );
