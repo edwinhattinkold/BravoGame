@@ -84,9 +84,6 @@
     <ClInclude Include="Source\Camera.h">
       <Filter>Header Files\GraphicObjects</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Player.h">
-      <Filter>Header Files\GraphicObjects</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Sprite.h">
       <Filter>Header Files\GraphicObjects</Filter>
     </ClInclude>
@@ -198,8 +195,11 @@
     <ClInclude Include="Source\Weapon.h">
       <Filter>Header Files\Model\Shooting</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Random.h">
+    <ClInclude Include="Source\Assets.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Random.h">
+      <Filter>Header Files\GraphicObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -219,9 +219,6 @@
       <Filter>Source Files\GraphicObjects</Filter>
     </ClCompile>
     <ClCompile Include="Source\Camera.cpp">
-      <Filter>Source Files\GraphicObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Player.cpp">
       <Filter>Source Files\GraphicObjects</Filter>
     </ClCompile>
     <ClCompile Include="Source\Sprite.cpp">
@@ -295,6 +292,9 @@
     </ClCompile>
     <ClCompile Include="Source\Random.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Assets.cpp">
+      <Filter>Source Files\GraphicObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

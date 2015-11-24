@@ -2,7 +2,7 @@
 #include "CustomCursor.h"
 MainMenu::MainMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, Camera* camera, TTF_Font* font )
 {
-	this->arrow = new Sprite( renderTarget, "Images/Cursor/menuArrow.png" );
+	this->arrow = new Sprite( renderTarget, Asset_Menu_Arrow );
 	this->renderTarget = renderTarget;
 	this->camera = camera;
 	sound = Sound::getInstance();

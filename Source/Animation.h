@@ -2,8 +2,8 @@
 #ifndef ANIMATION_H
 #define ANIMATION_H
 #include "SDL.h"
-#include "SDL_image.h"
 #include <string>
+#include "Assets.h"
 
 class Animation
 {
@@ -17,7 +17,7 @@ private:
 	int originX, originY;
 
 public:
-	Animation(SDL_Renderer* renderTarget, std::string filePath, int framesX, int framesY, int startFrameX, int startFrameY, float animationSpeed);
+	Animation(SDL_Renderer* renderTarget, Asset asset, int framesX, int framesY, int startFrameX, int startFrameY, float animationSpeed);
 	~Animation();
 	void update(float deltaTime);
 	void draw(SDL_Renderer* renderTarget, SDL_Rect drawingRect);

@@ -1,7 +1,7 @@
 #include "TDTire.h"
 
 TDTire::TDTire(b2World* world, SDL_Renderer * renderTarget)
-	:B2Content( renderTarget, "Images/Car/tire.png")
+	:B2Content( renderTarget, Asset_Tire)
 {
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;

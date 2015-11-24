@@ -7,7 +7,7 @@ Weapon::Weapon( World* world, B2Content* host, b2World* physics_world, SDL_Rende
 	this->world = world;
 	ammo = new Projectile( world, physics_world, renderTarget );
 	projectileLoaded = true;
-	fireRate = 40.00f; // <--- Measured in projectiles per second
+	fireRate = 1.00f; // <--- Measured in projectiles per second
 	pastTime = 0.00f;
 	spread = 40.0f;
 }

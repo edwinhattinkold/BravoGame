@@ -1,18 +1,9 @@
 #include "Animation.h"
 #include <iostream>
 
-Animation::Animation( SDL_Renderer* renderTarget, std::string filePath, int framesX, int framesY, int startFrameX, int startFrameY, float animationSpeed )
+Animation::Animation( SDL_Renderer* renderTarget, Asset asset, int framesX, int framesY, int startFrameX, int startFrameY, float animationSpeed )
 {
-	SDL_Surface *surface = IMG_Load( filePath.c_str() );
-	if( surface == NULL )
-		std::cout << "Error" << std::endl;
-	else
-	{
-		texture = SDL_CreateTextureFromSurface( renderTarget, surface );
-		if( texture == NULL )
-			std::cout << "Error" << std::endl;
-	}
-	SDL_FreeSurface( surface );
+	texture = Assets::getInstance()->getAsset( asset );
 
 	SDL_QueryTexture( texture, NULL, NULL, &cropRect.w, &cropRect.h );
 
@@ -38,7 +29,7 @@ Animation::Animation( SDL_Renderer* renderTarget, std::string filePath, int fram
 
 Animation::~Animation()
 {
-	SDL_DestroyTexture( texture );
+
 }
 
 void Animation::update( float deltaTime )

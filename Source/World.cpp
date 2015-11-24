@@ -1,5 +1,6 @@
 #include "World.h"
 #include "CustomCursor.h"
+#include "Assets.h"
 
 World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font )
 {
@@ -21,6 +22,7 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	//create graphics world (SDL)
 	renderTarget = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
 	CustomCursor::getInstance()->setRenderTarget( renderTarget );
+	Assets::getInstance()->setRenderTarget( renderTarget );
 	sound = Sound::getInstance();
 
 	//TODO: Level in separate class, camera too maybe?

@@ -24,7 +24,7 @@ public:
 	b2Body* m_body;
 	float w, h;
 	b2Fixture* fixture;
-	B2Content( SDL_Renderer* renderTarget, std::string filePath);
+	B2Content( SDL_Renderer* renderTarget, Asset asset);
 	~B2Content();
 	//custom
 	b2Vec2 getB2DPosition();

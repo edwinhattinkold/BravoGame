@@ -5,7 +5,6 @@
 #include "UpdateContainer.h"
 #include "MainMenu.h"
 #include "PauseMenu.h"
-#include "Player.h"
 #include "MapDrawer.h"
 #include "TDCar.h"
 #include "Camera.h"
@@ -73,7 +72,6 @@ private:
 	void handleBodyRemoveStack();
 
 public:
-	Player *player1;
 	World(SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font);
 	~World();
 	void run();

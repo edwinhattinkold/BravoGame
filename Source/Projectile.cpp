@@ -2,7 +2,7 @@
 #include "World.h"
 
 Projectile::Projectile(World* world, b2World* physics_world, SDL_Renderer * renderTarget )
-	: B2Content( renderTarget, "Images/Objects/Shooting/bullet.png" )
+	: B2Content( renderTarget, Asset_Bullet )
 {
 	this->world = world;
 	this->physics_world = physics_world;
@@ -11,7 +11,7 @@ Projectile::Projectile(World* world, b2World* physics_world, SDL_Renderer * rend
 }
 
 Projectile::Projectile( World* world, b2World* physics_world, SDL_Renderer * renderTarget, bool clone )
-	:B2Content( renderTarget, "Images/Objects/Shooting/bullet.png" )
+	:B2Content( renderTarget, Asset_Bullet )
 {
 	this->world = world;
 	this->physics_world = physics_world;
@@ -79,7 +79,11 @@ void Projectile::accept( UpdateVisitor *uv )
 
 void Projectile::BeginContact( b2Contact* contact )
 {	
+	b2Body* body = contact->GetFixtureA()->GetBody();
 
+	Tree* tree = (Tree*) body->GetUserData();
+	if( tree )
+		std::cout << "Ik bots met een boom :O" << std::endl;
 }
 
 void Projectile::EndContact( b2Contact* contact )

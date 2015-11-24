@@ -1,7 +1,7 @@
 #include "B2Content.h"
 
 
-B2Content::B2Content( SDL_Renderer* renderTarget, std::string filePath) :Sprite(renderTarget, filePath)
+B2Content::B2Content( SDL_Renderer* renderTarget, Asset asset) :Sprite(renderTarget, asset)
 {
 
 }

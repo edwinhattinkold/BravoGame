@@ -11,7 +11,7 @@ TDCar::~TDCar() {
 }
 
 TDCar::TDCar(World* world, b2World* physics_world, SDL_Renderer* renderTarget, int widthM, int heightM)
-	:B2Content( renderTarget, "Images/Car/topview.png" ){
+	:B2Content( renderTarget, Asset_Car ){
 	keyMap.insert( std::pair<Car_Controls, SDL_Scancode>{ Car_Throttle,		SDL_SCANCODE_W } );
 	keyMap.insert( std::pair<Car_Controls, SDL_Scancode>{ Car_Brakes,		SDL_SCANCODE_S } );
 	keyMap.insert( std::pair<Car_Controls, SDL_Scancode>{ Car_Steer_Left,	SDL_SCANCODE_A } );
