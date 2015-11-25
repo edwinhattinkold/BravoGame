@@ -56,11 +56,6 @@ void ContactHandler::bulletContact( Projectile* projectile, B2Content* otherObje
 			{ 
 				world->destroyProjectile( projectile );
 				projectile->isOnDeathRow = true;
-				std::cout << "Kogel -> boom" << std::endl;
-			}
-			else
-			{
-				std::cout << "Protected a deathrow inmate" << std::endl;
 			}
 			break;
 	}

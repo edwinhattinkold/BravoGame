@@ -19,6 +19,8 @@ private:
 public:
 	Animation(SDL_Renderer* renderTarget, Asset asset, int framesX, int framesY, int startFrameX, int startFrameY, float animationSpeed);
 	~Animation();
+	void init(int framesY, int framesX);
+
 	void update(float deltaTime);
 	void draw(SDL_Renderer* renderTarget, SDL_Rect drawingRect);
 	void drawTree(SDL_Renderer* renderTarget, SDL_Rect drawingRect, int angle);
@@ -26,10 +28,10 @@ public:
 	void standStill();
 
 	int getOriginX();
-	int transfrom(float dgrs);
 	int getOriginY();
 	void setOriginX(int newOriginX);
 	void setOriginY(int newOriginY);
+	void setAsset( Asset asset );
 	int getFrameWidth();
 	int getFrameHeight();
 };

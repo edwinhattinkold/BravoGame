@@ -111,12 +111,10 @@ int Sprite::getOriginY(){
 	return animations->at(currentAnimation)->getOriginY();
 }
 
-void Sprite::subscribe()
+void Sprite::setAsset( Asset asset )
 {
-	//TODO: sprite subscribes itself.
-	throw new std::logic_error( "not yet implemented" );
+	this->animations->at(currentAnimation)->setAsset( asset );
 }
-
 
 void Sprite::updateSDLPosition(float x, float y, float w, float h, float a){
 	positionRect.x = x;

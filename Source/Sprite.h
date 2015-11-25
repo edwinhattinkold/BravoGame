@@ -51,7 +51,7 @@ public:
 	int getOriginX();
 	int getOriginY();
 	void updateOrigin();
-	void subscribe();
+	void setAsset(Asset asset);
 };
 
 #endif

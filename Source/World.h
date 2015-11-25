@@ -53,6 +53,7 @@ private:
 	b2World *physics;
 	std::vector<b2Body*> *bodyRemoveStack;
 	std::vector<Projectile*> *projectileRemoveStack;
+	std::vector<Projectile*> *activeProjectiles;
 	//Containers
 	DrawContainer *drawContainer;
 	UpdateContainer *updateContainer;
