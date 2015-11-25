@@ -3,6 +3,7 @@
 TDTire::TDTire(b2World* world, SDL_Renderer * renderTarget)
 	:B2Content( renderTarget, Asset_Tire)
 {
+	objectType = Object_Tire;
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
 	m_body = world->CreateBody(&bodyDef);
@@ -34,4 +35,14 @@ void TDTire::update()
 void TDTire::accept(DrawVisitor *dv)
 {
 	dv->visit(this);
+}
+
+void TDTire::EndContact( b2Contact* contact )
+{
+
+}
+
+void TDTire::BeginContact( b2Contact* contact )
+{
+
 }

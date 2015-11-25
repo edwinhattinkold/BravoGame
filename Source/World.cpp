@@ -14,6 +14,7 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 
 	//create add and remove stacks
 	bodyRemoveStack = new std::vector<b2Body*>();
+	projectileRemoveStack = new std::vector<Projectile*>();
 
 	//create physics world (box2d)
 	gravity = new b2Vec2( 0.0f, 0.0f );
@@ -43,9 +44,12 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	mapDrawer = new MapDrawer( renderTarget, camera->getCamera(),this );
 	
 	myCar = new TDCar(this, physics, renderTarget, 3, 6);
+	physics->SetContactListener( myCar );
 
 	myTree = new Tree(physics, renderTarget, 6, 10, 20, -15);
 	myTree2 = new Tree( physics, renderTarget, 6, 10, 40, -30 );
+	physics->SetContactListener( myTree );
+	physics->SetContactListener( myTree2 );
 
 	//myTree2 = new Tree(physics, renderTarget, 4, 4, 30, -15);
 
@@ -66,16 +70,14 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 
 World::~World()
 {
-	for( size_t c = 0; c < projectiles.size(); c++ )
-	{
-		delete projectiles[c]; projectiles[c] = nullptr;
-	}
 	delete this->myCar;								this->myCar = nullptr;
 	delete this->myTree;							this->myTree = nullptr;
 	delete this->myTree2;							this->myTree2 = nullptr;
 	delete this->mapDrawer;							this->mapDrawer = nullptr;
 	handleBodyRemoveStack();
+	handleProjectileRemoveStack();
 	delete bodyRemoveStack;							bodyRemoveStack = nullptr;
+	delete projectileRemoveStack;					projectileRemoveStack = nullptr;
 	delete this->physics;							this->physics = nullptr;
 	delete this->gravity;							this->gravity = nullptr;
 	delete this->velocityIterations;				this->velocityIterations = nullptr;
@@ -133,11 +135,15 @@ void World::tick()
 	{
 		updateContainer->update( deltaTime, keyState );
 
-		///SVEN
-		handleBodyRemoveStack();
-		//update physics
-		physics->Step( deltaTime, *velocityIterations, *positionIterations );
+		physics->Step( deltaTime, *velocityIterations, *positionIterations );//update physics
 
+		if( projectileRemoveStack->size() > 1 )
+		{
+			cout << "test" << endl;
+		}
+		handleProjectileRemoveStack();
+		handleBodyRemoveStack();
+		
 		camera->update( myCar->getOriginX(), myCar->getOriginY() );
 
 		
@@ -224,6 +230,23 @@ void World::handleBodyRemoveStack(){
 	bodyRemoveStack->clear();
 }
 
+void World::handleProjectileRemoveStack()
+{
+	for( size_t i = 0; i < projectileRemoveStack->size(); i++ )
+	{
+		updateContainer->remove( projectileRemoveStack->at( i ) );
+		drawContainer->remove( projectileRemoveStack->at( i ) );
+		delete projectileRemoveStack->at( i );
+		projectileRemoveStack->at( i ) = nullptr;
+	}
+	projectileRemoveStack->clear();
+}
+
+void World::destroyProjectile( Projectile *body )
+{
+	projectileRemoveStack->push_back( body );
+}
+
 //Box2D function wrappers;
 b2Body* World::createBody(b2BodyDef *def){
 	return physics->CreateBody(def);
@@ -236,13 +259,7 @@ void World::destroyBody(b2Body *body){
 void World::addProjectile( Projectile *projectile )
 {
 	physics->SetContactListener( projectile );
+	
 	updateContainer->add( projectile );
 	drawContainer->add( projectile );
-	projectiles.push_back( projectile );
-}
-
-void World::removeProjectile( Projectile *projectile )
-{
-	updateContainer->remove( projectile );
-	drawContainer->remove( projectile );
 }

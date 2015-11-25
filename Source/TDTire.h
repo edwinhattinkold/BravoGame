@@ -12,7 +12,7 @@ enum {
 	TDC_DOWN = 0x8
 };
 
-class TDTire : public B2Content
+class TDTire : public B2Content, public b2ContactListener
 {
 public:
 	CarTireFUD *ctfud;
@@ -118,5 +118,8 @@ public:
 
 	void update();
 	virtual void accept(DrawVisitor *dv);
+
+	virtual void BeginContact( b2Contact* contact );
+	virtual void EndContact( b2Contact* contact );
 };
 

@@ -25,7 +25,6 @@ enum GameState { GameState_Running, GameState_Paused, GameState_In_MainMenu, Gam
 class World
 {
 private:
-	std::vector<Projectile*> projectiles;
 	TDCar* myCar;
 	Tree* myTree;
 	Sound* sound;
@@ -52,6 +51,7 @@ private:
 	const int32 *positionIterations;
 	b2World *physics;
 	std::vector<b2Body*> *bodyRemoveStack;
+	std::vector<Projectile*> *projectileRemoveStack;
 	//Containers
 	DrawContainer *drawContainer;
 	UpdateContainer *updateContainer;
@@ -70,6 +70,7 @@ private:
 	SDL_Texture *loadTexture(std::string filePath, SDL_Renderer *renderTarget);
 	void createCamera(SDL_Window *window, int levelWidth, int levelHeight);
 	void handleBodyRemoveStack();
+	void handleProjectileRemoveStack();
 
 public:
 	World(SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font);
@@ -83,7 +84,7 @@ public:
 	int transfrom(float);
 	void drawObject(float nwidth, float nheight, float nx, float ny, float nangle);
 	void addProjectile( Projectile* projectile );
-	void removeProjectile( Projectile* projectile );
+	void destroyProjectile( Projectile* projectile );
 	
 };
 

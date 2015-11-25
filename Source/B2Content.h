@@ -15,11 +15,15 @@
 #define RADTODEG 57.295779513082320876f
 #endif
 const int sdlScale = 20;
+enum ObjectTypes { Object_Tire, Object_Car, Object_Projectile, Object_Tree};
+
 class B2Content : public Sprite
 {
 	
 private:
 	int transform(float dgrs);
+protected:
+	ObjectTypes objectType;
 public:
 	b2Body* m_body;
 	float w, h;
@@ -38,5 +42,7 @@ public:
 	float getCenterYSDL();
 	float getSDLWidth();
 	float getSDLHeight();
+
+	ObjectTypes getObjectType();
 };
 

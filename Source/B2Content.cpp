@@ -132,3 +132,8 @@ int B2Content::transform(float dgrs)
 	int newNewAngle = newAngle % 360;
 	return newNewAngle;
 }
+
+ObjectTypes B2Content::getObjectType()
+{
+	return objectType;
+}
