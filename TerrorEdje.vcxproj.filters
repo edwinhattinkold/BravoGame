@@ -205,7 +205,7 @@
       <Filter>Header Files\GraphicObjects</Filter>
     </ClInclude>
     <ClInclude Include="Source\FPS.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Hud</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -306,7 +306,7 @@
       <Filter>Source Files\GraphicObjects</Filter>
     </ClCompile>
     <ClCompile Include="Source\FPS.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Hud</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

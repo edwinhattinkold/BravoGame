@@ -1,9 +1,15 @@
 #pragma once
+#include <SDL_ttf.h>
+#include <string>
 #include "HudObject.h"
 #include "Rect.h"
 #include "FPS.h"
+#include "MenuItem.h"
+#include "Camera.h"
+
+using namespace std;
 class Hud
-	: public IUpdateable
+	: public IDrawable
 {
 private:
 	HudObject *skull;
@@ -17,12 +23,21 @@ private:
 	float maxTerror;
 	float healthbarMax;
 	float terrorbarMax;
+
+	int top;
+	int left;
 	
+	SDL_Renderer *renderTarget;
+	SDL_Window *window;
 	FPS *fpsCounter;
+	TTF_Font* font;
+	MenuItem *fpsDisplay;
+	Camera *camera;
 
 public:
-	Hud( SDL_Renderer *renderTarget, DrawContainer *dc, FPS *fpsCounter, int top = 24, int left = 24 );
+	Hud( SDL_Renderer *renderTarget, DrawContainer *dc, FPS *fpsCounter, SDL_Window *window, Camera *camera,  int top = 24, int left = 24 );
 	~Hud();
-	virtual void update( float delta, const Uint8 *keyState);
+	virtual void accept( DrawVisitor *dv );
+	virtual void draw( SDL_Renderer *renderTarget );
 };
 

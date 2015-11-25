@@ -1,8 +1,11 @@
 #include "FPS.h"
-
+#include <iostream>
 
 FPS::FPS()
-{}
+{
+	fps_frames = 0;
+	fps_lasttime = SDL_GetTicks();
+}
 
 
 FPS::~FPS()

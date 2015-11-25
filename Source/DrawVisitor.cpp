@@ -9,6 +9,7 @@
 #include "B2Content.h"
 #include "Rect.h"
 #include "HudObject.h"
+#include "Hud.h"
 
 DrawVisitor::DrawVisitor( SDL_Renderer *renderTarget, SDL_Rect *cameraRect )
 {
@@ -50,4 +51,9 @@ void DrawVisitor::visit( Rect *rect )
 void DrawVisitor::visit( HudObject *ho)
 {
 	ho->draw( renderTarget);
+}
+
+void DrawVisitor::visit( Hud *hud )
+{
+	hud->draw( renderTarget );
 }

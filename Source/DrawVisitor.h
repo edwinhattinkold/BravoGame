@@ -8,6 +8,7 @@ class Tree;
 class TDTire;
 class Rect;
 class HudObject;
+class Hud;
 
 class DrawVisitor
 {
@@ -24,5 +25,6 @@ public:
 	void visit(Tree *tree);
 	void visit( Rect *rect );
 	void visit( HudObject *ho );
+	void visit( Hud *hud );
 };
 
