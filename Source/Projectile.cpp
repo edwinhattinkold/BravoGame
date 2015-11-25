@@ -15,15 +15,15 @@ Projectile::Projectile(World* world, b2World* physics_world, SDL_Renderer * rend
 Projectile::Projectile( World* world, b2World* physics_world, SDL_Renderer * renderTarget, bool clone )
 	:B2Content( renderTarget, Asset_Bullet )
 {
+	objectType = Object_Projectile;
 	this->world = world;
 	this->physics_world = physics_world;
 	this->renderTarget = renderTarget;
 
 	b2BodyDef bodyDef;
 	bodyDef.position.Set( 2, 2 );
-	//bodyDef.bullet = true;
-	bodyDef.type = b2_dynamicBody;
 	bodyDef.bullet = true;
+	bodyDef.type = b2_dynamicBody;
 
 	m_body = physics_world->CreateBody( &bodyDef );
 	m_body->SetAngularDamping( 3 );
@@ -77,26 +77,4 @@ void Projectile::accept( DrawVisitor *dv )
 void Projectile::accept( UpdateVisitor *uv )
 {
 	uv->visit( this );
-}
-
-void Projectile::BeginContact( b2Contact* contact )
-{	
-	B2Content* bodyUserData = (B2Content*) contact->GetFixtureA()->GetBody()->GetUserData();
-
-	if( bodyUserData )
-	{
-		if( bodyUserData->getObjectType() == Object_Tree )
-		{
-			std::cout << "Kogel raakt een boom! " << endl;
-		
-			world->destroyProjectile( this );
-		}
-	}
-		
-
-}
-
-void Projectile::EndContact( b2Contact* contact )
-{
-	
 }

@@ -36,13 +36,3 @@ void TDTire::accept(DrawVisitor *dv)
 {
 	dv->visit(this);
 }
-
-void TDTire::EndContact( b2Contact* contact )
-{
-
-}
-
-void TDTire::BeginContact( b2Contact* contact )
-{
-
-}

@@ -201,6 +201,9 @@
     <ClInclude Include="Source\Random.h">
       <Filter>Header Files\GraphicObjects</Filter>
     </ClInclude>
+    <ClInclude Include="Source\ContactHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\main.cpp">
@@ -295,6 +298,9 @@
     </ClCompile>
     <ClCompile Include="Source\Assets.cpp">
       <Filter>Source Files\GraphicObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ContactHandler.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

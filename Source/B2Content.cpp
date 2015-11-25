@@ -3,7 +3,7 @@
 
 B2Content::B2Content( SDL_Renderer* renderTarget, Asset asset) :Sprite(renderTarget, asset)
 {
-
+	isOnDeathRow = false;
 }
 
 

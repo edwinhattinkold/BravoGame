@@ -5,6 +5,7 @@
 #include "UpdateContainer.h"
 #include "MainMenu.h"
 #include "PauseMenu.h"
+#include "ContactHandler.h"
 #include "MapDrawer.h"
 #include "TDCar.h"
 #include "Camera.h"
@@ -55,6 +56,7 @@ private:
 	//Containers
 	DrawContainer *drawContainer;
 	UpdateContainer *updateContainer;
+	ContactHandler *contactHandler;
 
 	//other
 	int prevTime;

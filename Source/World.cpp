@@ -44,12 +44,9 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	mapDrawer = new MapDrawer( renderTarget, camera->getCamera(),this );
 	
 	myCar = new TDCar(this, physics, renderTarget, 3, 6);
-	physics->SetContactListener( myCar );
 
 	myTree = new Tree(physics, renderTarget, 6, 10, 20, -15);
 	myTree2 = new Tree( physics, renderTarget, 6, 10, 40, -30 );
-	physics->SetContactListener( myTree );
-	physics->SetContactListener( myTree2 );
 
 	//myTree2 = new Tree(physics, renderTarget, 4, 4, 30, -15);
 
@@ -65,6 +62,9 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	for (int i = 0; i < tires.size(); i++)
 		drawContainer->add(tires[i]);
 	drawContainer->add( myCar );
+
+	contactHandler = new ContactHandler(this);
+	physics->SetContactListener( contactHandler );
 }
 
 
@@ -87,6 +87,7 @@ World::~World()
 	delete this->pauseMenu;							this->pauseMenu = nullptr;
 	delete drawContainer;							this->drawContainer = nullptr;
 	delete updateContainer;							this->updateContainer = nullptr;
+	delete contactHandler;							this->contactHandler = nullptr;
 
 	SDL_DestroyTexture(this->mainMenuBackground);	this->mainMenuBackground = nullptr;
 	SDL_DestroyRenderer(this->renderTarget);		this->renderTarget = nullptr;
@@ -141,8 +142,6 @@ void World::tick()
 		{
 			cout << "test" << endl;
 		}
-		handleProjectileRemoveStack();
-		handleBodyRemoveStack();
 		
 		camera->update( myCar->getOriginX(), myCar->getOriginY() );
 
@@ -151,6 +150,12 @@ void World::tick()
 
 	//update SDL
 	updateSDL();
+
+	if( currentGameState != GameState_Paused )
+	{
+		handleProjectileRemoveStack();
+		handleBodyRemoveStack();
+	}
 }
 
 
@@ -257,9 +262,7 @@ void World::destroyBody(b2Body *body){
 }
 
 void World::addProjectile( Projectile *projectile )
-{
-	physics->SetContactListener( projectile );
-	
+{	
 	updateContainer->add( projectile );
 	drawContainer->add( projectile );
 }

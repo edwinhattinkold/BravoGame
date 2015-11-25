@@ -7,9 +7,9 @@ Weapon::Weapon( World* world, B2Content* host, b2World* physics_world, SDL_Rende
 	this->world = world;
 	ammo = new Projectile( world, physics_world, renderTarget );
 	projectileLoaded = true;
-	fireRate = 1.00f; // <--- Measured in projectiles per second
+	fireRate = 50.00f; // <--- Measured in projectiles per second
 	pastTime = 0.00f;
-	spread = 20.0f;
+	spread = 30.0f;
 }
 
 
@@ -44,8 +44,8 @@ void Weapon::fire()
 	float spreadFloat = 0.05f * randomSpread;
 	direction.x += spreadFloat;
 
-	direction.x *= 10.0;
-	direction.y *= 10.0;
+	direction.x *= 10;
+	direction.y *= 10;
 
 	newProjectile->setB2DPosition( host->m_body->GetWorldPoint( b2Vec2{ 0, 7 } ));
 	newProjectile->applyLinearVelocity( direction );

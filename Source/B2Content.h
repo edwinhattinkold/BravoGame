@@ -3,7 +3,7 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <Box2D/Box2D.h>
-#include<vector>
+#include <vector>
 #include "Sprite.h"
 #include <SDL.h>
 #include "DrawContainer.h"
@@ -25,6 +25,7 @@ private:
 protected:
 	ObjectTypes objectType;
 public:
+	bool isOnDeathRow;
 	b2Body* m_body;
 	float w, h;
 	b2Fixture* fixture;

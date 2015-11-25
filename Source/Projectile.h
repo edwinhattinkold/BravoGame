@@ -2,13 +2,16 @@
 #include "B2Content.h"
 class World;
 
-class Projectile : public B2Content, public b2ContactListener
+class Projectile : public B2Content
 {
 private:
 	World* world;
 	b2World* physics_world;
 	SDL_Renderer* renderTarget;
 	Projectile( World* world, b2World* physics_world, SDL_Renderer * renderTarget, bool clone );
+
+	void BeginContact( b2Contact* contact );
+	void EndContact( b2Contact* contact );
 public:
 	Projectile( World* world, b2World* physics_world, SDL_Renderer * renderTarget );
 	~Projectile();
@@ -17,11 +20,7 @@ public:
 	void applyB2DAngle( float rads );
 	virtual void update( float deltaTime, const Uint8 *keyState);
 
-	virtual void BeginContact( b2Contact* contact );
-	virtual void EndContact( b2Contact* contact );
-
 	Projectile* clone();
-	virtual void accept( UpdateVisitor *dv );
-	virtual void accept( DrawVisitor *dv );
-	
+	void accept( UpdateVisitor *dv );
+	void accept( DrawVisitor *dv );
 };
