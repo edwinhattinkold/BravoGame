@@ -3,6 +3,8 @@
 
 World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font )
 {
+	fpsCounter = new FPS();
+
 	prevTime = 0;
 	currentTime = 0;
 	deltaTime = 0.0f;
@@ -71,11 +73,13 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 			std::cout << "Error 123 4 " << std::endl;
 	}
 	center = new SDL_Point;
+	Hud *h = new Hud( renderTarget, drawContainer, fpsCounter );
 }
 
 
 World::~World()
 {
+	delete this->fpsCounter;						this->fpsCounter = nullptr;
 	delete this->myCar;								this->myCar = nullptr;
 	delete this->myTree;							this->myTree = nullptr;
 	delete this->myTree2;							this->myTree2 = nullptr;
@@ -153,6 +157,8 @@ void World::tick()
 
 	//update SDL
 	updateSDL();
+
+	fpsCounter->loop();
 }
 
 
@@ -239,4 +245,9 @@ b2Body* World::createBody(b2BodyDef *def){
 
 void World::destroyBody(b2Body *body){
 	bodyRemoveStack->push_back(body);
+}
+
+Uint32 World::getFPS()
+{
+	return fpsCounter->fps_current;
 }

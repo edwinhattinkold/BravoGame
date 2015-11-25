@@ -6,6 +6,8 @@ class IDrawable;
 class TDCar;
 class Tree;
 class TDTire;
+class Rect;
+class HudObject;
 
 class DrawVisitor
 {
@@ -20,5 +22,7 @@ public:
 	void visit(TDTire *tire);
 	void visit(TDCar *car);
 	void visit(Tree *tree);
+	void visit( Rect *rect );
+	void visit( HudObject *ho );
 };
 

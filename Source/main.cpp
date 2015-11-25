@@ -58,6 +58,8 @@ public:
 		TTF_Init();
 		SDL_Init( SDL_INIT_VIDEO );
 
+		
+
 		if( !font )
 			printf( "TTF_OpenFont: %s\n", TTF_GetError() ); //I.p.v. printen wellicht voor dit soort dingen exception handling?
 

@@ -13,6 +13,8 @@
 #include "Tree.h"
 #include "Sprite.h"
 #include "Sound.h"
+#include "FPS.h"
+#include "Hud.h"
 
 /************************************************************************/
 /* The World class contains everything a the game needs to render except
@@ -75,6 +77,9 @@ private:
 
 	SDL_Texture *textureCar;
 	SDL_Surface *surfaceCar;
+
+	FPS *fpsCounter;
+
 public:
 	Player *player1;
 	World(SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font);
@@ -87,7 +92,7 @@ public:
 	void destroyBody(b2Body *body);
 	int transfrom(float);
 	void drawObject(float nwidth, float nheight, float nx, float ny, float nangle);
-	
+	Uint32 getFPS();
 };
 
 

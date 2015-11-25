@@ -7,6 +7,8 @@
 #include "TDCar.h"
 #include "Tree.h"
 #include "B2Content.h"
+#include "Rect.h"
+#include "HudObject.h"
 
 DrawVisitor::DrawVisitor( SDL_Renderer *renderTarget, SDL_Rect *cameraRect )
 {
@@ -38,4 +40,14 @@ void DrawVisitor::visit(TDTire *tire){
 
 void DrawVisitor::visit(TDCar *car){
 	car->drawCar(renderTarget, *cameraRect);
+}
+
+void DrawVisitor::visit( Rect *rect )
+{
+	rect->draw( renderTarget );
+}
+
+void DrawVisitor::visit( HudObject *ho)
+{
+	ho->draw( renderTarget);
 }

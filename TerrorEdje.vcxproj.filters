@@ -70,6 +70,12 @@
     <Filter Include="Source Files\Model">
       <UniqueIdentifier>{0b72afb4-ec52-4902-9163-f21402da7492}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Hud">
+      <UniqueIdentifier>{3b1cadd6-5e3a-4123-961f-b349ed75e702}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Hud">
+      <UniqueIdentifier>{040f7e2c-ee64-4960-8917-b17bc6cab42d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Animation.h">
@@ -189,6 +195,18 @@
     <ClInclude Include="Source\PauseMenu.h">
       <Filter>Header Files\Menu</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Rect.h">
+      <Filter>Header Files\GraphicObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Hud.h">
+      <Filter>Header Files\Hud</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\HudObject.h">
+      <Filter>Header Files\GraphicObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FPS.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\main.cpp">
@@ -277,6 +295,18 @@
     </ClCompile>
     <ClCompile Include="Source\PauseMenu.cpp">
       <Filter>Source Files\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rect.cpp">
+      <Filter>Source Files\GraphicObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Hud.cpp">
+      <Filter>Source Files\Hud</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\HudObject.cpp">
+      <Filter>Source Files\GraphicObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FPS.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
