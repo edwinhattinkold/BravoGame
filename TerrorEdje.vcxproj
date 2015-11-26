@@ -26,6 +26,7 @@
     <ClInclude Include="Source\HowToPlay.h" />
     <ClInclude Include="Source\IDrawable.h" />
     <ClInclude Include="Source\IUpdateable.h" />
+    <ClInclude Include="Source\LoadingMenu.h" />
     <ClInclude Include="Source\Location.h" />
     <ClInclude Include="Source\MainMenu.h" />
     <ClInclude Include="Source\MapDrawer.h" />
@@ -68,6 +69,7 @@
     <ClCompile Include="Source\HowToPlay.cpp" />
     <ClCompile Include="Source\IDrawable.cpp" />
     <ClCompile Include="Source\IUpdateable.cpp" />
+    <ClCompile Include="Source\LoadingMenu.cpp" />
     <ClCompile Include="Source\Location.cpp" />
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\MainMenu.cpp" />
