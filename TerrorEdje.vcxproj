@@ -12,9 +12,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Animation.h" />
+    <ClInclude Include="Source\Assets.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\ChunkFactory.h" />
     <ClInclude Include="Source\CarTireFUD.h" />
+    <ClInclude Include="Source\ContactHandler.h" />
     <ClInclude Include="Source\CreditsMenu.h" />
     <ClInclude Include="Source\CustomCursor.h" />
     <ClInclude Include="Source\DrawContainer.h" />
@@ -34,7 +36,6 @@
     <ClInclude Include="Source\OptionsMenu.h" />
     <ClInclude Include="Source\PauseMenu.h" />
     <ClInclude Include="Source\PhysicsWorld.h" />
-    <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\Projectile.h" />
     <ClInclude Include="Source\Random.h" />
     <ClInclude Include="Source\rapidxml.hpp" />
@@ -55,10 +56,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Animation.cpp" />
+    <ClCompile Include="Source\Assets.cpp" />
     <ClCompile Include="Source\B2Content.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\ChunkFactory.cpp" />
     <ClCompile Include="Source\CarTireFUD.cpp" />
+    <ClCompile Include="Source\ContactHandler.cpp" />
     <ClCompile Include="Source\CreditsMenu.cpp" />
     <ClCompile Include="Source\CustomCursor.cpp" />
     <ClCompile Include="Source\DrawContainer.cpp" />
@@ -79,7 +82,6 @@
     <ClCompile Include="Source\OptionsMenu.cpp" />
     <ClCompile Include="Source\PauseMenu.cpp" />
     <ClCompile Include="Source\PhysicsWorld.cpp" />
-    <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\Projectile.cpp" />
     <ClCompile Include="Source\Random.cpp" />
     <ClCompile Include="Source\Settings.cpp" />

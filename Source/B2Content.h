@@ -3,7 +3,7 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <Box2D/Box2D.h>
-#include<vector>
+#include <vector>
 #include "Sprite.h"
 #include <SDL.h>
 #include "DrawContainer.h"
@@ -15,16 +15,21 @@
 #define RADTODEG 57.295779513082320876f
 #endif
 const int sdlScale = 20;
+enum ObjectTypes { Object_Tire, Object_Car, Object_Projectile, Object_Tree};
+
 class B2Content : public Sprite
 {
 	
 private:
 	int transform(float dgrs);
+protected:
+	ObjectTypes objectType;
 public:
+	bool isOnDeathRow;
 	b2Body* m_body;
 	float w, h;
 	b2Fixture* fixture;
-	B2Content( SDL_Renderer* renderTarget, std::string filePath);
+	B2Content( SDL_Renderer* renderTarget, Asset asset);
 	~B2Content();
 	//custom
 	b2Vec2 getB2DPosition();
@@ -38,5 +43,7 @@ public:
 	float getCenterYSDL();
 	float getSDLWidth();
 	float getSDLHeight();
+
+	ObjectTypes getObjectType();
 };
 

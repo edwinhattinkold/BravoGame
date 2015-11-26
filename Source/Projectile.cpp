@@ -1,9 +1,11 @@
 #include "Projectile.h"
 #include "World.h"
+#include <typeinfo>
 
 Projectile::Projectile(World* world, b2World* physics_world, SDL_Renderer * renderTarget )
-	: B2Content( renderTarget, "Images/Objects/Shooting/bullet.png" )
+	: B2Content( renderTarget, Asset_Bullet )
 {
+	objectType = Object_Projectile;
 	this->world = world;
 	this->physics_world = physics_world;
 	this->renderTarget = renderTarget;
@@ -11,32 +13,31 @@ Projectile::Projectile(World* world, b2World* physics_world, SDL_Renderer * rend
 }
 
 Projectile::Projectile( World* world, b2World* physics_world, SDL_Renderer * renderTarget, bool clone )
-	:B2Content( renderTarget, "Images/Objects/Shooting/bullet.png" )
+	:B2Content( renderTarget, Asset_Bullet )
 {
+	objectType = Object_Projectile;
 	this->world = world;
 	this->physics_world = physics_world;
 	this->renderTarget = renderTarget;
 
 	b2BodyDef bodyDef;
 	bodyDef.position.Set( 2, 2 );
-	//bodyDef.bullet = true;
-	bodyDef.type = b2_dynamicBody;
 	bodyDef.bullet = true;
+	bodyDef.type = b2_dynamicBody;
 
 	m_body = physics_world->CreateBody( &bodyDef );
 	m_body->SetAngularDamping( 3 );
 
 	b2PolygonShape box;
-	box.SetAsBox( 0.25f, 0.25f );
+	box.SetAsBox( 0.175f, 0.35f );
 	
-	fixture = m_body->CreateFixture( &box, 0.1f ); //shape, density
+	fixture = m_body->CreateFixture( &box, 1.0f ); //shape, density
 
-	w = 0.5f;
-	h = 1.0f;
+	w = 0.35f;
+	h = 0.7f;
 
 	m_body->SetUserData( this );
 
-	m_body->SetLinearVelocity( b2Vec2( 0, 50 ) );
 	updateSDLPosition( getCenterXSDL(), getCenterYSDL(), getSDLWidth(), getSDLHeight(), getAngleSDL() );
 	updateOrigin();
 }
@@ -58,6 +59,7 @@ void Projectile::applyB2DAngle( float rads )
 
 void Projectile::update(float deltaTime, const Uint8 *keyState)
 {
+	
 	updateSDLPosition( getCenterXSDL(), getCenterYSDL(), getSDLWidth(), getSDLHeight(), getAngleSDL() );
 }
 
@@ -75,14 +77,4 @@ void Projectile::accept( DrawVisitor *dv )
 void Projectile::accept( UpdateVisitor *uv )
 {
 	uv->visit( this );
-}
-
-void Projectile::BeginContact( b2Contact* contact )
-{	
-
-}
-
-void Projectile::EndContact( b2Contact* contact )
-{
-	
 }

@@ -7,6 +7,7 @@
 #include "IUpdateable.h"
 #include "Animation.h"
 #include "DrawContainer.h"
+#include "Assets.h"
 
 class Sprite : public IDrawable, public IUpdateable
 {
@@ -22,10 +23,10 @@ public:
 	Sprite(int xPosition, int yPosition);
 
 	/* Car constructor */
-	Sprite(SDL_Renderer* renderTarget, std::string filePath);
+	Sprite(SDL_Renderer* renderTarget, Asset asset);
 
 	/* Default constructor */
-	Sprite(SDL_Renderer *renderTarget, std::string filePath, int xPosition, int yPosition, int framesX, int framesY, float animationSpeed);
+	Sprite(SDL_Renderer *renderTarget, Asset asset, int xPosition, int yPosition, int framesX, int framesY, float animationSpeed);
 
 	~Sprite();
 
@@ -50,7 +51,7 @@ public:
 	int getOriginX();
 	int getOriginY();
 	void updateOrigin();
-	void subscribe();
+	void setAsset(Asset asset);
 };
 
 #endif

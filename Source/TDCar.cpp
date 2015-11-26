@@ -11,7 +11,9 @@ TDCar::~TDCar() {
 }
 
 TDCar::TDCar(World* world, b2World* physics_world, SDL_Renderer* renderTarget, int widthM, int heightM)
-	:B2Content( renderTarget, "Images/Car/topview.png" ){
+	:B2Content( renderTarget, Asset_Car ){
+	
+	objectType = Object_Car;
 	keyMap.insert( std::pair<Car_Controls, SDL_Scancode>{ Car_Throttle,		SDL_SCANCODE_W } );
 	keyMap.insert( std::pair<Car_Controls, SDL_Scancode>{ Car_Brakes,		SDL_SCANCODE_S } );
 	keyMap.insert( std::pair<Car_Controls, SDL_Scancode>{ Car_Steer_Left,	SDL_SCANCODE_A } );
@@ -56,7 +58,7 @@ TDCar::TDCar(World* world, b2World* physics_world, SDL_Renderer* renderTarget, i
 	jointDef.localAnchorB.SetZero();//center of tire
 
 	// standaard 250 aanpassen zodat de wagen niet mega snel gaat
-	float maxForwardSpeed = 70;
+	float maxForwardSpeed = 50;
 	float maxBackwardSpeed = -40;
 	float backTireMaxDriveForce = 300;
 	float frontTireMaxDriveForce = 500;
@@ -209,17 +211,6 @@ void TDCar::update( float deltaTime, const Uint8 *keyState )
 	printFixtures();
 	for (int c = 0; c < m_tires.size(); c++)
 		m_tires[c]->update();
-}
-
-void TDCar::BeginContact( b2Contact* contact )
-{
-	std::cout << "Begin contact car" << std::endl;
-
-}
-
-void TDCar::EndContact( b2Contact* contact )
-{
-	std::cout << "End contact car" << std::endl;
 }
 
 void TDCar::accept(DrawVisitor *dv)

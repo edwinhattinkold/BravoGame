@@ -2,7 +2,6 @@
 #include "SDL_image.h"
 #include "SDL_ttf.h"
 #include <iostream>
-#include "Player.h"
 #include "Camera.h"
 #include "MainMenu.h"
 #include "wtypes.h"
@@ -13,9 +12,7 @@
 #include "Settings.h"
 #include "vld.h"
 #include "PhysicsWorld.h"
-
-
-//SVEN
+#include "Assets.h"
 
 SDL_Texture *LoadTexture(std::string filePath, SDL_Renderer *renderTarget){
 	SDL_Texture *texture = nullptr;
@@ -106,6 +103,7 @@ public:
 		Sound_Quit();
 		CustomCursor_Quit();
 		Settings_Quit();
+		Assets_Quit();
 	}
 };
 

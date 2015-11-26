@@ -1,5 +1,6 @@
 #include "World.h"
 #include "CustomCursor.h"
+#include "Assets.h"
 
 World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font )
 {
@@ -13,6 +14,8 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 
 	//create add and remove stacks
 	bodyRemoveStack = new std::vector<b2Body*>();
+	projectileRemoveStack = new std::vector<Projectile*>();
+	activeProjectiles = new std::vector<Projectile*>();
 
 	//create physics world (box2d)
 	gravity = new b2Vec2( 0.0f, 0.0f );
@@ -21,6 +24,7 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	//create graphics world (SDL)
 	renderTarget = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
 	CustomCursor::getInstance()->setRenderTarget( renderTarget );
+	Assets::getInstance()->setRenderTarget( renderTarget );
 	sound = Sound::getInstance();
 
 	//TODO: Level in separate class, camera too maybe?
@@ -59,33 +63,40 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	for (int i = 0; i < tires.size(); i++)
 		drawContainer->add(tires[i]);
 	drawContainer->add( myCar );
+
+	contactHandler = new ContactHandler(this);
+	physics->SetContactListener( contactHandler );
 }
 
 
 World::~World()
 {
-	for( size_t c = 0; c < projectiles.size(); c++ )
+	for( size_t c = 0; c < activeProjectiles->size(); c++ )
 	{
-		delete projectiles[c]; projectiles[c] = nullptr;
+		delete activeProjectiles->at( c );
 	}
-	delete this->myCar;								this->myCar = nullptr;
-	delete this->myTree;							this->myTree = nullptr;
-	delete this->myTree2;							this->myTree2 = nullptr;
-	delete this->mapDrawer;							this->mapDrawer = nullptr;
+	delete activeProjectiles;						activeProjectiles = nullptr;
+	delete myCar;									myCar = nullptr;
+	delete myTree;									myTree = nullptr;
+	delete myTree2;									myTree2 = nullptr;
+	delete mapDrawer;								mapDrawer = nullptr;
 	handleBodyRemoveStack();
+	handleProjectileRemoveStack();
 	delete bodyRemoveStack;							bodyRemoveStack = nullptr;
-	delete this->physics;							this->physics = nullptr;
-	delete this->gravity;							this->gravity = nullptr;
-	delete this->velocityIterations;				this->velocityIterations = nullptr;
-	delete this->positionIterations;				this->positionIterations = nullptr;
-	delete this->camera;							this->camera = nullptr;
-	delete this->menu;								this->menu = nullptr;
-	delete this->pauseMenu;							this->pauseMenu = nullptr;
-	delete drawContainer;							this->drawContainer = nullptr;
-	delete updateContainer;							this->updateContainer = nullptr;
+	delete projectileRemoveStack;					projectileRemoveStack = nullptr;
+	delete physics;									physics = nullptr;
+	delete gravity;									gravity = nullptr;
+	delete velocityIterations;						velocityIterations = nullptr;
+	delete positionIterations;						positionIterations = nullptr;
+	delete camera;									camera = nullptr;
+	delete menu;									menu = nullptr;
+	delete pauseMenu;								pauseMenu = nullptr;
+	delete drawContainer;							drawContainer = nullptr;
+	delete updateContainer;							updateContainer = nullptr;
+	delete contactHandler;							contactHandler = nullptr;
 
-	SDL_DestroyTexture(this->mainMenuBackground);	this->mainMenuBackground = nullptr;
-	SDL_DestroyRenderer(this->renderTarget);		this->renderTarget = nullptr;
+	SDL_DestroyTexture(mainMenuBackground);			mainMenuBackground = nullptr;
+	SDL_DestroyRenderer(renderTarget);				renderTarget = nullptr;
 }
 
 //Update the world
@@ -130,19 +141,18 @@ void World::tick()
 	if( currentGameState != GameState_Paused )
 	{
 		updateContainer->update( deltaTime, keyState );
-
-		///SVEN
-		handleBodyRemoveStack();
-		//update physics
-		physics->Step( deltaTime, *velocityIterations, *positionIterations );
-
+		physics->Step( deltaTime, *velocityIterations, *positionIterations );//update physics
 		camera->update( myCar->getOriginX(), myCar->getOriginY() );
-
-		
 	}
 
 	//update SDL
 	updateSDL();
+
+	if( currentGameState != GameState_Paused )
+	{
+		handleProjectileRemoveStack();
+		handleBodyRemoveStack();
+	}
 }
 
 
@@ -222,6 +232,24 @@ void World::handleBodyRemoveStack(){
 	bodyRemoveStack->clear();
 }
 
+void World::handleProjectileRemoveStack()
+{
+	for( size_t i = 0; i < projectileRemoveStack->size(); i++ )
+	{
+		updateContainer->remove( projectileRemoveStack->at( i ) );
+		drawContainer->remove( projectileRemoveStack->at( i ) );
+		delete projectileRemoveStack->at( i );
+		projectileRemoveStack->at( i ) = nullptr;
+	}
+	projectileRemoveStack->clear();
+}
+
+void World::destroyProjectile( Projectile *projectile )
+{
+	activeProjectiles->erase( std::remove( activeProjectiles->begin(), activeProjectiles->end(), projectile ), activeProjectiles->end() );
+	projectileRemoveStack->push_back( projectile );
+}
+
 //Box2D function wrappers;
 b2Body* World::createBody(b2BodyDef *def){
 	return physics->CreateBody(def);
@@ -232,15 +260,8 @@ void World::destroyBody(b2Body *body){
 }
 
 void World::addProjectile( Projectile *projectile )
-{
-	physics->SetContactListener( projectile );
+{	
 	updateContainer->add( projectile );
 	drawContainer->add( projectile );
-	projectiles.push_back( projectile );
-}
-
-void World::removeProjectile( Projectile *projectile )
-{
-	updateContainer->remove( projectile );
-	drawContainer->remove( projectile );
+	activeProjectiles->push_back( projectile );
 }

@@ -5,7 +5,7 @@
 #include "UpdateContainer.h"
 #include "MainMenu.h"
 #include "PauseMenu.h"
-#include "Player.h"
+#include "ContactHandler.h"
 #include "MapDrawer.h"
 #include "TDCar.h"
 #include "Camera.h"
@@ -26,7 +26,6 @@ enum GameState { GameState_Running, GameState_Paused, GameState_In_MainMenu, Gam
 class World
 {
 private:
-	std::vector<Projectile*> projectiles;
 	TDCar* myCar;
 	Tree* myTree;
 	Sound* sound;
@@ -53,9 +52,12 @@ private:
 	const int32 *positionIterations;
 	b2World *physics;
 	std::vector<b2Body*> *bodyRemoveStack;
+	std::vector<Projectile*> *projectileRemoveStack;
+	std::vector<Projectile*> *activeProjectiles;
 	//Containers
 	DrawContainer *drawContainer;
 	UpdateContainer *updateContainer;
+	ContactHandler *contactHandler;
 
 	//other
 	int prevTime;
@@ -71,9 +73,9 @@ private:
 	SDL_Texture *loadTexture(std::string filePath, SDL_Renderer *renderTarget);
 	void createCamera(SDL_Window *window, int levelWidth, int levelHeight);
 	void handleBodyRemoveStack();
+	void handleProjectileRemoveStack();
 
 public:
-	Player *player1;
 	World(SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font);
 	~World();
 	void run();
@@ -85,7 +87,7 @@ public:
 	int transfrom(float);
 	void drawObject(float nwidth, float nheight, float nx, float ny, float nangle);
 	void addProjectile( Projectile* projectile );
-	void removeProjectile( Projectile* projectile );
+	void destroyProjectile( Projectile* projectile );
 	
 };
 
