@@ -86,7 +86,7 @@ public:
 	void drawObject(float nwidth, float nheight, float nx, float ny, float nangle);
 	void addProjectile( Projectile* projectile );
 	void removeProjectile( Projectile* projectile );
-	
+	TDCar* getCar();
 };
 
 

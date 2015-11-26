@@ -32,7 +32,7 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 
 	//TODO: main menu in separate class, drawable maybe?
 	mainMenuBackground = loadTexture( "Images/Mainmenu/background.png", renderTarget );
-	menu = new MainMenu( renderTarget, window, mainMenuBackground, camera, font );
+	menu = new MainMenu( renderTarget, window, mainMenuBackground, camera, font, this );
 
 	//Paused screen
 	pauseMenu = new PauseMenu(this, renderTarget, camera);
@@ -61,7 +61,6 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	drawContainer->add( myCar );
 }
 
-
 World::~World()
 {
 	for( size_t c = 0; c < projectiles.size(); c++ )
@@ -86,6 +85,11 @@ World::~World()
 
 	SDL_DestroyTexture(this->mainMenuBackground);	this->mainMenuBackground = nullptr;
 	SDL_DestroyRenderer(this->renderTarget);		this->renderTarget = nullptr;
+}
+
+TDCar* World::getCar()
+{
+	return myCar;
 }
 
 //Update the world
@@ -144,7 +148,6 @@ void World::tick()
 	//update SDL
 	updateSDL();
 }
-
 
 void World::run()
 {

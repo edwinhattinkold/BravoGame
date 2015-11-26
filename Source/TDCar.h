@@ -17,8 +17,12 @@
 #include "UpdateContainer.h"
 #include "Sound.h"
 #include "Weapon.h"
+#include <iostream>
 
 class World;
+
+std::ostream& operator<<(std::ostream& os, const TDCar& obj);
+std::istream& operator>>(std::istream& is, TDCar& obj);
 
 class TDCar : public B2Content, public b2ContactListener
 {
@@ -51,5 +55,10 @@ public:
 	
 	std::vector<TDTire*> getTires();
 	void shoot();
+
+	void write_object( std::ostream& os ) const;
+	void read_object( std::istream& is );
 };
+
+
 

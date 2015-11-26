@@ -1,6 +1,33 @@
 #include "TDCar.h"
 #include "World.h";
 
+ostream& operator<<(ostream& os, const TDCar& obj)
+{
+	obj.write_object( os );
+	return os;
+}
+
+istream& operator>>(istream& is, TDCar& obj)
+{
+	obj.read_object( is );
+	return is;
+}
+
+void TDCar::write_object( ostream& os ) const
+{
+	os << m_body->GetPosition().x << ' ' << m_body->GetPosition().y << ' ' << m_body->GetAngle() << '\n';
+}
+
+void TDCar::read_object( istream& is )
+{
+	float x;
+	float y;
+	float angle;
+	is >> x >> y >> angle;
+	m_body->SetTransform( b2Vec2( x, y ), angle );
+}
+
+
 TDCar::~TDCar() {
 	m_body->GetWorld()->DestroyJoint(flJoint);	flJoint = nullptr;
 	m_body->GetWorld()->DestroyJoint(frJoint);	frJoint = nullptr;
