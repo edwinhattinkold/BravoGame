@@ -16,5 +16,5 @@ void SearchingTurretState::checkState(){
 }
 
 void SearchingTurretState::update(float deltaTime){
-	turret->turretAngle = (turret->turretAngle * RADTODEG + 1) * DEGTORAD;
+	turret->turretAngle--;
 }

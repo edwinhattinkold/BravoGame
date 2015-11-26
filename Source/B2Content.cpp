@@ -22,6 +22,11 @@ b2Vec2 B2Content::getSDLPosition(){
 	return b2Vec2(x, y);
 }
 
+void B2Content::setB2DAngle(float angle){
+	angle = (360 - angle) * DEGTORAD;
+	m_body->SetTransform(m_body->GetWorldCenter(), angle);
+}
+
 float B2Content::getAngleSDL(){
 	
 	return transform(m_body->GetAngle() * RADTODEG);
