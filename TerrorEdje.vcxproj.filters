@@ -70,6 +70,12 @@
     <Filter Include="Source Files\Model">
       <UniqueIdentifier>{0b72afb4-ec52-4902-9163-f21402da7492}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Model\Shooting">
+      <UniqueIdentifier>{99ff1eac-17e2-4ec4-84ad-ff23f21baf15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Model\Shooting">
+      <UniqueIdentifier>{77662d4a-30bb-4e4d-b85d-8042a6e7672f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Animation.h">
@@ -174,9 +180,6 @@
     <ClInclude Include="Source\TDTire.h">
       <Filter>Header Files\Model</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Car.h">
-      <Filter>Header Files\Model</Filter>
-    </ClInclude>
     <ClInclude Include="Source\B2Content.h">
       <Filter>Header Files\Model</Filter>
     </ClInclude>
@@ -191,6 +194,15 @@
     </ClInclude>
     <ClInclude Include="Source\LoadingMenu.h">
       <Filter>Header Files\Menu</Filter>
+	</ClInclude>
+    <ClInclude Include="Source\Projectile.h">
+      <Filter>Header Files\Model\Shooting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Weapon.h">
+      <Filter>Header Files\Model\Shooting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Random.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -245,9 +257,6 @@
     <ClCompile Include="Source\ChunkFactory.cpp">
       <Filter>Source Files\Factories</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Car.cpp">
-      <Filter>Source Files\Model</Filter>
-    </ClCompile>
     <ClCompile Include="Source\CarTireFUD.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
@@ -283,6 +292,15 @@
     </ClCompile>
     <ClCompile Include="Source\LoadingMenu.cpp">
       <Filter>Source Files\Menu</Filter>
+	</ClCompile>
+    <ClCompile Include="Source\Projectile.cpp">
+      <Filter>Source Files\Model\Shooting</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Weapon.cpp">
+      <Filter>Source Files\Model\Shooting</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Random.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

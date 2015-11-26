@@ -1,9 +1,9 @@
 #include "IUpdateable.h"
 #include "UpdateVisitor.h"
 
-void IUpdateable::accept( UpdateVisitor *uv, float deltaTime, const Uint8 *keyState )
+void IUpdateable::accept( UpdateVisitor *uv )
 {
-	uv->visit( this, deltaTime, keyState );
+	uv->visit( this );
 }
 
 void IUpdateable::update( float deltaTime, const Uint8 *keyState )

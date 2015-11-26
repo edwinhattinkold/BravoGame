@@ -28,7 +28,7 @@ public:
 	MapDrawer(SDL_Renderer *renderTarget,SDL_Rect *cameraRect, World *world);
 	~MapDrawer();
 	virtual void draw(SDL_Renderer *renderTarget, SDL_Rect cameraRect);
-	virtual void accept( UpdateVisitor *uv, float deltaTime, const Uint8 *keyState );
+	virtual void accept( UpdateVisitor *uv );
 	virtual void update( float delta, const Uint8 *keyState );
 };
 

@@ -6,7 +6,7 @@
 #endif
 
 Tree::Tree(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM, int posX, int posY)
-	:B2Content(world, renderTarget, "Images/Objects/Tree.png"){
+	:B2Content(renderTarget, "Images/Objects/Tree.png"){
 	w = widthM;
 	h = heightM;
 	//create car body
