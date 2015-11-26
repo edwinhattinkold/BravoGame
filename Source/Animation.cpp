@@ -1,19 +1,23 @@
 #include "Animation.h"
 #include <iostream>
 
-Animation::Animation( SDL_Renderer* renderTarget, std::string filePath, int framesX, int framesY, int startFrameX, int startFrameY, float animationSpeed )
+Animation::Animation( SDL_Renderer* renderTarget, Asset asset, int framesX, int framesY, int startFrameX, int startFrameY, float animationSpeed )
 {
-	SDL_Surface *surface = IMG_Load( filePath.c_str() );
-	if( surface == NULL )
-		std::cout << "Error" << std::endl;
-	else
-	{
-		texture = SDL_CreateTextureFromSurface( renderTarget, surface );
-		if( texture == NULL )
-			std::cout << "Error" << std::endl;
-	}
-	SDL_FreeSurface( surface );
+	texture = Assets::getInstance()->getAsset( asset );
+	this->animationSpeed = animationSpeed;
+	this->startFrameX = startFrameX;
+	this->startFrameY = startFrameY;
+	init(framesX, framesY);
+}
 
+
+Animation::~Animation()
+{
+
+}
+
+void Animation::init(int framesX, int framesY)
+{
 	SDL_QueryTexture( texture, NULL, NULL, &cropRect.w, &cropRect.h );
 
 	textureWidth = cropRect.w;
@@ -30,15 +34,6 @@ Animation::Animation( SDL_Renderer* renderTarget, std::string filePath, int fram
 	cropRect.y = frameHeight * startFrameY;
 
 	frameCounter = 0.0f;
-	this->animationSpeed = animationSpeed;
-	this->startFrameX = startFrameX;
-	this->startFrameY = startFrameY;
-}
-
-
-Animation::~Animation()
-{
-	SDL_DestroyTexture( texture );
 }
 
 void Animation::update( float deltaTime )
@@ -57,35 +52,6 @@ void Animation::update( float deltaTime )
 				cropRect.y = 0;
 		}
 	}
-}
-
-int Animation::transfrom(float dgrs)
-{
-
-	int add360 = dgrs + 360;
-	int newAngle = 0;
-	int gradenBox2d = add360 % 360;
-	if (gradenBox2d < 90)
-	{
-		int temp = 90 - gradenBox2d;
-		newAngle = 90 + temp;
-	}
-	if (gradenBox2d < 180)
-	{
-		int temp = gradenBox2d - 90;
-		newAngle = 90 - temp;
-	}
-	if (gradenBox2d < 270)
-	{
-		int temp = 270 - gradenBox2d;
-		newAngle = 270 + temp;
-	}
-	else{
-		int temp = gradenBox2d - 270;
-		newAngle = 270 - temp;
-	}
-	int newNewAngle = newAngle % 360;
-	return newNewAngle;
 }
 
 void Animation::draw( SDL_Renderer* renderTarget, SDL_Rect drawingRect )
@@ -136,4 +102,10 @@ void Animation::setOriginX(int newOriginX){
 
 void Animation::setOriginY(int newOriginY){
 	originY = newOriginY;
+}
+
+void Animation::setAsset( Asset asset )
+{
+	this->texture = Assets::getInstance()->getAsset( asset );
+	init( 1, 1 );
 }

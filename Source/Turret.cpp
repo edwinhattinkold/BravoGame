@@ -1,5 +1,5 @@
 #include "Turret.h"
-Turret::Turret(b2World* world, SDL_Renderer* renderTarget,int xPos, int yPos, TDCar* c) :B2Content(world, renderTarget, "Images/Car/car2.png") {
+Turret::Turret(b2World* world, SDL_Renderer* renderTarget,int xPos, int yPos, TDCar* c, World* gameWorld) :B2Content(renderTarget, Asset_Turret) {
 	w = 6;
 	turretAngle = 0;
 	range = 400;
@@ -7,6 +7,7 @@ Turret::Turret(b2World* world, SDL_Renderer* renderTarget,int xPos, int yPos, TD
 	car = c;
 	angle = 0;
 	state = new SearchingTurretState(this);
+	weapon = new Weapon(gameWorld, this, world, renderTarget);
 	//create car body
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_staticBody;
@@ -30,6 +31,7 @@ Turret::Turret(b2World* world, SDL_Renderer* renderTarget,int xPos, int yPos, TD
 
 Turret::~Turret(){
 	delete state;			state = nullptr;
+	delete weapon;			weapon = nullptr;
 }
 b2Body* Turret::getBody()
 {
@@ -41,9 +43,9 @@ void Turret::accept(DrawVisitor *dv)
 	dv->visit(this);
 }
 
-void Turret::accept(UpdateVisitor *uv, float deltaTime, const Uint8 *keyState)
+void Turret::accept(UpdateVisitor *uv)
 {
-	uv->visit(this, deltaTime, keyState);
+	uv->visit(this);
 }
 
 TDCar* Turret::getCar(){
@@ -61,4 +63,8 @@ void Turret::setState(TurretState* state){
 
 TurretState* Turret::getState(){
 	return state;
+}
+
+Weapon* Turret::getWeapon(){
+	return weapon;
 }

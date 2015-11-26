@@ -5,13 +5,14 @@
 #include "UpdateContainer.h"
 #include "MainMenu.h"
 #include "PauseMenu.h"
-#include "Player.h"
+#include "ContactHandler.h"
 #include "MapDrawer.h"
 #include "TDCar.h"
 #include "Camera.h"
 #include <Windows.h>
 #include "Tree.h"
 #include "Sprite.h"
+#include "Projectile.h"
 #include "Sound.h"
 #include "Turret.h"
 
@@ -53,9 +54,12 @@ private:
 	const int32 *positionIterations;
 	b2World *physics;
 	std::vector<b2Body*> *bodyRemoveStack;
+	std::vector<Projectile*> *projectileRemoveStack;
+	std::vector<Projectile*> *activeProjectiles;
 	//Containers
 	DrawContainer *drawContainer;
 	UpdateContainer *updateContainer;
+	ContactHandler *contactHandler;
 
 	//other
 	int prevTime;
@@ -71,14 +75,9 @@ private:
 	SDL_Texture *loadTexture(std::string filePath, SDL_Renderer *renderTarget);
 	void createCamera(SDL_Window *window, int levelWidth, int levelHeight);
 	void handleBodyRemoveStack();
+	void handleProjectileRemoveStack();
 
-	SDL_Point * center;
-	//CAR
-
-	SDL_Texture *textureCar;
-	SDL_Surface *surfaceCar;
 public:
-	Player *player1;
 	World(SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font);
 	~World();
 	void run();
@@ -89,6 +88,8 @@ public:
 	void destroyBody(b2Body *body);
 	int transfrom(float);
 	void drawObject(float nwidth, float nheight, float nx, float ny, float nangle);
+	void addProjectile( Projectile* projectile );
+	void destroyProjectile( Projectile* projectile );
 	
 };
 

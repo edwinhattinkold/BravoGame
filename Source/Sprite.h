@@ -8,6 +8,7 @@
 #include "Animation.h"
 #include "DrawContainer.h"
 #include "UpdateContainer.h"
+#include "Assets.h"
 
 class Sprite : public IDrawable, public IUpdateable
 {
@@ -23,10 +24,10 @@ public:
 	Sprite(int xPosition, int yPosition);
 
 	/* Car constructor */
-	Sprite(SDL_Renderer* renderTarget, std::string filePath);
+	Sprite(SDL_Renderer* renderTarget, Asset asset);
 
 	/* Default constructor */
-	Sprite(SDL_Renderer *renderTarget, std::string filePath, int xPosition, int yPosition, int framesX, int framesY, float animationSpeed);
+	Sprite(SDL_Renderer *renderTarget, Asset asset, int xPosition, int yPosition, int framesX, int framesY, float animationSpeed);
 
 	~Sprite();
 
@@ -37,6 +38,7 @@ public:
 	virtual void drawWithAngle(SDL_Renderer *renderTarget, SDL_Rect cameraRect);
 	virtual void drawCar(SDL_Renderer *renderTarget, SDL_Rect cameraRect);
 	virtual void drawTire(SDL_Renderer *renderTarget, SDL_Rect cameraRect);
+	virtual void drawProjectile( SDL_Renderer *renderTarget, SDL_Rect cameraRect );
 	bool intersectsWith(Sprite &p);
 
 	SDL_Rect positionRect;
@@ -51,7 +53,7 @@ public:
 	int getOriginX();
 	int getOriginY();
 	void updateOrigin();
-	void subscribe();
+	void setAsset(Asset asset);
 };
 
 #endif

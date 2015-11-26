@@ -12,8 +12,8 @@ Sprite::Sprite( int xPosition, int yPosition )
 	positionRect.y = yPosition;
 }
 
-Sprite::Sprite(SDL_Renderer* renderTarget, std::string filePath){
-	Animation* default_animation = new Animation(renderTarget, filePath, 1, 1, 0, 0, 0.50f);
+Sprite::Sprite(SDL_Renderer* renderTarget, Asset asset){
+	Animation* default_animation = new Animation(renderTarget, asset, 1, 1, 0, 0, 0.50f);
 
 	animations = new std::vector<Animation*>();
 	animations->push_back(default_animation);
@@ -24,9 +24,9 @@ Sprite::Sprite(SDL_Renderer* renderTarget, std::string filePath){
 	positionRect.h = animations->at(currentAnimation)->getFrameHeight();
 }
 
-Sprite::Sprite( SDL_Renderer *renderTarget, std::string filePath, int xPosition, int yPosition, int framesX, int framesY, float animationSpeed)
+Sprite::Sprite( SDL_Renderer *renderTarget, Asset asset, int xPosition, int yPosition, int framesX, int framesY, float animationSpeed)
 {
-	Animation* default_animation = new Animation( renderTarget, filePath, framesX, framesY, 0, 0, animationSpeed );
+	Animation* default_animation = new Animation( renderTarget, asset, framesX, framesY, 0, 0, animationSpeed );
 
 	animations = new std::vector<Animation*>();
 	animations->push_back( default_animation );
@@ -87,6 +87,12 @@ void Sprite::drawTire(SDL_Renderer *renderTarget, SDL_Rect cameraRect){
 	animations->at(currentAnimation)->drawCar(renderTarget, drawingRect, angle);
 }
 
+void Sprite::drawProjectile( SDL_Renderer* renderTarget, SDL_Rect cameraRect )
+{
+	SDL_Rect drawingRect = { positionRect.x - cameraRect.x, positionRect.y - cameraRect.y, positionRect.w, positionRect.h };
+	animations->at( currentAnimation )->drawCar( renderTarget, drawingRect, angle );
+}
+
 int Sprite::getPositionX()
 {
 	return positionRect.x + this->animations->at(currentAnimation)->getOriginX();
@@ -111,12 +117,10 @@ int Sprite::getOriginY(){
 	return animations->at(currentAnimation)->getOriginY();
 }
 
-void Sprite::subscribe()
+void Sprite::setAsset( Asset asset )
 {
-	//TODO: sprite subscribes itself.
-	throw new std::logic_error( "not yet implemented" );
+	this->animations->at(currentAnimation)->setAsset( asset );
 }
-
 
 void Sprite::updateSDLPosition(float x, float y, float w, float h, float a){
 	positionRect.x = x;

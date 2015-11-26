@@ -7,6 +7,7 @@
 #include "CustomCursor.h"
 #include "MenuItem.h"
 #include "Sprite.h"
+#include "Assets.h"
 
 class HowToPlay
 {

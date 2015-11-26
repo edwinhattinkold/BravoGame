@@ -10,17 +10,19 @@ private:
 	int currentTargetX;
 	int currentTargetY;
 	int range;
+	Weapon* weapon;
 	TDCar* car;
 	TurretState* state;
 public:
 	float turretAngle;
-	Turret(b2World* world, SDL_Renderer* renderTarget, int xPos, int yPos, TDCar* c);
+	Turret(b2World* world, SDL_Renderer* renderTarget, int xPos, int yPos, TDCar* c, World* gameWorld);
 	~Turret();
 	void accept(DrawVisitor* dv);
-	void accept(UpdateVisitor *uv, float deltaTime, const Uint8 *keyState);
+	void accept(UpdateVisitor *uv);
 	b2Body* getBody();
 	TDCar* getCar();
 	int getRange();
 	void setState(TurretState* state);
 	TurretState* getState();
+	Weapon* getWeapon();
 };

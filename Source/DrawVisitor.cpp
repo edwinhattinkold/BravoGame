@@ -15,9 +15,10 @@ DrawVisitor::DrawVisitor( SDL_Renderer *renderTarget, SDL_Rect *cameraRect )
 	this->cameraRect = cameraRect;
 }
 
-
 DrawVisitor::~DrawVisitor()
-{}
+{
+
+}
 
 void DrawVisitor::visit(IDrawable *db)
 {
@@ -43,4 +44,9 @@ void DrawVisitor::visit(TDTire *tire){
 
 void DrawVisitor::visit(TDCar *car){
 	car->drawCar(renderTarget, *cameraRect);
+}
+
+void DrawVisitor::visit( Projectile *projectile )
+{
+	projectile->drawProjectile( renderTarget, *cameraRect );
 }
