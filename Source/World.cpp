@@ -122,7 +122,7 @@ void World::tick()
 				{
 					currentGameState == GameState_Running ? currentGameState = GameState_Paused : currentGameState = GameState_Running;
 					pauseMenu->center();
-					if( currentGameState == GameState_Paused );
+					if( currentGameState == GameState_Paused )
 						sound->pauseAllSounds();
 				}
 				else if( currentGameState == GameState_Paused )

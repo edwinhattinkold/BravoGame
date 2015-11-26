@@ -5,6 +5,7 @@
 #include <vector>
 #include "OptionsMenu.h"
 #include "CreditsMenu.h"
+#include "LoadingMenu.h"
 #include "MenuItem.h"
 #include "Sound.h"
 #include "Camera.h"
@@ -26,8 +27,9 @@ private:
 	int mouseX, mouseY, margin, combinedHeight;
 	OptionsMenu* optionsMenu;
 	CreditsMenu* creditsMenu;
+	LoadingMenu* loadMenu;
 	HowToPlay* howToPlay;
-	int optionsChoice, creditsChoice, howToPlayChoise;
+	int optionsChoice, creditsChoice, howToPlayChoise, loadChoice;
 	void center();
 	static enum Choices { Continue, Load_Game, How_To_Play, Options, Credits, Exit };
 	int selected;

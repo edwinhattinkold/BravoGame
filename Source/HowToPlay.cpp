@@ -94,6 +94,7 @@ void HowToPlay::draw(SDL_Renderer* renderTarget)
 	for (size_t x = 0; x < menuItems->size(); x++)
 		menuItems->at(x)->draw(renderTarget);
 }
+
 int HowToPlay::getBackCode(){
 	return Back;
 }
