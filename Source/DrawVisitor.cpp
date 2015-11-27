@@ -31,6 +31,7 @@ void DrawVisitor::visit(B2Content *content)
 
 void DrawVisitor::visit(Tree *tree){
 	tree->drawTree(renderTarget, *cameraRect);
+	tree->drawHealthBar( renderTarget, cameraRect, tree->positionRect );
 }
 
 void DrawVisitor::visit(TDTire *tire){

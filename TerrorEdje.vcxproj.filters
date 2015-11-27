@@ -204,10 +204,13 @@
     <ClInclude Include="Source\Random.h">
       <Filter>Header Files\GraphicObjects</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ContactHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\MachineGun.h">
+      <Filter>Header Files\Model\Shooting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Hittable.h">
+      <Filter>Header Files\Model\Shooting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ContactHandler.h">
       <Filter>Header Files\Model\Shooting</Filter>
     </ClInclude>
   </ItemGroup>
@@ -305,13 +308,16 @@
     <ClCompile Include="Source\Assets.cpp">
       <Filter>Source Files\GraphicObjects</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ContactHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\MachineGun.cpp">
+      <Filter>Source Files\Model\Shooting</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Hittable.cpp">
+      <Filter>Source Files\Model\Shooting</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ContactHandler.cpp">
       <Filter>Source Files\Model\Shooting</Filter>
     </ClCompile>
   </ItemGroup>

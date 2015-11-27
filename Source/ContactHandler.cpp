@@ -52,10 +52,13 @@ void ContactHandler::bulletContact( Projectile* projectile, B2Content* otherObje
 	switch( otherObject->getObjectType() )
 	{
 		case(Object_Tree) :
+			Tree* tree = (Tree*) otherObject;
 			if( !projectile->isOnDeathRow ) 
 			{ 
+				tree->takeDamage( projectile->getDamage() );
 				world->destroyProjectile( projectile );
 				projectile->isOnDeathRow = true;
+				
 			}
 			break;
 	}
