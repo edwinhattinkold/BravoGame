@@ -21,7 +21,7 @@ TDCar::TDCar(World* world, b2World* physics_world, SDL_Renderer* renderTarget, i
 	keyMap.insert( std::pair<Car_Controls, SDL_Scancode>{ Car_Horn,			SDL_SCANCODE_H } );
 	keyMap.insert( std::pair<Car_Controls, SDL_Scancode>{ Car_Shoot,		SDL_SCANCODE_SPACE } );
 
-	weapon = new Weapon( world, this, physics_world, renderTarget );
+	weapon = new MachineGun( world, this, physics_world, renderTarget );
 
 	m_controlState = 0;
 	w = widthM;

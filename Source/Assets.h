@@ -8,7 +8,7 @@ enum Asset
 {
 	Asset_Tree,
 	Asset_Car,
-	Asset_Bullet,
+	Asset_MachineGun_Bullet,
 	Asset_HowTo,
 	Asset_Menu_Arrow,
 	Asset_Tire

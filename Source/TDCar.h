@@ -17,6 +17,7 @@
 #include "UpdateContainer.h"
 #include "Sound.h"
 #include "Weapon.h"
+#include "MachineGun.h"
 
 class World;
 

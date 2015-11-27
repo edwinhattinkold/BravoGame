@@ -32,7 +32,7 @@ void Assets::setRenderTarget( SDL_Renderer* renderTarget )
 {
 	this->renderTarget = renderTarget;
 	insertAssetMapEntry( Asset_Car, "Car/topview.png" );
-	insertAssetMapEntry( Asset_Bullet, "Objects/Shooting/bullet.png" );
+	insertAssetMapEntry( Asset_MachineGun_Bullet, "Objects/Shooting/machineGun-bullet.png" );
 	insertAssetMapEntry( Asset_HowTo, "Mainmenu/howto.png" );
 	insertAssetMapEntry( Asset_Menu_Arrow, "Cursor/menuArrow.png" );
 	insertAssetMapEntry( Asset_Tree, "Objects/Tree.png" );

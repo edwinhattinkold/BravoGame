@@ -17,7 +17,7 @@ protected:
 	std::vector<Animation*> *animations;
 	int currentAnimation;
 	int angle;
-
+	Asset asset;
 public:
 	/* Inheritance constructor */
 	Sprite(int xPosition, int yPosition);

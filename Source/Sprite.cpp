@@ -13,7 +13,8 @@ Sprite::Sprite( int xPosition, int yPosition )
 }
 
 Sprite::Sprite(SDL_Renderer* renderTarget, Asset asset){
-	Animation* default_animation = new Animation(renderTarget, asset, 1, 1, 0, 0, 0.50f);
+	this->asset = asset;
+	Animation* default_animation = new Animation(renderTarget, this->asset, 1, 1, 0, 0, 0.50f);
 
 	animations = new std::vector<Animation*>();
 	animations->push_back(default_animation);
@@ -26,7 +27,8 @@ Sprite::Sprite(SDL_Renderer* renderTarget, Asset asset){
 
 Sprite::Sprite( SDL_Renderer *renderTarget, Asset asset, int xPosition, int yPosition, int framesX, int framesY, float animationSpeed)
 {
-	Animation* default_animation = new Animation( renderTarget, asset, framesX, framesY, 0, 0, animationSpeed );
+	this->asset = asset;
+	Animation* default_animation = new Animation( renderTarget, this->asset, framesX, framesY, 0, 0, animationSpeed );
 
 	animations = new std::vector<Animation*>();
 	animations->push_back( default_animation );
