@@ -2,7 +2,7 @@
 #include "World.h"
 #include <typeinfo>
 
-Projectile::Projectile(World* world, b2World* physics_world, SDL_Renderer * renderTarget, Asset asset, int damage)
+Projectile::Projectile(World* world, b2World* physics_world, SDL_Renderer * renderTarget, Asset asset, int damage, float speed)
 	: B2Content( renderTarget, asset )
 {
 	objectType = Object_Projectile;
@@ -11,9 +11,10 @@ Projectile::Projectile(World* world, b2World* physics_world, SDL_Renderer * rend
 	this->renderTarget = renderTarget;
 	this->m_body = nullptr;
 	this->damage = damage;
+	this->speed = speed;
 }
 
-Projectile::Projectile( World* world, b2World* physics_world, SDL_Renderer * renderTarget, Asset asset, int damage, bool clone )
+Projectile::Projectile( World* world, b2World* physics_world, SDL_Renderer * renderTarget, Asset asset, int damage, float speed, bool clone )
 	:B2Content( renderTarget, asset )
 {
 	objectType = Object_Projectile;
@@ -21,6 +22,7 @@ Projectile::Projectile( World* world, b2World* physics_world, SDL_Renderer * ren
 	this->physics_world = physics_world;
 	this->renderTarget = renderTarget;
 	this->damage = damage;
+	this->speed = speed;
 
 	b2BodyDef bodyDef;
 	bodyDef.position.Set( 2, 2 );
@@ -49,8 +51,10 @@ Projectile::~Projectile()
 
 }
 
-void Projectile::applyLinearVelocity( b2Vec2 vector )
+void Projectile::setDirection( b2Vec2 vector )
 {
+	vector.x *= speed;
+	vector.y *= speed;
 	m_body->ApplyLinearImpulse( vector, m_body->GetWorldCenter(), true );
 }
 
@@ -67,7 +71,7 @@ void Projectile::update(float deltaTime, const Uint8 *keyState)
 
 Projectile* Projectile::clone()
 {
-	Projectile* toReturn = new Projectile(world, physics_world, renderTarget, asset, damage, true);
+	Projectile* toReturn = new Projectile(world, physics_world, renderTarget, asset, damage, speed, true);
 	return toReturn;
 }
 
