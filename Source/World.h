@@ -13,6 +13,7 @@
 #include "Tree.h"
 #include "Sprite.h"
 #include "Projectile.h"
+#include "Collectible.h"
 #include "Sound.h"
 
 /************************************************************************/
@@ -54,6 +55,8 @@ private:
 	std::vector<b2Body*> *bodyRemoveStack;
 	std::vector<Projectile*> *projectileRemoveStack;
 	std::vector<Projectile*> *activeProjectiles;
+	std::vector<Collectible*> *collectibleRemoveStack;
+	std::vector<Collectible*> *activeCollectibles;
 	//Containers
 	DrawContainer *drawContainer;
 	UpdateContainer *updateContainer;
@@ -74,6 +77,7 @@ private:
 	void createCamera(SDL_Window *window, int levelWidth, int levelHeight);
 	void handleBodyRemoveStack();
 	void handleProjectileRemoveStack();
+	void handleCollectibleRemoveStack();
 
 public:
 	World(SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font);
@@ -88,6 +92,9 @@ public:
 	void drawObject(float nwidth, float nheight, float nx, float ny, float nangle);
 	void addProjectile( Projectile* projectile );
 	void destroyProjectile( Projectile* projectile );
+
+	void addCollectible(int w, int h, int x, int y);
+	void destroyCollectible(Collectible *collectible);
 	
 };
 

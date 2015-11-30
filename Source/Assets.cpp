@@ -36,6 +36,7 @@ void Assets::setRenderTarget( SDL_Renderer* renderTarget )
 	insertAssetMapEntry( Asset_HowTo, "Mainmenu/howto.png" );
 	insertAssetMapEntry( Asset_Menu_Arrow, "Cursor/menuArrow.png" );
 	insertAssetMapEntry( Asset_Tree, "Objects/Tree.png" );
+	insertAssetMapEntry(Asset_Collectible, "Objects/Collectible.png");
 	insertAssetMapEntry( Asset_Tire, "Car/tire.png" );
 }
 

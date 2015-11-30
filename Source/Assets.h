@@ -11,7 +11,8 @@ enum Asset
 	Asset_Bullet,
 	Asset_HowTo,
 	Asset_Menu_Arrow,
-	Asset_Tire
+	Asset_Tire,
+	Asset_Collectible,
 };
 
 class Assets

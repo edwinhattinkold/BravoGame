@@ -71,6 +71,13 @@ void Sprite::drawTree(SDL_Renderer *renderTarget, SDL_Rect camerRect)
 	animations->at(currentAnimation)->drawCar(renderTarget, drawingRect, angle);
 }
 
+void Sprite::drawCollectible(SDL_Renderer *renderTarget, SDL_Rect camerRect)
+{
+	SDL_Rect drawingRect = { positionRect.x - camerRect.x, positionRect.y - camerRect.y, positionRect.w, positionRect.h };
+	animations->at(currentAnimation)->drawCar(renderTarget, drawingRect, angle);
+}
+
+
 void Sprite::drawCar(SDL_Renderer *renderTarget, SDL_Rect cameraRect){
 	SDL_Rect drawingRect = { positionRect.x - cameraRect.x, positionRect.y - cameraRect.y, positionRect.w, positionRect.h };
 	animations->at(currentAnimation)->drawCar(renderTarget, drawingRect, angle);

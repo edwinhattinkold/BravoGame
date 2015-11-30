@@ -7,6 +7,7 @@ class TDCar;
 class Tree;
 class TDTire;
 class Projectile;
+class Collectible;
 
 class DrawVisitor
 {
@@ -21,6 +22,7 @@ public:
 	void visit(TDTire *tire);
 	void visit(TDCar *car);
 	void visit(Tree *tree);
+	void visit(Collectible *collectible);
 	void visit( Projectile *projectile );
 };
 

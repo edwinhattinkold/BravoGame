@@ -7,6 +7,7 @@
 #include "TDCar.h"
 #include "Tree.h"
 #include "B2Content.h"
+#include "Collectible.h"
 
 DrawVisitor::DrawVisitor( SDL_Renderer *renderTarget, SDL_Rect *cameraRect )
 {
@@ -31,6 +32,11 @@ void DrawVisitor::visit(B2Content *content)
 
 void DrawVisitor::visit(Tree *tree){
 	tree->drawTree(renderTarget, *cameraRect);
+}
+
+void DrawVisitor::visit(Collectible *collectible){
+
+	collectible->drawCollectible(renderTarget, *cameraRect);
 }
 
 void DrawVisitor::visit(TDTire *tire){

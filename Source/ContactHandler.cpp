@@ -36,8 +36,8 @@ void ContactHandler::splitContacts( B2Content* object, B2Content* otherObject, O
 		case (Object_Projectile) :
 			bulletContact( (Projectile*) object, otherObject );
 			break;
-		case (Object_Tree) :
-
+		case (Object_Collectible) :
+			collectibleContact((Collectible*)object, otherObject);
 			break;
 		default:
 
@@ -58,5 +58,26 @@ void ContactHandler::bulletContact( Projectile* projectile, B2Content* otherObje
 				projectile->isOnDeathRow = true;
 			}
 			break;
+	}
+}
+
+void ContactHandler::collectibleContact(Collectible* collectible, B2Content* otherObject)
+{
+	switch (otherObject->getObjectType())
+	{
+	case(Object_Tire) :
+		if (!collectible->isOnDeathRow)
+		{
+		world->destroyCollectible(collectible);
+		collectible->isOnDeathRow = true;
+		}
+								 break;
+	case(Object_Car) :
+		if (!collectible->isOnDeathRow)
+		{
+		world->destroyCollectible(collectible);
+		collectible->isOnDeathRow = true;
+		}
+					 break;
 	}
 }
