@@ -2,6 +2,8 @@
 #include "SDL.h"
 class Hittable
 {
+private:
+	int healthBarOffset;
 protected:
 	int maxHealth;
 	int health;

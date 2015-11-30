@@ -10,6 +10,7 @@ Hittable::Hittable(int maxHealth)
 	maxHealthBar.h = 15;
 	healthBar.h = maxHealthBar.h;
 	takenDamageBar.h = maxHealthBar.h;
+	healthBarOffset = 25;
 }
 
 
@@ -23,7 +24,7 @@ void Hittable::drawHealthBar(SDL_Renderer* renderTarget, SDL_Rect* cameraRect, S
 	maxHealthBar.w = positionRect.w * 0.70;
 	int widthDifference = positionRect.w - maxHealthBar.w;
 	maxHealthBar.x = positionRect.x - cameraRect->x + (widthDifference / 2);
-	maxHealthBar.y = positionRect.y - cameraRect->y - 25;
+	maxHealthBar.y = positionRect.y - cameraRect->y - healthBarOffset;
 
 	float healthPercentage = float(health) / float(maxHealth);
 	healthBar.w = maxHealthBar.w * healthPercentage;
@@ -59,7 +60,6 @@ void Hittable::drawHealthBar(SDL_Renderer* renderTarget, SDL_Rect* cameraRect, S
 		int y2 = healthBar.y + healthBar.h - 2;
 		SDL_RenderDrawLine( renderTarget, x1, y1, x2, y2 );
 	}
-	
 }
 
 void Hittable::takeDamage( int damage )

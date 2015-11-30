@@ -26,6 +26,7 @@ b2Vec2 B2Content::getB2DDirectionalVector()
 {
 	b2Vec2 b2DDirectionalVector = m_body->GetLocalVector( m_body->GetLocalCenter() );
 	b2DDirectionalVector.x = b2DDirectionalVector.x * -1;
+	b2DDirectionalVector.Normalize();
 	return b2DDirectionalVector;
 }
 
