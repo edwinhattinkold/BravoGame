@@ -8,6 +8,7 @@ MainMenu::MainMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture*
 	sound = Sound::getInstance();
 	sound->playSoundLooping(Sound_MainMenu_Theme, 0.50f);
 	optionsMenu = new OptionsMenu(renderTarget, window, backgroundImage, arrow, camera, font);
+	loadMenu = new LoadingMenu( renderTarget, window, backgroundImage, arrow, camera, font );
 	creditsMenu = new CreditsMenu(renderTarget, camera);
 	howToPlay = new HowToPlay(renderTarget, camera, font);
 	backgroundImageRect.x = 0;
@@ -38,6 +39,7 @@ MainMenu::~MainMenu()
 	delete creditsMenu;						creditsMenu = nullptr;
 	delete howToPlay;						howToPlay = nullptr;
 	delete arrow;							arrow = nullptr;
+	delete loadMenu;						loadMenu = nullptr;
 }
 
 int MainMenu::getExitCode(){
@@ -57,7 +59,16 @@ int MainMenu::showMenu(SDL_Renderer* renderTarget){
 		return Choices::Continue;
 		break;
 	case(Choices::Load_Game) :
+		loadChoice = loadMenu->showMenu( renderTarget );
 		sound->stopSound(Sound_MainMenu_Theme);
+		if( loadChoice == loadMenu->getBackCode() )
+		{
+			return showMenu( renderTarget );
+		}
+		else
+		{
+			return Choices::Exit;
+		}
 		return Choices::Load_Game;
 		break;
 	case(Choices::Options) :

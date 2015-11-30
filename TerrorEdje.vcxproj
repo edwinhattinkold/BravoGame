@@ -24,10 +24,13 @@
     <ClInclude Include="Source\DrawVisitor.h" />
     <ClInclude Include="Source\FixtureUserData.h" />
     <ClInclude Include="Source\GroundAreaFUD.h" />
+    <ClInclude Include="Source\Hittable.h" />
     <ClInclude Include="Source\HowToPlay.h" />
     <ClInclude Include="Source\IDrawable.h" />
     <ClInclude Include="Source\IUpdateable.h" />
+    <ClInclude Include="Source\LoadingMenu.h" />
     <ClInclude Include="Source\Location.h" />
+    <ClInclude Include="Source\MachineGun.h" />
     <ClInclude Include="Source\MainMenu.h" />
     <ClInclude Include="Source\MapDrawer.h" />
     <ClInclude Include="Source\Chunk.h" />
@@ -52,6 +55,7 @@
     <ClInclude Include="Source\Tree.h" />
     <ClInclude Include="Source\Turret.h" />
     <ClInclude Include="Source\TurretState.h" />
+    <ClInclude Include="Source\TurretWeapon.h" />
     <ClInclude Include="Source\UpdateContainer.h" />
     <ClInclude Include="Source\UpdateVisitor.h" />
     <ClInclude Include="Source\Weapon.h" />
@@ -73,10 +77,13 @@
     <ClCompile Include="Source\DrawVisitor.cpp" />
     <ClCompile Include="Source\FixtureUserData.cpp" />
     <ClCompile Include="Source\GroundAreaFUD.cpp" />
+    <ClCompile Include="Source\Hittable.cpp" />
     <ClCompile Include="Source\HowToPlay.cpp" />
     <ClCompile Include="Source\IDrawable.cpp" />
     <ClCompile Include="Source\IUpdateable.cpp" />
+    <ClCompile Include="Source\LoadingMenu.cpp" />
     <ClCompile Include="Source\Location.cpp" />
+    <ClCompile Include="Source\MachineGun.cpp" />
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\MainMenu.cpp" />
     <ClCompile Include="Source\MapDrawer.cpp" />
@@ -99,6 +106,7 @@
     <ClCompile Include="Source\Tree.cpp" />
     <ClCompile Include="Source\Turret.cpp" />
     <ClCompile Include="Source\TurretState.cpp" />
+    <ClCompile Include="Source\TurretWeapon.cpp" />
     <ClCompile Include="Source\UpdateContainer.cpp" />
     <ClCompile Include="Source\UpdateVisitor.cpp" />
     <ClCompile Include="Source\Weapon.cpp" />

@@ -4,8 +4,10 @@
 #include <math.h>
 #include "SearchingTurretState.h"
 #include "TurretState.h"
+#include "Hittable.h"
+#include "TurretWeapon.h"
 
-class Turret:public B2Content{
+class Turret:public B2Content, public Hittable{
 private:
 	int currentTargetX;
 	int currentTargetY;

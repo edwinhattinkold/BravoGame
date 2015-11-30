@@ -32,10 +32,12 @@ void DrawVisitor::visit(B2Content *content)
 
 void DrawVisitor::visit(Turret *turret){
 	turret->drawWithAngle(renderTarget, *cameraRect);
+	turret->drawHealthBar(renderTarget, cameraRect, turret->positionRect);
 }
 
 void DrawVisitor::visit(Tree *tree){
 	tree->drawTree(renderTarget, *cameraRect);
+	tree->drawHealthBar( renderTarget, cameraRect, tree->positionRect );
 }
 
 void DrawVisitor::visit(TDTire *tire){

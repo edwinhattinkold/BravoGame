@@ -207,6 +207,9 @@
     <ClInclude Include="Source\ShootingTurretState.h">
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Source\LoadingMenu.h">
+      <Filter>Header Files\Menu</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Projectile.h">
       <Filter>Header Files\Model\Shooting</Filter>
     </ClInclude>
@@ -219,14 +222,20 @@
     <ClInclude Include="Source\Random.h">
       <Filter>Header Files\GraphicObjects</Filter>
     </ClInclude>
+    <ClInclude Include="Source\MachineGun.h">
+      <Filter>Header Files\Model\Shooting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Hittable.h">
+      <Filter>Header Files\Model\Shooting</Filter>
+    </ClInclude>
     <ClInclude Include="Source\ContactHandler.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Model\Shooting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\TurretWeapon.h">
+      <Filter>Header Files\Model\Shooting</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\MainMenu.cpp">
       <Filter>Source Files\Menu</Filter>
     </ClCompile>
@@ -317,6 +326,9 @@
     <ClCompile Include="Source\ShootingTurretState.cpp">
       <Filter>Source Files\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Source\LoadingMenu.cpp">
+      <Filter>Source Files\Menu</Filter>
+    </ClCompile>
     <ClCompile Include="Source\Projectile.cpp">
       <Filter>Source Files\Model\Shooting</Filter>
     </ClCompile>
@@ -329,8 +341,20 @@
     <ClCompile Include="Source\Assets.cpp">
       <Filter>Source Files\GraphicObjects</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ContactHandler.cpp">
+    <ClCompile Include="Source\main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MachineGun.cpp">
+      <Filter>Source Files\Model\Shooting</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Hittable.cpp">
+      <Filter>Source Files\Model\Shooting</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ContactHandler.cpp">
+      <Filter>Source Files\Model\Shooting</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TurretWeapon.cpp">
+      <Filter>Source Files\Model\Shooting</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

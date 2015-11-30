@@ -1,13 +1,13 @@
 #include "Turret.h"
-Turret::Turret(b2World* world, SDL_Renderer* renderTarget,int xPos, int yPos, TDCar* c, World* gameWorld) :B2Content(renderTarget, Asset_Turret) {
+Turret::Turret(b2World* world, SDL_Renderer* renderTarget,int xPos, int yPos, TDCar* c, World* gameWorld) :B2Content(renderTarget, Asset_Turret),Hittable(1000) {
 	w = 6;
 	turretAngle = 0;
-	range = 400;
+	range = 600;
 	h = 6;
 	car = c;
 	angle = 0;
 	state = new SearchingTurretState(this);
-	weapon = new Weapon(gameWorld, this, world, renderTarget);
+	weapon = new TurretWeapon(gameWorld, this, world, renderTarget);
 	//create car body
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_staticBody;

@@ -6,7 +6,7 @@
 #endif
 
 Tree::Tree(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM, int posX, int posY)
-	:B2Content(renderTarget, Asset_Tree){
+	:B2Content(renderTarget, Asset_Tree), Hittable(1000){
 	objectType = Object_Tree;
 	w = widthM;
 	h = heightM;

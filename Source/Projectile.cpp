@@ -2,23 +2,25 @@
 #include "World.h"
 #include <typeinfo>
 
-Projectile::Projectile(World* world, b2World* physics_world, SDL_Renderer * renderTarget )
-	: B2Content( renderTarget, Asset_Bullet )
+Projectile::Projectile(World* world, b2World* physics_world, SDL_Renderer * renderTarget, Asset asset, int damage)
+	: B2Content( renderTarget, asset )
 {
 	objectType = Object_Projectile;
 	this->world = world;
 	this->physics_world = physics_world;
 	this->renderTarget = renderTarget;
 	this->m_body = nullptr;
+	this->damage = damage;
 }
 
-Projectile::Projectile( World* world, b2World* physics_world, SDL_Renderer * renderTarget, bool clone )
-	:B2Content( renderTarget, Asset_Bullet )
+Projectile::Projectile( World* world, b2World* physics_world, SDL_Renderer * renderTarget, Asset asset, int damage, bool clone )
+	:B2Content( renderTarget, asset )
 {
 	objectType = Object_Projectile;
 	this->world = world;
 	this->physics_world = physics_world;
 	this->renderTarget = renderTarget;
+	this->damage = damage;
 
 	b2BodyDef bodyDef;
 	bodyDef.position.Set( 2, 2 );
@@ -65,7 +67,7 @@ void Projectile::update(float deltaTime, const Uint8 *keyState)
 
 Projectile* Projectile::clone()
 {
-	Projectile* toReturn = new Projectile(world, physics_world, renderTarget, true);
+	Projectile* toReturn = new Projectile(world, physics_world, renderTarget, asset, damage, true);
 	return toReturn;
 }
 
@@ -77,4 +79,9 @@ void Projectile::accept( DrawVisitor *dv )
 void Projectile::accept( UpdateVisitor *uv )
 {
 	uv->visit( this );
+}
+
+int Projectile::getDamage()
+{
+	return damage;
 }
