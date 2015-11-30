@@ -58,8 +58,8 @@ TDCar::TDCar(World* world, b2World* physics_world, SDL_Renderer* renderTarget, i
 	jointDef.localAnchorB.SetZero();//center of tire
 
 	// standaard 250 aanpassen zodat de wagen niet mega snel gaat
-	float maxForwardSpeed = 50;
-	float maxBackwardSpeed = -40;
+	float maxForwardSpeed = 40;
+	float maxBackwardSpeed = -25;
 	float backTireMaxDriveForce = 300;
 	float frontTireMaxDriveForce = 500;
 	float backTireMaxLateralImpulse = 8.5;

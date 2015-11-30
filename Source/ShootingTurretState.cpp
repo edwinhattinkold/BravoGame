@@ -20,7 +20,7 @@ void ShootingTurretState::update(float deltaTime){
 	std::cout << radAngle << std::endl;
 	turret->turretAngle = radAngle;
 	test += deltaTime;
-	if (test > 1){
+	if (test > 0.3){
 		turret->getWeapon()->pullTrigger();
 		test = 0;
 	}
