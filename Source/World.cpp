@@ -46,8 +46,8 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	
 	myCar = new TDCar(this, physics, renderTarget, 3, 6);
 
-	myTree = new Tree(physics, renderTarget, 6, 10, 20, -15);
-	myTree2 = new Tree( physics, renderTarget, 6, 10, 40, -30 );
+	myTree = new Tree(physics, renderTarget, 10, 10, 20, -15);
+	myTree2 = new Tree( physics, renderTarget, 10, 10, 40, -30 );
 
 	//myTree2 = new Tree(physics, renderTarget, 4, 4, 30, -15);
 
