@@ -16,7 +16,7 @@ CreditsMenu::CreditsMenu( SDL_Renderer* renderTarget, Camera* camera )
 	menuItems = new std::vector<MenuItem*>();
 
 	backButton = new MenuItem( renderTarget, creditsTitelFont, "Back" );
-	backButton->setColor( renderTarget, SelectedRed );
+	backButton->setColor( renderTarget, White );
 	menuItems->push_back( backButton );
 
 	lines = new std::vector<std::pair<MenuItem*, int>*>();
@@ -121,6 +121,7 @@ std::pair<MenuItem*, int>* CreditsMenu::createLine( SDL_Renderer* renderTarget, 
 
 int CreditsMenu::showMenu( SDL_Renderer* renderTarget )
 {
+	SDL_SetRenderDrawColor( renderTarget, 255, 0, 0, 255 );
 	SDL_GetMouseState( &mouseX, &mouseY );
 	CustomCursor::getInstance( )->draw( mouseX, mouseY );
 	previousTime = SDL_GetTicks();;
