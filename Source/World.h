@@ -30,6 +30,7 @@ class World
 private:
 	TDCar* myCar;
 	Sound* sound;
+	Turret* myTurret;
 	//SDL
 	SDL_Renderer *renderTarget;
 	SDL_Texture *carTexture;

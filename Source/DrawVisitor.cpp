@@ -33,7 +33,8 @@ void DrawVisitor::visit(B2Content *content)
 
 void DrawVisitor::visit(Turret *turret){
 	turret->drawWithAngle(renderTarget, *cameraRect);
-	turret->drawHealthBar(renderTarget, cameraRect, turret->positionRect);
+	if (!turret->isDead())
+		turret->drawHealthBar(renderTarget, cameraRect, turret->positionRect);
 }
 
 void DrawVisitor::visit(Tree *tree){
