@@ -17,4 +17,9 @@ void SearchingTurretState::checkState(){
 
 void SearchingTurretState::update(float deltaTime){
 	turret->turretAngle--;
+	if (turret->turretAngle < 0){
+		turret->turretAngle = 359;
+	}
+	turret->getWeapon()->pullTrigger();
+	turret->getWeapon()->update(deltaTime);
 }

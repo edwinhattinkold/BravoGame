@@ -1,8 +1,9 @@
 #include "TurretWeapon.h"
-
-TurretWeapon::TurretWeapon(World* world, B2Content* host, b2World* physics_world, SDL_Renderer * renderTarget, float fireRate, float spread)
+#include "Turret.h"
+TurretWeapon::TurretWeapon(World* world, Turret* host, b2World* physics_world, SDL_Renderer * renderTarget, float fireRate, float spread)
 : Weapon(world, host, physics_world, renderTarget, fireRate, spread)
 {
+	turret = host;
 	setAmmo(new Projectile(world, physics_world, renderTarget, Asset_MachineGun_Bullet, 50, 1000));
 }
 
@@ -10,4 +11,26 @@ TurretWeapon::TurretWeapon(World* world, B2Content* host, b2World* physics_world
 TurretWeapon::~TurretWeapon()
 {
 
+}
+
+void TurretWeapon::fire(){
+	Projectile* newProjectile = ammo->clone();
+
+	//b2Vec2 direction = host->getB2DDirectionalVector();
+	b2Vec2 direction;
+	cout << turret->turretAngle << endl;
+	direction.y = cos(turret->turretAngle * DEGTORAD);
+	direction.x = sin(turret->turretAngle * DEGTORAD);
+	direction.Normalize();
+	int randomSpread = Random::getInstance().nextInt(0 - (spread / 2), 0 + (spread / 2));
+	float spreadFloat = 0.02f * randomSpread;
+	direction.x += spreadFloat;
+	direction.y += spreadFloat;
+	direction.Normalize();
+
+	newProjectile->setB2DPosition(host->m_body->GetWorldPoint(b2Vec2{ 0, 7 }));
+	newProjectile->setDirection(direction);
+	newProjectile->applyB2DAngle(host->m_body->GetAngle());
+
+	world->addProjectile(newProjectile);
 }

@@ -1,9 +1,9 @@
 #include "Turret.h"
 Turret::Turret(b2World* world, SDL_Renderer* renderTarget,int xPos, int yPos, TDCar* c, World* gameWorld) :B2Content(renderTarget, Asset_Turret),Hittable(1000) {
-	w = 6;
+	w = 5;
 	turretAngle = 0;
 	range = 600;
-	h = 6;
+	h = 5;
 	car = c;
 	angle = 0;
 	state = new SearchingTurretState(this);
