@@ -109,6 +109,11 @@ World::~World()
 		delete activeProjectiles->at( i );
 	}
 	delete activeProjectiles;						activeProjectiles = nullptr;
+	for (size_t i = 0; i < activeCollectibles->size(); i++)
+	{
+		delete activeCollectibles->at(i);
+	}
+	delete activeCollectibles;						activeCollectibles = nullptr;
 	for( size_t c = 0; c < objects->size(); c++ )
 	{
 		delete objects->at( c );					objects->at( c ) = nullptr;
@@ -123,6 +128,7 @@ World::~World()
 	delete myTurret;								myTurret = nullptr;
 	delete mapDrawer;								mapDrawer = nullptr;
 	handleBodyRemoveStack();
+	handleCollectibleRemoveStack();
 	handleProjectileRemoveStack();
 	handleExplosionRemoveStack();
 	delete bodyRemoveStack;							bodyRemoveStack = nullptr;
