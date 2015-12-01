@@ -4,13 +4,13 @@
 #include "Sprite.h"
 #include <vector>
 #include "Sound.h"
-#include "SaveMenu.h"
 #include "SDL_ttf.h"
+#include <string>
 
 class World;
 class MenuItem;
 
-class PauseMenu
+class SaveMenu
 {
 private:
 	SDL_Renderer* renderTarget;
@@ -20,15 +20,18 @@ private:
 	Sprite* arrow;
 	Sound* sound;
 	std::vector<MenuItem*>* menuItems;
-	SaveMenu* saveMenu;
+
 	int combinedHeight;
 	int margin;
 	int selected;
-	enum Choices { Continue, Save_Game, Main_Menu };
-
+	enum Choices {
+		Game1, Game2, Game3, Back
+	};
+	std::vector<std::string> fileNames;
 public:
-	PauseMenu(World* world, SDL_Renderer* renderTarget, Camera* camera);
-	~PauseMenu();
+	SaveMenu( World* world, SDL_Renderer* renderTarget, Camera* camera, Sprite* arrow, TTF_Font* font );
+	~SaveMenu();
+	bool saving;
 	void tick( int mouseX, int mouseY );
 	void center();
 	void handleKeyboardInput( SDL_Keycode keyPressed );

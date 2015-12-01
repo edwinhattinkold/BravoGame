@@ -51,6 +51,7 @@
     <ClInclude Include="Source\rapidxml_utils.hpp" />
     <ClInclude Include="Source\Rect.h" />
     <ClInclude Include="Source\SearchingTurretState.h" />
+    <ClInclude Include="Source\SaveMenu.h" />
     <ClInclude Include="Source\Settings.h" />
     <ClInclude Include="Source\B2Content.h" />
     <ClInclude Include="Source\ShootingTurretState.h" />
@@ -110,6 +111,7 @@
     <ClCompile Include="Source\SearchingTurretState.cpp" />
     <ClCompile Include="Source\Projectile.cpp" />
     <ClCompile Include="Source\Random.cpp" />
+    <ClCompile Include="Source\SaveMenu.cpp" />
     <ClCompile Include="Source\Settings.cpp" />
     <ClCompile Include="Source\ShootingTurretState.cpp" />
     <ClCompile Include="Source\Sound.cpp" />

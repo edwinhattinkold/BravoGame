@@ -1,12 +1,14 @@
 #include "LoadingMenu.h"
 #include "CustomCursor.h"
+#include "World.h"
 
-LoadingMenu::LoadingMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, Sprite* arrow, Camera* camera, TTF_Font* font )
+LoadingMenu::LoadingMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, Sprite* arrow, Camera* camera, TTF_Font* font, World* world )
 {
 	this->arrow = arrow;
 	this->renderTarget = renderTarget;
 	this->window = window;
 	this->camera = camera;
+	this->world = world;
 	sound = Sound::getInstance();
 	backgroundImageRect.x = 0;
 	backgroundImageRect.y = 0;
@@ -38,11 +40,16 @@ LoadingMenu::LoadingMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Te
 	fileNames.push_back( "SavedGames/saveGame1.txt" );
 	fileNames.push_back( "SavedGames/saveGame2.txt" );
 	fileNames.push_back( "SavedGames/saveGame3.txt" );
+
 }
 
 
 LoadingMenu::~LoadingMenu()
-{}
+{
+	for( size_t c = 0; c < menuItems->size(); c++ )
+		delete menuItems->at( c );
+	delete menuItems;
+}
 
 int LoadingMenu::showMenu( SDL_Renderer* renderTarget )
 {
@@ -57,6 +64,11 @@ int LoadingMenu::showMenu( SDL_Renderer* renderTarget )
 			break;
 		case(Choices::Exit) :
 			return Choices::Exit;
+		case(Choices::Game1) :
+		case(Choices::Game2) :
+		case(Choices::Game3) :
+			return choice;
+			break;
 		default:
 			return Choices::Back;
 			break;
@@ -72,6 +84,15 @@ int LoadingMenu::getBackCode()
 int LoadingMenu::getExitCode()
 {
 	return Choices::Exit;
+}
+
+bool LoadingMenu::isGameCode( int choice )
+{
+	if( choice == Choices::Game1 || choice == Choices::Game2 || choice == Choices::Game3 )
+	{
+		return true;
+	}
+	return false;
 }
 
 void LoadingMenu::center()
@@ -123,8 +144,11 @@ int LoadingMenu::createMenu( SDL_Renderer* renderTarget )
 
 							if( index == Choices::Back )
 								return index;
-							else
+							else if( isGameCode( index ) )
+							{
 								handleSelection( index );
+								return index;
+							}
 						}
 					break;
 				case SDL_KEYDOWN:
@@ -164,7 +188,25 @@ void LoadingMenu::updateSelected()
 
 void LoadingMenu::handleSelection( int index )
 {
-	
+	int gameNumber;
+	if( index == Choices::Game1 )
+	{
+		gameNumber = 0;
+	}
+	else if(index == Choices::Game2 )
+	{
+		gameNumber = 1;
+	}
+	else if( index == Choices::Game3 )
+	{
+		gameNumber = 2;
+	}
+	TDCar* car = world->getCar();
+	ifstream infile( fileNames.at( gameNumber ) );
+	if( infile >> (*car) )
+	{
+		cout << "LOADED";
+	}
 }
 
 void LoadingMenu::handleKeyboardInput( SDL_Keycode keyPressed )

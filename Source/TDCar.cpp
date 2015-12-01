@@ -1,6 +1,37 @@
 #include "TDCar.h"
 #include "World.h";
 
+ostream& operator<<(ostream& os, const TDCar& obj)
+{
+	obj.write_object( os );
+	return os;
+}
+
+istream& operator>>(istream& is, TDCar& obj)
+{
+	obj.read_object( is );
+	return is;
+}
+
+void TDCar::write_object( ostream& os ) const
+{
+	os << m_body->GetPosition().x << ' ' << m_body->GetPosition().y << ' ' << m_body->GetAngle() << '\n';
+}
+
+void TDCar::read_object( istream& is )
+{
+	float x;
+	float y;
+	float angle;
+	is >> x >> y >> angle;
+	m_body->SetTransform( b2Vec2( x, y ), angle );
+	for( size_t i = 0; i < m_tires.size(); i++ )
+	{
+		m_tires.at( i )->m_body->SetTransform( b2Vec2( x, y ), angle );
+	}
+}
+
+
 TDCar::~TDCar() {
 	physicsWorld->DestroyJoint( flJoint);	flJoint = nullptr;
 	physicsWorld->DestroyJoint( frJoint );	frJoint = nullptr;
@@ -84,7 +115,7 @@ TDCar::TDCar(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, in
 
 	//front left tire
 	tire = new TDTire(world, physicsWorld, renderTarget );
-	tireLEFT = tire;
+
 	tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, frontTireMaxDriveForce, frontTireMaxLateralImpulse);
 	jointDef.bodyB = tire->m_body;
 	jointDef.localAnchorA.Set(-1.5, 5.7f);

@@ -261,6 +261,9 @@
     <ClInclude Include="Source\Collectible.h">
       <Filter>Header Files\Model</Filter>
     </ClInclude>
+    <ClInclude Include="Source\SaveMenu.h">
+      <Filter>Header Files\Menu</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\MainMenu.cpp">
@@ -403,6 +406,9 @@
     </ClCompile>
     <ClCompile Include="Source\Explosion.cpp">
       <Filter>Source Files\GraphicObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SaveMenu.cpp">
+      <Filter>Source Files\Menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

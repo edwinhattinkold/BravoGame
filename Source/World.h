@@ -114,6 +114,9 @@ public:
 	void destroyCollectible(Collectible *collectible);
 	void createExplosion( SDL_Rect positionRect );
 	void removeExplosion( Explosion* explosion );
+
+	void removeProjectile( Projectile* projectile );
+	TDCar* getCar();
 };
 
 

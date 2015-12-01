@@ -1,6 +1,6 @@
 #include "MainMenu.h"
 #include "CustomCursor.h"
-MainMenu::MainMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, Camera* camera, TTF_Font* font )
+MainMenu::MainMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, Camera* camera, TTF_Font* font, World* world )
 {
 	this->arrow = new Sprite( renderTarget, Asset_Menu_Arrow );
 	this->renderTarget = renderTarget;
@@ -8,7 +8,7 @@ MainMenu::MainMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture*
 	sound = Sound::getInstance();
 	sound->playSoundLooping(Sound_MainMenu_Theme, 0.50f);
 	optionsMenu = new OptionsMenu(renderTarget, window, backgroundImage, arrow, camera, font);
-	loadMenu = new LoadingMenu( renderTarget, window, backgroundImage, arrow, camera, font );
+	loadMenu = new LoadingMenu( renderTarget, window, backgroundImage, arrow, camera, font, world );
 	creditsMenu = new CreditsMenu(renderTarget, camera);
 	howToPlay = new HowToPlay(renderTarget, camera, font);
 	backgroundImageRect.x = 0;
@@ -64,6 +64,11 @@ int MainMenu::showMenu(SDL_Renderer* renderTarget){
 		if( loadChoice == loadMenu->getBackCode() )
 		{
 			return showMenu( renderTarget );
+		}
+		else if( loadMenu->isGameCode(loadChoice) )
+		{
+			sound->stopSound( Sound_MainMenu_Theme );
+			return Choices::Continue;
 		}
 		else
 		{

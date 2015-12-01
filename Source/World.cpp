@@ -44,7 +44,7 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 
 	//TODO: main menu in separate class, drawable maybe?
 	mainMenuBackground = Assets::getInstance()->getAsset(Asset_MainMenu_Background);
-	menu = new MainMenu( renderTarget, window, mainMenuBackground, camera, font );
+	menu = new MainMenu( renderTarget, window, mainMenuBackground, camera, font, this );
 
 	//Paused screen
 	pauseMenu = new PauseMenu(this, renderTarget, camera);
@@ -99,7 +99,6 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	physics->SetContactListener( contactHandler );
 }
 
-
 World::~World()
 {	
 	delete this->fpsCounter;						this->fpsCounter = nullptr;
@@ -141,6 +140,11 @@ World::~World()
 
 	SDL_DestroyTexture(mainMenuBackground);			mainMenuBackground = nullptr;
 	SDL_DestroyRenderer(renderTarget);				renderTarget = nullptr;
+}
+
+TDCar* World::getCar()
+{
+	return myCar;
 }
 
 //Update the world
@@ -198,7 +202,6 @@ void World::tick()
 		handleExplosionRemoveStack();
 	}
 }
-
 
 void World::run()
 {
