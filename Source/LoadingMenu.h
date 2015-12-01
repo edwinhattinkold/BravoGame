@@ -35,6 +35,7 @@ public:
 	~LoadingMenu();
 	void handleSelection( int index );
 	int getBackCode();
+	bool isGameCode(int choice);
 	int getExitCode();
 	void handleKeyboardInput( SDL_Keycode keyPressed );
 	void drawMenuItems( SDL_Renderer* renderTarget );

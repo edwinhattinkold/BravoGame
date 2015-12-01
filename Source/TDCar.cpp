@@ -25,6 +25,10 @@ void TDCar::read_object( istream& is )
 	float angle;
 	is >> x >> y >> angle;
 	m_body->SetTransform( b2Vec2( x, y ), angle );
+	for( size_t i = 0; i < m_tires.size(); i++ )
+	{
+		m_tires.at( i )->m_body->SetTransform( b2Vec2( x, y ), angle );
+	}
 }
 
 
@@ -108,7 +112,7 @@ TDCar::TDCar(World* world, b2World* physics_world, SDL_Renderer* renderTarget, i
 
 	//front left tire
 	tire = new TDTire( physics_world, renderTarget );
-	tireLEFT = tire;
+	//tireLEFT = tire;
 	tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, frontTireMaxDriveForce, frontTireMaxLateralImpulse);
 	jointDef.bodyB = tire->m_body;
 	jointDef.localAnchorA.Set(-1.5, 5.7f);

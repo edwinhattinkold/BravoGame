@@ -194,7 +194,7 @@
     </ClInclude>
     <ClInclude Include="Source\LoadingMenu.h">
       <Filter>Header Files\Menu</Filter>
-	</ClInclude>
+    </ClInclude>
     <ClInclude Include="Source\Projectile.h">
       <Filter>Header Files\Model\Shooting</Filter>
     </ClInclude>
@@ -203,6 +203,9 @@
     </ClInclude>
     <ClInclude Include="Source\Random.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SaveMenu.h">
+      <Filter>Header Files\Menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -292,7 +295,7 @@
     </ClCompile>
     <ClCompile Include="Source\LoadingMenu.cpp">
       <Filter>Source Files\Menu</Filter>
-	</ClCompile>
+    </ClCompile>
     <ClCompile Include="Source\Projectile.cpp">
       <Filter>Source Files\Model\Shooting</Filter>
     </ClCompile>
@@ -301,6 +304,9 @@
     </ClCompile>
     <ClCompile Include="Source\Random.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SaveMenu.cpp">
+      <Filter>Source Files\Menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

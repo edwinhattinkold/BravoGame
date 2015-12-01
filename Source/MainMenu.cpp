@@ -65,6 +65,11 @@ int MainMenu::showMenu(SDL_Renderer* renderTarget){
 		{
 			return showMenu( renderTarget );
 		}
+		else if( loadMenu->isGameCode(loadChoice) )
+		{
+			sound->stopSound( Sound_MainMenu_Theme );
+			return Choices::Continue;
+		}
 		else
 		{
 			return Choices::Exit;
