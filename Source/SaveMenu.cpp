@@ -150,6 +150,6 @@ void SaveMenu::handleChoice( int index )
 	{
 		TDCar* car = world->getCar();
 		ofstream outfile{ fileNames.at( gameNumber ) };
-		outfile << car;
+		outfile << (*car);
 	}
 }
