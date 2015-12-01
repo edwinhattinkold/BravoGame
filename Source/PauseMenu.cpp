@@ -17,6 +17,8 @@ PauseMenu::PauseMenu(World* world, SDL_Renderer* renderTarget, Camera* camera )
 	menuItems->push_back( new MenuItem( renderTarget, font, "Save game" ) );
 	menuItems->push_back( new MenuItem( renderTarget, font, "Mainmenu" ) );
 
+	saveMenu = new SaveMenu(world, renderTarget, camera, arrow, font);
+
 	margin = 40;
 	selected = 0;
 	center();
@@ -34,23 +36,30 @@ PauseMenu::~PauseMenu()
 
 void PauseMenu::tick(int mouseX, int mouseY)
 {
-	for( size_t i = 0; i < menuItems->size(); i++ )
-		if( i != selected && menuItems->at( i )->checkHover( mouseX, mouseY ) )
-		{
-			sound->playSound( Sound_MainMenu_Tick );
-			selected = i;
-			updateSelected();
-		}
+	if( !saveMenu->saving )
+	{
+		for( size_t i = 0; i < menuItems->size(); i++ )
+			if( i != selected && menuItems->at( i )->checkHover( mouseX, mouseY ) )
+			{
+				sound->playSound( Sound_MainMenu_Tick );
+				selected = i;
+				updateSelected();
+			}
 
-	/* Draw menu items */
-	for( size_t c = 0; c < menuItems->size(); c++ )
-		menuItems->at( c )->draw( renderTarget );
+		/* Draw menu items */
+		for( size_t c = 0; c < menuItems->size(); c++ )
+			menuItems->at( c )->draw( renderTarget );
 
-	/* Draw arrow */
-	arrow->draw( renderTarget );
+		/* Draw arrow */
+		arrow->draw( renderTarget );
 
-	/* Draw cursor */
-	CustomCursor::getInstance()->draw( mouseX, mouseY );
+		/* Draw cursor */
+		CustomCursor::getInstance()->draw( mouseX, mouseY );
+	}
+	else
+	{
+		saveMenu->tick( mouseX, mouseY );
+	}
 }
 
 void PauseMenu::center()
@@ -79,6 +88,10 @@ void PauseMenu::center()
 
 void PauseMenu::handleKeyboardInput( SDL_Keycode keyPressed )
 {
+	if( saveMenu->saving )
+	{
+		return saveMenu->handleKeyboardInput( keyPressed );
+	}
 	switch( keyPressed )
 	{
 		case(SDLK_w) :
@@ -106,6 +119,10 @@ void PauseMenu::handleKeyboardInput( SDL_Keycode keyPressed )
 
 void PauseMenu::mouseButtonClicked( int mouseX, int mouseY )
 {
+	if( saveMenu->saving )
+	{
+		return saveMenu->mouseButtonClicked( mouseX,mouseY );
+	}
 	for( size_t index = 0; index < menuItems->size(); index++ )
 		if( mouseX >= menuItems->at( index )->getXPosition() && mouseX <= menuItems->at( index )->getXPosition() + menuItems->at( index )->getWidth() &&
 			mouseY >= menuItems->at( index )->getYPosition() && mouseY <= menuItems->at( index )->getYPosition() + menuItems->at( index )->getHeight() )
@@ -134,7 +151,11 @@ void PauseMenu::handleChoice( int index )
 			sound->playSoundLooping( Sound_MainMenu_Theme, 0.5f );
 			world->setGameState( GameState_In_MainMenu );
 			break;
+		case(Choices::Save_Game) :
+			saveMenu->saving = true;
+			break;
 		case(Choices::Continue) :
 			world->setGameState( GameState_Running );
+			break;
 	}
 }
