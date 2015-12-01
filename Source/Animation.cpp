@@ -1,19 +1,24 @@
 #include "Animation.h"
 #include <iostream>
 
-Animation::Animation( SDL_Renderer* renderTarget, std::string filePath, int framesX, int framesY, int startFrameX, int startFrameY, float animationSpeed )
+Animation::Animation( SDL_Renderer* renderTarget, Asset asset, int framesX, int framesY, int startFrameX, int startFrameY, float animationSpeed )
 {
-	SDL_Surface *surface = IMG_Load( filePath.c_str() );
-	if( surface == NULL )
-		std::cout << "Error" << std::endl;
-	else
-	{
-		texture = SDL_CreateTextureFromSurface( renderTarget, surface );
-		if( texture == NULL )
-			std::cout << "Error" << std::endl;
-	}
-	SDL_FreeSurface( surface );
+	texture = Assets::getInstance()->getAsset( asset );
+	this->animationSpeed = animationSpeed;
+	this->startFrameX = startFrameX;
+	this->startFrameY = startFrameY;
+	init(framesX, framesY);
+	done = false;
+}
 
+
+Animation::~Animation()
+{
+
+}
+
+void Animation::init(int framesX, int framesY)
+{
 	SDL_QueryTexture( texture, NULL, NULL, &cropRect.w, &cropRect.h );
 
 	textureWidth = cropRect.w;
@@ -30,15 +35,6 @@ Animation::Animation( SDL_Renderer* renderTarget, std::string filePath, int fram
 	cropRect.y = frameHeight * startFrameY;
 
 	frameCounter = 0.0f;
-	this->animationSpeed = animationSpeed;
-	this->startFrameX = startFrameX;
-	this->startFrameY = startFrameY;
-}
-
-
-Animation::~Animation()
-{
-	SDL_DestroyTexture( texture );
 }
 
 void Animation::update( float deltaTime )
@@ -54,7 +50,10 @@ void Animation::update( float deltaTime )
 			cropRect.y += frameHeight;
 			cropRect.x = 0;
 			if( cropRect.y >= textureHeight )
-				cropRect.y = 0;
+			{
+				done = true;
+			}
+				
 		}
 	}
 }
@@ -69,8 +68,11 @@ void Animation::drawTree(SDL_Renderer* renderTarget, SDL_Rect drawingRect, int a
 }
 
 void Animation::drawCar(SDL_Renderer* renderTarget, SDL_Rect drawingRect, int angle){
-	const SDL_Point startRenderPoint = { drawingRect.x, drawingRect.y };
-	SDL_RenderCopyEx(renderTarget, texture, NULL, &drawingRect, angle, NULL, SDL_FLIP_NONE);
+	SDL_RenderCopyEx(renderTarget, texture, NULL, &drawingRect, angle, NULL, SDL_FLIP_VERTICAL);
+}
+
+void Animation::DrawWithAngle(SDL_Renderer* renderTarget, SDL_Rect drawingRect, int angle){
+	SDL_RenderCopyEx(renderTarget, texture, NULL, &drawingRect, angle, NULL, SDL_FLIP_VERTICAL);
 }
 
 void Animation::standStill()
@@ -104,4 +106,10 @@ void Animation::setOriginX(int newOriginX){
 
 void Animation::setOriginY(int newOriginY){
 	originY = newOriginY;
+}
+
+void Animation::setAsset( Asset asset )
+{
+	this->texture = Assets::getInstance()->getAsset( asset );
+	init( 1, 1 );
 }

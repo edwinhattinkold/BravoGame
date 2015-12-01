@@ -55,20 +55,21 @@ void MapDrawer::draw( SDL_Renderer *renderTarget, SDL_Rect cameraRect )
 	}
 }
 
-void MapDrawer::accept( UpdateVisitor *uv, float deltaTime, const Uint8 *keyState )
+void MapDrawer::accept( UpdateVisitor *uv )
 {
-	if ( minX * 1024 > cameraRect->x)
-		loadChunkLeft();
-	if (minY * 1024 > cameraRect->y)
-		loadChunkTop();
-	if (maxX * 1024 < cameraRect->x + cameraRect->w)
-		loadChunkRight();
-	if (maxY * 1024 < cameraRect->y + cameraRect->h)
-		loadChunkBottom();
+	uv->visit( this );
 }
+
 void MapDrawer::update( float delta, const Uint8 *keyState )
 {
-
+	if( minX * 1024 > cameraRect->x )
+		loadChunkLeft();
+	if( minY * 1024 > cameraRect->y )
+		loadChunkTop();
+	if( maxX * 1024 < cameraRect->x + cameraRect->w )
+		loadChunkRight();
+	if( maxY * 1024 < cameraRect->y + cameraRect->h )
+		loadChunkBottom();
 }
 
 std::string MapDrawer::getChunk(int x, int y)

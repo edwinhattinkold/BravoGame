@@ -70,15 +70,30 @@
     <Filter Include="Source Files\Model">
       <UniqueIdentifier>{0b72afb4-ec52-4902-9163-f21402da7492}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Hud">
+      <UniqueIdentifier>{3b1cadd6-5e3a-4123-961f-b349ed75e702}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Hud">
+      <UniqueIdentifier>{040f7e2c-ee64-4960-8917-b17bc6cab42d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Enemy">
+      <UniqueIdentifier>{e67c00a3-bf37-438b-8f7b-47f4042c268e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Enemy">
+      <UniqueIdentifier>{3ef393f2-7b68-44bd-8b60-c9866fac6813}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Model\Shooting">
+      <UniqueIdentifier>{99ff1eac-17e2-4ec4-84ad-ff23f21baf15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Model\Shooting">
+      <UniqueIdentifier>{77662d4a-30bb-4e4d-b85d-8042a6e7672f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Animation.h">
       <Filter>Header Files\GraphicObjects</Filter>
     </ClInclude>
     <ClInclude Include="Source\Camera.h">
-      <Filter>Header Files\GraphicObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Player.h">
       <Filter>Header Files\GraphicObjects</Filter>
     </ClInclude>
     <ClInclude Include="Source\Sprite.h">
@@ -146,7 +161,7 @@
     </ClInclude>
     <ClInclude Include="Source\Settings.h">
       <Filter>Header Files\Settings</Filter>
-	  </ClInclude>
+    </ClInclude>
     <ClInclude Include="Source\UpdateContainer.h">
       <Filter>Header Files\Containers</Filter>
     </ClInclude>
@@ -174,20 +189,83 @@
     <ClInclude Include="Source\TDTire.h">
       <Filter>Header Files\Model</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Car.h">
-      <Filter>Header Files\Model</Filter>
-    </ClInclude>
     <ClInclude Include="Source\B2Content.h">
       <Filter>Header Files\Model</Filter>
     </ClInclude>
     <ClInclude Include="Source\Tree.h">
       <Filter>Header Files\Model</Filter>
     </ClInclude>
+    <ClInclude Include="Source\HowToPlay.h">
+      <Filter>Header Files\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PauseMenu.h">
+      <Filter>Header Files\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rect.h">
+      <Filter>Header Files\GraphicObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Hud.h">
+      <Filter>Header Files\Hud</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\HudObject.h">
+      <Filter>Header Files\GraphicObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FPS.h">
+      <Filter>Header Files\Hud</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Turret.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\TurretState.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SearchingTurretState.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ShootingTurretState.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LoadingMenu.h">
+      <Filter>Header Files\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Projectile.h">
+      <Filter>Header Files\Model\Shooting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Weapon.h">
+      <Filter>Header Files\Model\Shooting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Assets.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Random.h">
+      <Filter>Header Files\GraphicObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MachineGun.h">
+      <Filter>Header Files\Model\Shooting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Hittable.h">
+      <Filter>Header Files\Model\Shooting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ContactHandler.h">
+      <Filter>Header Files\Model\Shooting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\TurretWeapon.h">
+      <Filter>Header Files\Model\Shooting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DeadTurretState.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Explosion.h">
+      <Filter>Header Files\GraphicObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Collectible.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SaveMenu.h">
+      <Filter>Header Files\Menu</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\MainMenu.cpp">
       <Filter>Source Files\Menu</Filter>
     </ClCompile>
@@ -201,9 +279,6 @@
       <Filter>Source Files\GraphicObjects</Filter>
     </ClCompile>
     <ClCompile Include="Source\Camera.cpp">
-      <Filter>Source Files\GraphicObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Player.cpp">
       <Filter>Source Files\GraphicObjects</Filter>
     </ClCompile>
     <ClCompile Include="Source\Sprite.cpp">
@@ -232,12 +307,9 @@
     </ClCompile>
     <ClCompile Include="Source\Settings.cpp">
       <Filter>Source Files\Settings</Filter>
-	</ClCompile>
+    </ClCompile>
     <ClCompile Include="Source\ChunkFactory.cpp">
       <Filter>Source Files\Factories</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Car.cpp">
-      <Filter>Source Files\Model</Filter>
     </ClCompile>
     <ClCompile Include="Source\CarTireFUD.cpp">
       <Filter>Source Files\Model</Filter>
@@ -265,6 +337,78 @@
     </ClCompile>
     <ClCompile Include="Source\Tree.cpp">
       <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\HowToPlay.cpp">
+      <Filter>Source Files\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PauseMenu.cpp">
+      <Filter>Source Files\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rect.cpp">
+      <Filter>Source Files\GraphicObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Hud.cpp">
+      <Filter>Source Files\Hud</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\HudObject.cpp">
+      <Filter>Source Files\GraphicObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FPS.cpp">
+      <Filter>Source Files\Hud</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Turret.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SearchingTurretState.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TurretState.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ShootingTurretState.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LoadingMenu.cpp">
+      <Filter>Source Files\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Projectile.cpp">
+      <Filter>Source Files\Model\Shooting</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Weapon.cpp">
+      <Filter>Source Files\Model\Shooting</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Random.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Assets.cpp">
+      <Filter>Source Files\GraphicObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Collectible.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MachineGun.cpp">
+      <Filter>Source Files\Model\Shooting</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Hittable.cpp">
+      <Filter>Source Files\Model\Shooting</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ContactHandler.cpp">
+      <Filter>Source Files\Model\Shooting</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TurretWeapon.cpp">
+      <Filter>Source Files\Model\Shooting</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DeadTurretState.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Explosion.cpp">
+      <Filter>Source Files\GraphicObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SaveMenu.cpp">
+      <Filter>Source Files\Menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

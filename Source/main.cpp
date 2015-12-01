@@ -1,12 +1,7 @@
-#define _CRTDBG_MAP_ALLOC
-#include <stdlib.h>
-#include <crtdbg.h>
-
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_ttf.h"
 #include <iostream>
-#include "Player.h"
 #include "Camera.h"
 #include "MainMenu.h"
 #include "wtypes.h"
@@ -15,12 +10,9 @@
 #include "Sound.h"
 #include "CustomCursor.h"
 #include "Settings.h"
-
-#include "Car.h"
+#include "vld.h"
 #include "PhysicsWorld.h"
-
-
-//SVEN
+#include "Assets.h"
 
 SDL_Texture *LoadTexture(std::string filePath, SDL_Renderer *renderTarget){
 	SDL_Texture *texture = nullptr;
@@ -62,6 +54,8 @@ public:
 		TTF_Init();
 		SDL_Init( SDL_INIT_VIDEO );
 
+		
+
 		if( !font )
 			printf( "TTF_OpenFont: %s\n", TTF_GetError() ); //I.p.v. printen wellicht voor dit soort dingen exception handling?
 
@@ -69,8 +63,8 @@ public:
 		font = TTF_OpenFont( "Fonts/Frontman.ttf", 40 );
 
 		Uint32 flags = SDL_WINDOW_SHOWN;
-		windowWidth = 1024;
-		windowHeight = 576;
+		windowWidth = 1280;
+		windowHeight = 720;
 		levelWidth = 3072;
 		levelHeight = 3072;
 
@@ -111,6 +105,7 @@ public:
 		Sound_Quit();
 		CustomCursor_Quit();
 		Settings_Quit();
+		Assets_Quit();
 	}
 };
 
@@ -122,6 +117,5 @@ int main( int argc, char *argv[] )
 	delete mainHelper;
 	mainHelper = nullptr;
 
-	_CrtDumpMemoryLeaks();
 	return 0;
 }

@@ -43,6 +43,7 @@ public:
 	void playSound(SoundFiles file, ik_f32 volume);
 	void playSoundLooping(SoundFiles file, ik_f32 volume);
 	void stopSound(SoundFiles file);
+	void pauseAllSounds();
 	void setVolume(ik_f32 volume);
 	ik_f32 getVolume();
 	void mute();

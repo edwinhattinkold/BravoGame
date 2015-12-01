@@ -3,7 +3,7 @@
 #include <Box2D/Box2D.h>
 #include "GroundAreaFud.h"
 #include "CarTireFud.h"
-
+#include "B2Content.h"
 #include <set>
 enum {
 	TDC_LEFT = 0x1,
@@ -12,20 +12,19 @@ enum {
 	TDC_DOWN = 0x8
 };
 
-class TDTire
+class TDTire : public B2Content
 {
 public:
 	CarTireFUD *ctfud;
-	b2Body* m_body;
 	float m_maxForwardSpeed;
 	float m_maxBackwardSpeed;
 	float m_maxDriveForce;
 	float m_maxLateralImpulse;
 	std::set<GroundAreaFUD*> m_groundAreas;
 	float m_currentTraction;
-	
+
 	~TDTire();
-	TDTire(b2World* world);
+	TDTire( World* world, b2World* physicsWorld, SDL_Renderer * renderTarget );
 
 	void setCharacteristics(float maxForwardSpeed, float maxBackwardSpeed, float maxDriveForce, float maxLateralImpulse) {
 		m_maxForwardSpeed = maxForwardSpeed;
@@ -36,7 +35,7 @@ public:
 
 	void addGroundArea(GroundAreaFUD* ga) { m_groundAreas.insert(ga); updateTraction(); }
 	void removeGroundArea(GroundAreaFUD* ga) { m_groundAreas.erase(ga); updateTraction(); }
-
+	
 	void updateTraction()
 	{
 		if (m_groundAreas.empty())
@@ -81,6 +80,7 @@ public:
 		m_body->ApplyForce(m_currentTraction * dragForceMagnitude * currentForwardNormal, m_body->GetWorldCenter(), true);
 	}
 
+
 	void updateDrive(int controlState) {
 
 		//find desired speed
@@ -115,5 +115,8 @@ public:
 		}
 		m_body->ApplyTorque(desiredTorque, true);
 	}
+
+	void update();
+	virtual void accept(DrawVisitor *dv);
 };
 

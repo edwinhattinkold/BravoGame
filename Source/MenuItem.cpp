@@ -41,6 +41,8 @@ void MenuItem::setColor(SDL_Renderer* renderTarget, Color color){
 		case(Color::White):
 			newColor = { 255, 255, 255, 255 };
 			break;
+		case(Color::SelectedRed) :
+			newColor = { 255, 0, 0, 255 };
 	}
 	currentTexture = createTextTexture(renderTarget, myFont, content, newColor);
 }

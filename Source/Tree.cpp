@@ -1,12 +1,14 @@
 #include "Tree.h"
+#include "World.h"
 
 #ifndef DEGTORAD
 #define DEGTORAD 0.0174532925199432957f
 #define RADTODEG 57.295779513082320876f
 #endif
 
-Tree::Tree(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM, int posX, int posY)
-	:B2Content(world, renderTarget, "Images/Objects/Tree.png"){
+Tree::Tree(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, int widthM, int heightM, int posX, int posY)
+	:B2Content(renderTarget, world, physicsWorld, Asset_Tree), Hittable(1000){
+	objectType = Object_Tree;
 	w = widthM;
 	h = heightM;
 	//create car body
@@ -14,7 +16,7 @@ Tree::Tree(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM, 
 	bodyDef.type = b2_staticBody;
 
 	bodyDef.position.Set(posX, posY);
-	m_body = world->CreateBody(&bodyDef);
+	m_body = physicsWorld->CreateBody( &bodyDef );
 
 	m_body->SetAngularDamping(3);
 	
@@ -23,27 +25,49 @@ Tree::Tree(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM, 
 	// W en h worden meegegeven door de user
 	vertices[0].Set(w / 2, 0);
 	vertices[1].Set(w / 2, h);
-	vertices[2].Set(w, h);
+	vertices[2].Set(-w / 2, h);
 	vertices[3].Set(-w / 2, 0);
 	b2PolygonShape polygonShape;
 	polygonShape.Set(vertices, 4);
 
 	//Draaien
 	m_body->SetTransform(m_body->GetPosition(), DEGTORAD * 0);
-	b2Fixture* fixture = m_body->CreateFixture(&polygonShape, 0.1f);//shape, density
+	fixture = m_body->CreateFixture(&polygonShape, 0.8f);//shape, density
 	
-	updateSDLPosition(this->getSDLPosition().x, this->getSDLPosition().y, w, h, getAngle());
 
-	
+	updateSDLPosition(getCenterXSDL(), getCenterYSDL(), getSDLWidth(), getSDLHeight(), getAngleSDL());
 	updateOrigin();
+
+	m_body->SetUserData( this );
 }
 
 
 Tree::~Tree()
 {
+
+}
+
+b2Body * Tree::getBody()
+{
+	return m_body;
 }
 
 void Tree::accept(DrawVisitor *dv)
 {
 	dv->visit(this);
+}
+
+void Tree::accept( UpdateVisitor *uv )
+{
+	uv->visit( this );
+}
+
+void Tree::checkDeath()
+{
+	if( dead )
+	{
+		world->createExplosion( positionRect );
+		world->destroyObject( this );
+	}
+		
 }

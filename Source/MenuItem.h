@@ -4,7 +4,7 @@
 #include "SDL_ttf.h"
 #include <vector>
 
-static enum Color { Red, White };
+static enum Color { Red, White, SelectedRed };
 
 class MenuItem
 {

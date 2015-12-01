@@ -12,60 +12,92 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Animation.h" />
+    <ClInclude Include="Source\Assets.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\ChunkFactory.h" />
-    <ClInclude Include="Source\Car.h" />
     <ClInclude Include="Source\CarTireFUD.h" />
+    <ClInclude Include="Source\Collectible.h" />
+    <ClInclude Include="Source\ContactHandler.h" />
     <ClInclude Include="Source\CreditsMenu.h" />
     <ClInclude Include="Source\CustomCursor.h" />
+    <ClInclude Include="Source\DeadTurretState.h" />
     <ClInclude Include="Source\DrawContainer.h" />
     <ClInclude Include="Source\DrawFactory.h" />
     <ClInclude Include="Source\DrawVisitor.h" />
+    <ClInclude Include="Source\Explosion.h" />
     <ClInclude Include="Source\FixtureUserData.h" />
+    <ClInclude Include="Source\FPS.h" />
     <ClInclude Include="Source\GroundAreaFUD.h" />
+    <ClInclude Include="Source\Hittable.h" />
+    <ClInclude Include="Source\HowToPlay.h" />
+    <ClInclude Include="Source\Hud.h" />
+    <ClInclude Include="Source\HudObject.h" />
     <ClInclude Include="Source\IDrawable.h" />
     <ClInclude Include="Source\IUpdateable.h" />
+    <ClInclude Include="Source\LoadingMenu.h" />
     <ClInclude Include="Source\Location.h" />
+    <ClInclude Include="Source\MachineGun.h" />
     <ClInclude Include="Source\MainMenu.h" />
     <ClInclude Include="Source\MapDrawer.h" />
     <ClInclude Include="Source\Chunk.h" />
     <ClInclude Include="Source\MenuItem.h" />
     <ClInclude Include="Source\MyDestructionListener.h" />
     <ClInclude Include="Source\OptionsMenu.h" />
+    <ClInclude Include="Source\PauseMenu.h" />
     <ClInclude Include="Source\PhysicsWorld.h" />
-    <ClInclude Include="Source\Player.h" />
+    <ClInclude Include="Source\Projectile.h" />
+    <ClInclude Include="Source\Random.h" />
     <ClInclude Include="Source\rapidxml.hpp" />
     <ClInclude Include="Source\rapidxml_utils.hpp" />
+    <ClInclude Include="Source\Rect.h" />
+    <ClInclude Include="Source\SearchingTurretState.h" />
+    <ClInclude Include="Source\SaveMenu.h" />
     <ClInclude Include="Source\Settings.h" />
     <ClInclude Include="Source\B2Content.h" />
+    <ClInclude Include="Source\ShootingTurretState.h" />
     <ClInclude Include="Source\Sound.h" />
     <ClInclude Include="Source\Sprite.h" />
     <ClInclude Include="Source\TDCar.h" />
     <ClInclude Include="Source\TDTire.h" />
     <ClInclude Include="Source\Tile.h" />
     <ClInclude Include="Source\Tree.h" />
+    <ClInclude Include="Source\Turret.h" />
+    <ClInclude Include="Source\TurretState.h" />
+    <ClInclude Include="Source\TurretWeapon.h" />
     <ClInclude Include="Source\UpdateContainer.h" />
     <ClInclude Include="Source\UpdateVisitor.h" />
+    <ClInclude Include="Source\Weapon.h" />
     <ClInclude Include="Source\World.h" />
     <ClInclude Include="Source\XMLReader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Animation.cpp" />
+    <ClCompile Include="Source\Assets.cpp" />
     <ClCompile Include="Source\B2Content.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\ChunkFactory.cpp" />
-    <ClCompile Include="Source\Car.cpp" />
     <ClCompile Include="Source\CarTireFUD.cpp" />
+    <ClCompile Include="Source\Collectible.cpp" />
+    <ClCompile Include="Source\ContactHandler.cpp" />
     <ClCompile Include="Source\CreditsMenu.cpp" />
     <ClCompile Include="Source\CustomCursor.cpp" />
+    <ClCompile Include="Source\DeadTurretState.cpp" />
     <ClCompile Include="Source\DrawContainer.cpp" />
     <ClCompile Include="Source\DrawFactory.cpp" />
     <ClCompile Include="Source\DrawVisitor.cpp" />
+    <ClCompile Include="Source\Explosion.cpp" />
     <ClCompile Include="Source\FixtureUserData.cpp" />
+    <ClCompile Include="Source\FPS.cpp" />
     <ClCompile Include="Source\GroundAreaFUD.cpp" />
+    <ClCompile Include="Source\Hittable.cpp" />
+    <ClCompile Include="Source\HowToPlay.cpp" />
+    <ClCompile Include="Source\Hud.cpp" />
+    <ClCompile Include="Source\HudObject.cpp" />
     <ClCompile Include="Source\IDrawable.cpp" />
     <ClCompile Include="Source\IUpdateable.cpp" />
+    <ClCompile Include="Source\LoadingMenu.cpp" />
     <ClCompile Include="Source\Location.cpp" />
+    <ClCompile Include="Source\MachineGun.cpp" />
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\MainMenu.cpp" />
     <ClCompile Include="Source\MapDrawer.cpp" />
@@ -73,17 +105,27 @@
     <ClCompile Include="Source\MenuItem.cpp" />
     <ClCompile Include="Source\MyDestructionListener.cpp" />
     <ClCompile Include="Source\OptionsMenu.cpp" />
+    <ClCompile Include="Source\PauseMenu.cpp" />
     <ClCompile Include="Source\PhysicsWorld.cpp" />
-    <ClCompile Include="Source\Player.cpp" />
+    <ClCompile Include="Source\Rect.cpp" />
+    <ClCompile Include="Source\SearchingTurretState.cpp" />
+    <ClCompile Include="Source\Projectile.cpp" />
+    <ClCompile Include="Source\Random.cpp" />
+    <ClCompile Include="Source\SaveMenu.cpp" />
     <ClCompile Include="Source\Settings.cpp" />
+    <ClCompile Include="Source\ShootingTurretState.cpp" />
     <ClCompile Include="Source\Sound.cpp" />
     <ClCompile Include="Source\Sprite.cpp" />
     <ClCompile Include="Source\TDCar.cpp" />
     <ClCompile Include="Source\TDTire.cpp" />
     <ClCompile Include="Source\Tile.cpp" />
     <ClCompile Include="Source\Tree.cpp" />
+    <ClCompile Include="Source\Turret.cpp" />
+    <ClCompile Include="Source\TurretState.cpp" />
+    <ClCompile Include="Source\TurretWeapon.cpp" />
     <ClCompile Include="Source\UpdateContainer.cpp" />
     <ClCompile Include="Source\UpdateVisitor.cpp" />
+    <ClCompile Include="Source\Weapon.cpp" />
     <ClCompile Include="Source\World.cpp" />
     <ClCompile Include="Source\XMLReader.cpp" />
   </ItemGroup>
@@ -116,19 +158,18 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)Deps/include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Deps/lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Deps/include;$(SolutionDir)\VisualLeakDetector\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Deps/lib;$(SolutionDir)\VisualLeakDetector\lib\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)Deps/include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Deps/lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Deps/include;$(SolutionDir)\VisualLeakDetector\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Deps/lib;$(SolutionDir)\VisualLeakDetector\lib\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\VisualLeakDetector\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
@@ -145,8 +186,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\VisualLeakDetector\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

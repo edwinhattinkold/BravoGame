@@ -1,14 +1,16 @@
 #include "MainMenu.h"
 #include "CustomCursor.h"
-
-MainMenu::MainMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, Camera* camera, TTF_Font* font )
+MainMenu::MainMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, Camera* camera, TTF_Font* font, World* world )
 {
+	this->arrow = new Sprite( renderTarget, Asset_Menu_Arrow );
+	this->renderTarget = renderTarget;
 	this->camera = camera;
 	sound = Sound::getInstance();
 	sound->playSoundLooping(Sound_MainMenu_Theme, 0.50f);
-	optionsMenu = new OptionsMenu(renderTarget, window, backgroundImage, camera, font);
+	optionsMenu = new OptionsMenu(renderTarget, window, backgroundImage, arrow, camera, font);
+	loadMenu = new LoadingMenu( renderTarget, window, backgroundImage, arrow, camera, font, world );
 	creditsMenu = new CreditsMenu(renderTarget, camera);
-
+	howToPlay = new HowToPlay(renderTarget, camera, font);
 	backgroundImageRect.x = 0;
 	backgroundImageRect.y = 0;
 	backgroundImageRect.w = camera->getCamera()->w;
@@ -20,9 +22,11 @@ MainMenu::MainMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture*
 	menuItems = new std::vector<MenuItem*>();
 	menuItems->push_back(new MenuItem(renderTarget, font, "Continue"));
 	menuItems->push_back(new MenuItem(renderTarget, font, "Load Game"));
+	menuItems->push_back(new MenuItem(renderTarget, font, "How To Play"));
 	menuItems->push_back(new MenuItem(renderTarget, font, "Options"));
 	menuItems->push_back(new MenuItem(renderTarget, font, "Credits"));
 	menuItems->push_back(new MenuItem(renderTarget, font, "Exit"));
+	selected = 0;
 }
 
 MainMenu::~MainMenu()
@@ -33,6 +37,9 @@ MainMenu::~MainMenu()
 	delete menuItems;						menuItems = nullptr;
 	delete optionsMenu;						optionsMenu = nullptr;
 	delete creditsMenu;						creditsMenu = nullptr;
+	delete howToPlay;						howToPlay = nullptr;
+	delete arrow;							arrow = nullptr;
+	delete loadMenu;						loadMenu = nullptr;
 }
 
 int MainMenu::getExitCode(){
@@ -40,7 +47,9 @@ int MainMenu::getExitCode(){
 }
 
 int MainMenu::showMenu(SDL_Renderer* renderTarget){
+	sound->stopSound(Sound_Engine_Loop);
 	center();
+	updateSelected();
 	SDL_GetMouseState( &mouseX, &mouseY );
 	CustomCursor::getInstance( )->draw( mouseX, mouseY );
 	int choice = createMenu(renderTarget);
@@ -50,12 +59,33 @@ int MainMenu::showMenu(SDL_Renderer* renderTarget){
 		return Choices::Continue;
 		break;
 	case(Choices::Load_Game) :
+		loadChoice = loadMenu->showMenu( renderTarget );
 		sound->stopSound(Sound_MainMenu_Theme);
+		if( loadChoice == loadMenu->getBackCode() )
+		{
+			return showMenu( renderTarget );
+		}
+		else if( loadMenu->isGameCode(loadChoice) )
+		{
+			sound->stopSound( Sound_MainMenu_Theme );
+			return Choices::Continue;
+		}
+		else
+		{
+			return Choices::Exit;
+		}
 		return Choices::Load_Game;
 		break;
 	case(Choices::Options) :
 		optionsChoice = optionsMenu->showMenu(renderTarget);
 		if (optionsChoice == optionsMenu->getBackCode())
+			return showMenu(renderTarget);
+		else
+			return Choices::Exit;
+		break;
+	case(Choices::How_To_Play) :
+		howToPlayChoise = howToPlay->showMenu(renderTarget);
+		if (howToPlayChoise == howToPlay->getBackCode())
 			return showMenu(renderTarget);
 		else
 			return Choices::Exit;
@@ -93,8 +123,12 @@ int MainMenu::createMenu(SDL_Renderer* renderTarget){
 				mouseX = event.motion.x;
 				mouseY = event.motion.y;
 				for (size_t i = 0; i < menuItems->size(); i++)
-					if (menuItems->at(i)->checkHover(mouseX, mouseY))
-						sound->playSound(Sound_MainMenu_Tick);
+					if( i != selected && menuItems->at( i )->checkHover( mouseX, mouseY ) )
+					{
+						sound->playSound( Sound_MainMenu_Tick );
+						selected = i;
+						updateSelected();
+					}
 				break;
 			case SDL_MOUSEBUTTONDOWN:
 				mouseX = event.motion.x;
@@ -106,20 +140,30 @@ int MainMenu::createMenu(SDL_Renderer* renderTarget){
 						return index;
 					}
 				break;
+			case SDL_KEYDOWN:
+				SDL_Keycode keyPressed = event.key.keysym.sym;
+				handleKeyboardInput(keyPressed);
+				if( keyPressed == SDLK_RETURN || keyPressed == SDLK_SPACE )
+				{ 
+					sound->playSound( Sound_MainMenu_Click );
+					return selected;
+				}
+				break;
 			}
 		}
 		SDL_RenderClear(renderTarget);
 		SDL_RenderCopy(renderTarget, backgroundImage, NULL, NULL);
-		draw(renderTarget);
+		arrow->draw(renderTarget);
+		drawMenuItems(renderTarget);
 		CustomCursor::getInstance( )->draw( mouseX, mouseY );
 		SDL_RenderPresent(renderTarget);
 	}
 }
 
-void MainMenu::draw(SDL_Renderer* renderTarget){
-	for (size_t c = 0; c < menuItems->size(); c++) {
+void MainMenu::drawMenuItems( SDL_Renderer* renderTarget )
+{
+	for (size_t c = 0; c < menuItems->size(); c++)
 		menuItems->at(c)->draw(renderTarget);
-	}
 }
 
 void MainMenu::center()
@@ -143,4 +187,39 @@ void MainMenu::center()
 		int yPosition = (camera->getCamera()->h / 2) - (combinedHeight / 2) + (j * margin) + previousHeight;
 		menuItems->at( j )->setYPosition( yPosition );
 	}
+}
+
+void MainMenu::handleKeyboardInput( SDL_Keycode keyPressed )
+{
+	switch( keyPressed )
+	{
+		case(SDLK_w) :
+		case(SDLK_UP) :
+			if( selected != 0 )
+				selected--;
+			else
+			    selected = menuItems->size() - 1;
+			sound->playSound( Sound_MainMenu_Tick );
+			break;
+		case(SDLK_s) :
+		case(SDLK_DOWN) :
+			if( selected != menuItems->size() - 1 )
+				selected++;
+			else
+				selected = 0;
+			sound->playSound( Sound_MainMenu_Tick );
+			break;
+	}
+	updateSelected();
+}
+
+void MainMenu::updateSelected()
+{
+	MenuItem* selectedItem = menuItems->at( selected );
+	for( size_t c = 0; c < menuItems->size(); c++ )
+		menuItems->at( c )->setColor( renderTarget, Red );
+	selectedItem->setColor( renderTarget, SelectedRed );
+	
+	arrow->positionRect.x = selectedItem->getXPosition() - arrow->positionRect.w - 20;
+	arrow->positionRect.y = selectedItem->getYPosition() + selectedItem->getHeight() / 2 - arrow->positionRect.h / 2 - 3;
 }

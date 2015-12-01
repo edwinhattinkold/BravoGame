@@ -1,33 +1,119 @@
 #include "B2Content.h"
+#include "World.h"
 
-
-B2Content::B2Content(b2World* world, SDL_Renderer* renderTarget, std::string filePath) :Sprite(renderTarget, filePath)
+B2Content::B2Content( SDL_Renderer* renderTarget, World* world, b2World* physicsWorld, Asset asset) :Sprite(renderTarget, asset)
 {
-
+	this->world = world;
+	this->physicsWorld = physicsWorld;
+	isOnDeathRow = false;
 }
-
 
 B2Content::~B2Content()
 {
-	m_body->GetWorld()->DestroyBody(m_body);
+	if( m_body != nullptr )
+		physicsWorld->DestroyBody(m_body);
 }
 
 b2Vec2 B2Content::getB2DPosition(){
 	return m_body->GetPosition();
 }
 
-b2Vec2 B2Content::getSDLPosition(){
+void B2Content::setB2DPosition(b2Vec2 position)
+{
+	m_body->SetTransform( position, m_body->GetAngle() );
+}
+
+b2Vec2 B2Content::getB2DDirectionalVector()
+{
+	b2Vec2 b2DDirectionalVector = m_body->GetLocalVector( m_body->GetLocalCenter() );
+	b2DDirectionalVector.x = b2DDirectionalVector.x * -1;
+	b2DDirectionalVector.Normalize();
+	return b2DDirectionalVector;
+}
+
+b2Vec2 B2Content::getSDLPosition()
+{
 	float x = m_body->GetPosition().x;
 	float y = m_body->GetPosition().y * -1;
 	return b2Vec2(x, y);
 }
 
-float B2Content::getAngle(){
+void B2Content::setB2DAngle(float angle){
+	angle = (360 - angle) * DEGTORAD;
+	m_body->SetTransform(m_body->GetWorldCenter(), angle);
+}
+
+b2Vec2 B2Content::getSDLDirectionalVector()
+{
+	b2Vec2 direction = m_body->GetLocalVector(m_body->GetLocalCenter());	
+	direction.x = direction.x * - 1 * sdlScale;
+	direction.y = direction.y * - 1 * sdlScale;
+	std::cout << direction.x << " , " << direction.y << std::endl;
+	return direction;
+}
+
+float B2Content::getAngleSDL(){
 	
-	float degrees = 360 - m_body->GetAngle() * RADTODEG;
-	return degrees;
-	/*
-	int add360 = degrees + 360;
+	return transform(m_body->GetAngle() * RADTODEG);
+}
+
+float B2Content::getCenterXSDL()
+{
+	float xCenter = 0;
+	float yCenter = 0;
+	b2PolygonShape* polygonShape2 = (b2PolygonShape*)fixture->GetShape();
+	float vertexCount = polygonShape2->GetVertexCount();
+	for (int i = 0; i < vertexCount; ++i)
+	{
+		//get the vertex in body coordinates
+		b2Vec2 bcVertex = polygonShape2->GetVertex(i);
+		//get the vertex in world coordinates
+		b2Vec2 wcVertex = fixture->GetBody()->GetWorldPoint(bcVertex);
+		xCenter += wcVertex.x;
+		yCenter += wcVertex.y;
+	}
+	float centerx = xCenter / 4;
+	float widthx = getSDLWidth() / sdlScale;
+	float sol1 = centerx - (widthx / 2);
+	return sol1 *sdlScale;
+}
+
+float B2Content::getCenterYSDL()
+{
+	float xCenter = 0;
+	float yCenter = 0;
+	b2PolygonShape* polygonShape2 = (b2PolygonShape*)fixture->GetShape();
+	float vertexCount = polygonShape2->GetVertexCount();
+	for (int i = 0; i < vertexCount; ++i)
+	{
+		//get the vertex in body coordinates
+		b2Vec2 bcVertex = polygonShape2->GetVertex(i);
+		//get the vertex in world coordinates
+		b2Vec2 wcVertex = fixture->GetBody()->GetWorldPoint(bcVertex);
+		xCenter += wcVertex.x;
+		yCenter += wcVertex.y;
+	}
+	float center = (yCenter / 4);
+	float zheight = getSDLHeight() / sdlScale;
+	float sol1 = center + (zheight / 2);
+	float sol2 = sol1 * sdlScale;
+	return -1 * sol2;
+}
+
+float B2Content::getSDLWidth()
+{
+	return w * sdlScale;
+}
+
+float B2Content::getSDLHeight()
+{
+	return h * sdlScale;
+}
+
+int B2Content::transform(float dgrs)
+{
+
+	int add360 = dgrs + 360;
 	int newAngle = 0;
 	int gradenBox2d = add360 % 360;
 	if (gradenBox2d < 90)
@@ -49,11 +135,13 @@ float B2Content::getAngle(){
 		int temp = gradenBox2d - 270;
 		newAngle = 270 - temp;
 	}
-	float newNewAngle = newAngle % 360;*/
-	
+	int newNewAngle = newAngle % 360;
+	return newNewAngle;
 }
 
-void B2Content::accept(DrawVisitor *dv)
+ObjectTypes B2Content::getObjectType()
 {
-	dv->visit(this);
+	return objectType;
 }
+
+void B2Content::accept(DrawVisitor* dv){}

@@ -12,8 +12,9 @@ Sprite::Sprite( int xPosition, int yPosition )
 	positionRect.y = yPosition;
 }
 
-Sprite::Sprite(SDL_Renderer* renderTarget, std::string filePath){
-	Animation* default_animation = new Animation(renderTarget, filePath, 1, 1, 0, 0, 0.50f);
+Sprite::Sprite(SDL_Renderer* renderTarget, Asset asset){
+	this->asset = asset;
+	Animation* default_animation = new Animation(renderTarget, this->asset, 1, 1, 0, 0, 0.50f);
 
 	animations = new std::vector<Animation*>();
 	animations->push_back(default_animation);
@@ -24,9 +25,10 @@ Sprite::Sprite(SDL_Renderer* renderTarget, std::string filePath){
 	positionRect.h = animations->at(currentAnimation)->getFrameHeight();
 }
 
-Sprite::Sprite( SDL_Renderer *renderTarget, std::string filePath, int xPosition, int yPosition, int framesX, int framesY, float animationSpeed)
+Sprite::Sprite( SDL_Renderer *renderTarget, Asset asset, int xPosition, int yPosition, int framesX, int framesY, float animationSpeed)
 {
-	Animation* default_animation = new Animation( renderTarget, filePath, framesX, framesY, 0, 0, animationSpeed );
+	this->asset = asset;
+	Animation* default_animation = new Animation( renderTarget, this->asset, framesX, framesY, 0, 0, animationSpeed );
 
 	animations = new std::vector<Animation*>();
 	animations->push_back( default_animation );
@@ -48,7 +50,7 @@ Sprite::~Sprite()
 	delete animations;	animations = nullptr;
 }
 
-void Sprite::update( float delta, const Uint8 *keyState )
+void Sprite::updateAnimation( float delta )
 {
 	animations->at( currentAnimation )->update( delta );
 }
@@ -59,17 +61,44 @@ void Sprite::draw( SDL_Renderer *renderTarget, SDL_Rect camerRect )
 	animations->at( currentAnimation )->draw( renderTarget, drawingRect );
 }
 
+void Sprite::draw( SDL_Renderer *renderTarget)
+{
+	SDL_Rect drawingRect = { positionRect.x, positionRect.y, positionRect.w, positionRect.h };
+	animations->at( currentAnimation )->draw( renderTarget, drawingRect );
+}
+
 void Sprite::drawTree(SDL_Renderer *renderTarget, SDL_Rect camerRect)
 {
-	int halfWidth = this->positionRect.w / 2;
-	int halfHeight = this->positionRect.h / 2;
-	SDL_Rect drawingRect = { positionRect.x - halfWidth - camerRect.x, positionRect.y - halfHeight - camerRect.y, positionRect.w, positionRect.h };
-	animations->at(currentAnimation)->drawTree(renderTarget, drawingRect, angle);
+	SDL_Rect drawingRect = { positionRect.x - camerRect.x, positionRect.y - camerRect.y, positionRect.w, positionRect.h };
+	animations->at(currentAnimation)->drawCar(renderTarget, drawingRect, angle);
+}
+
+void Sprite::drawCollectible(SDL_Renderer *renderTarget, SDL_Rect camerRect)
+{
+	SDL_Rect drawingRect = { positionRect.x - camerRect.x, positionRect.y - camerRect.y, positionRect.w, positionRect.h };
+	animations->at(currentAnimation)->drawCar(renderTarget, drawingRect, angle);
+}
+
+void Sprite::drawWithAngle(SDL_Renderer *renderTarget, SDL_Rect camerRect)
+{
+	SDL_Rect drawingRect = { positionRect.x - camerRect.x, positionRect.y - camerRect.y, positionRect.w, positionRect.h };
+	animations->at(currentAnimation)->DrawWithAngle(renderTarget, drawingRect, angle);
 }
 
 void Sprite::drawCar(SDL_Renderer *renderTarget, SDL_Rect cameraRect){
 	SDL_Rect drawingRect = { positionRect.x - cameraRect.x, positionRect.y - cameraRect.y, positionRect.w, positionRect.h };
 	animations->at(currentAnimation)->drawCar(renderTarget, drawingRect, angle);
+}
+
+void Sprite::drawTire(SDL_Renderer *renderTarget, SDL_Rect cameraRect){
+	SDL_Rect drawingRect = { positionRect.x - cameraRect.x, positionRect.y - cameraRect.y, positionRect.w, positionRect.h };
+	animations->at(currentAnimation)->drawCar(renderTarget, drawingRect, angle);
+}
+
+void Sprite::drawProjectile( SDL_Renderer* renderTarget, SDL_Rect cameraRect )
+{
+	SDL_Rect drawingRect = { positionRect.x - cameraRect.x, positionRect.y - cameraRect.y, positionRect.w, positionRect.h };
+	animations->at( currentAnimation )->drawCar( renderTarget, drawingRect, angle );
 }
 
 int Sprite::getPositionX()
@@ -96,21 +125,20 @@ int Sprite::getOriginY(){
 	return animations->at(currentAnimation)->getOriginY();
 }
 
-void Sprite::subscribe()
+void Sprite::setAsset( Asset asset )
 {
-	//TODO: sprite subscribes itself.
-	throw new std::logic_error( "not yet implemented" );
+	this->animations->at(currentAnimation)->setAsset( asset );
 }
 
-void Sprite::updateSDLPosition(float x, float y){
-	positionRect.x = x * scale;
-	positionRect.y = y * scale;
-}
-
-void Sprite::updateSDLPosition(int x, int y, int w, int h, float a){
-	positionRect.x = x * scale;
-	positionRect.y = y * scale;
-	positionRect.w = w * scale;
-	positionRect.h = h * scale;
+void Sprite::updateSDLPosition(float x, float y, float w, float h, float a){
+	positionRect.x = x;
+	positionRect.y = y;
+	positionRect.w = w;
+	positionRect.h = h;
 	angle = a;
+}
+
+bool Sprite::animationDone()
+{
+	return animations->at( currentAnimation )->done;
 }
