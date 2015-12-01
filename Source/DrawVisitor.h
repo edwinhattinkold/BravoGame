@@ -7,6 +7,7 @@ class TDCar;
 class Tree;
 class TDTire;
 class Projectile;
+class Explosion;
 
 class DrawVisitor
 {
@@ -16,11 +17,12 @@ private:
 public:
 	DrawVisitor(SDL_Renderer *renderTarget, SDL_Rect *cameraRect);
 	~DrawVisitor();
-	void visit(IDrawable *db);
-	void visit(B2Content *content);
-	void visit(TDTire *tire);
-	void visit(TDCar *car);
-	void visit(Tree *tree);
+	void visit( IDrawable *db);
+	void visit( B2Content *content);
+	void visit( TDTire *tire);
+	void visit( TDCar *car);
+	void visit( Tree *tree);
 	void visit( Projectile *projectile );
+	void visit( Explosion *explosion );
 };
 

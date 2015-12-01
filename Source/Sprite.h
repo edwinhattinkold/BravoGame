@@ -30,7 +30,7 @@ public:
 
 	~Sprite();
 
-	virtual void update(float delta, const Uint8 *keyState);
+	virtual void updateAnimation(float delta);
 	virtual void draw(SDL_Renderer *renderTarget, SDL_Rect camerRect);
 	virtual void draw( SDL_Renderer *renderTarget );
 	virtual void drawTree(SDL_Renderer *renderTarget, SDL_Rect camerRect);
@@ -52,6 +52,8 @@ public:
 	int getOriginY();
 	void updateOrigin();
 	void setAsset(Asset asset);
+
+	bool animationDone();
 };
 
 #endif

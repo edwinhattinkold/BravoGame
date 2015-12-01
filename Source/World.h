@@ -14,6 +14,7 @@
 #include "Sprite.h"
 #include "Projectile.h"
 #include "Sound.h"
+#include "Explosion.h"
 
 /************************************************************************/
 /* The World class contains everything a the game needs to render except
@@ -51,9 +52,13 @@ private:
 	const int32 *velocityIterations;
 	const int32 *positionIterations;
 	b2World *physics;
-	std::vector<b2Body*> *bodyRemoveStack;
+	std::vector<B2Content*> *bodyRemoveStack;
 	std::vector<Projectile*> *projectileRemoveStack;
+	std::vector<Explosion*> *explosionRemoveStack;
 	std::vector<Projectile*> *activeProjectiles;
+	std::vector<Explosion*> *explosions;
+	std::vector<B2Content*> *objects;
+
 	//Containers
 	DrawContainer *drawContainer;
 	UpdateContainer *updateContainer;
@@ -70,10 +75,10 @@ private:
 	void tick();
 
 	float calcDeltaTime();
-	SDL_Texture *loadTexture(std::string filePath, SDL_Renderer *renderTarget);
 	void createCamera(SDL_Window *window, int levelWidth, int levelHeight);
 	void handleBodyRemoveStack();
 	void handleProjectileRemoveStack();
+	void handleExplosionRemoveStack();
 
 public:
 	World(SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font);
@@ -82,13 +87,14 @@ public:
 	void setGameState( GameState gameState );
 
 	//Box2d wrapper function
-	b2Body* createBody(b2BodyDef *bodyDef);
-	void destroyBody(b2Body *body);
+	void destroyObject( B2Content* body );
+	void addObject( B2Content* object );
 	int transfrom(float);
 	void drawObject(float nwidth, float nheight, float nx, float ny, float nangle);
 	void addProjectile( Projectile* projectile );
 	void destroyProjectile( Projectile* projectile );
-	
+	void createExplosion( SDL_Rect positionRect );
+	void removeExplosion( Explosion* explosion );
 };
 
 

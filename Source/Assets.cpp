@@ -37,6 +37,8 @@ void Assets::setRenderTarget( SDL_Renderer* renderTarget )
 	insertAssetMapEntry( Asset_Menu_Arrow, "Cursor/menuArrow.png" );
 	insertAssetMapEntry( Asset_Tree, "Objects/Tree.png" );
 	insertAssetMapEntry( Asset_Tire, "Car/tire.png" );
+	insertAssetMapEntry( Asset_Explosion, "Animations/Dying/Explosion/explosion.png" );
+	insertAssetMapEntry( Asset_MainMenu_Background, "Mainmenu/background.png" );
 }
 
 SDL_Texture* Assets::getAsset( Asset asset )

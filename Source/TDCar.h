@@ -37,7 +37,7 @@ class TDCar : public B2Content
 
 public:
 	
-	TDCar( World* world, b2World* physics_world, SDL_Renderer* renderTarget, int widthM, int heightM );
+	TDCar( World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, int widthM, int heightM );
 	~TDCar();
 
 	virtual void update( float deltaTime, const Uint8 *keyState );

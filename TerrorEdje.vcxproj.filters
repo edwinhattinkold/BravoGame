@@ -213,6 +213,9 @@
     <ClInclude Include="Source\ContactHandler.h">
       <Filter>Header Files\Model\Shooting</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Explosion.h">
+      <Filter>Header Files\GraphicObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\MainMenu.cpp">
@@ -319,6 +322,9 @@
     </ClCompile>
     <ClCompile Include="Source\ContactHandler.cpp">
       <Filter>Source Files\Model\Shooting</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Explosion.cpp">
+      <Filter>Source Files\GraphicObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

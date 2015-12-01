@@ -11,7 +11,9 @@ enum Asset
 	Asset_MachineGun_Bullet,
 	Asset_HowTo,
 	Asset_Menu_Arrow,
-	Asset_Tire
+	Asset_Tire,
+	Asset_Explosion,
+	Asset_MainMenu_Background
 };
 
 class Assets

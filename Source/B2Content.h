@@ -10,6 +10,8 @@
 #include "UpdateContainer.h"
 #include <string>
 
+class World;
+
 #ifndef DEGTORAD
 #define DEGTORAD 0.0174532925199432957f
 #define RADTODEG 57.295779513082320876f
@@ -24,12 +26,14 @@ private:
 	int transform(float dgrs);
 protected:
 	ObjectTypes objectType;
+	World* world;
+	b2World* physicsWorld;
 public:
 	bool isOnDeathRow;
 	b2Body* m_body;
 	float w, h;
 	b2Fixture* fixture;
-	B2Content( SDL_Renderer* renderTarget, Asset asset);
+	B2Content( SDL_Renderer* renderTarget, World* world, b2World* physicsWorld, Asset asset );
 	~B2Content();
 	//custom
 	b2Vec2 getB2DPosition();

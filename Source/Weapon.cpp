@@ -7,7 +7,7 @@ Weapon::Weapon( World* world, B2Content* host, b2World* physics_world, SDL_Rende
 	this->host = host;
 	this->world = world;
 	projectileLoaded = true;
-	this->fireRate = fireRate; // <--- Measured in projectiles per second
+	this->fireRate = fireRate; // <--- Measured in freedoms per second
 	pastTime = 0.00f;
 	this->spread = spread;
 }

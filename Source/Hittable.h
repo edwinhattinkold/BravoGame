@@ -12,10 +12,12 @@ protected:
 	SDL_Rect maxHealthBar;
 	SDL_Rect healthBar;
 	SDL_Rect takenDamageBar;
+	SDL_Rect hostPositionRect;
 public:
 	Hittable(int maxHealth);
 	~Hittable();
 	virtual void drawHealthBar( SDL_Renderer* renderTarget, SDL_Rect* cameraRect, SDL_Rect positionRect );
 	virtual void takeDamage( int damage );
+	SDL_Rect getHostPosition();
 };
 
