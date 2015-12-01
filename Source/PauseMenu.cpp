@@ -32,6 +32,7 @@ PauseMenu::~PauseMenu()
 	}
 	delete menuItems;				menuItems = nullptr;
 	TTF_CloseFont( font );			font = nullptr;
+	delete saveMenu;				saveMenu = nullptr;
 }
 
 void PauseMenu::tick(int mouseX, int mouseY)

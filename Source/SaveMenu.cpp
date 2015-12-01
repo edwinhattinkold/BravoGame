@@ -29,7 +29,11 @@ SaveMenu::SaveMenu( World* world, SDL_Renderer* renderTarget, Camera* camera, Sp
 }
 
 SaveMenu::~SaveMenu()
-{}
+{
+	for( size_t c = 0; c < menuItems->size(); c++ )
+		delete menuItems->at( c );
+	delete menuItems;
+}
 
 void SaveMenu::tick( int mouseX, int mouseY )
 {
