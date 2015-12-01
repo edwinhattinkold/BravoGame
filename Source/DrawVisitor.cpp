@@ -10,6 +10,7 @@
 #include "Rect.h"
 #include "HudObject.h"
 #include "Hud.h"
+#include "Collectible.h"
 
 DrawVisitor::DrawVisitor( SDL_Renderer *renderTarget, SDL_Rect *cameraRect )
 {
@@ -17,9 +18,10 @@ DrawVisitor::DrawVisitor( SDL_Renderer *renderTarget, SDL_Rect *cameraRect )
 	this->cameraRect = cameraRect;
 }
 
-
 DrawVisitor::~DrawVisitor()
-{}
+{
+
+}
 
 void DrawVisitor::visit(IDrawable *db)
 {
@@ -33,6 +35,11 @@ void DrawVisitor::visit(B2Content *content)
 
 void DrawVisitor::visit(Tree *tree){
 	tree->drawTree(renderTarget, *cameraRect);
+}
+
+void DrawVisitor::visit(Collectible *collectible){
+
+	collectible->drawCollectible(renderTarget, *cameraRect);
 }
 
 void DrawVisitor::visit(TDTire *tire){
@@ -56,4 +63,9 @@ void DrawVisitor::visit( HudObject *ho)
 void DrawVisitor::visit( Hud *hud )
 {
 	hud->draw( renderTarget );
+}
+
+void DrawVisitor::visit( Projectile *projectile )
+{
+	projectile->drawProjectile( renderTarget, *cameraRect );
 }

@@ -5,13 +5,15 @@
 #include "UpdateContainer.h"
 #include "MainMenu.h"
 #include "PauseMenu.h"
-#include "Player.h"
+#include "ContactHandler.h"
 #include "MapDrawer.h"
 #include "TDCar.h"
 #include "Camera.h"
 #include <Windows.h>
 #include "Tree.h"
 #include "Sprite.h"
+#include "Projectile.h"
+#include "Collectible.h"
 #include "Sound.h"
 #include "FPS.h"
 #include "Hud.h"
@@ -54,9 +56,14 @@ private:
 	const int32 *positionIterations;
 	b2World *physics;
 	std::vector<b2Body*> *bodyRemoveStack;
+	std::vector<Projectile*> *projectileRemoveStack;
+	std::vector<Projectile*> *activeProjectiles;
+	std::vector<Collectible*> *collectibleRemoveStack;
+	std::vector<Collectible*> *activeCollectibles;
 	//Containers
 	DrawContainer *drawContainer;
 	UpdateContainer *updateContainer;
+	ContactHandler *contactHandler;
 
 	//other
 	int prevTime;
@@ -72,6 +79,8 @@ private:
 	SDL_Texture *loadTexture(std::string filePath, SDL_Renderer *renderTarget);
 	void createCamera(SDL_Window *window, int levelWidth, int levelHeight);
 	void handleBodyRemoveStack();
+	void handleProjectileRemoveStack();
+	void handleCollectibleRemoveStack();
 
 	SDL_Point * center;
 	//CAR
@@ -82,7 +91,6 @@ private:
 	FPS *fpsCounter;
 
 public:
-	Player *player1;
 	World(SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font);
 	~World();
 	void run();
@@ -94,6 +102,11 @@ public:
 	int transfrom(float);
 	void drawObject(float nwidth, float nheight, float nx, float ny, float nangle);
 	Uint32 getFPS();
+	void addProjectile( Projectile* projectile );
+	void destroyProjectile( Projectile* projectile );
+
+	void addCollectible(int w, int h, int x, int y);
+	void destroyCollectible(Collectible *collectible);
 };
 
 

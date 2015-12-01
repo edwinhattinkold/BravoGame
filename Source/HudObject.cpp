@@ -1,7 +1,7 @@
 #include "HudObject.h"
 
 
-HudObject::HudObject( SDL_Renderer* renderTarget, std::string filePath ) :Sprite( renderTarget, filePath )
+HudObject::HudObject( SDL_Renderer* renderTarget, Asset asset ) :Sprite( renderTarget, asset )
 {}
 
 

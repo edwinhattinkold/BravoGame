@@ -10,7 +10,7 @@ PauseMenu::PauseMenu(World* world, SDL_Renderer* renderTarget, Camera* camera )
 	this->renderTarget = renderTarget;
 	this->camera = camera;
 	font = TTF_OpenFont( "Fonts/Frontman.ttf", 30 );
-	this->arrow = new Sprite( renderTarget, "Images/Cursor/menuArrow.png" );
+	this->arrow = new Sprite( renderTarget, Asset_Menu_Arrow );
 	this->sound = Sound::getInstance();
 	menuItems = new std::vector<MenuItem*>();
 	menuItems->push_back( new MenuItem( renderTarget, font, "Continue" ) );
@@ -31,6 +31,7 @@ PauseMenu::~PauseMenu()
 	delete menuItems;				menuItems = nullptr;
 	delete arrow;					arrow = nullptr;
 	TTF_CloseFont( font );			font = nullptr;
+	delete arrow;					arrow = nullptr;
 }
 
 void PauseMenu::tick(int mouseX, int mouseY)

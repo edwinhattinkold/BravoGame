@@ -12,9 +12,7 @@ class Hud
 	: public IDrawable
 {
 private:
-	HudObject *skull;
-	HudObject *healthbarOverlay;
-	HudObject *terrorbarOverlay;
+	HudObject *hud;
 	Rect *healthbar;
 	Rect *terrorbar;
 	float health; //This should be a reference to the player (or object containing health and terror)

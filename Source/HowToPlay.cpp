@@ -7,7 +7,7 @@ HowToPlay::HowToPlay(SDL_Renderer* renderTarget, Camera* camera, TTF_Font* font)
 	backgroundImageRect.y = 0;
 	backgroundImageRect.w = camera->getCamera()->w;
 	backgroundImageRect.h = camera->getCamera()->h;
-	backgroundImage = new Sprite(renderTarget, "Images/Mainmenu/howto.png", 0, 0, 1, 1, 0);
+	backgroundImage = new Sprite(renderTarget, Asset_HowTo, 0, 0, 1, 1, 0);
 	menuItems = new std::vector<MenuItem*>();
 
 	backButton = new MenuItem(renderTarget, font, "Back");
@@ -94,6 +94,7 @@ void HowToPlay::draw(SDL_Renderer* renderTarget)
 	for (size_t x = 0; x < menuItems->size(); x++)
 		menuItems->at(x)->draw(renderTarget);
 }
+
 int HowToPlay::getBackCode(){
 	return Back;
 }

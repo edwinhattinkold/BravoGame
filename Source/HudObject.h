@@ -4,7 +4,7 @@ class HudObject :
 	public Sprite
 {
 public:
-	HudObject( SDL_Renderer* renderTarget, std::string filePath );
+	HudObject( SDL_Renderer* renderTarget, Asset asset );
 	~HudObject();
 
 	virtual void accept( DrawVisitor *dv );

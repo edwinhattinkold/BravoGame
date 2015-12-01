@@ -9,6 +9,8 @@ class TDTire;
 class Rect;
 class HudObject;
 class Hud;
+class Projectile;
+class Collectible;
 
 class DrawVisitor
 {
@@ -26,5 +28,7 @@ public:
 	void visit( Rect *rect );
 	void visit( HudObject *ho );
 	void visit( Hud *hud );
+	void visit(Collectible *collectible);
+	void visit( Projectile *projectile );
 };
 

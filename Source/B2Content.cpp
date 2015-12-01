@@ -1,37 +1,55 @@
 #include "B2Content.h"
 
 
-B2Content::B2Content(b2World* world, SDL_Renderer* renderTarget, std::string filePath) :Sprite(renderTarget, filePath)
+B2Content::B2Content( SDL_Renderer* renderTarget, Asset asset) :Sprite(renderTarget, asset)
 {
-
+	isOnDeathRow = false;
 }
 
 
 B2Content::~B2Content()
 {
-	m_body->GetWorld()->DestroyBody(m_body);
+	if( m_body != nullptr )
+		m_body->GetWorld()->DestroyBody(m_body);
 }
 
 b2Vec2 B2Content::getB2DPosition(){
 	return m_body->GetPosition();
 }
 
-b2Vec2 B2Content::getSDLPosition(){
+void B2Content::setB2DPosition(b2Vec2 position)
+{
+	m_body->SetTransform( position, m_body->GetAngle() );
+}
+
+b2Vec2 B2Content::getB2DDirectionalVector()
+{
+	b2Vec2 b2DDirectionalVector = m_body->GetLocalVector( m_body->GetLocalCenter() );
+	b2DDirectionalVector.x = b2DDirectionalVector.x * -1;
+	return b2DDirectionalVector;
+}
+
+b2Vec2 B2Content::getSDLPosition()
+{
 	float x = m_body->GetPosition().x;
 	float y = m_body->GetPosition().y * -1;
 	return b2Vec2(x, y);
+}
+
+b2Vec2 B2Content::getSDLDirectionalVector()
+{
+	b2Vec2 direction = m_body->GetLocalVector(m_body->GetLocalCenter());
+	
+	direction.x = direction.x * - 1 * sdlScale;
+	direction.y = direction.y * - 1 * sdlScale;
+	std::cout << direction.x << " , " << direction.y << std::endl;
+	return direction;
 }
 
 float B2Content::getAngleSDL(){
 	
 	return transform(m_body->GetAngle() * RADTODEG);
 }
-
-void B2Content::accept(DrawVisitor *dv)
-{
-	dv->visit(this);
-}
-
 
 float B2Content::getCenterXSDL()
 {
@@ -113,4 +131,9 @@ int B2Content::transform(float dgrs)
 	}
 	int newNewAngle = newAngle % 360;
 	return newNewAngle;
+}
+
+ObjectTypes B2Content::getObjectType()
+{
+	return objectType;
 }
