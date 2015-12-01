@@ -86,6 +86,7 @@ void PauseMenu::center()
 		menuItems->at( j )->setYPosition( yPosition );
 	}
 	updateSelected();
+	saveMenu->center();
 }
 
 void PauseMenu::handleKeyboardInput( SDL_Keycode keyPressed )
