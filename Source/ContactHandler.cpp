@@ -51,15 +51,36 @@ void ContactHandler::bulletContact( Projectile* projectile, B2Content* otherObje
 {
 	switch( otherObject->getObjectType() )
 	{
-		case(Object_Tree) :
-			Tree* tree = (Tree*) otherObject;
-			if( !projectile->isOnDeathRow ) 
-			{ 
-				tree->takeDamage( projectile->getDamage() );
-				world->destroyProjectile( projectile );
+		case (Object_Tree):{
+			Tree* tree = (Tree*)otherObject;
+			if (!projectile->isOnDeathRow)
+			{
+				tree->takeDamage(projectile->getDamage());
+				world->destroyProjectile(projectile);
 				projectile->isOnDeathRow = true;
-				
+
 			}
 			break;
+		}
+		case (Object_Turret):{
+			Turret* turret = (Turret*)otherObject;
+			if (!projectile->isOnDeathRow)
+			{
+				turret->takeDamage(projectile->getDamage());
+				world->destroyProjectile(projectile);
+				projectile->isOnDeathRow = true;
+			}
+			break;
+		}
+		case (Object_Car || Object_Tire) : {
+			//TDCar* car = (TDCar*)otherObject;
+			if (!projectile->isOnDeathRow)
+			{
+				//turret->takeDamage(projectile->getDamage());
+				world->destroyProjectile(projectile);
+				projectile->isOnDeathRow = true;
+			}
+			break;
+		}
 	}
 }

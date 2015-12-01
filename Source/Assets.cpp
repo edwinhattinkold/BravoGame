@@ -37,7 +37,9 @@ void Assets::setRenderTarget( SDL_Renderer* renderTarget )
 	insertAssetMapEntry( Asset_Menu_Arrow, "Cursor/menuArrow.png" );
 	insertAssetMapEntry( Asset_Tree, "Objects/Tree.png" );
 	insertAssetMapEntry( Asset_Tire, "Car/tire.png" );
-	insertAssetMapEntry(Asset_Turret, "Car/car2.png");
+	insertAssetMapEntry(Asset_Turret_Calm, "Objects/Turrets/normal_turret_calm.png");
+	insertAssetMapEntry(Asset_Turret_Angry, "Objects/Turrets/normal_turret_angry.png");
+	insertAssetMapEntry(Asset_Turret_Dead, "Car/car2.png");
 }
 
 SDL_Texture* Assets::getAsset( Asset asset )

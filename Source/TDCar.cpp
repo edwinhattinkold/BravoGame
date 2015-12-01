@@ -100,6 +100,7 @@ TDCar::TDCar(World* world, b2World* physics_world, SDL_Renderer* renderTarget, i
 
 	updateSDLPosition(getCenterXSDL(), getCenterYSDL(), float(w), float(h), getAngleSDL());
 	updateOrigin();
+	m_body->SetUserData(this);
 }
 float TDCar::getAngleB2D()
 {

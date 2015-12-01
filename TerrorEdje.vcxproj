@@ -19,6 +19,7 @@
     <ClInclude Include="Source\ContactHandler.h" />
     <ClInclude Include="Source\CreditsMenu.h" />
     <ClInclude Include="Source\CustomCursor.h" />
+    <ClInclude Include="Source\DeadTurretState.h" />
     <ClInclude Include="Source\DrawContainer.h" />
     <ClInclude Include="Source\DrawFactory.h" />
     <ClInclude Include="Source\DrawVisitor.h" />
@@ -72,6 +73,7 @@
     <ClCompile Include="Source\ContactHandler.cpp" />
     <ClCompile Include="Source\CreditsMenu.cpp" />
     <ClCompile Include="Source\CustomCursor.cpp" />
+    <ClCompile Include="Source\DeadTurretState.cpp" />
     <ClCompile Include="Source\DrawContainer.cpp" />
     <ClCompile Include="Source\DrawFactory.cpp" />
     <ClCompile Include="Source\DrawVisitor.cpp" />

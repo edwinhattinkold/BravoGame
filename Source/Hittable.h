@@ -17,5 +17,6 @@ public:
 	~Hittable();
 	virtual void drawHealthBar( SDL_Renderer* renderTarget, SDL_Rect* cameraRect, SDL_Rect positionRect );
 	virtual void takeDamage( int damage );
+	bool isDead();
 };
 

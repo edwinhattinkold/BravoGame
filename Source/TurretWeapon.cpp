@@ -4,7 +4,7 @@ TurretWeapon::TurretWeapon(World* world, Turret* host, b2World* physics_world, S
 : Weapon(world, host, physics_world, renderTarget, fireRate, spread)
 {
 	turret = host;
-	setAmmo(new Projectile(world, physics_world, renderTarget, Asset_MachineGun_Bullet, 50, 1000));
+	setAmmo(new Projectile(world, physics_world, renderTarget, Asset_MachineGun_Bullet, 50, 80));
 }
 
 
@@ -18,7 +18,6 @@ void TurretWeapon::fire(){
 
 	//b2Vec2 direction = host->getB2DDirectionalVector();
 	b2Vec2 direction;
-	cout << turret->turretAngle << endl;
 	direction.y = cos(turret->turretAngle * DEGTORAD);
 	direction.x = sin(turret->turretAngle * DEGTORAD);
 	direction.Normalize();
@@ -28,7 +27,7 @@ void TurretWeapon::fire(){
 	direction.y += spreadFloat;
 	direction.Normalize();
 
-	newProjectile->setB2DPosition(host->m_body->GetWorldPoint(b2Vec2{ 0, 7 }));
+	newProjectile->setB2DPosition(host->m_body->GetWorldPoint(b2Vec2{ 0, 4 }));
 	newProjectile->setDirection(direction);
 	newProjectile->applyB2DAngle(host->m_body->GetAngle());
 

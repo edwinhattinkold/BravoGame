@@ -76,3 +76,7 @@ void Hittable::takeDamage( int damage )
 	}
 	
 }
+
+bool Hittable::isDead(){
+	return dead;
+}

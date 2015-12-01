@@ -12,7 +12,9 @@ enum Asset
 	Asset_HowTo,
 	Asset_Menu_Arrow,
 	Asset_Tire,
-	Asset_Turret,
+	Asset_Turret_Calm,
+	Asset_Turret_Angry,
+	Asset_Turret_Dead
 };
 
 class Assets

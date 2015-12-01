@@ -15,7 +15,7 @@
 #define RADTODEG 57.295779513082320876f
 #endif
 const int sdlScale = 20;
-enum ObjectTypes { Object_Tire, Object_Car, Object_Projectile, Object_Tree};
+enum ObjectTypes { Object_Tire, Object_Car, Object_Projectile, Object_Tree, Object_Turret};
 
 class B2Content : public Sprite
 {
