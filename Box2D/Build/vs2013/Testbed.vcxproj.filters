@@ -180,6 +180,7 @@
     <ClInclude Include="..\..\Testbed\Tests\FooTest5.h">
       <Filter>Tests</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Testbed\Tests\NPCTest.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Testbed\Framework\Main.cpp">
@@ -200,5 +201,6 @@
     <ClCompile Include="..\..\Testbed\Framework\DebugDraw.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Testbed\Tests\NPCTest.cpp" />
   </ItemGroup>
 </Project>

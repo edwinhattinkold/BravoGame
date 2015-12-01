@@ -71,9 +71,11 @@
 #include "VerticalStack.h"
 #include "Web.h"
 #include "FooTest5.h"
+#include "NPCTest.h"
 
 TestEntry g_testEntries[] =
 {
+	{ "NPC", NPCTest::Create },
 	{ "FooTest", FooTest5::Create },
 	{"Tiles", Tiles::Create},
 	{"Heavy on Light", HeavyOnLight::Create},

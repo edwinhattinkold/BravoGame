@@ -239,6 +239,7 @@
     <ClInclude Include="..\..\Testbed\Tests\Mobile.h" />
     <ClInclude Include="..\..\Testbed\Tests\MobileBalanced.h" />
     <ClInclude Include="..\..\Testbed\Tests\MotorJoint.h" />
+    <ClInclude Include="..\..\Testbed\Tests\NPCTest.h" />
     <ClInclude Include="..\..\Testbed\Tests\OneSidedPlatform.h" />
     <ClInclude Include="..\..\Testbed\Tests\Pinball.h" />
     <ClInclude Include="..\..\Testbed\Tests\PolyCollision.h" />
@@ -270,6 +271,7 @@
     <ClCompile Include="..\..\Testbed\Framework\RenderGL3.cpp" />
     <ClCompile Include="..\..\Testbed\Framework\Test.cpp">
     </ClCompile>
+    <ClCompile Include="..\..\Testbed\Tests\NPCTest.cpp" />
     <ClCompile Include="..\..\Testbed\Tests\TestEntries.cpp">
     </ClCompile>
   </ItemGroup>

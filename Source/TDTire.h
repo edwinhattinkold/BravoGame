@@ -53,6 +53,7 @@ public:
 		}
 	}
 
+
 	b2Vec2 getLateralVelocity() {
 		b2Vec2 currentRightNormal = m_body->GetWorldVector(b2Vec2(1, 0));
 		return b2Dot(currentRightNormal, m_body->GetLinearVelocity()) * currentRightNormal;
@@ -65,12 +66,14 @@ public:
 
 	void updateFriction() {
 		//lateral linear velocity
+		//De voorwaartse snelheid
 		b2Vec2 impulse = m_body->GetMass() * -getLateralVelocity();
 		if (impulse.Length() > m_maxLateralImpulse)
 			impulse *= m_maxLateralImpulse / impulse.Length();
 		m_body->ApplyLinearImpulse(m_currentTraction * impulse, m_body->GetWorldCenter(), true);
 
 		//angular velocity
+		//De draai
 		m_body->ApplyAngularImpulse(m_currentTraction * 0.1f * m_body->GetInertia() * -m_body->GetAngularVelocity(), true);
 
 		//forward linear velocity
