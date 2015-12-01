@@ -93,7 +93,7 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	center = new SDL_Point;
 
 
-	hud = new Hud( renderTarget, drawContainer, fpsCounter, window, camera );
+	hud = new Hud( renderTarget, drawContainer, fpsCounter, window, camera, 24, 24, 0.8);
 	drawContainer->add( hud );
 	contactHandler = new ContactHandler(this);
 	physics->SetContactListener( contactHandler );
@@ -113,6 +113,7 @@ World::~World()
 		delete activeCollectibles->at(i);
 	}
 	delete activeCollectibles;						activeCollectibles = nullptr;
+
 	for( size_t c = 0; c < objects->size(); c++ )
 	{
 		delete objects->at( c );					objects->at( c ) = nullptr;

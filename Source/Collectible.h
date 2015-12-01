@@ -10,6 +10,7 @@ public:
 	virtual void accept(DrawVisitor *dv);
 	b2Body * getBody();
 	void addCollectible(int,int,int,int);
+	virtual void update(float delta, const Uint8 *keyState);
 };
 
 

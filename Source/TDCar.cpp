@@ -169,11 +169,11 @@ void TDCar::update( float deltaTime, const Uint8 *keyState )
 		{
 			soundAStarted = false;
 
-			Sound::getInstance()->stopSound(Sound_Skid);
-			Sound::getInstance()->playSound(Sound_Engine_Start);
+			//Sound::getInstance()->stopSound(Sound_Skid);
+			//Sound::getInstance()->playSound(Sound_Engine_Start);
 
-			Sound::getInstance()->stopSound(Sound_Engine_Loop);
-			Sound::getInstance()->playSoundLooping(Sound_Engine_Loop);
+			//Sound::getInstance()->stopSound(Sound_Engine_Loop);
+			//Sound::getInstance()->playSoundLooping(Sound_Engine_Loop);
 			soundWStarted = true;
 			soundALoopStarted = true;
 		}			
@@ -189,11 +189,11 @@ void TDCar::update( float deltaTime, const Uint8 *keyState )
 	{
 		m_controlState |= TDC_DOWN;
 		if (!soundAStarted){
-			Sound::getInstance()->playSound(Sound_Skid);
+			//Sound::getInstance()->playSound(Sound_Skid);
 			soundAStarted = true;
 		}
 		if (soundALoopStarted){
-			Sound::getInstance()->stopSound(Sound_Engine_Loop);
+			//Sound::getInstance()->stopSound(Sound_Engine_Loop);
 			soundALoopStarted = false;
 		}		
 	}		

@@ -53,3 +53,7 @@ void Collectible::accept(DrawVisitor *dv)
 {
 	dv->visit(this);
 }
+
+void Collectible::update(float deltaTime, const Uint8 *keyState){
+
+}
