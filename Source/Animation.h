@@ -15,7 +15,6 @@ private:
 	int textureWidth, textureHeight;
 	int startFrameX, startFrameY;
 	int originX, originY;
-
 public:
 	Animation(SDL_Renderer* renderTarget, Asset asset, int framesX, int framesY, int startFrameX, int startFrameY, float animationSpeed);
 	~Animation();
@@ -25,6 +24,7 @@ public:
 	void draw(SDL_Renderer* renderTarget, SDL_Rect drawingRect);
 	void drawTree(SDL_Renderer* renderTarget, SDL_Rect drawingRect, int angle);
 	void drawCar(SDL_Renderer* renderTarget, SDL_Rect drawingRect, int angle);
+	void DrawWithAngle(SDL_Renderer* renderTarget, SDL_Rect drawingRect, int angle);
 	void standStill();
 
 	int getOriginX();
@@ -34,6 +34,8 @@ public:
 	void setAsset( Asset asset );
 	int getFrameWidth();
 	int getFrameHeight();
+
+	bool done;
 };
 
 #endif

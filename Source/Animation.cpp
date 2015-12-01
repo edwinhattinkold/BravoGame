@@ -8,6 +8,7 @@ Animation::Animation( SDL_Renderer* renderTarget, Asset asset, int framesX, int 
 	this->startFrameX = startFrameX;
 	this->startFrameY = startFrameY;
 	init(framesX, framesY);
+	done = false;
 }
 
 
@@ -49,7 +50,10 @@ void Animation::update( float deltaTime )
 			cropRect.y += frameHeight;
 			cropRect.x = 0;
 			if( cropRect.y >= textureHeight )
-				cropRect.y = 0;
+			{
+				done = true;
+			}
+				
 		}
 	}
 }
@@ -65,7 +69,10 @@ void Animation::drawTree(SDL_Renderer* renderTarget, SDL_Rect drawingRect, int a
 
 void Animation::drawCar(SDL_Renderer* renderTarget, SDL_Rect drawingRect, int angle){
 	SDL_RenderCopyEx(renderTarget, texture, NULL, &drawingRect, angle, NULL, SDL_FLIP_VERTICAL);
+}
 
+void Animation::DrawWithAngle(SDL_Renderer* renderTarget, SDL_Rect drawingRect, int angle){
+	SDL_RenderCopyEx(renderTarget, texture, NULL, &drawingRect, angle, NULL, SDL_FLIP_VERTICAL);
 }
 
 void Animation::standStill()

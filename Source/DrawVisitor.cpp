@@ -6,11 +6,13 @@
 #include "TDTire.h"
 #include "TDCar.h"
 #include "Tree.h"
+#include "Turret.h"
 #include "B2Content.h"
 #include "Rect.h"
 #include "HudObject.h"
 #include "Hud.h"
 #include "Collectible.h"
+#include "Explosion.h"
 
 DrawVisitor::DrawVisitor( SDL_Renderer *renderTarget, SDL_Rect *cameraRect )
 {
@@ -33,8 +35,15 @@ void DrawVisitor::visit(B2Content *content)
 	content->draw(renderTarget, *cameraRect);
 }
 
+void DrawVisitor::visit(Turret *turret){
+	turret->drawWithAngle(renderTarget, *cameraRect);
+	if (!turret->isDead())
+		turret->drawHealthBar(renderTarget, cameraRect, turret->positionRect);
+}
+
 void DrawVisitor::visit(Tree *tree){
 	tree->drawTree(renderTarget, *cameraRect);
+	tree->drawHealthBar( renderTarget, cameraRect, tree->positionRect );
 }
 
 void DrawVisitor::visit(Collectible *collectible){
@@ -68,4 +77,9 @@ void DrawVisitor::visit( Hud *hud )
 void DrawVisitor::visit( Projectile *projectile )
 {
 	projectile->drawProjectile( renderTarget, *cameraRect );
+}
+
+void DrawVisitor::visit(Explosion *explosion) 
+{
+	explosion->draw( renderTarget, *cameraRect );
 }

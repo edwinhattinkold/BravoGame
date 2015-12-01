@@ -8,12 +8,17 @@ enum Asset
 {
 	Asset_Tree,
 	Asset_Car,
-	Asset_Bullet,
+	Asset_MachineGun_Bullet,
 	Asset_HowTo,
 	Asset_Menu_Arrow,
 	Asset_Tire,
 	Asset_Collectible,
-	Asset_HUD
+	Asset_HUD,
+	Asset_Turret_Calm,
+	Asset_Turret_Angry,
+	Asset_Turret_Dead,
+	Asset_Explosion,
+	Asset_MainMenu_Background
 };
 
 class Assets

@@ -4,7 +4,7 @@
 class Collectible : public B2Content
 {
 public:
-	Collectible( b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM, int posX, int posY);
+	Collectible(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM, int posX, int posY, World* gameWorld);
 	~Collectible();
 
 	virtual void accept(DrawVisitor *dv);

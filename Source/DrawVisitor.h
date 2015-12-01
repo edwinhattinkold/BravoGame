@@ -11,6 +11,9 @@ class HudObject;
 class Hud;
 class Projectile;
 class Collectible;
+class Turret;
+class Projectile;
+class Explosion;
 
 class DrawVisitor
 {
@@ -29,6 +32,8 @@ public:
 	void visit( HudObject *ho );
 	void visit( Hud *hud );
 	void visit(Collectible *collectible);
+	void visit(Turret *turret);
 	void visit( Projectile *projectile );
+	void visit( Explosion *explosion );
 };
 
