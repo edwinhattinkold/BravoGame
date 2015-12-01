@@ -21,6 +21,7 @@ private:
 	float maxTerror;
 	float healthbarMax;
 	float terrorbarMax;
+	float scale;
 
 	int top;
 	int left;
@@ -33,7 +34,7 @@ private:
 	Camera *camera;
 
 public:
-	Hud( SDL_Renderer *renderTarget, DrawContainer *dc, FPS *fpsCounter, SDL_Window *window, Camera *camera,  int top = 24, int left = 24 );
+	Hud( SDL_Renderer *renderTarget, DrawContainer *dc, FPS *fpsCounter, SDL_Window *window, Camera *camera, int top = 24, int left = 24, float scale = 0.8 );
 	~Hud();
 	virtual void accept( DrawVisitor *dv );
 	virtual void draw( SDL_Renderer *renderTarget );

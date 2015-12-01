@@ -3,7 +3,7 @@
 #include "UpdateVisitor.h"
 
 
-Rect::Rect(int x, int y, int width, int height, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
+Rect::Rect( float x, float y, float width, float height, Uint8 r, Uint8 g, Uint8 b, Uint8 a )
 {
 	rect = new SDL_Rect();
 	rect->x = x;

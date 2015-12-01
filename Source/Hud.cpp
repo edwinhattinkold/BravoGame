@@ -1,15 +1,16 @@
 #include "Hud.h"
 
-Hud::Hud( SDL_Renderer *renderTarget, DrawContainer *dc, FPS *fpsCounter, SDL_Window *window, Camera *camera,  int top, int left )
+Hud::Hud( SDL_Renderer *renderTarget, DrawContainer *dc, FPS *fpsCounter, SDL_Window *window, Camera *camera,  int top, int left, float scale )
 {
+	this->scale = scale;
 	this->renderTarget = renderTarget;
 	this->fpsCounter = fpsCounter;
-	this->top = top;
-	this->left = left;
+	this->top = top * scale;
+	this->left = left * scale;
 	this->window = window;
 	this->camera = camera;
 
-	this->font = TTF_OpenFont( "Fonts/28dayslater.ttf", 40 );
+	this->font = TTF_OpenFont( "Fonts/28dayslater.ttf", 40 * scale );
 
 	health = 50;
 	terror = 80;
@@ -17,13 +18,16 @@ Hud::Hud( SDL_Renderer *renderTarget, DrawContainer *dc, FPS *fpsCounter, SDL_Wi
 	maxHealth = 100;
 	maxTerror = 100;
 	
-	healthbarMax = 364;
-	terrorbarMax = 312;
+	healthbarMax = 364 * scale;
+	terrorbarMax = 312 * scale;
 
 	hud = new HudObject( renderTarget, Asset_HUD );
+
+	hud->positionRect.h = hud->positionRect.h * scale;
+	hud->positionRect.w = hud->positionRect.w * scale;
 	
-	healthbar = new Rect( left + 150, top + 33, (healthbarMax/maxHealth) * health, 25, 255, 0, 0, 255 );
-	terrorbar = new Rect( left + 162, top + 76, (terrorbarMax/maxTerror) * terror, 16, 0, 91, 127, 255 );
+	healthbar = new Rect( left + ( 150 * scale ), top + ( 33 * scale ), ( healthbarMax / maxHealth ) * health, 26 * scale, 255, 0, 0, 255 );
+	terrorbar = new Rect( left + ( 162 * scale ), top + ( 76 * scale ), ( terrorbarMax / maxTerror ) * terror, 16 * scale, 0, 91, 127, 255 );
 
 	hud->positionRect.y = top;
 	hud->positionRect.x = left;
@@ -34,7 +38,7 @@ Hud::Hud( SDL_Renderer *renderTarget, DrawContainer *dc, FPS *fpsCounter, SDL_Wi
 	
 	fpsDisplay = new MenuItem( renderTarget, font, "0" );
 	
-	fpsDisplay->setXPosition( camera->windowWidth - left - 50 );
+	fpsDisplay->setXPosition( camera->windowWidth - left - ( 50) );
 	fpsDisplay->setYPosition( top );
 
 }
@@ -52,7 +56,7 @@ Hud::~Hud()
 void Hud::draw( SDL_Renderer *renderTarget)
 {
 	
-	fpsDisplay->setXPosition( camera->windowWidth - left - 100 );
+	fpsDisplay->setXPosition( camera->windowWidth - left - ( 100));
 	fpsDisplay->setYPosition( top );
 
 	string s = to_string( fpsCounter->fps_current );

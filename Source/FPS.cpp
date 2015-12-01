@@ -17,7 +17,7 @@ void FPS::loop()
 	if( fps_lasttime < SDL_GetTicks() - FPS_INTERVAL * 1000 )
 	{
 		fps_lasttime = SDL_GetTicks();
-		fps_current = fps_frames;
+		fps_current = fps_frames - 1;
 		fps_frames = 0;
 	}
 }
