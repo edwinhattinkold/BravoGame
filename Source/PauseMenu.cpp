@@ -29,6 +29,7 @@ PauseMenu::~PauseMenu()
 		delete menuItems->at( c );	menuItems->at( c ) = nullptr;
 	}
 	delete menuItems;				menuItems = nullptr;
+	delete arrow;					arrow = nullptr;
 	TTF_CloseFont( font );			font = nullptr;
 	delete arrow;					arrow = nullptr;
 }

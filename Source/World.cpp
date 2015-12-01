@@ -4,6 +4,8 @@
 
 World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font )
 {
+	fpsCounter = new FPS();
+
 	prevTime = 0;
 	currentTime = 0;
 	deltaTime = 0.0f;
@@ -75,13 +77,30 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 		drawContainer->add(tires[i]);
 	drawContainer->add( myCar );
 
+	//CAR
+	surfaceCar = IMG_Load("Images/Car/debugbuggy.png");
+	if (surfaceCar == NULL)
+		std::cout << "Error" << std::endl;
+	else
+	{
+		textureCar = SDL_CreateTextureFromSurface(renderTarget, surfaceCar);
+		if (textureCar == NULL)
+			std::cout << "Error 123 4 " << std::endl;
+	}
+	center = new SDL_Point;
+
+
+	hud = new Hud( renderTarget, drawContainer, fpsCounter, window, camera );
+	drawContainer->add( hud );
 	contactHandler = new ContactHandler(this);
 	physics->SetContactListener( contactHandler );
 }
 
 
 World::~World()
-{
+{	
+	delete this->fpsCounter;						this->fpsCounter = nullptr;
+	delete this->hud;								this->hud = nullptr;
 	for( size_t c = 0; c < activeProjectiles->size(); c++ )
 	{
 		delete activeProjectiles->at( c );
@@ -158,7 +177,7 @@ void World::tick()
 
 	//update SDL
 	updateSDL();
-
+	fpsCounter->loop();
 	if( currentGameState != GameState_Paused )
 	{
 		handleProjectileRemoveStack();
@@ -287,6 +306,11 @@ b2Body* World::createBody(b2BodyDef *def){
 
 void World::destroyBody(b2Body *body){
 	bodyRemoveStack->push_back(body);
+}
+
+Uint32 World::getFPS()
+{
+	return fpsCounter->fps_current;
 }
 
 void World::addProjectile( Projectile *projectile )

@@ -38,6 +38,7 @@ void Assets::setRenderTarget( SDL_Renderer* renderTarget )
 	insertAssetMapEntry( Asset_Tree, "Objects/Tree.png" );
 	insertAssetMapEntry(Asset_Collectible, "Objects/Collectible.png");
 	insertAssetMapEntry( Asset_Tire, "Car/tire.png" );
+	insertAssetMapEntry( Asset_HUD, "hud/hud.png" );
 }
 
 SDL_Texture* Assets::getAsset( Asset asset )

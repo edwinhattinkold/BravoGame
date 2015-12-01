@@ -15,6 +15,8 @@
 #include "Projectile.h"
 #include "Collectible.h"
 #include "Sound.h"
+#include "FPS.h"
+#include "Hud.h"
 
 /************************************************************************/
 /* The World class contains everything a the game needs to render except
@@ -27,6 +29,7 @@ enum GameState { GameState_Running, GameState_Paused, GameState_In_MainMenu, Gam
 class World
 {
 private:
+	Hud *hud;
 	TDCar* myCar;
 	Tree* myTree;
 	Sound* sound;
@@ -79,6 +82,14 @@ private:
 	void handleProjectileRemoveStack();
 	void handleCollectibleRemoveStack();
 
+	SDL_Point * center;
+	//CAR
+
+	SDL_Texture *textureCar;
+	SDL_Surface *surfaceCar;
+
+	FPS *fpsCounter;
+
 public:
 	World(SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font);
 	~World();
@@ -90,12 +101,12 @@ public:
 	void destroyBody(b2Body *body);
 	int transfrom(float);
 	void drawObject(float nwidth, float nheight, float nx, float ny, float nangle);
+	Uint32 getFPS();
 	void addProjectile( Projectile* projectile );
 	void destroyProjectile( Projectile* projectile );
 
 	void addCollectible(int w, int h, int x, int y);
 	void destroyCollectible(Collectible *collectible);
-	
 };
 
 

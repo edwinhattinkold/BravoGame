@@ -13,6 +13,7 @@ enum Asset
 	Asset_Menu_Arrow,
 	Asset_Tire,
 	Asset_Collectible,
+	Asset_HUD
 };
 
 class Assets
