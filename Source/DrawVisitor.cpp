@@ -8,6 +8,7 @@
 #include "Tree.h"
 #include "Turret.h"
 #include "B2Content.h"
+#include "Explosion.h"
 
 DrawVisitor::DrawVisitor( SDL_Renderer *renderTarget, SDL_Rect *cameraRect )
 {
@@ -51,4 +52,9 @@ void DrawVisitor::visit(TDCar *car){
 void DrawVisitor::visit( Projectile *projectile )
 {
 	projectile->drawProjectile( renderTarget, *cameraRect );
+}
+
+void DrawVisitor::visit(Explosion *explosion) 
+{
+	explosion->draw( renderTarget, *cameraRect );
 }

@@ -237,6 +237,9 @@
     <ClInclude Include="Source\DeadTurretState.h">
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Explosion.h">
+      <Filter>Header Files\GraphicObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\MainMenu.cpp">
@@ -361,6 +364,9 @@
     </ClCompile>
     <ClCompile Include="Source\DeadTurretState.cpp">
       <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Explosion.cpp">
+      <Filter>Source Files\GraphicObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

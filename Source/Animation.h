@@ -15,7 +15,6 @@ private:
 	int textureWidth, textureHeight;
 	int startFrameX, startFrameY;
 	int originX, originY;
-
 public:
 	Animation(SDL_Renderer* renderTarget, Asset asset, int framesX, int framesY, int startFrameX, int startFrameY, float animationSpeed);
 	~Animation();
@@ -35,6 +34,8 @@ public:
 	void setAsset( Asset asset );
 	int getFrameWidth();
 	int getFrameHeight();
+
+	bool done;
 };
 
 #endif

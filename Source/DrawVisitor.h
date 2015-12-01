@@ -8,6 +8,7 @@ class Tree;
 class TDTire;
 class Turret;
 class Projectile;
+class Explosion;
 
 class DrawVisitor
 {
@@ -24,5 +25,6 @@ public:
 	void visit(Tree *tree);
 	void visit(Turret *turret);
 	void visit( Projectile *projectile );
+	void visit( Explosion *explosion );
 };
 

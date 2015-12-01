@@ -1,6 +1,7 @@
 #include "Turret.h"
-Turret::Turret(b2World* world, SDL_Renderer* renderTarget, int xPos, int yPos, TDCar* c, World* gameWorld) :B2Content(renderTarget, Asset_Turret_Calm), Hittable(1000) {
+Turret::Turret(b2World* world, SDL_Renderer* renderTarget, int xPos, int yPos, TDCar* c, World* gameWorld) :B2Content(renderTarget, gameWorld, world, Asset_Turret_Calm), Hittable(1000) {
 	w = 5;
+	this->world = gameWorld;
 	objectType = Object_Turret;
 	turretAngle = 0;
 	range = 400;

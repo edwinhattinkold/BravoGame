@@ -50,7 +50,7 @@ Sprite::~Sprite()
 	delete animations;	animations = nullptr;
 }
 
-void Sprite::update( float delta, const Uint8 *keyState )
+void Sprite::updateAnimation( float delta )
 {
 	animations->at( currentAnimation )->update( delta );
 }
@@ -130,4 +130,9 @@ void Sprite::updateSDLPosition(float x, float y, float w, float h, float a){
 	positionRect.w = w;
 	positionRect.h = h;
 	angle = a;
+}
+
+bool Sprite::animationDone()
+{
+	return animations->at( currentAnimation )->done;
 }

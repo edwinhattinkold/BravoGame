@@ -1,16 +1,17 @@
 #include "B2Content.h"
+#include "World.h"
 
-
-B2Content::B2Content( SDL_Renderer* renderTarget, Asset asset) :Sprite(renderTarget, asset)
+B2Content::B2Content( SDL_Renderer* renderTarget, World* world, b2World* physicsWorld, Asset asset) :Sprite(renderTarget, asset)
 {
+	this->world = world;
+	this->physicsWorld = physicsWorld;
 	isOnDeathRow = false;
 }
-
 
 B2Content::~B2Content()
 {
 	if( m_body != nullptr )
-		m_body->GetWorld()->DestroyBody(m_body);
+		physicsWorld->DestroyBody(m_body);
 }
 
 b2Vec2 B2Content::getB2DPosition(){

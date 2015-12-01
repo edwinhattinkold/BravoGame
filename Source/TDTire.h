@@ -24,7 +24,7 @@ public:
 	float m_currentTraction;
 
 	~TDTire();
-	TDTire(b2World* world, SDL_Renderer * renderTarget);
+	TDTire( World* world, b2World* physicsWorld, SDL_Renderer * renderTarget );
 
 	void setCharacteristics(float maxForwardSpeed, float maxBackwardSpeed, float maxDriveForce, float maxLateralImpulse) {
 		m_maxForwardSpeed = maxForwardSpeed;

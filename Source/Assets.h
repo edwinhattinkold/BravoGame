@@ -14,7 +14,9 @@ enum Asset
 	Asset_Tire,
 	Asset_Turret_Calm,
 	Asset_Turret_Angry,
-	Asset_Turret_Dead
+	Asset_Turret_Dead,
+	Asset_Explosion,
+	Asset_MainMenu_Background
 };
 
 class Assets

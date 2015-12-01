@@ -40,6 +40,8 @@ void Assets::setRenderTarget( SDL_Renderer* renderTarget )
 	insertAssetMapEntry(Asset_Turret_Calm, "Objects/Turrets/normal_turret_calm.png");
 	insertAssetMapEntry(Asset_Turret_Angry, "Objects/Turrets/normal_turret_angry.png");
 	insertAssetMapEntry(Asset_Turret_Dead, "Car/car2.png");
+	insertAssetMapEntry( Asset_Explosion, "Animations/Dying/Explosion/explosion.png" );
+	insertAssetMapEntry( Asset_MainMenu_Background, "Mainmenu/background.png" );
 }
 
 SDL_Texture* Assets::getAsset( Asset asset )

@@ -21,6 +21,7 @@ Hittable::~Hittable()
 
 void Hittable::drawHealthBar(SDL_Renderer* renderTarget, SDL_Rect* cameraRect, SDL_Rect positionRect)
 {
+	hostPositionRect = positionRect;
 	maxHealthBar.w = positionRect.w * 0.70;
 	int widthDifference = positionRect.w - maxHealthBar.w;
 	maxHealthBar.x = positionRect.x - cameraRect->x + (widthDifference / 2);
@@ -73,10 +74,14 @@ void Hittable::takeDamage( int damage )
 			dead = true;
 			health = 0;
 		}
-	}
-	
+	}	
 }
 
 bool Hittable::isDead(){
 	return dead;
+}
+
+SDL_Rect Hittable::getHostPosition()
+{
+	return hostPositionRect;
 }

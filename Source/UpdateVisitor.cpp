@@ -4,6 +4,8 @@
 #include "TDCar.h"
 #include "MapDrawer.h"
 #include "Projectile.h"
+#include "Explosion.h"
+#include "Tree.h"
 
 UpdateVisitor::UpdateVisitor()
 {
@@ -53,4 +55,14 @@ void UpdateVisitor::visit( MapDrawer *md )
 void UpdateVisitor::visit( Projectile *projectile )
 {
 	projectile->update( deltaTime, keyState );
+}
+
+void UpdateVisitor::visit( Explosion *explosion )
+{
+	explosion->update( deltaTime );
+}
+
+void UpdateVisitor::visit( Tree *tree )
+{
+	tree->checkDeath();
 }

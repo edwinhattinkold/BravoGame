@@ -51,9 +51,10 @@ Chunk::~Chunk()
 		SDL_DestroyTexture( textures->at( j ) );
 		textures->at( j ) = nullptr;
 	}
+	/* TODO Objecten verwijderen uit de map */
 	for (size_t k = 0; k < bodies->size(); k++){
-		world->destroyBody(bodies->at(k));
-		bodies->at(k) = nullptr;
+		//world->destroyBody(bodies->at(k));
+		//bodies->at(k) = nullptr;
 	}
 	delete bodies;
 	bodies = nullptr;

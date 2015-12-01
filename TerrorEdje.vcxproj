@@ -23,6 +23,7 @@
     <ClInclude Include="Source\DrawContainer.h" />
     <ClInclude Include="Source\DrawFactory.h" />
     <ClInclude Include="Source\DrawVisitor.h" />
+    <ClInclude Include="Source\Explosion.h" />
     <ClInclude Include="Source\FixtureUserData.h" />
     <ClInclude Include="Source\GroundAreaFUD.h" />
     <ClInclude Include="Source\Hittable.h" />
@@ -77,6 +78,7 @@
     <ClCompile Include="Source\DrawContainer.cpp" />
     <ClCompile Include="Source\DrawFactory.cpp" />
     <ClCompile Include="Source\DrawVisitor.cpp" />
+    <ClCompile Include="Source\Explosion.cpp" />
     <ClCompile Include="Source\FixtureUserData.cpp" />
     <ClCompile Include="Source\GroundAreaFUD.cpp" />
     <ClCompile Include="Source\Hittable.cpp" />

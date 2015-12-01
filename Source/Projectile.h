@@ -8,7 +8,7 @@ private:
 	World* world;
 	b2World* physics_world;
 	SDL_Renderer* renderTarget;
-	Projectile( World* world, b2World* physics_world, SDL_Renderer * renderTarget, Asset asset, int damage, float speed, bool clone );
+	Projectile( World* world, b2World* physicsWorld, SDL_Renderer * renderTarget, Asset asset, int damage, float speed, bool clone );
 
 	void BeginContact( b2Contact* contact );
 	void EndContact( b2Contact* contact );
@@ -16,7 +16,7 @@ protected:
 	int damage;
 	float speed;
 public:
-	Projectile( World* world, b2World* physics_world, SDL_Renderer * renderTarget, Asset asset, int damage, float speed);
+	Projectile( World* world, b2World* physicsWorld, SDL_Renderer * renderTarget, Asset asset, int damage, float speed );
 	~Projectile();
 	
 	void setDirection( b2Vec2 vector );

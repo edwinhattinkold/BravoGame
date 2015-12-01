@@ -17,6 +17,7 @@ private:
 	TurretState* state;
 public:
 	float turretAngle;
+	World* world;
 	Turret(b2World* world, SDL_Renderer* renderTarget, int xPos, int yPos, TDCar* c, World* gameWorld);
 	~Turret();
 	void accept(DrawVisitor* dv);

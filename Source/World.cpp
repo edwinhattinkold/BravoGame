@@ -13,9 +13,12 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	positionIterations = new int32( 3 );
 
 	//create add and remove stacks
-	bodyRemoveStack = new std::vector<b2Body*>();
+	bodyRemoveStack = new std::vector<B2Content*>();
 	projectileRemoveStack = new std::vector<Projectile*>();
+	explosionRemoveStack = new std::vector<Explosion*>();
 	activeProjectiles = new std::vector<Projectile*>();
+	explosions = new std::vector<Explosion*>();
+	objects = new std::vector<B2Content*>();
 
 	//create physics world (box2d)
 	gravity = new b2Vec2( 0.0f, 0.0f );
@@ -35,35 +38,26 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	updateContainer = new UpdateContainer();
 
 	//TODO: main menu in separate class, drawable maybe?
-	mainMenuBackground = loadTexture( "Images/Mainmenu/background.png", renderTarget );
+	mainMenuBackground = Assets::getInstance()->getAsset(Asset_MainMenu_Background);
 	menu = new MainMenu( renderTarget, window, mainMenuBackground, camera, font );
 
 	//Paused screen
 	pauseMenu = new PauseMenu(this, renderTarget, camera);
 
 	//Creation of sprites should be placed elsewhere as well, I'm just running out of time
-	mapDrawer = new MapDrawer( renderTarget, camera->getCamera(),this );
-	
-	myCar = new TDCar(this, physics, renderTarget, 3, 6);
-
-	myTree = new Tree(physics, renderTarget, 10, 10, 20, -15);
-	myTree2 = new Tree( physics, renderTarget, 10, 10, 40, -30 );
-
-	//myTree2 = new Tree(physics, renderTarget, 4, 4, 30, -15);
-	myTurret = new Turret(physics, renderTarget, 50, -20, myCar, this);
-
-	drawContainer->add(mapDrawer);
-
-	drawContainer->add(myTree);
-	drawContainer->add(myTree2);
-	drawContainer->add(myTurret);
+	mapDrawer = new MapDrawer(renderTarget, camera->getCamera(), this);
+	drawContainer->add( mapDrawer );
 	updateContainer->add( mapDrawer );
-	updateContainer->add(myTurret);
 
+	myCar = new TDCar( this, physics, renderTarget, 3, 6 );
+	drawContainer->add( myCar );
 	updateContainer->add( myCar );
-		
+
+	addObject( new Tree( this, physics, renderTarget, 10, 10, 20, -15 ));
+	addObject( new Tree( this, physics, renderTarget, 10, 10, 40, -30 ));
+	addObject(new Turret(physics, renderTarget, 50, -40, myCar, this));
 	std::vector<TDTire*> tires = myCar->getTires();
-	for (int i = 0; i < tires.size(); i++)
+	for (size_t i = 0; i < tires.size(); i++)
 		drawContainer->add(tires[i]);
 	drawContainer->add( myCar );
 
@@ -74,21 +68,29 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 
 World::~World()
 {
-
-	for( size_t c = 0; c < activeProjectiles->size(); c++ )
+	for( size_t i = 0; i < activeProjectiles->size(); i++ )
 	{
-		delete activeProjectiles->at( c );
+		delete activeProjectiles->at( i );
 	}
 	delete activeProjectiles;						activeProjectiles = nullptr;
+	for( size_t c = 0; c < objects->size(); c++ )
+	{
+		delete objects->at( c );					objects->at( c ) = nullptr;
+	}
+	delete objects;									objects = nullptr;
+	for( size_t x = 0; x < explosions->size(); x++ )
+	{
+		delete explosions->at( x );					explosions->at( x ) = nullptr;
+	}
+	delete explosions;								explosions = nullptr;
 	delete myCar;									myCar = nullptr;
-	delete myTree;									myTree = nullptr;
-	delete myTree2;									myTree2 = nullptr;
-	delete this->myTurret;							this->myTurret = nullptr;
 	delete mapDrawer;								mapDrawer = nullptr;
 	handleBodyRemoveStack();
 	handleProjectileRemoveStack();
+	handleExplosionRemoveStack();
 	delete bodyRemoveStack;							bodyRemoveStack = nullptr;
 	delete projectileRemoveStack;					projectileRemoveStack = nullptr;
+	delete explosionRemoveStack;					explosionRemoveStack = nullptr;
 	delete physics;									physics = nullptr;
 	delete gravity;									gravity = nullptr;
 	delete velocityIterations;						velocityIterations = nullptr;
@@ -157,6 +159,7 @@ void World::tick()
 	{
 		handleProjectileRemoveStack();
 		handleBodyRemoveStack();
+		handleExplosionRemoveStack();
 	}
 }
 
@@ -212,26 +215,11 @@ void World::createCamera( SDL_Window *window, int levelWidth, int levelHeight )
 	camera = new Camera( levelWidth, levelHeight, width, height );
 }
 
-SDL_Texture* World::loadTexture( std::string filePath, SDL_Renderer *renderTarget )
-{
-	SDL_Texture *texture = nullptr;
-	SDL_Surface *surface = IMG_Load( filePath.c_str() );
-	if( surface == NULL )
-		std::cout << "Error" << std::endl;
-	else
-	{
-		texture = SDL_CreateTextureFromSurface( renderTarget, surface );
-		if( texture == NULL )
-			std::cout << "Error" << std::endl;
-	}
-
-	SDL_FreeSurface( surface );
-	return texture;
-}
-
 void World::handleBodyRemoveStack(){
 	for (size_t i = 0; i < bodyRemoveStack->size(); i++){
-		physics->DestroyBody(bodyRemoveStack->at(i));
+		updateContainer->remove( bodyRemoveStack->at( i ) );
+		drawContainer->remove( bodyRemoveStack->at( i ) );
+		delete bodyRemoveStack->at( i );
 		bodyRemoveStack->at(i) = nullptr;
 	}
 	bodyRemoveStack->clear();
@@ -249,19 +237,41 @@ void World::handleProjectileRemoveStack()
 	projectileRemoveStack->clear();
 }
 
+void World::handleExplosionRemoveStack()
+{
+	for( size_t i = 0; i < explosionRemoveStack->size(); i++ )
+	{
+		drawContainer->remove( explosionRemoveStack->at( i ) );
+		updateContainer->remove( explosionRemoveStack->at( i ) );
+		delete explosionRemoveStack->at( i );
+		explosionRemoveStack->at( i ) = nullptr;
+	}
+	explosionRemoveStack->clear();
+}
+
 void World::destroyProjectile( Projectile *projectile )
 {
 	activeProjectiles->erase( std::remove( activeProjectiles->begin(), activeProjectiles->end(), projectile ), activeProjectiles->end() );
 	projectileRemoveStack->push_back( projectile );
 }
 
-//Box2D function wrappers;
-b2Body* World::createBody(b2BodyDef *def){
-	return physics->CreateBody(def);
+void World::createExplosion(SDL_Rect positionRect)
+{
+	Explosion* newExplosion = new Explosion(renderTarget, this, positionRect);
+	explosions->push_back( newExplosion );
+	updateContainer->add( newExplosion );
+	drawContainer->add( newExplosion );
 }
 
-void World::destroyBody(b2Body *body){
-	bodyRemoveStack->push_back(body);
+void World::removeExplosion( Explosion* explosion )
+{
+	explosions->erase( std::remove( explosions->begin(), explosions->end(), explosion ), explosions->end() );
+	explosionRemoveStack->push_back( explosion );
+}
+
+void World::destroyObject(B2Content *object){
+	objects->erase( std::remove( objects->begin(), objects->end(), object ), objects->end() );
+	bodyRemoveStack->push_back(object);
 }
 
 void World::addProjectile( Projectile *projectile )
@@ -269,4 +279,11 @@ void World::addProjectile( Projectile *projectile )
 	updateContainer->add( projectile );
 	drawContainer->add( projectile );
 	activeProjectiles->push_back( projectile );
+}
+
+void World::addObject( B2Content* object )
+{
+	objects->push_back( object );
+	updateContainer->add( object );
+	drawContainer->add( object );
 }
