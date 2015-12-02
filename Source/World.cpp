@@ -64,7 +64,7 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	this->addCollectible(10, 10, 40, -190);
 	this->addCollectible(10, 10, 40, -210);
 	//add car
-	myCar = new TDCar(this, physics, renderTarget, 3, 6);
+	myCar = new TDCar(this, physics, renderTarget, camera, 3, 6);
 	drawContainer->add(myCar);
 	updateContainer->add(myCar);
 	//add objects ( no special destructor )
@@ -195,7 +195,7 @@ void World::tick()
 	{
 		updateContainer->update( deltaTime, keyState );
 		physics->Step( deltaTime, *velocityIterations, *positionIterations );//update physics
-		camera->update( myCar->getOriginX(), myCar->getOriginY() );
+		camera->update( myCar->getOriginX(), myCar->getOriginY(), deltaTime );
 	}
 
 	//update SDL

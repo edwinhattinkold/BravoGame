@@ -1,5 +1,6 @@
 #include "TDCar.h"
 #include "World.h";
+#include "Camera.h"
 
 ostream& operator<<(ostream& os, const TDCar& obj)
 {
@@ -41,10 +42,11 @@ TDCar::~TDCar() {
 	delete weapon;		 weapon = nullptr;
 }
 
-TDCar::TDCar(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, int widthM, int heightM)
+TDCar::TDCar(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, Camera* camera, int widthM, int heightM)
 	:B2Content( renderTarget, world, physicsWorld, Asset_Car )
 {
 	
+	this->camera = camera;
 	objectType = Object_Car;
 	keyMap.insert( std::pair<Car_Controls, SDL_Scancode>{ Car_Throttle,		SDL_SCANCODE_W } );
 	keyMap.insert( std::pair<Car_Controls, SDL_Scancode>{ Car_Brakes,		SDL_SCANCODE_S } );
@@ -263,4 +265,8 @@ void TDCar::soundHorn(){
 void TDCar::shoot()
 {
 	weapon->pullTrigger();
+	b2Vec2 direction = getB2DDirectionalVector();
+	direction.x *= -1;
+
+	camera->cameraShake( 0.10f );
 }
