@@ -93,7 +93,7 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	center = new SDL_Point;
 
 
-	hud = new Hud( renderTarget, drawContainer, fpsCounter, window, camera, 24, 24, 0.8);
+	hud = new Hud( renderTarget, drawContainer, fpsCounter, camera, myCar, 24, 24, 0.8 );
 	drawContainer->add( hud );
 	contactHandler = new ContactHandler(this);
 	physics->SetContactListener( contactHandler );

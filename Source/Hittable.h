@@ -5,8 +5,6 @@ class Hittable
 private:
 	int healthBarOffset;
 protected:
-	int maxHealth;
-	int health;
 	int takenDamage;
 	bool dead;
 	SDL_Rect maxHealthBar;
@@ -14,6 +12,8 @@ protected:
 	SDL_Rect takenDamageBar;
 	SDL_Rect hostPositionRect;
 public:
+	int maxHealth;
+	int health;
 	Hittable(int maxHealth);
 	~Hittable();
 	virtual void drawHealthBar( SDL_Renderer* renderTarget, SDL_Rect* cameraRect, SDL_Rect positionRect );

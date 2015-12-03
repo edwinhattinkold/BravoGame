@@ -73,10 +73,10 @@ void ContactHandler::bulletContact( Projectile* projectile, B2Content* otherObje
 			break;
 		}
 		case (Object_Car || Object_Tire) : {
-			//TDCar* car = (TDCar*)otherObject;
+			TDCar* car = (TDCar*)otherObject;
 			if (!projectile->isOnDeathRow)
 			{
-				//turret->takeDamage(projectile->getDamage());
+				car->takeDamage( projectile->getDamage() );
 				world->destroyProjectile(projectile);
 				projectile->isOnDeathRow = true;
 			}

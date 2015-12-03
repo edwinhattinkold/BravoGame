@@ -67,6 +67,7 @@ void Tree::checkDeath()
 	if( dead )
 	{
 		world->createExplosion( positionRect );
+		world->getCar()->addScore( 100 );
 		world->destroyObject( this );
 	}
 		
