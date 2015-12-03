@@ -15,7 +15,7 @@ istream& operator>>(istream& is, TDCar& obj)
 
 void TDCar::write_object( ostream& os ) const
 {
-	os << m_body->GetPosition().x << ' ' << m_body->GetPosition().y << ' ' << m_body->GetAngle() << '\n';
+	os << m_body->GetPosition().x << ' ' << m_body->GetPosition().y << ' ' << m_body->GetAngle() << ' ' << score << ' ' << health << '\n';
 }
 
 void TDCar::read_object( istream& is )
@@ -23,7 +23,7 @@ void TDCar::read_object( istream& is )
 	float x;
 	float y;
 	float angle;
-	is >> x >> y >> angle;
+	is >> x >> y >> angle >> score >> health;
 	m_body->SetTransform( b2Vec2( x, y ), angle );
 	for( size_t i = 0; i < m_tires.size(); i++ )
 	{
