@@ -58,6 +58,7 @@ Hud::~Hud()
 	delete terrorbar;			terrorbar = nullptr;
 	delete slidingbar;			slidingbar = nullptr;
 	delete fpsDisplay;			fpsDisplay = nullptr;
+	delete scoreDisplay;		scoreDisplay = nullptr;
 }
 
 

@@ -264,6 +264,9 @@
     <ClInclude Include="Source\Random.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\HighscoreMenu.h">
+      <Filter>Header Files\Menu</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\MainMenu.cpp">
@@ -408,6 +411,9 @@
       <Filter>Source Files\GraphicObjects</Filter>
     </ClCompile>
     <ClCompile Include="Source\SaveMenu.cpp">
+      <Filter>Source Files\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\HighscoreMenu.cpp">
       <Filter>Source Files\Menu</Filter>
     </ClCompile>
   </ItemGroup>
