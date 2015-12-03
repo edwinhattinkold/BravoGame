@@ -5,7 +5,7 @@
 #endif
 #define _USE_MATH_DEFINES
 
-#include<iostream>
+#include <iostream>
 #include <cmath>
 #include <Box2D/Box2D.h>
 #include "TDTire.h"
@@ -22,6 +22,7 @@
 #include "Hittable.h"
 
 class World;
+class Camera;
 
 std::ostream& operator<<(std::ostream& os, const TDCar& obj);
 std::istream& operator>>(std::istream& is, TDCar& obj);
@@ -39,12 +40,13 @@ class TDCar : public B2Content, public b2ContactListener, public Hittable
 	b2RevoluteJoint *flJoint, *frJoint;
 	int m_controlState;
 	Weapon* weapon;
+	Camera* camera;
 
 	int score;
 
 public:
 	
-	TDCar( World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, int widthM, int heightM );
+	TDCar( World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, Camera* camera, int widthM, int heightM );
 	~TDCar();
 
 	virtual void update( float deltaTime, const Uint8 *keyState );
