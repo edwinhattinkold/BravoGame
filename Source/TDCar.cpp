@@ -1,5 +1,6 @@
 #include "TDCar.h"
 #include "World.h";
+#include "Camera.h"
 
 ostream& operator<<(ostream& os, const TDCar& obj)
 {
@@ -15,7 +16,7 @@ istream& operator>>(istream& is, TDCar& obj)
 
 void TDCar::write_object( ostream& os ) const
 {
-	os << m_body->GetPosition().x << ' ' << m_body->GetPosition().y << ' ' << m_body->GetAngle() << '\n';
+	os << m_body->GetPosition().x << ' ' << m_body->GetPosition().y << ' ' << m_body->GetAngle() << ' ' << score << ' ' << health << '\n';
 }
 
 void TDCar::read_object( istream& is )
@@ -23,7 +24,7 @@ void TDCar::read_object( istream& is )
 	float x;
 	float y;
 	float angle;
-	is >> x >> y >> angle;
+	is >> x >> y >> angle >> score >> health;
 	m_body->SetTransform( b2Vec2( x, y ), angle );
 	for( size_t i = 0; i < m_tires.size(); i++ )
 	{
@@ -41,10 +42,11 @@ TDCar::~TDCar() {
 	delete weapon;		 weapon = nullptr;
 }
 
-TDCar::TDCar(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, int widthM, int heightM)
-	:B2Content( renderTarget, world, physicsWorld, Asset_Car )
+TDCar::TDCar(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, Camera* camera, int widthM, int heightM)
+	:B2Content( renderTarget, world, physicsWorld, Asset_Car ), Hittable( 2000 )
 {
 	
+	this->camera = camera;
 	objectType = Object_Car;
 	keyMap.insert( std::pair<Car_Controls, SDL_Scancode>{ Car_Throttle,		SDL_SCANCODE_W } );
 	keyMap.insert( std::pair<Car_Controls, SDL_Scancode>{ Car_Brakes,		SDL_SCANCODE_S } );
@@ -58,6 +60,7 @@ TDCar::TDCar(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, in
 	m_controlState = 0;
 	w = widthM;
 	h = heightM;
+	score = 0;
 
 	soundWStarted = false;
 	soundAStarted = false;
@@ -263,4 +266,15 @@ void TDCar::soundHorn(){
 void TDCar::shoot()
 {
 	weapon->pullTrigger();
+	camera->cameraShake( 0.10f );
+}
+
+void TDCar::addScore( int amount )
+{
+	score += amount;
+}
+
+int TDCar::getScore()
+{
+	return score;
 }

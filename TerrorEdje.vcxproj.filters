@@ -237,9 +237,6 @@
     <ClInclude Include="Source\Assets.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Random.h">
-      <Filter>Header Files\GraphicObjects</Filter>
-    </ClInclude>
     <ClInclude Include="Source\MachineGun.h">
       <Filter>Header Files\Model\Shooting</Filter>
     </ClInclude>
@@ -263,6 +260,9 @@
     </ClInclude>
     <ClInclude Include="Source\SaveMenu.h">
       <Filter>Header Files\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Random.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

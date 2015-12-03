@@ -5,8 +5,7 @@ class World;
 class Projectile : public B2Content
 {
 private:
-	World* world;
-	b2World* physics_world;
+	float deleteAfter;
 	SDL_Renderer* renderTarget;
 	Projectile( World* world, b2World* physicsWorld, SDL_Renderer * renderTarget, Asset asset, int damage, float speed, bool clone );
 

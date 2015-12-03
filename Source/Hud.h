@@ -6,6 +6,7 @@
 #include "FPS.h"
 #include "MenuItem.h"
 #include "Camera.h"
+#include "TDCar.h"
 
 using namespace std;
 class Hud
@@ -15,13 +16,15 @@ private:
 	HudObject *hud;
 	Rect *healthbar;
 	Rect *terrorbar;
-	float health; //This should be a reference to the player (or object containing health and terror)
+	Rect *slidingbar;
 	float terror;
-	float maxHealth;
 	float maxTerror;
 	float healthbarMax;
 	float terrorbarMax;
 	float scale;
+
+	float healthWidth;
+	float slidingWidth;
 
 	int top;
 	int left;
@@ -31,10 +34,14 @@ private:
 	FPS *fpsCounter;
 	TTF_Font* font;
 	MenuItem *fpsDisplay;
+	MenuItem *scoreDisplay;
 	Camera *camera;
+	TDCar *car;
+	void renderHealth( float newHealth );
+	void renderTerror( float newTerror );
 
 public:
-	Hud( SDL_Renderer *renderTarget, DrawContainer *dc, FPS *fpsCounter, SDL_Window *window, Camera *camera, int top = 24, int left = 24, float scale = 0.8 );
+	Hud( SDL_Renderer *renderTarget, DrawContainer *dc, FPS *fpsCounter, Camera *camera, TDCar *car, int top = 24, int left = 24, float scale = 0.8 );
 	~Hud();
 	virtual void accept( DrawVisitor *dv );
 	virtual void draw( SDL_Renderer *renderTarget );

@@ -1,10 +1,11 @@
 #include "MachineGun.h"
 
 
-MachineGun::MachineGun( World* world, B2Content* host, b2World* physics_world, SDL_Renderer * renderTarget, float fireRate, float spread)
-	: Weapon( world, host, physics_world, renderTarget, fireRate, spread )
+MachineGun::MachineGun( World* newWorld, B2Content* host, b2World* physics_world, SDL_Renderer * renderTarget, float fireRate, float spread)
+	: Weapon( newWorld, host, physics_world, renderTarget, fireRate, spread )
 {
-	setAmmo(new Projectile( world, physics_world, renderTarget, Asset_MachineGun_Bullet, 50, 100 ));
+	Projectile* projectile = new Projectile( newWorld, physics_world, renderTarget, Asset_MachineGun_Bullet, 50, 100 );
+	setAmmo( projectile );
 }
 
 

@@ -19,6 +19,7 @@ Projectile::Projectile( World* world, b2World* physicsWorld, SDL_Renderer * rend
 	this->renderTarget = renderTarget;
 	this->damage = damage;
 	this->speed = speed;
+	this->deleteAfter = 3.00f;
 
 	b2BodyDef bodyDef;
 	bodyDef.position.Set( 2, 2 );
@@ -61,8 +62,10 @@ void Projectile::applyB2DAngle( float rads )
 
 void Projectile::update(float deltaTime, const Uint8 *keyState)
 {
-	
 	updateSDLPosition( getCenterXSDL(), getCenterYSDL(), getSDLWidth(), getSDLHeight(), getAngleSDL() );
+	deleteAfter -= deltaTime;
+	if( deleteAfter <= 0.00f )
+		world->destroyProjectile( this );
 }
 
 Projectile* Projectile::clone()
