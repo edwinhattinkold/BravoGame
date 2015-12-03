@@ -41,6 +41,35 @@ public:
 		dynamicBody->SetLinearVelocity(b2Vec2(x, y));
 	}
 
+	void goToTarget(float x, float y)
+	{ 
+		//Snelheid van de vector instellen		
+		float relativeSpeed = 4.0f;
+
+		//X & Y van de vector instellen.
+		float ownX = dynamicBody->GetWorldCenter().x;
+		float ownY = dynamicBody->GetWorldCenter().y;
+
+		//Doel vector berekenen.
+		float vec1 = x - ownX;
+		float vec2 = y - ownY;
+
+		//Lengte van de vector berekenen.
+		float length = sqrt(vec1 * vec1 + vec2 * vec2);
+
+		//Vector normaliseren
+		float normalizedX = vec1 /= length;
+		float normalizedY = vec2 /= length;
+
+		//De vector scalen.
+		float xFinal = normalizedX *= relativeSpeed;
+		float yFinal = normalizedY *= relativeSpeed;
+
+
+		dynamicBody->SetLinearVelocity(b2Vec2(xFinal, yFinal));
+
+	}
+
 	b2Vec2 getPosition(){
 
 		return dynamicBody->GetWorldCenter();
@@ -68,6 +97,7 @@ public:
 		speedY = 0;
 		speedX = 0;
 		m_car = new npcCar(m_world, 0, 0);
+		
 
 	}
 
@@ -91,6 +121,8 @@ public:
 		m_textLine += 15;
 		g_debugDraw.DrawString(5, m_textLine, "y:%.3f", y);
 		m_textLine += 15;
+		//m_car->goToTarget(x, y);
+		m_car->goToTarget(m_mouseWorld.x, m_mouseWorld.y);
 	}
 
 	void Keyboard(int key)
@@ -145,7 +177,7 @@ public:
 		x = p.x;
 		y = p.y;
 
-		//m_car->goTo(x, y);
+		m_car->goToTarget(x, y);
 	}
 
 
