@@ -41,8 +41,8 @@ TDCar::~TDCar() {
 	delete weapon;		 weapon = nullptr;
 }
 
-TDCar::TDCar(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, int widthM, int heightM)
-	:B2Content( renderTarget, world, physicsWorld, Asset_Car )
+TDCar::TDCar( World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, int widthM, int heightM )
+	:B2Content( renderTarget, world, physicsWorld, Asset_Car ), Hittable( 2000 )
 {
 	
 	objectType = Object_Car;
@@ -58,6 +58,7 @@ TDCar::TDCar(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, in
 	m_controlState = 0;
 	w = widthM;
 	h = heightM;
+	score = 0;
 
 	soundWStarted = false;
 	soundAStarted = false;
@@ -263,4 +264,14 @@ void TDCar::soundHorn(){
 void TDCar::shoot()
 {
 	weapon->pullTrigger();
+}
+
+void TDCar::addScore( int amount )
+{
+	score += amount;
+}
+
+int TDCar::getScore()
+{
+	return score;
 }

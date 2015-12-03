@@ -19,13 +19,14 @@
 #include "Weapon.h"
 #include <iostream>
 #include "MachineGun.h"
+#include "Hittable.h"
 
 class World;
 
 std::ostream& operator<<(std::ostream& os, const TDCar& obj);
 std::istream& operator>>(std::istream& is, TDCar& obj);
 
-class TDCar : public B2Content, public b2ContactListener
+class TDCar : public B2Content, public b2ContactListener, public Hittable
 {
 	enum Car_Controls { Car_Throttle, Car_Brakes, Car_Steer_Left, Car_Steer_Right, Car_Horn, Car_Shoot };
 	bool soundWStarted;
@@ -38,6 +39,8 @@ class TDCar : public B2Content, public b2ContactListener
 	b2RevoluteJoint *flJoint, *frJoint;
 	int m_controlState;
 	Weapon* weapon;
+
+	int score;
 
 public:
 	
@@ -56,6 +59,9 @@ public:
 
 	void write_object( std::ostream& os ) const;
 	void read_object( std::istream& is );
+
+	void addScore( int amount );
+	int getScore();
 };
 
 

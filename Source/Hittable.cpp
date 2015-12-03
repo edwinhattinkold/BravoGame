@@ -1,4 +1,5 @@
 #include "Hittable.h"
+#include "Rect.h"
 #include <iostream>
 
 Hittable::Hittable(int maxHealth)
