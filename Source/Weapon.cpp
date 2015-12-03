@@ -1,21 +1,25 @@
 #include "Weapon.h"
 #include "World.h"
+#include "math.h"
 
-Weapon::Weapon( World* world, B2Content* host, b2World* physics_world, SDL_Renderer * renderTarget )
+Weapon::Weapon( World* world, B2Content* host, b2World* physics_world, SDL_Renderer * renderTarget, float fireRate, float spread )
 {
 	this->host = host;
 	this->world = world;
-	ammo = new Projectile( world, physics_world, renderTarget );
 	projectileLoaded = true;
-	fireRate = 50.00f; // <--- Measured in projectiles per second
+	this->fireRate = fireRate; // <--- Measured in freedoms per second
 	pastTime = 0.00f;
-	spread = 30.0f;
+	this->spread = spread;
 }
-
 
 Weapon::~Weapon()
 {
 	delete ammo;		ammo = nullptr;
+}
+
+void Weapon::setAmmo( Projectile* projectile )
+{
+	this->ammo = projectile;
 }
 
 void Weapon::update( float deltaTime )
@@ -41,14 +45,13 @@ void Weapon::fire()
 	Projectile* newProjectile = ammo->clone();
 	b2Vec2 direction = host->getB2DDirectionalVector();
 	int randomSpread = Random::getInstance().nextInt( 0 - (spread / 2), 0 + (spread / 2) );
-	float spreadFloat = 0.05f * randomSpread;
+	float spreadFloat = 0.02f * randomSpread;
 	direction.x += spreadFloat;
-
-	direction.x *= 10;
-	direction.y *= 10;
+	direction.y += spreadFloat;
+	direction.Normalize();
 
 	newProjectile->setB2DPosition( host->m_body->GetWorldPoint( b2Vec2{ 0, 7 } ));
-	newProjectile->applyLinearVelocity( direction );
+	newProjectile->setDirection( direction );
 	newProjectile->applyB2DAngle( host->m_body->GetAngle() );
 
 	world->addProjectile( newProjectile );

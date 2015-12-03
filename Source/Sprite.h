@@ -7,6 +7,7 @@
 #include "IUpdateable.h"
 #include "Animation.h"
 #include "DrawContainer.h"
+#include "UpdateContainer.h"
 #include "Assets.h"
 
 class Sprite : public IDrawable, public IUpdateable
@@ -17,7 +18,7 @@ protected:
 	std::vector<Animation*> *animations;
 	int currentAnimation;
 	int angle;
-
+	Asset asset;
 public:
 	/* Inheritance constructor */
 	Sprite(int xPosition, int yPosition);
@@ -30,10 +31,11 @@ public:
 
 	~Sprite();
 
-	virtual void update(float delta, const Uint8 *keyState);
+	virtual void updateAnimation(float delta);
 	virtual void draw(SDL_Renderer *renderTarget, SDL_Rect camerRect);
 	virtual void draw( SDL_Renderer *renderTarget );
 	virtual void drawTree(SDL_Renderer *renderTarget, SDL_Rect camerRect);
+	virtual void drawWithAngle(SDL_Renderer *renderTarget, SDL_Rect cameraRect);
 	virtual void drawCar(SDL_Renderer *renderTarget, SDL_Rect cameraRect);
 	virtual void drawTire(SDL_Renderer *renderTarget, SDL_Rect cameraRect);
 	virtual void drawProjectile( SDL_Renderer *renderTarget, SDL_Rect cameraRect );
@@ -53,6 +55,8 @@ public:
 	int getOriginY();
 	void updateOrigin();
 	void setAsset(Asset asset);
+
+	bool animationDone();
 };
 
 #endif

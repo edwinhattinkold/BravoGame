@@ -4,6 +4,7 @@
 #include "Sprite.h"
 #include <vector>
 #include "Sound.h"
+#include "SaveMenu.h"
 #include "SDL_ttf.h"
 
 class World;
@@ -19,7 +20,7 @@ private:
 	Sprite* arrow;
 	Sound* sound;
 	std::vector<MenuItem*>* menuItems;
-
+	SaveMenu* saveMenu;
 	int combinedHeight;
 	int margin;
 	int selected;

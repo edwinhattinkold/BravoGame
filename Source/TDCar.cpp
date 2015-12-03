@@ -1,17 +1,49 @@
 #include "TDCar.h"
 #include "World.h";
 
+ostream& operator<<(ostream& os, const TDCar& obj)
+{
+	obj.write_object( os );
+	return os;
+}
+
+istream& operator>>(istream& is, TDCar& obj)
+{
+	obj.read_object( is );
+	return is;
+}
+
+void TDCar::write_object( ostream& os ) const
+{
+	os << m_body->GetPosition().x << ' ' << m_body->GetPosition().y << ' ' << m_body->GetAngle() << '\n';
+}
+
+void TDCar::read_object( istream& is )
+{
+	float x;
+	float y;
+	float angle;
+	is >> x >> y >> angle;
+	m_body->SetTransform( b2Vec2( x, y ), angle );
+	for( size_t i = 0; i < m_tires.size(); i++ )
+	{
+		m_tires.at( i )->m_body->SetTransform( b2Vec2( x, y ), angle );
+	}
+}
+
+
 TDCar::~TDCar() {
-	m_body->GetWorld()->DestroyJoint(flJoint);	flJoint = nullptr;
-	m_body->GetWorld()->DestroyJoint(frJoint);	frJoint = nullptr;
+	physicsWorld->DestroyJoint( flJoint);	flJoint = nullptr;
+	physicsWorld->DestroyJoint( frJoint );	frJoint = nullptr;
 	for (size_t i = 0; i < m_tires.size(); i++){
 		delete m_tires[i];	m_tires[i] = nullptr;
 	}
 	delete weapon;		 weapon = nullptr;
 }
 
-TDCar::TDCar(World* world, b2World* physics_world, SDL_Renderer* renderTarget, int widthM, int heightM)
-	:B2Content( renderTarget, Asset_Car ){
+TDCar::TDCar(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, int widthM, int heightM)
+	:B2Content( renderTarget, world, physicsWorld, Asset_Car )
+{
 	
 	objectType = Object_Car;
 	keyMap.insert( std::pair<Car_Controls, SDL_Scancode>{ Car_Throttle,		SDL_SCANCODE_W } );
@@ -21,7 +53,7 @@ TDCar::TDCar(World* world, b2World* physics_world, SDL_Renderer* renderTarget, i
 	keyMap.insert( std::pair<Car_Controls, SDL_Scancode>{ Car_Horn,			SDL_SCANCODE_H } );
 	keyMap.insert( std::pair<Car_Controls, SDL_Scancode>{ Car_Shoot,		SDL_SCANCODE_SPACE } );
 
-	weapon = new Weapon( world, this, physics_world, renderTarget );
+	weapon = new MachineGun( world, this, physicsWorld, renderTarget );
 
 	m_controlState = 0;
 	w = widthM;
@@ -34,7 +66,7 @@ TDCar::TDCar(World* world, b2World* physics_world, SDL_Renderer* renderTarget, i
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
 
-	m_body = physics_world->CreateBody( &bodyDef );
+	m_body = physicsWorld->CreateBody( &bodyDef );
 	m_body->SetAngularDamping(3);
 	
 	b2Vec2 vertices[4];
@@ -58,48 +90,49 @@ TDCar::TDCar(World* world, b2World* physics_world, SDL_Renderer* renderTarget, i
 	jointDef.localAnchorB.SetZero();//center of tire
 
 	// standaard 250 aanpassen zodat de wagen niet mega snel gaat
-	float maxForwardSpeed = 50;
-	float maxBackwardSpeed = -40;
+	float maxForwardSpeed = 40;
+	float maxBackwardSpeed = -25;
 	float backTireMaxDriveForce = 300;
 	float frontTireMaxDriveForce = 500;
-	float backTireMaxLateralImpulse = 8.5;
-	float frontTireMaxLateralImpulse = 7.5;
+	float backTireMaxLateralImpulse = 10.5;
+	float frontTireMaxLateralImpulse = 9.5;
 
 	//back left tire
-	TDTire* tire = new TDTire( physics_world, renderTarget );
+	TDTire* tire = new TDTire(world, physicsWorld, renderTarget );
 	tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, backTireMaxDriveForce, backTireMaxLateralImpulse);
 	jointDef.bodyB = tire->m_body;
 	jointDef.localAnchorA.Set(-1.5, 0.875f);
-	physics_world->CreateJoint( &jointDef );
+	physicsWorld->CreateJoint( &jointDef );
 	m_tires.push_back(tire);
 
 	//back right tire
-	tire = new TDTire( physics_world, renderTarget );
+	tire = new TDTire(world, physicsWorld, renderTarget );
 	tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, backTireMaxDriveForce, backTireMaxLateralImpulse);
 	jointDef.bodyB = tire->m_body;
 	jointDef.localAnchorA.Set(1.5, 0.875f);
-	physics_world->CreateJoint( &jointDef );
+	physicsWorld->CreateJoint( &jointDef );
 	m_tires.push_back(tire);
 
 	//front left tire
-	tire = new TDTire( physics_world, renderTarget );
-	tireLEFT = tire;
+	tire = new TDTire(world, physicsWorld, renderTarget );
+
 	tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, frontTireMaxDriveForce, frontTireMaxLateralImpulse);
 	jointDef.bodyB = tire->m_body;
 	jointDef.localAnchorA.Set(-1.5, 5.7f);
-	flJoint = (b2RevoluteJoint*) physics_world->CreateJoint( &jointDef );
+	flJoint = (b2RevoluteJoint*) physicsWorld->CreateJoint( &jointDef );
 	m_tires.push_back(tire);
 
 	//front right tire
-	tire = new TDTire( physics_world, renderTarget );
+	tire = new TDTire(world, physicsWorld, renderTarget );
 	tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, frontTireMaxDriveForce, frontTireMaxLateralImpulse);
 	jointDef.bodyB = tire->m_body;
 	jointDef.localAnchorA.Set(1.5, 5.7f);
-	frJoint = (b2RevoluteJoint*) physics_world->CreateJoint( &jointDef );
+	frJoint = (b2RevoluteJoint*) physicsWorld->CreateJoint( &jointDef );
 	m_tires.push_back(tire);
 
 	updateSDLPosition(getCenterXSDL(), getCenterYSDL(), float(w), float(h), getAngleSDL());
 	updateOrigin();
+	m_body->SetUserData(this);
 }
 float TDCar::getAngleB2D()
 {
@@ -136,11 +169,11 @@ void TDCar::update( float deltaTime, const Uint8 *keyState )
 		{
 			soundAStarted = false;
 
-			Sound::getInstance()->stopSound(Sound_Skid);
-			Sound::getInstance()->playSound(Sound_Engine_Start);
+			//Sound::getInstance()->stopSound(Sound_Skid);
+			//Sound::getInstance()->playSound(Sound_Engine_Start);
 
-			Sound::getInstance()->stopSound(Sound_Engine_Loop);
-			Sound::getInstance()->playSoundLooping(Sound_Engine_Loop);
+			//Sound::getInstance()->stopSound(Sound_Engine_Loop);
+			//Sound::getInstance()->playSoundLooping(Sound_Engine_Loop);
 			soundWStarted = true;
 			soundALoopStarted = true;
 		}			
@@ -156,11 +189,11 @@ void TDCar::update( float deltaTime, const Uint8 *keyState )
 	{
 		m_controlState |= TDC_DOWN;
 		if (!soundAStarted){
-			Sound::getInstance()->playSound(Sound_Skid);
+			//Sound::getInstance()->playSound(Sound_Skid);
 			soundAStarted = true;
 		}
 		if (soundALoopStarted){
-			Sound::getInstance()->stopSound(Sound_Engine_Loop);
+			//Sound::getInstance()->stopSound(Sound_Engine_Loop);
 			soundALoopStarted = false;
 		}		
 	}		

@@ -11,6 +11,7 @@
 #include "Camera.h"
 #include "HowToPlay.h"
 #include "Sprite.h"
+class World;
 
 class MainMenu
 {
@@ -34,7 +35,7 @@ private:
 	static enum Choices { Continue, Load_Game, How_To_Play, Options, Credits, Exit };
 	int selected;
 public:
-	MainMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, Camera* camera, TTF_Font* font );
+	MainMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, Camera* camera, TTF_Font* font, World* world );
 	~MainMenu();
 
 	int getExitCode();

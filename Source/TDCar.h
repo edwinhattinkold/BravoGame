@@ -17,10 +17,15 @@
 #include "UpdateContainer.h"
 #include "Sound.h"
 #include "Weapon.h"
+#include <iostream>
+#include "MachineGun.h"
 
 class World;
 
-class TDCar : public B2Content
+std::ostream& operator<<(std::ostream& os, const TDCar& obj);
+std::istream& operator>>(std::istream& is, TDCar& obj);
+
+class TDCar : public B2Content, public b2ContactListener
 {
 	enum Car_Controls { Car_Throttle, Car_Brakes, Car_Steer_Left, Car_Steer_Right, Car_Horn, Car_Shoot };
 	bool soundWStarted;
@@ -28,7 +33,7 @@ class TDCar : public B2Content
 	bool soundALoopStarted;
 	std::map<Car_Controls, SDL_Scancode> keyMap;
 	SDL_Scancode keys[5];
-	TDTire* tireLEFT;
+	
 	std::vector<TDTire*> m_tires;
 	b2RevoluteJoint *flJoint, *frJoint;
 	int m_controlState;
@@ -36,7 +41,7 @@ class TDCar : public B2Content
 
 public:
 	
-	TDCar( World* world, b2World* physics_world, SDL_Renderer* renderTarget, int widthM, int heightM );
+	TDCar( World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, int widthM, int heightM );
 	~TDCar();
 
 	virtual void update( float deltaTime, const Uint8 *keyState );
@@ -48,5 +53,10 @@ public:
 	
 	std::vector<TDTire*> getTires();
 	void shoot();
+
+	void write_object( std::ostream& os ) const;
+	void read_object( std::istream& is );
 };
+
+
 

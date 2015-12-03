@@ -4,6 +4,8 @@
 
 World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font )
 {
+	fpsCounter = new FPS();
+
 	prevTime = 0;
 	currentTime = 0;
 	deltaTime = 0.0f;
@@ -13,9 +15,12 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	positionIterations = new int32( 3 );
 
 	//create add and remove stacks
-	bodyRemoveStack = new std::vector<b2Body*>();
+	bodyRemoveStack = new std::vector<B2Content*>();
 	projectileRemoveStack = new std::vector<Projectile*>();
+	explosionRemoveStack = new std::vector<Explosion*>();
 	activeProjectiles = new std::vector<Projectile*>();
+	explosions = new std::vector<Explosion*>();
+	objects = new std::vector<B2Content*>();
 
 	collectibleRemoveStack = new std::vector<Collectible*>();
 	activeCollectibles = new std::vector<Collectible*>();
@@ -38,25 +43,18 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	updateContainer = new UpdateContainer();
 
 	//TODO: main menu in separate class, drawable maybe?
-	mainMenuBackground = loadTexture( "Images/Mainmenu/background.png", renderTarget );
-	menu = new MainMenu( renderTarget, window, mainMenuBackground, camera, font );
+	mainMenuBackground = Assets::getInstance()->getAsset(Asset_MainMenu_Background);
+	menu = new MainMenu( renderTarget, window, mainMenuBackground, camera, font, this );
 
 	//Paused screen
 	pauseMenu = new PauseMenu(this, renderTarget, camera);
 
 	//Creation of sprites should be placed elsewhere as well, I'm just running out of time
+	//add map
 	mapDrawer = new MapDrawer( renderTarget, camera->getCamera(),this );
-	
-	myCar = new TDCar(this, physics, renderTarget, 3, 6);
-
-	myTree = new Tree(physics, renderTarget, 6, 10, 20, -15);
-	myTree2 = new Tree( physics, renderTarget, 6, 10, 40, -30 );
-
-	
-	//myTree2 = new Tree(physics, renderTarget, 4, 4, 30, -15);
-
-
 	drawContainer->add(mapDrawer);
+	updateContainer->add(mapDrawer);
+	//add collectables
 	this->addCollectible(10, 10, 20, -29);
 	this->addCollectible(10, 10, 20, -50);
 	this->addCollectible(10, 10, 20, -80);
@@ -65,36 +63,77 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	this->addCollectible(10, 10, 40, -170);
 	this->addCollectible(10, 10, 40, -190);
 	this->addCollectible(10, 10, 40, -210);
-	drawContainer->add(myTree);
-	drawContainer->add(myTree2);
-	updateContainer->add( mapDrawer );
-	updateContainer->add( myCar );
-		
+	//add car
+	myCar = new TDCar(this, physics, renderTarget, 3, 6);
+	drawContainer->add(myCar);
+	updateContainer->add(myCar);
+	//add objects ( no special destructor )
+	addObject(new Tree(this, physics, renderTarget, 10, 10, 20, -15));
+	addObject(new Tree(this, physics, renderTarget, 10, 10, 40, -30));
+	//add objects ( own destructor )
+	myTurret = new Turret(physics, renderTarget, 50, -40, myCar, this);
+	drawContainer->add(myTurret);
+	updateContainer->add(myTurret);
+	
 	std::vector<TDTire*> tires = myCar->getTires();
-	for (int i = 0; i < tires.size(); i++)
+	for (size_t i = 0; i < tires.size(); i++)
 		drawContainer->add(tires[i]);
 	drawContainer->add( myCar );
 
+	//CAR
+	surfaceCar = IMG_Load("Images/Car/debugbuggy.png");
+	if (surfaceCar == NULL)
+		std::cout << "Error" << std::endl;
+	else
+	{
+		textureCar = SDL_CreateTextureFromSurface(renderTarget, surfaceCar);
+		if (textureCar == NULL)
+			std::cout << "Error 123 4 " << std::endl;
+	}
+	center = new SDL_Point;
+
+
+	hud = new Hud( renderTarget, drawContainer, fpsCounter, window, camera, 24, 24, 0.8);
+	drawContainer->add( hud );
 	contactHandler = new ContactHandler(this);
 	physics->SetContactListener( contactHandler );
 }
 
-
 World::~World()
-{
-	for( size_t c = 0; c < activeProjectiles->size(); c++ )
+{	
+	delete this->fpsCounter;						this->fpsCounter = nullptr;
+	delete this->hud;								this->hud = nullptr;
+	for( size_t i = 0; i < activeProjectiles->size(); i++ )
 	{
-		delete activeProjectiles->at( c );
+		delete activeProjectiles->at( i );
 	}
 	delete activeProjectiles;						activeProjectiles = nullptr;
+	for (size_t i = 0; i < activeCollectibles->size(); i++)
+	{
+		delete activeCollectibles->at(i);
+	}
+	delete activeCollectibles;						activeCollectibles = nullptr;
+
+	for( size_t c = 0; c < objects->size(); c++ )
+	{
+		delete objects->at( c );					objects->at( c ) = nullptr;
+	}
+	delete objects;									objects = nullptr;
+	for( size_t x = 0; x < explosions->size(); x++ )
+	{
+		delete explosions->at( x );					explosions->at( x ) = nullptr;
+	}
+	delete explosions;								explosions = nullptr;
 	delete myCar;									myCar = nullptr;
-	delete myTree;									myTree = nullptr;
-	delete myTree2;									myTree2 = nullptr;
+	delete myTurret;								myTurret = nullptr;
 	delete mapDrawer;								mapDrawer = nullptr;
 	handleBodyRemoveStack();
+	handleCollectibleRemoveStack();
 	handleProjectileRemoveStack();
+	handleExplosionRemoveStack();
 	delete bodyRemoveStack;							bodyRemoveStack = nullptr;
 	delete projectileRemoveStack;					projectileRemoveStack = nullptr;
+	delete explosionRemoveStack;					explosionRemoveStack = nullptr;
 	delete physics;									physics = nullptr;
 	delete gravity;									gravity = nullptr;
 	delete velocityIterations;						velocityIterations = nullptr;
@@ -108,6 +147,11 @@ World::~World()
 
 	SDL_DestroyTexture(mainMenuBackground);			mainMenuBackground = nullptr;
 	SDL_DestroyRenderer(renderTarget);				renderTarget = nullptr;
+}
+
+TDCar* World::getCar()
+{
+	return myCar;
 }
 
 //Update the world
@@ -146,8 +190,6 @@ void World::tick()
 		}
 	}
 	keyState = SDL_GetKeyboardState( NULL );
-
-	//SVEN
 	
 	if( currentGameState != GameState_Paused )
 	{
@@ -158,15 +200,15 @@ void World::tick()
 
 	//update SDL
 	updateSDL();
-
+	fpsCounter->loop();
 	if( currentGameState != GameState_Paused )
 	{
 		handleProjectileRemoveStack();
 		handleCollectibleRemoveStack();
 		handleBodyRemoveStack();
+		handleExplosionRemoveStack();
 	}
 }
-
 
 void World::run()
 {
@@ -219,26 +261,11 @@ void World::createCamera( SDL_Window *window, int levelWidth, int levelHeight )
 	camera = new Camera( levelWidth, levelHeight, width, height );
 }
 
-SDL_Texture* World::loadTexture( std::string filePath, SDL_Renderer *renderTarget )
-{
-	SDL_Texture *texture = nullptr;
-	SDL_Surface *surface = IMG_Load( filePath.c_str() );
-	if( surface == NULL )
-		std::cout << "Error" << std::endl;
-	else
-	{
-		texture = SDL_CreateTextureFromSurface( renderTarget, surface );
-		if( texture == NULL )
-			std::cout << "Error" << std::endl;
-	}
-
-	SDL_FreeSurface( surface );
-	return texture;
-}
-
 void World::handleBodyRemoveStack(){
 	for (size_t i = 0; i < bodyRemoveStack->size(); i++){
-		physics->DestroyBody(bodyRemoveStack->at(i));
+		updateContainer->remove( bodyRemoveStack->at( i ) );
+		drawContainer->remove( bodyRemoveStack->at( i ) );
+		delete bodyRemoveStack->at( i );
 		bodyRemoveStack->at(i) = nullptr;
 	}
 	bodyRemoveStack->clear();
@@ -268,6 +295,18 @@ void World::handleCollectibleRemoveStack()
 	collectibleRemoveStack->clear();
 }
 
+void World::handleExplosionRemoveStack()
+{
+	for( size_t i = 0; i < explosionRemoveStack->size(); i++ )
+	{
+		drawContainer->remove( explosionRemoveStack->at( i ) );
+		updateContainer->remove( explosionRemoveStack->at( i ) );
+		delete explosionRemoveStack->at( i );
+		explosionRemoveStack->at( i ) = nullptr;
+	}
+	explosionRemoveStack->clear();
+}
+
 void World::destroyProjectile( Projectile *projectile )
 {
 	activeProjectiles->erase( std::remove( activeProjectiles->begin(), activeProjectiles->end(), projectile ), activeProjectiles->end() );
@@ -280,13 +319,28 @@ void World::destroyCollectible(Collectible * collectible)
 	collectibleRemoveStack->push_back(collectible);
 }
 
-//Box2D function wrappers;
-b2Body* World::createBody(b2BodyDef *def){
-	return physics->CreateBody(def);
+void World::createExplosion(SDL_Rect positionRect)
+{
+	Explosion* newExplosion = new Explosion(renderTarget, this, positionRect);
+	explosions->push_back( newExplosion );
+	updateContainer->add( newExplosion );
+	drawContainer->add( newExplosion );
 }
 
-void World::destroyBody(b2Body *body){
-	bodyRemoveStack->push_back(body);
+void World::removeExplosion( Explosion* explosion )
+{
+	explosions->erase( std::remove( explosions->begin(), explosions->end(), explosion ), explosions->end() );
+	explosionRemoveStack->push_back( explosion );
+}
+
+void World::destroyObject(B2Content *object){
+	objects->erase( std::remove( objects->begin(), objects->end(), object ), objects->end() );
+	bodyRemoveStack->push_back(object);
+}
+
+Uint32 World::getFPS()
+{
+	return fpsCounter->fps_current;
 }
 
 void World::addProjectile( Projectile *projectile )
@@ -298,8 +352,15 @@ void World::addProjectile( Projectile *projectile )
 
 void World::addCollectible(int w, int h, int x, int y)
 {
-	Collectible * newCollectibe = new Collectible(physics,  renderTarget,  w,  h,  x,  y);
+	Collectible * newCollectibe = new Collectible(physics, renderTarget, w, h, x, y, this);
 	updateContainer->add(newCollectibe);
 	drawContainer->add(newCollectibe);
 	activeCollectibles->push_back(newCollectibe);
+}
+
+void World::addObject(B2Content* object)
+{
+	objects->push_back( object );
+	updateContainer->add( object );
+	drawContainer->add( object );
 }

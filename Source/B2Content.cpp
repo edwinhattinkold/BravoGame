@@ -1,16 +1,17 @@
 #include "B2Content.h"
+#include "World.h"
 
-
-B2Content::B2Content( SDL_Renderer* renderTarget, Asset asset) :Sprite(renderTarget, asset)
+B2Content::B2Content( SDL_Renderer* renderTarget, World* world, b2World* physicsWorld, Asset asset) :Sprite(renderTarget, asset)
 {
+	this->world = world;
+	this->physicsWorld = physicsWorld;
 	isOnDeathRow = false;
 }
-
 
 B2Content::~B2Content()
 {
 	if( m_body != nullptr )
-		m_body->GetWorld()->DestroyBody(m_body);
+		physicsWorld->DestroyBody(m_body);
 }
 
 b2Vec2 B2Content::getB2DPosition(){
@@ -26,6 +27,7 @@ b2Vec2 B2Content::getB2DDirectionalVector()
 {
 	b2Vec2 b2DDirectionalVector = m_body->GetLocalVector( m_body->GetLocalCenter() );
 	b2DDirectionalVector.x = b2DDirectionalVector.x * -1;
+	b2DDirectionalVector.Normalize();
 	return b2DDirectionalVector;
 }
 
@@ -36,10 +38,14 @@ b2Vec2 B2Content::getSDLPosition()
 	return b2Vec2(x, y);
 }
 
+void B2Content::setB2DAngle(float angle){
+	angle = (360 - angle) * DEGTORAD;
+	m_body->SetTransform(m_body->GetWorldCenter(), angle);
+}
+
 b2Vec2 B2Content::getSDLDirectionalVector()
 {
-	b2Vec2 direction = m_body->GetLocalVector(m_body->GetLocalCenter());
-	
+	b2Vec2 direction = m_body->GetLocalVector(m_body->GetLocalCenter());	
 	direction.x = direction.x * - 1 * sdlScale;
 	direction.y = direction.y * - 1 * sdlScale;
 	std::cout << direction.x << " , " << direction.y << std::endl;
@@ -137,3 +143,5 @@ ObjectTypes B2Content::getObjectType()
 {
 	return objectType;
 }
+
+void B2Content::accept(DrawVisitor* dv){}

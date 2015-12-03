@@ -13,7 +13,8 @@ Sprite::Sprite( int xPosition, int yPosition )
 }
 
 Sprite::Sprite(SDL_Renderer* renderTarget, Asset asset){
-	Animation* default_animation = new Animation(renderTarget, asset, 1, 1, 0, 0, 0.50f);
+	this->asset = asset;
+	Animation* default_animation = new Animation(renderTarget, this->asset, 1, 1, 0, 0, 0.50f);
 
 	animations = new std::vector<Animation*>();
 	animations->push_back(default_animation);
@@ -26,7 +27,8 @@ Sprite::Sprite(SDL_Renderer* renderTarget, Asset asset){
 
 Sprite::Sprite( SDL_Renderer *renderTarget, Asset asset, int xPosition, int yPosition, int framesX, int framesY, float animationSpeed)
 {
-	Animation* default_animation = new Animation( renderTarget, asset, framesX, framesY, 0, 0, animationSpeed );
+	this->asset = asset;
+	Animation* default_animation = new Animation( renderTarget, this->asset, framesX, framesY, 0, 0, animationSpeed );
 
 	animations = new std::vector<Animation*>();
 	animations->push_back( default_animation );
@@ -48,7 +50,7 @@ Sprite::~Sprite()
 	delete animations;	animations = nullptr;
 }
 
-void Sprite::update( float delta, const Uint8 *keyState )
+void Sprite::updateAnimation( float delta )
 {
 	animations->at( currentAnimation )->update( delta );
 }
@@ -77,6 +79,11 @@ void Sprite::drawCollectible(SDL_Renderer *renderTarget, SDL_Rect camerRect)
 	animations->at(currentAnimation)->drawCar(renderTarget, drawingRect, angle);
 }
 
+void Sprite::drawWithAngle(SDL_Renderer *renderTarget, SDL_Rect camerRect)
+{
+	SDL_Rect drawingRect = { positionRect.x - camerRect.x, positionRect.y - camerRect.y, positionRect.w, positionRect.h };
+	animations->at(currentAnimation)->DrawWithAngle(renderTarget, drawingRect, angle);
+}
 
 void Sprite::drawCar(SDL_Renderer *renderTarget, SDL_Rect cameraRect){
 	SDL_Rect drawingRect = { positionRect.x - cameraRect.x, positionRect.y - cameraRect.y, positionRect.w, positionRect.h };
@@ -129,4 +136,9 @@ void Sprite::updateSDLPosition(float x, float y, float w, float h, float a){
 	positionRect.w = w;
 	positionRect.h = h;
 	angle = a;
+}
+
+bool Sprite::animationDone()
+{
+	return animations->at( currentAnimation )->done;
 }

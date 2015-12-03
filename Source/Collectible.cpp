@@ -4,8 +4,8 @@
 #define RADTODEG 57.295779513082320876f
 #endif
 
-Collectible::Collectible(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM, int posX, int posY)
-	:B2Content(renderTarget, Asset_Collectible){
+Collectible::Collectible(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM, int posX, int posY, World* gameWorld)
+:B2Content(renderTarget, gameWorld, world, Asset_Collectible){
 	objectType = Object_Collectible;
 	w = widthM;
 	h = heightM;
@@ -52,4 +52,8 @@ b2Body * Collectible::getBody()
 void Collectible::accept(DrawVisitor *dv)
 {
 	dv->visit(this);
+}
+
+void Collectible::update(float deltaTime, const Uint8 *keyState){
+
 }
