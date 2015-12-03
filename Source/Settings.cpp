@@ -51,7 +51,7 @@ Settings::Settings()
 		myfile.close();
 	}
 	else 
-		cout << "Unable to open settings file!";
+		cout << "Unable to open settings file!\n";
 }
 
 Settings::~Settings()

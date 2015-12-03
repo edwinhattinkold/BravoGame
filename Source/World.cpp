@@ -91,7 +91,7 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 			std::cout << "Error 123 4 " << std::endl;
 	}
 	center = new SDL_Point;
-
+	
 
 	hud = new Hud( renderTarget, drawContainer, fpsCounter, camera, myCar, 24, 24, 0.8 );
 	drawContainer->add( hud );
@@ -131,6 +131,7 @@ World::~World()
 	handleCollectibleRemoveStack();
 	handleProjectileRemoveStack();
 	handleExplosionRemoveStack();
+	delete collectibleRemoveStack;					collectibleRemoveStack = nullptr;
 	delete bodyRemoveStack;							bodyRemoveStack = nullptr;
 	delete projectileRemoveStack;					projectileRemoveStack = nullptr;
 	delete explosionRemoveStack;					explosionRemoveStack = nullptr;
@@ -144,6 +145,7 @@ World::~World()
 	delete drawContainer;							drawContainer = nullptr;
 	delete updateContainer;							updateContainer = nullptr;
 	delete contactHandler;							contactHandler = nullptr;
+	delete center;									center = nullptr;
 
 	SDL_DestroyTexture(mainMenuBackground);			mainMenuBackground = nullptr;
 	SDL_DestroyRenderer(renderTarget);				renderTarget = nullptr;
