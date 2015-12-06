@@ -29,13 +29,16 @@ Tree::Tree(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, int 
 	vertices[3].Set(-w / 2, 0);
 	b2PolygonShape polygonShape;
 	polygonShape.Set(vertices, 4);
+	b2CircleShape shapeCircle;
+	shapeCircle.m_radius = w/2;
+	shapeCircle.m_p.Set(0, 0);
 
 	//Draaien
 	m_body->SetTransform(m_body->GetPosition(), DEGTORAD * 0);
-	fixture = m_body->CreateFixture(&polygonShape, 0.8f);//shape, density
+	fixture = m_body->CreateFixture(&shapeCircle, 0.8f);//shape, density
 	
 
-	updateSDLPosition(getCenterXSDL(), getCenterYSDL(), getSDLWidth(), getSDLHeight(), getAngleSDL());
+	updateSDLPosition(getCenterXSDLCircle(), getCenterYSDLCircle(), getSDLWidth(), getSDLHeight(), getAngleSDL());
 	updateOrigin();
 
 	m_body->SetUserData( this );

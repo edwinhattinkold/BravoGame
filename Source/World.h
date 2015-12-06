@@ -117,6 +117,7 @@ public:
 
 	void removeProjectile( Projectile* projectile );
 	TDCar* getCar();
+	
 };
 
 

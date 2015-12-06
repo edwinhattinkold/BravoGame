@@ -55,13 +55,13 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	drawContainer->add(mapDrawer);
 	updateContainer->add(mapDrawer);
 	//add collectables
-	this->addCollectible(10, 10, 20, -29);
-	this->addCollectible(10, 10, 20, -50);
-	this->addCollectible(10, 10, 20, -80);
+	this->addCollectible(4, 4, 20, -29);
+	this->addCollectible(5, 5, 20, -50);
+	this->addCollectible(7, 7, 20, -80);
 	this->addCollectible(10, 10, 30, -120);
-	this->addCollectible(10, 10, 40, -140);
-	this->addCollectible(10, 10, 40, -170);
-	this->addCollectible(10, 10, 40, -190);
+	this->addCollectible(4, 4, 40, -140);
+	this->addCollectible(6, 6, 40, -170);
+	this->addCollectible(8, 8, 40, -190);
 	this->addCollectible(10, 10, 40, -210);
 	//add car
 	myCar = new TDCar(this, physics, renderTarget, 3, 6);

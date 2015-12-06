@@ -39,7 +39,9 @@ void UpdateVisitor::visit(Turret* turret){
 	turret->getState()->checkState();
 	turret->getState()->update(deltaTime);
 	turret->setB2DAngle(turret->turretAngle);
+	
 	turret->updateSDLPosition(turret->getCenterXSDL(), turret->getCenterYSDL(), turret->getSDLWidth(), turret->getSDLHeight(), turret->getAngleSDL());
+	
 }
 
 void UpdateVisitor::visit( TDCar *car )

@@ -25,4 +25,5 @@ void SearchingTurretState::update(float deltaTime){
 		turret->turretAngle = 359;
 	}
 	turret->getWeapon()->update(deltaTime);
+	turret->moveToTarget(deltaTime);
 }

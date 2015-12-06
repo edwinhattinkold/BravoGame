@@ -16,4 +16,6 @@ void DeadTurretState::update(float deltaTime){
 		exploded = true;
 	}
 	turret->setAsset(Asset_Turret_Dead);
+	turret->stayOnSpot();
+
 }

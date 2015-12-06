@@ -28,4 +28,6 @@ public:
 	void setState(TurretState* state);
 	TurretState* getState();
 	Weapon* getWeapon();
+	void moveToTarget(float);
+	void stayOnSpot();
 };

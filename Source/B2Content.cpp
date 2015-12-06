@@ -100,6 +100,17 @@ float B2Content::getCenterYSDL()
 	return -1 * sol2;
 }
 
+float B2Content::getCenterYSDLCircle()
+{
+
+	return -1 * ((m_body->GetPosition().y +w/2)  * sdlScale);
+}
+
+
+float B2Content::getCenterXSDLCircle()
+{
+	return (m_body->GetPosition().x - h / 2) * sdlScale;
+}
 float B2Content::getSDLWidth()
 {
 	return w * sdlScale;

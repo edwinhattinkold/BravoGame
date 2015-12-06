@@ -44,7 +44,7 @@ public:
 	void goToTarget(float x, float y)
 	{ 
 		//Snelheid van de vector instellen		
-		float relativeSpeed = 4.0f;
+		float relativeSpeed = 10.0f;
 
 		//X & Y van de vector instellen.
 		float ownX = dynamicBody->GetWorldCenter().x;

@@ -50,6 +50,8 @@ public:
 	float getSDLHeight();
 	void setB2DAngle(float angle);
 	virtual void accept(DrawVisitor *dv);
+	float getCenterYSDLCircle();
+	float getCenterXSDLCircle();
 
 	ObjectTypes getObjectType();
 };
