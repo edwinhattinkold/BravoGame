@@ -1,8 +1,10 @@
 #include "B2Content.h"
 #include "World.h"
 
+
 B2Content::B2Content( SDL_Renderer* renderTarget, World* world, b2World* physicsWorld, Asset asset) :Sprite(renderTarget, asset)
 {
+	contactable = nullptr;
 	this->world = world;
 	this->physicsWorld = physicsWorld;
 	isOnDeathRow = false;
@@ -12,6 +14,10 @@ B2Content::~B2Content()
 {
 	if( m_body != nullptr )
 		physicsWorld->DestroyBody(m_body);
+	if (contactable != nullptr){
+		delete contactable;		contactable = nullptr;
+	}
+		
 }
 
 b2Vec2 B2Content::getB2DPosition(){

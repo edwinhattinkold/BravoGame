@@ -20,7 +20,7 @@
 #include <iostream>
 #include "MachineGun.h"
 #include "Hittable.h"
-
+#include "Radar.h"
 class World;
 class Camera;
 
@@ -41,7 +41,7 @@ class TDCar : public B2Content, public b2ContactListener, public Hittable
 	int m_controlState;
 	Weapon* weapon;
 	Camera* camera;
-
+	Radar* radar;
 	int score;
 
 public:

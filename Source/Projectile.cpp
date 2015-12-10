@@ -37,7 +37,8 @@ Projectile::Projectile( World* world, b2World* physicsWorld, SDL_Renderer * rend
 	w = 0.35f;
 	h = 0.7f;
 
-	m_body->SetUserData( this );
+	contactable = new Contactable(this);
+	m_body->SetUserData(contactable);
 
 	updateSDLPosition( getCenterXSDL(), getCenterYSDL(), getSDLWidth(), getSDLHeight(), getAngleSDL() );
 	updateOrigin();

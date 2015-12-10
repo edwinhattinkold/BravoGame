@@ -267,6 +267,12 @@
     <ClInclude Include="Source\HighscoreMenu.h">
       <Filter>Header Files\Menu</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Radar.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Contactable.h">
+      <Filter>Header Files\Model\Shooting</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\MainMenu.cpp">
@@ -415,6 +421,12 @@
     </ClCompile>
     <ClCompile Include="Source\HighscoreMenu.cpp">
       <Filter>Source Files\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Radar.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Contactable.cpp">
+      <Filter>Source Files\Model\Shooting</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

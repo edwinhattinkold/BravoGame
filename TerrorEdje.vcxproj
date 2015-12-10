@@ -17,6 +17,7 @@
     <ClInclude Include="Source\ChunkFactory.h" />
     <ClInclude Include="Source\CarTireFUD.h" />
     <ClInclude Include="Source\Collectible.h" />
+    <ClInclude Include="Source\Contactable.h" />
     <ClInclude Include="Source\ContactHandler.h" />
     <ClInclude Include="Source\CreditsMenu.h" />
     <ClInclude Include="Source\CustomCursor.h" />
@@ -50,6 +51,7 @@
     <ClInclude Include="Source\PauseMenu.h" />
     <ClInclude Include="Source\PhysicsWorld.h" />
     <ClInclude Include="Source\Projectile.h" />
+    <ClInclude Include="Source\Radar.h" />
     <ClInclude Include="Source\Random.h" />
     <ClInclude Include="Source\rapidxml.hpp" />
     <ClInclude Include="Source\rapidxml_utils.hpp" />
@@ -82,6 +84,7 @@
     <ClCompile Include="Source\ChunkFactory.cpp" />
     <ClCompile Include="Source\CarTireFUD.cpp" />
     <ClCompile Include="Source\Collectible.cpp" />
+    <ClCompile Include="Source\Contactable.cpp" />
     <ClCompile Include="Source\ContactHandler.cpp" />
     <ClCompile Include="Source\CreditsMenu.cpp" />
     <ClCompile Include="Source\CustomCursor.cpp" />
@@ -112,6 +115,7 @@
     <ClCompile Include="Source\OptionsMenu.cpp" />
     <ClCompile Include="Source\PauseMenu.cpp" />
     <ClCompile Include="Source\PhysicsWorld.cpp" />
+    <ClCompile Include="Source\Radar.cpp" />
     <ClCompile Include="Source\Rect.cpp" />
     <ClCompile Include="Source\SearchingTurretState.cpp" />
     <ClCompile Include="Source\Projectile.cpp" />

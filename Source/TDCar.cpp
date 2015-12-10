@@ -40,6 +40,7 @@ TDCar::~TDCar() {
 		delete m_tires[i];	m_tires[i] = nullptr;
 	}
 	delete weapon;		 weapon = nullptr;
+	delete radar;		radar = nullptr;
 }
 
 TDCar::TDCar(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, Camera* camera, int widthM, int heightM)
@@ -135,7 +136,9 @@ TDCar::TDCar(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, Ca
 
 	updateSDLPosition(getCenterXSDL(), getCenterYSDL(), float(w), float(h), getAngleSDL());
 	updateOrigin();
-	m_body->SetUserData(this);
+	radar = new Radar(this, 10, physicsWorld);
+	contactable = new Contactable(this);
+	m_body->SetUserData(contactable);
 }
 float TDCar::getAngleB2D()
 {
@@ -162,7 +165,8 @@ std::vector<TDTire*> TDCar::getTires()
 void TDCar::update( float deltaTime, const Uint8 *keyState )
 {
 	weapon->update( deltaTime );
-
+	radar->update();
+	//cout << "amount of objects : " << radar->getObjectsInRange().size() << "\n";
 	// AUTO BESTUREN
 	//W
 	if (keyState[keyMap.at(Car_Throttle)])

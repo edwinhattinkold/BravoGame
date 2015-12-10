@@ -9,9 +9,8 @@
 #include "DrawContainer.h"
 #include "UpdateContainer.h"
 #include <string>
-
+#include "Contactable.h"
 class World;
-
 #ifndef DEGTORAD
 #define DEGTORAD 0.0174532925199432957f
 #define RADTODEG 57.295779513082320876f
@@ -25,10 +24,12 @@ class B2Content : public Sprite
 	
 private:
 	int transform(float dgrs);
+	
 protected:
 	ObjectTypes objectType;
 	World* world;
 	b2World* physicsWorld;
+	Contactable* contactable;
 public:
 	bool isOnDeathRow;
 	b2Body* m_body;

@@ -1,6 +1,5 @@
 #include "Tree.h"
 #include "World.h"
-
 #ifndef DEGTORAD
 #define DEGTORAD 0.0174532925199432957f
 #define RADTODEG 57.295779513082320876f
@@ -38,7 +37,8 @@ Tree::Tree(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, int 
 	updateSDLPosition(getCenterXSDL(), getCenterYSDL(), getSDLWidth(), getSDLHeight(), getAngleSDL());
 	updateOrigin();
 
-	m_body->SetUserData( this );
+	contactable = new Contactable(this);
+	m_body->SetUserData(contactable);
 }
 
 

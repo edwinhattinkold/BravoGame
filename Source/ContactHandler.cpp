@@ -14,19 +14,50 @@ ContactHandler::~ContactHandler()
 
 void ContactHandler::BeginContact(b2Contact* contact)
 {
-	B2Content* objectOne = (B2Content*) contact->GetFixtureA()->GetBody()->GetUserData();
-	B2Content* objectTwo = (B2Content*) contact->GetFixtureB()->GetBody()->GetUserData();
-
-	if( objectOne && objectTwo )
-	{
-		splitContacts( objectOne, objectTwo, objectOne->getObjectType() );
-		splitContacts( objectTwo, objectOne, objectTwo->getObjectType() );
+	
+	Contactable* objectOne = (Contactable*)contact->GetFixtureA()->GetBody()->GetUserData();
+	Contactable* objectTwo = (Contactable*)contact->GetFixtureB()->GetBody()->GetUserData();
+	if (objectOne->getType() == Type_Radar || objectTwo->getType() == Type_Radar)
+		cout << "start radar \n";
+	if (objectOne->getType() == Type_B2Content && objectTwo->getType() == Type_B2Content){
+		B2Content* obj1 = (B2Content*)objectOne->getObject();
+		B2Content* obj2 = (B2Content*)objectTwo->getObject();
+		splitContacts(obj1, obj2, obj1->getObjectType());
+		splitContacts(obj2, obj1, obj2->getObjectType());
 	}
+	else if (objectOne->getType() == Type_B2Content && objectTwo->getType() == Type_Radar){
+		handleRadarContact((Radar*)objectTwo->getObject(), (B2Content*)objectOne->getObject());
+	}
+	else if (objectOne->getType() == Type_Radar && objectTwo->getType() == Type_B2Content){
+		handleRadarContact((Radar*)objectOne->getObject(), (B2Content*)objectOne->getObject());
+	}
+}
+
+void ContactHandler::handleRadarContact(Radar* radar, B2Content* object){
+	//if (object->getObjectType() != Object_Projectile)
+		radar->addObject(object);
+}
+
+void ContactHandler::handleRadarContactEnd(Radar* radar, B2Content* object){
+	//if (object->getObjectType() != Object_Projectile)
+		radar->removeObject(object);
 }
 
 void ContactHandler::EndContact( b2Contact* contact )
 {
-
+ 	Contactable* objectOne = (Contactable*)contact->GetFixtureA()->GetBody()->GetUserData();
+	Contactable* objectTwo = (Contactable*)contact->GetFixtureB()->GetBody()->GetUserData();
+	if (objectOne->getType() == Type_Radar || objectTwo->getType() == Type_Radar)
+		cout << "end radar \n";
+	else{
+		cout << "end b2content \n";
+	}
+	if (objectOne->getType() == Type_B2Content && objectTwo->getType() == Type_Radar){
+		handleRadarContactEnd((Radar*)objectTwo->getObject(), (B2Content*)objectOne->getObject());
+	}
+	else if (objectOne->getType() == Type_Radar && objectTwo->getType() == Type_B2Content){
+		handleRadarContactEnd((Radar*)objectOne->getObject(), (B2Content*)objectTwo->getObject());
+	}
 }
 
 void ContactHandler::splitContacts( B2Content* object, B2Content* otherObject, ObjectTypes objectType )

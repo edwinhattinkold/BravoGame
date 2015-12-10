@@ -1,4 +1,5 @@
 #include "Collectible.h"
+#include "Contactable.h"
 #ifndef DEGTORAD
 #define DEGTORAD 0.0174532925199432957f
 #define RADTODEG 57.295779513082320876f
@@ -36,7 +37,8 @@ Collectible::Collectible(b2World* world, SDL_Renderer* renderTarget, int widthM,
 	updateSDLPosition(getCenterXSDL(), getCenterYSDL(), getSDLWidth(), getSDLHeight(), getAngleSDL());
 	updateOrigin();
 
-	m_body->SetUserData(this);
+	contactable = new Contactable(this);
+	m_body->SetUserData(contactable);
 }
 
 

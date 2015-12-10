@@ -68,8 +68,8 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	drawContainer->add(myCar);
 	updateContainer->add(myCar);
 	//add objects ( no special destructor )
-	addObject(new Tree(this, physics, renderTarget, 10, 10, 20, -15));
-	addObject(new Tree(this, physics, renderTarget, 10, 10, 40, -30));
+	addObject(new Tree(this, physics, renderTarget, 10, 10, 10, -5));
+	addObject(new Tree(this, physics, renderTarget, 10, 10, 20, -10));
 	//add objects ( own destructor )
 	myTurret = new Turret(physics, renderTarget, 50, -40, myCar, this);
 	drawContainer->add(myTurret);
