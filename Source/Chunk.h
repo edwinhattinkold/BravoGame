@@ -7,11 +7,13 @@
 #include "Tile.h"
 #include "Location.h"
 #include <Box2D/Box2D.h>
+#include "BaseLevel.h"
 class World;
 
 class Chunk
 {
 private:
+	BaseLevel *level;
 	std::vector<Tile*> *tiles;
 	std::vector<SDL_Texture*> *textures;
 	std::vector<Location> *locations;
@@ -28,6 +30,5 @@ public:
 	~Chunk();
 	void addLocation(Location l);
 	void addCollidableObject(int x, int y);
-
 };
 

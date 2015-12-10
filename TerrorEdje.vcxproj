@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Assets.h" />
+    <ClInclude Include="Source\BaseLevel.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\ChunkFactory.h" />
     <ClInclude Include="Source\CarTireFUD.h" />
@@ -35,6 +36,7 @@
     <ClInclude Include="Source\HudObject.h" />
     <ClInclude Include="Source\IDrawable.h" />
     <ClInclude Include="Source\IUpdateable.h" />
+    <ClInclude Include="Source\LevelDesert.h" />
     <ClInclude Include="Source\LoadingMenu.h" />
     <ClInclude Include="Source\Location.h" />
     <ClInclude Include="Source\MachineGun.h">
@@ -78,6 +80,7 @@
     <ClCompile Include="Source\Animation.cpp" />
     <ClCompile Include="Source\Assets.cpp" />
     <ClCompile Include="Source\B2Content.cpp" />
+    <ClCompile Include="Source\BaseLevel.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\ChunkFactory.cpp" />
     <ClCompile Include="Source\CarTireFUD.cpp" />
@@ -100,6 +103,7 @@
     <ClCompile Include="Source\HudObject.cpp" />
     <ClCompile Include="Source\IDrawable.cpp" />
     <ClCompile Include="Source\IUpdateable.cpp" />
+    <ClCompile Include="Source\LevelDesert.cpp" />
     <ClCompile Include="Source\LoadingMenu.cpp" />
     <ClCompile Include="Source\Location.cpp" />
     <ClCompile Include="Source\MachineGun.cpp" />
