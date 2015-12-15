@@ -295,11 +295,14 @@ void TDCar::setSpeedMultiplier(float newMultiplier)
 //benzine toevoegen in secondes
 void TDCar::addGasoline(float gasTime)
 {
+	if (gasoline < 1)
+	{
+		setSpeedMultiplier(1.0f);
+	}
 	if (gasoline < maxGasoline)
 		gasoline += gasTime * 1000.0f;
 	if (gasoline > maxGasoline)
 		gasoline = maxGasoline;
-	setSpeedMultiplier(1.0f);
 }
 
 // Percentage penzine dat over is

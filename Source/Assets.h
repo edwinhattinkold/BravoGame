@@ -13,6 +13,8 @@ enum Asset
 	Asset_Menu_Arrow,
 	Asset_Tire,
 	Asset_Collectible,
+	Asset_Gasoline,
+	Asset_Nitro,
 	Asset_HUD,
 	Asset_Turret_Calm,
 	Asset_Turret_Angry,
