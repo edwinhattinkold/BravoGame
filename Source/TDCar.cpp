@@ -62,6 +62,10 @@ TDCar::TDCar(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, Ca
 	h = heightM;
 	score = 0;
 
+	float secondsGasoline = 10.0f;
+	gasoline = secondsGasoline * 1000.0f;
+	maxGasoline = gasoline;
+
 	soundWStarted = false;
 	soundAStarted = false;
 	soundALoopStarted = false;
@@ -93,11 +97,14 @@ TDCar::TDCar(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, Ca
 	jointDef.localAnchorB.SetZero();//center of tire
 
 	// standaard 250 aanpassen zodat de wagen niet mega snel gaat
-	float maxForwardSpeed = 40;
-	float maxBackwardSpeed = -25;
-	float backTireMaxDriveForce = 300;
-	float frontTireMaxDriveForce = 500;
+	float maxForwardSpeed = 50;
+	float maxBackwardSpeed = -30;
+	float backTireMaxDriveForce = 60;
+	float frontTireMaxDriveForce = 70;
+
+
 	float backTireMaxLateralImpulse = 10.5;
+	//Lager zodat hij kan driften.
 	float frontTireMaxLateralImpulse = 9.5;
 
 	//back left tire
@@ -168,6 +175,7 @@ void TDCar::update( float deltaTime, const Uint8 *keyState )
 	if (keyState[keyMap.at(Car_Throttle)])
 	{
 		m_controlState |= TDC_UP;
+		lowerGasoline(deltaTime);
 		if (!soundWStarted)
 		{
 			soundAStarted = false;
@@ -191,6 +199,7 @@ void TDCar::update( float deltaTime, const Uint8 *keyState )
 	if( keyState[keyMap.at( Car_Brakes )] )
 	{
 		m_controlState |= TDC_DOWN;
+		lowerGasoline(deltaTime);
 		if (!soundAStarted){
 			//Sound::getInstance()->playSound(Sound_Skid);
 			soundAStarted = true;
@@ -222,7 +231,9 @@ void TDCar::update( float deltaTime, const Uint8 *keyState )
 	for (int i = 0; i < m_tires.size(); i++)
 		m_tires[i]->updateFriction();
 	for (int i = 0; i < m_tires.size(); i++)
-		m_tires[i]->updateDrive(m_controlState);
+		m_tires[i]->updateDrive(m_controlState, deltaTime);
+	for (int i = 0; i < m_tires.size(); i++)
+		m_tires[i]->updateTurn(m_controlState);
 
 	//control steering
 	float lockAngle = 35 * DEGTORAD;
@@ -247,6 +258,56 @@ void TDCar::update( float deltaTime, const Uint8 *keyState )
 	printFixtures();
 	for (int c = 0; c < m_tires.size(); c++)
 		m_tires[c]->update();
+}
+
+
+/*
+De auto heeft voor x aantal seconden bezine.
+De benzine wordt verlaagd door de tijd dat,
+de gebruiker gas geeft.
+*/
+void TDCar::lowerGasoline(float deltaTime)
+{
+	if (gasoline > 0)
+	{
+		gasoline -= deltaTime * 1000.0f;
+		if (gasoline < 0)
+		{
+			setSpeedMultiplier(0.5f);
+		}
+		
+	}	
+}
+
+
+/*
+Snelheid van de auto instellen.
+de snelheid wordt * de invoer gedaan.
+voorbeeld 0.5f is halve snelheid.
+*/
+void TDCar::setSpeedMultiplier(float newMultiplier)
+{
+
+	for (size_t i = 0; i < m_tires.size(); i++)
+		m_tires[i]->setMultiplier(newMultiplier);
+}
+
+//benzine toevoegen in secondes
+void TDCar::addGasoline(float gasTime)
+{
+	if (gasoline < maxGasoline)
+		gasoline += gasTime * 1000.0f;
+	if (gasoline > maxGasoline)
+		gasoline = maxGasoline;
+	setSpeedMultiplier(1.0f);
+}
+
+// Percentage penzine dat over is
+int TDCar::getGasoline()
+{
+	float onePercent = maxGasoline / 100;
+	int currentGasPercentage = gasoline / onePercent;
+	return currentGasPercentage;
 }
 
 void TDCar::accept(DrawVisitor *dv)

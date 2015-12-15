@@ -317,6 +317,8 @@ void World::destroyProjectile( Projectile *projectile )
 
 void World::destroyCollectible(Collectible * collectible)
 {
+	
+	myCar->addGasoline(2.0f);
 	activeCollectibles->erase(std::remove(activeCollectibles->begin(), activeCollectibles->end(), collectible), activeCollectibles->end());
 	collectibleRemoveStack->push_back(collectible);
 }
