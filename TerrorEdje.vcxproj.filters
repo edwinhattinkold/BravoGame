@@ -279,6 +279,9 @@
     <ClInclude Include="Source\Assets.h">
       <Filter>Header Files\GraphicObjects</Filter>
     </ClInclude>
+    <ClInclude Include="Source\LevelFactory.h">
+      <Filter>Header Files\Levels</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\MainMenu.cpp">
@@ -432,6 +435,9 @@
       <Filter>Source Files\Levels</Filter>
     </ClCompile>
     <ClCompile Include="Source\LevelDesert.cpp">
+      <Filter>Source Files\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LevelFactory.cpp">
       <Filter>Source Files\Levels</Filter>
     </ClCompile>
   </ItemGroup>

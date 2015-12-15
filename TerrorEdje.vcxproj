@@ -37,6 +37,7 @@
     <ClInclude Include="Source\IDrawable.h" />
     <ClInclude Include="Source\IUpdateable.h" />
     <ClInclude Include="Source\LevelDesert.h" />
+    <ClInclude Include="Source\LevelFactory.h" />
     <ClInclude Include="Source\LoadingMenu.h" />
     <ClInclude Include="Source\Location.h" />
     <ClInclude Include="Source\MachineGun.h">
@@ -104,6 +105,7 @@
     <ClCompile Include="Source\IDrawable.cpp" />
     <ClCompile Include="Source\IUpdateable.cpp" />
     <ClCompile Include="Source\LevelDesert.cpp" />
+    <ClCompile Include="Source\LevelFactory.cpp" />
     <ClCompile Include="Source\LoadingMenu.cpp" />
     <ClCompile Include="Source\Location.cpp" />
     <ClCompile Include="Source\MachineGun.cpp" />
