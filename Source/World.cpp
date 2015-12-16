@@ -55,14 +55,28 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	drawContainer->add(mapDrawer);
 	updateContainer->add(mapDrawer);
 	//add collectables
-	this->addCollectible(10, 10, 20, -29);
-	this->addCollectible(10, 10, 20, -50);
-	this->addCollectible(10, 10, 20, -80);
-	this->addCollectible(10, 10, 30, -120);
-	this->addCollectible(10, 10, 40, -140);
-	this->addCollectible(10, 10, 40, -170);
-	this->addCollectible(10, 10, 40, -190);
-	this->addCollectible(10, 10, 40, -210);
+	this->addCollectible(15, 15, 10, -100, Collectible::Collectibletypes::Oil);
+	this->addCollectible(15, 15, 60, -100, Collectible::Collectibletypes::Oil);
+
+	this->addCollectible(5, 5, 35, -150, Collectible::Collectibletypes::Collect);
+	this->addCollectible(5, 5, 20, -50, Collectible::Collectibletypes::Gasoline);
+	this->addCollectible(5, 5, 20, -80, Collectible::Collectibletypes::Nitro);
+	this->addCollectible(5, 5, 30, -120, Collectible::Collectibletypes::Gasoline);
+	this->addCollectible(5, 5, 40, -140, Collectible::Collectibletypes::Gasoline);
+	this->addCollectible(5, 5, 40, -170, Collectible::Collectibletypes::Gasoline);
+	this->addCollectible(5, 5, 40, -190, Collectible::Collectibletypes::Gasoline);
+	this->addCollectible(5, 5, 40, -210, Collectible::Collectibletypes::Nitro);
+
+
+	this->addCollectible(5, 5, 20, -329, Collectible::Collectibletypes::Gasoline);
+	this->addCollectible(5, 5, 20, -350, Collectible::Collectibletypes::Gasoline);
+	this->addCollectible(5, 5, 20, -380, Collectible::Collectibletypes::Nitro);
+	this->addCollectible(5, 5, 30, -420, Collectible::Collectibletypes::Collect);
+	this->addCollectible(5, 5, 40, -440, Collectible::Collectibletypes::Gasoline);
+	this->addCollectible(5, 5, 40, -470, Collectible::Collectibletypes::Gasoline);
+	this->addCollectible(5, 5, 40, -490, Collectible::Collectibletypes::Gasoline);
+	this->addCollectible(5, 5, 40, -510, Collectible::Collectibletypes::Nitro);
+
 	//add car
 	myCar = new TDCar(this, physics, renderTarget, camera, 3, 6);
 	drawContainer->add(myCar);
@@ -315,8 +329,24 @@ void World::destroyProjectile( Projectile *projectile )
 	projectileRemoveStack->push_back( projectile );
 }
 
+/*
+	Voer een actie uit op de auto op basis
+	van myType
+*/
 void World::destroyCollectible(Collectible * collectible)
 {
+	switch (collectible->myType)
+	{
+	case Collectible::Collectibletypes::Nitro:
+			myCar->hitNitro(5.0f);
+			break;
+	case Collectible::Collectibletypes::Oil:
+		myCar->hitOil(2.0f);
+		break;
+	case Collectible::Collectibletypes::Gasoline:
+		myCar->addGasoline(4.0f);
+		break;
+	}
 	activeCollectibles->erase(std::remove(activeCollectibles->begin(), activeCollectibles->end(), collectible), activeCollectibles->end());
 	collectibleRemoveStack->push_back(collectible);
 }
@@ -352,9 +382,9 @@ void World::addProjectile( Projectile *projectile )
 	activeProjectiles->push_back( projectile );
 }
 
-void World::addCollectible(int w, int h, int x, int y)
+void World::addCollectible(int w, int h, int x, int y, Collectible::Collectibletypes type)
 {
-	Collectible * newCollectibe = new Collectible(physics, renderTarget, w, h, x, y, this);
+	Collectible * newCollectibe = new Collectible(physics, renderTarget, w, h, x, y, this, type);
 	updateContainer->add(newCollectibe);
 	drawContainer->add(newCollectibe);
 	activeCollectibles->push_back(newCollectibe);

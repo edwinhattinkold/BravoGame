@@ -238,11 +238,14 @@ public:
 		jointDef.localAnchorB.SetZero();//center of tire
 
 		// standaard 250 aanpassen zodat de wagen niet mega snel gaat
-		float maxForwardSpeed = 10;
-		float maxBackwardSpeed = -10;
-		float backTireMaxDriveForce = 300;
-		float frontTireMaxDriveForce = 500;
+		
+        float maxForwardSpeed = 250;
+        float maxBackwardSpeed = -40;
+        float backTireMaxDriveForce = 300;
+        float frontTireMaxDriveForce = 500;
+
 		float backTireMaxLateralImpulse = 8.5;
+		//Lager zodat hij kan driften.
 		float frontTireMaxLateralImpulse = 7.5;
 
 		//back left tire

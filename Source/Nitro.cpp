@@ -1,29 +1,17 @@
-#include "Collectible.h"
+#include "Nitro.h"
 #ifndef DEGTORAD
 #define DEGTORAD 0.0174532925199432957f
 #define RADTODEG 57.295779513082320876f
 #endif
 
-Collectible::Collectible(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM, int posX, int posY, World* gameWorld, Collectibletypes type)
-:B2Content(renderTarget, gameWorld, world, Asset_Collectible){
-	objectType = Object_Collectible;
+Nitro::Nitro(b2World * world, SDL_Renderer* renderTarget, int widthM, int heightM, int posX, int posY, World* gameWorld)
+	:B2Content(renderTarget, gameWorld, world, Asset_Nitro)
+{
+	objectType = Object_Nitro;
 	w = widthM;
 	h = heightM;
 	//create car body
 	b2BodyDef bodyDef;
-	myType = type;
-	switch (type)
-	{
-	case Nitro:
-		setAsset(Asset_Nitro);
-		break;
-	case Gasoline:
-		setAsset(Asset_Gasoline);
-		break;
-	case Oil:
-		setAsset(Asset_Oil);
-		break;
-	}
 	bodyDef.type = b2_staticBody;
 
 	bodyDef.position.Set(posX, posY);
@@ -53,20 +41,22 @@ Collectible::Collectible(b2World* world, SDL_Renderer* renderTarget, int widthM,
 }
 
 
-Collectible::~Collectible()
+Nitro::~Nitro()
 {
 }
 
-b2Body * Collectible::getBody()
+
+
+b2Body * Nitro::getBody()
 {
 	return m_body;
 }
 
-void Collectible::accept(DrawVisitor *dv)
+void Nitro::accept(DrawVisitor *dv)
 {
 	dv->visit(this);
 }
 
-void Collectible::update(float deltaTime, const Uint8 *keyState){
+void Nitro::update(float deltaTime, const Uint8 *keyState){
 
 }
