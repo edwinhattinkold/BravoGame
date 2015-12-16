@@ -1,123 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map>
 	<x value="-4">
-		<chunk y="-4" tmx="clearlevel.tmx"/>
-		<chunk y="-3" tmx="clearlevel.tmx"/>
-		<chunk y="-2" tmx="clearlevel.tmx"/>
-		<chunk y="-1" tmx="clearlevel.tmx"/>
-		<chunk y="-0" tmx="horizontal-large-road.tmx"/>
-		<chunk y="1" tmx="clearlevel.tmx"/>
-		<chunk y="2" tmx="clearlevel.tmx"/>
-		<chunk y="3" tmx="clearlevel.tmx"/>
-		<chunk y="4" tmx="clearlevel.tmx"/>
-		<chunk y="5" tmx="clearlevel.tmx"/>
+		<chunk y="-4" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="-3" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="-2" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="-1" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="-0" tmx="horizontal-large-road.tmx" level="desert"/>
+		<chunk y="1" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="2" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="3" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="4" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="5" tmx="clearlevel.tmx" level="desert"/>
 	</x>
 	<x value="-3">
-		<chunk y="-4" tmx="vertical-small-road.tmx"/>
-		<chunk y="-3" tmx="map.1.1.tmx"/>
-		<chunk y="-2" tmx="vertical-small-road.tmx"/>
-		<chunk y="-1" tmx="vertical-small-road.tmx"/>
-		<chunk y="-0" tmx="map.1.4.tmx"/>
-		<chunk y="1" tmx="vertical-small-road.tmx"/>
-		<chunk y="2" tmx="map.1.6.tmx"/>
-		<chunk y="3" tmx="vertical-small-road.tmx"/>
-		<chunk y="4" tmx="vertical-small-road.tmx"/>
-		<chunk y="5" tmx="vertical-small-road.tmx"/>
+		<chunk y="-4" tmx="vertical-small-road.tmx" level="desert"/>
+		<chunk y="-3" tmx="map.1.1.tmx" level="desert"/>
+		<chunk y="-2" tmx="vertical-small-road.tmx" level="desert"/>
+		<chunk y="-1" tmx="vertical-small-road.tmx" level="desert"/>
+		<chunk y="-0" tmx="map.1.4.tmx" level="desert"/>
+		<chunk y="1" tmx="vertical-small-road.tmx" level="desert"/>
+		<chunk y="2" tmx="map.1.6.tmx" level="desert"/>
+		<chunk y="3" tmx="vertical-small-road.tmx" level="desert"/>
+		<chunk y="4" tmx="vertical-small-road.tmx" level="desert"/>
+		<chunk y="5" tmx="vertical-small-road.tmx" level="desert"/>
 	</x>
 	<x value="-2">
-		<chunk y="-4" tmx="clearlevel.tmx"/>
-		<chunk y="-3" tmx="horizontal-large-road.tmx"/>
-		<chunk y="-2" tmx="clearlevel.tmx"/>
-		<chunk y="-1" tmx="clearlevel.tmx"/>
-		<chunk y="-0" tmx="map.2.4.tmx"/>
-		<chunk y="1" tmx="vertical-small-road.tmx"/>
-		<chunk y="2" tmx="map.2.6.tmx"/>
-		<chunk y="3" tmx="vertical-small-road.tmx"/>
-		<chunk y="4" tmx="vertical-small-road.tmx"/>
-		<chunk y="5" tmx="map.2.9.tmx"/>
+		<chunk y="-4" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="-3" tmx="horizontal-large-road.tmx" level="desert"/>
+		<chunk y="-2" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="-1" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="-0" tmx="map.2.4.tmx" level="desert"/>
+		<chunk y="1" tmx="vertical-small-road.tmx" level="desert"/>
+		<chunk y="2" tmx="map.2.6.tmx" level="desert"/>
+		<chunk y="3" tmx="vertical-small-road.tmx" level="desert"/>
+		<chunk y="4" tmx="vertical-small-road.tmx" level="desert" />
+		<chunk y="5" tmx="map.2.9.tmx" level="desert"/>
 	</x>
 	<x value="-1">
-		<chunk y="-4" tmx="clearlevel.tmx"/>
-		<chunk y="-3" tmx="horizontal-large-road.tmx"/>
-		<chunk y="-2" tmx="clearlevel.tmx"/>
-		<chunk y="-1" tmx="clearlevel.tmx"/>
-		<chunk y="-0" tmx="map.3.4.tmx"/>
-		<chunk y="1" tmx="clearlevel.tmx"/>
-		<chunk y="2" tmx="clearlevel.tmx"/>
-		<chunk y="3" tmx="clearlevel.tmx"/>
-		<chunk y="4" tmx="clearlevel.tmx"/>
-		<chunk y="5" tmx="horizontal-small-road.tmx"/>
+		<chunk y="-4" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="-3" tmx="horizontal-large-road.tmx" level="desert"/>
+		<chunk y="-2" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="-1" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="-0" tmx="map.3.4.tmx" level="desert"/>
+		<chunk y="1" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="2" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="3" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="4" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="5" tmx="horizontal-small-road.tmx" level="desert"/>
 	</x>
 	<x value="0">
-		<chunk y="-4" tmx="clearlevel.tmx"/>
-		<chunk y="-3" tmx="map.4.1.tmx"/>
-		<chunk y="-2" tmx="vertical-large-road.tmx"/>
-		<chunk y="-1" tmx="map.4.3.tmx"/>
-		<chunk y="-0" tmx="map.4.4.tmx"/>
-		<chunk y="1" tmx="map.4.5.tmx"/>
-		<chunk y="2" tmx="vertical-double-small-road.tmx"/>
-		<chunk y="3" tmx="vertical-double-small-road.tmx"/>
-		<chunk y="4" tmx="vertical-double-small-road.tmx"/>
-		<chunk y="5" tmx="map.4.9.tmx"/>
+		<chunk y="-4" tmx="clearlevel.tmx" level="snow"/>
+		<chunk y="-3" tmx="map.4.1.tmx" level="snow"/>
+		<chunk y="-2" tmx="vertical-large-road.tmx" level="snow"/>
+		<chunk y="-1" tmx="map.4.3.tmx" level="snow"/>
+		<chunk y="-0" tmx="map.4.4.tmx" level="snow"/>
+		<chunk y="1" tmx="map.4.5.tmx" level="snow"/>
+		<chunk y="2" tmx="vertical-double-small-road.tmx" level="snow"/>
+		<chunk y="3" tmx="vertical-double-small-road.tmx" level="snow"/>
+		<chunk y="4" tmx="vertical-double-small-road.tmx" level="snow"/>
+		<chunk y="5" tmx="map.4.9.tmx" level="snow"/>
 	</x>
 	<x value="1">
-		<chunk y="-4" tmx="clearlevel.tmx"/>
-		<chunk y="-3" tmx="clearlevel.tmx"/>
-		<chunk y="-2" tmx="clearlevel.tmx"/>
-		<chunk y="-1" tmx="horizontal-large-road.tmx"/>
-		<chunk y="-0" tmx="horizontal-large-road.tmx"/>
-		<chunk y="1" tmx="horizontal-small-road.tmx"/>
-		<chunk y="2" tmx="clearlevel.tmx"/>
-		<chunk y="3" tmx="clearlevel.tmx"/>
-		<chunk y="4" tmx="clearlevel.tmx"/>
-		<chunk y="5" tmx="horizontal-small-road.tmx"/>
+		<chunk y="-4" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="-3" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="-2" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="-1" tmx="horizontal-large-road.tmx" level="desert"/>
+		<chunk y="-0" tmx="horizontal-large-road.tmx" level="desert"/>
+		<chunk y="1" tmx="horizontal-small-road.tmx" level="desert"/>
+		<chunk y="2" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="3" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="4" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="5" tmx="horizontal-small-road.tmx" level="desert"/>
 	</x>
 	<x value="2">
-		<chunk y="-4" tmx="vertical-large-road.tmx"/>
-		<chunk y="-3" tmx="vertical-large-road.tmx"/>
-		<chunk y="-2" tmx="vertical-large-road.tmx"/>
-		<chunk y="-1" tmx="map.6.3.tmx"/>
-		<chunk y="-0" tmx="map.6.4.tmx"/>
-		<chunk y="1" tmx="map.6.5.tmx"/>
-		<chunk y="2" tmx="vertical-large-road.tmx"/>
-		<chunk y="3" tmx="map.6.7.tmx"/>
-		<chunk y="4" tmx="vertical-large-road.tmx"/>
-		<chunk y="5" tmx="map.6.5.tmx"/>
+		<chunk y="-4" tmx="vertical-large-road.tmx" level="desert"/>
+		<chunk y="-3" tmx="vertical-large-road.tmx" level="desert"/>
+		<chunk y="-2" tmx="vertical-large-road.tmx" level="desert"/>
+		<chunk y="-1" tmx="map.6.3.tmx" level="desert"/>
+		<chunk y="-0" tmx="map.6.4.tmx" level="desert"/>
+		<chunk y="1" tmx="map.6.5.tmx" level="desert"/>
+		<chunk y="2" tmx="vertical-large-road.tmx" level="desert"/>
+		<chunk y="3" tmx="map.6.7.tmx" level="desert"/>
+		<chunk y="4" tmx="vertical-large-road.tmx" level="desert"/>
+		<chunk y="5" tmx="map.6.5.tmx" level="desert"/>
 	</x>
 	<x value="3">
-		<chunk y="-4" tmx="vertical-small-road.tmx"/>
-		<chunk y="-3" tmx="vertical-small-road.tmx"/>
-		<chunk y="-2" tmx="vertical-small-road.tmx"/>
-		<chunk y="-1" tmx="vertical-small-road.tmx"/>
-		<chunk y="-0" tmx="map.1.4.tmx"/>
-		<chunk y="1" tmx="map.7.5.tmx"/>
-		<chunk y="2" tmx="clearlevel.tmx"/>
-		<chunk y="3" tmx="map.7.7.tmx"/>
-		<chunk y="4" tmx="vertical-small-road.tmx"/>
-		<chunk y="5" tmx="map.7.9.tmx"/>
+		<chunk y="-4" tmx="vertical-small-road.tmx" level="desert"/>
+		<chunk y="-3" tmx="vertical-small-road.tmx" level="desert"/>
+		<chunk y="-2" tmx="vertical-small-road.tmx" level="desert"/>
+		<chunk y="-1" tmx="vertical-small-road.tmx" level="desert"/>
+		<chunk y="-0" tmx="map.1.4.tmx" level="desert"/>
+		<chunk y="1" tmx="map.7.5.tmx" level="desert"/>
+		<chunk y="2" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="3" tmx="map.7.7.tmx" level="desert"/>
+		<chunk y="4" tmx="vertical-small-road.tmx" level="desert"/>
+		<chunk y="5" tmx="map.7.9.tmx" level="desert"/>
 	</x>
 	<x value="4">
-		<chunk y="-4" tmx="clearlevel.tmx"/>
-		<chunk y="-3" tmx="clearlevel.tmx"/>
-		<chunk y="-2" tmx="clearlevel.tmx"/>
-		<chunk y="-1" tmx="clearlevel.tmx"/>
-		<chunk y="-0" tmx="horizontal-large-road.tmx"/>
-		<chunk y="1" tmx="clearlevel.tmx"/>
-		<chunk y="2" tmx="clearlevel.tmx"/>
-		<chunk y="3" tmx="horizontal-small-road.tmx"/>
-		<chunk y="4" tmx="clearlevel.tmx"/>
-		<chunk y="5" tmx="horizontal-small-road.tmx"/>
+		<chunk y="-4" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="-3" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="-2" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="-1" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="-0" tmx="horizontal-large-road.tmx" level="desert"/>
+		<chunk y="1" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="2" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="3" tmx="horizontal-small-road.tmx" level="desert"/>
+		<chunk y="4" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="5" tmx="horizontal-small-road.tmx" level="desert"/>
 	</x>
 	<x value="5">
-		<chunk y="-4" tmx="clearlevel.tmx"/>
-		<chunk y="-3" tmx="clearlevel.tmx"/>
-		<chunk y="-2" tmx="clearlevel.tmx"/>
-		<chunk y="-1" tmx="clearlevel.tmx"/>
-		<chunk y="-0" tmx="map.2.4.tmx"/>
-		<chunk y="1" tmx="vertical-small-road.tmx"/>
-		<chunk y="2" tmx="vertical-small-road.tmx"/>
-		<chunk y="3" tmx="map.7.9.tmx"/>
-		<chunk y="4" tmx="clearlevel.tmx"/>
-		<chunk y="5" tmx="horizontal-small-road.tmx"/>
+		<chunk y="-4" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="-3" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="-2" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="-1" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="-0" tmx="map.2.4.tmx" level="desert"/>
+		<chunk y="1" tmx="vertical-small-road.tmx" level="desert"/>
+		<chunk y="2" tmx="vertical-small-road.tmx" level="desert"/>
+		<chunk y="3" tmx="map.7.9.tmx" level="desert"/>
+		<chunk y="4" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="5" tmx="horizontal-small-road.tmx" level="desert"/>
 	</x>	
 </map>
