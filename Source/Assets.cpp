@@ -39,6 +39,7 @@ void Assets::setRenderTarget( SDL_Renderer* renderTarget )
 	insertAssetMapEntry(Asset_Collectible, "Objects/Collectible.png");
 	insertAssetMapEntry(Asset_Nitro, "Objects/nitro.png");
 	insertAssetMapEntry(Asset_Gasoline, "Objects/gasoline.png");
+	insertAssetMapEntry(Asset_Oil, "Objects/oil.png");
 	insertAssetMapEntry( Asset_Tire, "Car/tire.png" );
 	insertAssetMapEntry( Asset_HUD, "hud/hud.png" );
 	insertAssetMapEntry(Asset_Turret_Calm, "Objects/Turrets/normal_turret_calm.png");

@@ -12,12 +12,14 @@ TDTire::TDTire( World* world, b2World* physicsWorld, SDL_Renderer * renderTarget
 	polygonShape.SetAsBox(0.25f,0.675f);
 	fixture = m_body->CreateFixture(&polygonShape, 1);//shape, density
 	ctfud = new CarTireFUD();
+	oilMultiplier = 1;
 	fixture->SetUserData(ctfud);
 	w = 0.75f;
 	h = 1.625f;
 	m_body->SetUserData(this);
 	m_currentTraction = 1;
 	multiplierSpeed = 1.0f;
+	nitroMultiplier = 1.0f;
 	updateSDLPosition(getCenterXSDL(), getCenterYSDL(), getSDLWidth(), getSDLHeight(), getAngleSDL());
 }
 
@@ -110,9 +112,9 @@ void TDTire::updateDrive(int controlState, float detlatime) {
 	//apply necessary force m_maxDriveForce bepaald hoe snel hij optrekt.
 	float force = 0;
 	if (desiredSpeed > currentSpeed)
-		force = m_maxDriveForce * multiplierSpeed;
+		force = m_maxDriveForce * multiplierSpeed  * oilMultiplier * nitroMultiplier;
 	else if (desiredSpeed < currentSpeed)
-		force = -(m_maxDriveForce * multiplierSpeed);
+		force = -(m_maxDriveForce * multiplierSpeed * oilMultiplier * nitroMultiplier);
 	else
 		return;
 	m_body->ApplyForce(m_currentTraction * force * currentForwardNormal, m_body->GetWorldCenter(), true);

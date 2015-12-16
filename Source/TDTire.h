@@ -23,6 +23,8 @@ public:
 	std::set<GroundAreaFUD*> m_groundAreas;
 	float m_currentTraction;
 	float multiplierSpeed;
+	float oilMultiplier;
+	float nitroMultiplier;
 
 	~TDTire();
 	TDTire( World* world, b2World* physicsWorld, SDL_Renderer * renderTarget );

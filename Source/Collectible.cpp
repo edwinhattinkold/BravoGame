@@ -20,6 +20,9 @@ Collectible::Collectible(b2World* world, SDL_Renderer* renderTarget, int widthM,
 	case Gasoline:
 		setAsset(Asset_Gasoline);
 		break;
+	case Oil:
+		setAsset(Asset_Oil);
+		break;
 	}
 	bodyDef.type = b2_staticBody;
 

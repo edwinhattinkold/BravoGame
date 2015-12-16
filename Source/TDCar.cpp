@@ -45,7 +45,7 @@ TDCar::~TDCar() {
 TDCar::TDCar(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, Camera* camera, int widthM, int heightM)
 	:B2Content( renderTarget, world, physicsWorld, Asset_Car ), Hittable( 2000 )
 {
-	
+	oilTime = 0;
 	this->camera = camera;
 	objectType = Object_Car;
 	keyMap.insert( std::pair<Car_Controls, SDL_Scancode>{ Car_Throttle,		SDL_SCANCODE_W } );
@@ -62,7 +62,7 @@ TDCar::TDCar(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, Ca
 	h = heightM;
 	score = 0;
 
-	float secondsGasoline = 10.0f;
+	float secondsGasoline = 20.0f;
 	gasoline = secondsGasoline * 1000.0f;
 	maxGasoline = gasoline;
 
@@ -166,10 +166,22 @@ std::vector<TDTire*> TDCar::getTires()
 	return m_tires;
 }
 
+void TDCar::hitOil(float time){
+	oilTime = time;
+	for (int c = 0; c < m_tires.size(); c++)
+		m_tires[c]->oilMultiplier = 0.5f;
+}
+
+void TDCar::hitNitro(float time)
+{
+	nitroTime = time;
+	for (int c = 0; c < m_tires.size(); c++)
+		m_tires[c]->nitroMultiplier = 1.5f;
+}
+
 void TDCar::update( float deltaTime, const Uint8 *keyState )
 {
 	weapon->update( deltaTime );
-
 	// AUTO BESTUREN
 	//W
 	if (keyState[keyMap.at(Car_Throttle)])
@@ -274,9 +286,32 @@ void TDCar::lowerGasoline(float deltaTime)
 		if (gasoline < 0)
 		{
 			setSpeedMultiplier(0.5f);
+			gasoline = 0;
 		}
 		
 	}	
+	if (oilTime > 0)
+	{
+
+		oilTime -= deltaTime;
+		if (oilTime < 0)
+		{
+			for (int c = 0; c < m_tires.size(); c++)
+				m_tires[c]->oilMultiplier = 1.0f;
+			oilTime = 0;
+		}
+	}
+	if (nitroTime > 0)
+	{
+
+		nitroTime -= deltaTime;
+		if (nitroTime < 0)
+		{
+			for (int c = 0; c < m_tires.size(); c++)
+				m_tires[c]->nitroMultiplier = 1.0f;
+			nitroTime = 0;
+		}
+	}
 }
 
 

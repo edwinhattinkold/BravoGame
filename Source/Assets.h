@@ -15,6 +15,7 @@ enum Asset
 	Asset_Collectible,
 	Asset_Gasoline,
 	Asset_Nitro,
+	Asset_Oil,
 	Asset_HUD,
 	Asset_Turret_Calm,
 	Asset_Turret_Angry,
