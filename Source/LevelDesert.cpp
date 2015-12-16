@@ -3,7 +3,6 @@
 LevelDesert::LevelDesert()
 	: BaseLevel(Asset::Asset_Desert_Tileset)
 {
-	
 }
 
 

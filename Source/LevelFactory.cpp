@@ -1,9 +1,12 @@
 #include "LevelFactory.h"
+#include "LevelSnow.h"
+#include "LevelDesert.h"
 static LevelFactory* instance;
 
 LevelFactory::LevelFactory()
 {
-
+	insertIntoMap( "desert", new LevelDesert() );
+	insertIntoMap( "snow", new LevelSnow() );
 }
 
 LevelFactory* LevelFactory::getInstance()
@@ -18,12 +21,12 @@ LevelFactory* LevelFactory::getInstance()
 LevelFactory::~LevelFactory()
 {}
 
-BaseLevel* LevelFactory::getLevel( Level level )
+BaseLevel* LevelFactory::getLevel( std::string level )
 {
 	return levelMap.at(level);
 }
 
-void LevelFactory::insertIntoMap( Level id, BaseLevel* level )
+void LevelFactory::insertIntoMap( std::string name, BaseLevel* level )
 {
-	levelMap.insert( std::pair<Level, BaseLevel*>( id, level ) );
+	levelMap.insert( std::pair<std::string, BaseLevel*>( name, level ) );
 }

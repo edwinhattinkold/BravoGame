@@ -1,23 +1,18 @@
 #pragma once
 #include <map>
+#include <string>
 
 class BaseLevel;
-
-enum Level {
-	Level_Desert,
-	Level_Snow,
-	Level_Jungle
-};
 
 class LevelFactory
 {
 private:
-	std::map<Level, BaseLevel*> levelMap;
-	void insertIntoMap( Level, BaseLevel* );
+	std::map<std::string, BaseLevel*> levelMap;
+	void insertIntoMap( std::string, BaseLevel* );
 public:
 	LevelFactory();
 	~LevelFactory();
 	static LevelFactory* getInstance();
-	BaseLevel* getLevel(Level);
+	BaseLevel* getLevel(std::string name);
 };
 

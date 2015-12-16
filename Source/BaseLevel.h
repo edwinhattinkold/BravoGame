@@ -7,15 +7,15 @@ class BaseLevel
 {
 private:
 	Asset textureId;
-	int spacing;
-	int firstId;
-	int amount;
-	int width;
-	int height;
+	int spacing = 1;
+	int firstId = 1;
+	int amount = 48;
+	int width = 263;
+	int height = 197;
+	void addTileSet();
 public:
 	std::vector<Tile*> *tiles;
 	BaseLevel(Asset assetId);
-	~BaseLevel();
-	void addTileSet( int spacing, int firstId, int amount, int width, int height );	
+	~BaseLevel();	
 };
 

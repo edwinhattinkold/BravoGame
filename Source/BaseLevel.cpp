@@ -4,6 +4,9 @@
 BaseLevel::BaseLevel(Asset assetId)
 {
 	textureId = assetId;
+	tiles = new std::vector<Tile*>();
+	tiles->push_back( nullptr );
+	addTileSet();	
 }
 
 
@@ -16,7 +19,7 @@ BaseLevel::~BaseLevel()
 	}
 }
 
-void BaseLevel::addTileSet( int spacing, int firstId, int amount, int width, int height )
+void BaseLevel::addTileSet()
 {
 
 	SDL_Texture  *texture = Assets::getInstance()->getAsset( textureId );
