@@ -36,6 +36,7 @@
     <ClInclude Include="Source\IDrawable.h" />
     <ClInclude Include="Source\IUpdateable.h" />
     <ClInclude Include="Source\LoadingMenu.h" />
+    <ClInclude Include="Source\LoadingScreen.h" />
     <ClInclude Include="Source\Location.h" />
     <ClInclude Include="Source\MachineGun.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -101,6 +102,7 @@
     <ClCompile Include="Source\IDrawable.cpp" />
     <ClCompile Include="Source\IUpdateable.cpp" />
     <ClCompile Include="Source\LoadingMenu.cpp" />
+    <ClCompile Include="Source\LoadingScreen.cpp" />
     <ClCompile Include="Source\Location.cpp" />
     <ClCompile Include="Source\MachineGun.cpp" />
     <ClCompile Include="Source\main.cpp" />

@@ -10,6 +10,7 @@
 #include "Sound.h"
 #include "Camera.h"
 #include "HowToPlay.h"
+#include "LoadingScreen.h"
 #include "Sprite.h"
 class World;
 
@@ -29,6 +30,7 @@ private:
 	OptionsMenu* optionsMenu;
 	CreditsMenu* creditsMenu;
 	LoadingMenu* loadMenu;
+	LoadingScreen* loadScreen;
 	HowToPlay* howToPlay;
 	int optionsChoice, creditsChoice, howToPlayChoise, loadChoice;
 	void center();
