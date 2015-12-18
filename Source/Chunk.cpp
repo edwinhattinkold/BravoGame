@@ -19,9 +19,17 @@ SDL_Texture* loadImage( SDL_Renderer *renderTarget, std::string filePath )
 	return NULL;
 }
 
-Chunk::Chunk(SDL_Renderer *rt, MiniChunk miniChunk, World *world)
+Chunk::Chunk(SDL_Renderer *rt, MiniChunk miniChunk, World *world, int x, int y)
 {
+	std::cout << "x: " << x << " y: " << y << endl;
+	this->x = x;
+	this->y = y;
 	this->world = world;
+
+	int positonNewX = x * (1024 / 20);
+	int positionNewY = y * (1024 / 20);
+
+	world->addCollectible(5, 5, positonNewX, -positionNewY, level->possibleCollectibles[0]);
 	renderTarget = rt;
 	textures = new std::vector<SDL_Texture*>();
 	locations = new std::vector<Location>();
@@ -85,15 +93,15 @@ void Chunk::addLocation( Location l )
 	locations->push_back( l );
 }
 
-void Chunk::draw( int x, int y, SDL_Rect *cameraRect )
+void Chunk::draw(SDL_Rect *cameraRect )
 {
 	Tile *tile = nullptr;
 	SDL_Rect tarRect = { 0, 0, 32, 32 };
 	for( size_t i = 0; i < locations->size(); i++ )
 	{
 		Location l = locations->at( i );
-		tarRect.x = l.x * 32 + x - cameraRect->x;
-		tarRect.y = l.y * 32 + y - cameraRect->y;
+		tarRect.x = l.x * 32 + (x*1024) - cameraRect->x;
+		tarRect.y = l.y * 32 + (y*1024) - cameraRect->y;
 		tile = level->tiles->at( l.id );;
 		SDL_RenderCopy( renderTarget, tile->getTexture(), tile->getRect(), &tarRect );
 	}
