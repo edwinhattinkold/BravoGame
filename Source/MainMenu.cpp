@@ -41,6 +41,7 @@ MainMenu::~MainMenu()
 	delete howToPlay;						howToPlay = nullptr;
 	delete arrow;							arrow = nullptr;
 	delete loadMenu;						loadMenu = nullptr;
+	delete loadScreen;						loadScreen = nullptr;
 }
 
 int MainMenu::getExitCode(){

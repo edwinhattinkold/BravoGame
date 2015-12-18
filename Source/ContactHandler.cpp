@@ -79,6 +79,10 @@ void ContactHandler::bulletContact( Projectile* projectile, B2Content* otherObje
 				car->takeDamage( projectile->getDamage() );
 				world->destroyProjectile(projectile);
 				projectile->isOnDeathRow = true;
+				if( car->dead )
+				{
+					world->gameOver();
+				}
 			}
 			break;
 		}

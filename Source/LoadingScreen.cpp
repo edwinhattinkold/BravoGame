@@ -2,6 +2,7 @@
 #include "CustomCursor.h"
 #include "Assets.h"
 #include "Sound.h"
+#include "Settings.h"
 
 LoadingScreen::LoadingScreen( SDL_Renderer* renderTarget, Camera* camera, TTF_Font* font )
 {
@@ -23,7 +24,15 @@ int LoadingScreen::createMenu( )
 	prevTime = currentTime;
 	currentTime = SDL_GetTicks();;
 	deltaTime = 0.0f;
-	time = 8.50f;
+	time = 7.00f;
+	if( !Settings::getInstance()->getBoolean( Settings_Advertisements ) )
+	{
+		time = 0.00f;
+	}
+	else
+	{
+		Sound::getInstance()->playSound( Sound_Ad );
+	}
 	passedTime = 0.00f;
 	int windowWidth = camera->getCamera()->w;
 	int windowHeight = camera->getCamera()->h;
@@ -40,7 +49,7 @@ int LoadingScreen::createMenu( )
 	loaded.y = maxLoading.y;
 	loaded.h = maxLoading.h;
 
-	Sound::getInstance()->playSound( Sound_Ad );
+	
 	while( passedTime < time )
 	{
 		prevTime = currentTime;
