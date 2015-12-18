@@ -20,9 +20,7 @@ class Chunk
 {
 private:
 	BaseLevel *level;
-	std::vector<SDL_Texture*> *textures;
 	std::vector<Location> *locations;
-	std::vector<b2Body*> *bodies;
 	std::vector<Collectible*> collectibleItems;
 	World *world;
 	b2BodyDef *collisionBodyDef;

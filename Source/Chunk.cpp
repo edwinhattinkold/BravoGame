@@ -2,34 +2,14 @@
 #include "World.h"
 #include "LevelFactory.h"
 
-
-SDL_Texture* loadImage( SDL_Renderer *renderTarget, std::string filePath )
-{
-	filePath = filePath.substr( 3 );
-	SDL_Surface *surface = IMG_Load( filePath.c_str() );
-	if( surface == NULL )
-		std::cout << "Error1" << filePath << std::endl;
-	else
-	{
-		SDL_Texture *texture = SDL_CreateTextureFromSurface( renderTarget, surface );
-		if( texture == NULL )
-			std::cout << "Error2" << std::endl;
-		SDL_FreeSurface( surface );
-		return texture;
-	}
-	return NULL;
-}
-
 Chunk::Chunk(SDL_Renderer *rt, MiniChunk miniChunk, World *world, int x, int y)
 {
 	
 	renderTarget = rt;
-	textures = new std::vector<SDL_Texture*>();
 	locations = new std::vector<Location>();
 	//TO IMPROVE
 	level = LevelFactory::getInstance()->getLevel( miniChunk.level );
 	//create holder and definitions for box2d
-	bodies = new std::vector<b2Body*>();
 	collisionBodyDef = new b2BodyDef();
 	//collectibleItems = new std::vector<Collectible*>();
 	collisionBodyDef->type = b2_staticBody;
@@ -65,28 +45,11 @@ void Chunk::addCollectable()
 
 Chunk::~Chunk()
 {
-	for( size_t j = 0; j < textures->size(); j++ )
-	{
-		SDL_DestroyTexture( textures->at( j ) );
-		textures->at( j ) = nullptr;
-	}
-	/* TODO Objecten verwijderen uit de map */
-	for (size_t k = 0; k < bodies->size(); k++){
-		//world->destroyBody(bodies->at(k));
-		//bodies->at(k) = nullptr;
-	}
 	for (size_t i = 0; i < collectibleItems.size(); i++)
 	{
 		world->destroyCollectible(collectibleItems.at(i));
-		delete collectibleItems.at(i);
-		collectibleItems.at(i) = nullptr;
-		
 	}
 
-	delete bodies;
-	bodies = nullptr;
-	delete textures;
-	textures = nullptr;
 	delete locations;
 	locations = nullptr;
 	/*delete bodies;*/
@@ -107,7 +70,6 @@ void Chunk::addCollidableObject( int x, int y )
 	collisionBodyDef->position.Set(x * 2, y * 3);
 	//b2Body *staticBody = world->createBody(collisionBodyDef);
 	//staticBody->CreateFixture(collisionFixtureDef);
-	//bodies->push_back(staticBody);
 }
 
 void Chunk::addLocation( Location l )
