@@ -21,7 +21,9 @@ enum Asset
 	Asset_Turret_Angry,
 	Asset_Turret_Dead,
 	Asset_Explosion,
-	Asset_MainMenu_Background
+	Asset_MainMenu_Background,
+	Asset_LoadScreen_Ad,
+	Asset_GameOverScreen_Background
 };
 
 class Assets
