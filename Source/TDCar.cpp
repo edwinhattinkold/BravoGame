@@ -43,7 +43,7 @@ TDCar::~TDCar() {
 }
 
 TDCar::TDCar(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, Camera* camera, int widthM, int heightM)
-	:B2Content( renderTarget, world, physicsWorld, Asset_Car ), Hittable( 2000 )
+	:B2Content( renderTarget, world, physicsWorld, Asset_Car ), Hittable( 10 )
 {
 	oilTime = 0;
 	this->camera = camera;

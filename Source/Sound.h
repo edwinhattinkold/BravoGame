@@ -14,7 +14,8 @@ enum SoundFiles {	Sound_MainMenu_Theme,
 					Sound_Engine_Start,
 					Sound_Engine_Loop,
 					Sound_Skid,
-					Sound_Ad
+					Sound_Ad,
+					Sound_Game_Over
 };
 
 class Sound

@@ -31,14 +31,16 @@ private:
 	{
 		Restart, Main_Menu
 	};
+
+	void center();
 public:
 	GameOverMenu(World* world, SDL_Renderer* renderTarget, Camera* camera);
 	~GameOverMenu();
 	void tick( int mouseX, int mouseY );
-	void center();
 	void handleKeyboardInput( SDL_Keycode keyPressed );
 	void mouseButtonClicked( int mouseX, int mouseY );
 	void updateSelected();
 	void handleChoice( int index );
+	void firstTick();
 };
 

@@ -61,6 +61,14 @@ void GameOverMenu::tick( int mouseX, int mouseY )
 	CustomCursor::getInstance()->draw( mouseX, mouseY );
 }
 
+void GameOverMenu::firstTick()
+{
+	backgroundImageRect.w = camera->getCamera()->w;
+	backgroundImageRect.h = camera->getCamera()->h;
+	center();
+	sound->playSound( Sound_Game_Over );
+}
+
 void GameOverMenu::center()
 {
 	combinedHeight = -100;
@@ -82,8 +90,6 @@ void GameOverMenu::center()
 		int yPosition = ( camera->getCamera()->h / 2 ) - ( combinedHeight / 2 ) + ( j * margin ) + previousHeight;
 		menuItems->at( j )->setYPosition( yPosition );
 	}
-	backgroundImageRect.w = camera->getCamera()->w;
-	backgroundImageRect.h = camera->getCamera()->h;
 	updateSelected();
 }
 

@@ -430,7 +430,7 @@ void World::addObject(B2Content* object)
 
 void World::gameOver()
 {
-	currentGameState = GameState_Game_Over;
-	gameOverMenu->center();
 	sound->pauseAllSounds();
+	currentGameState = GameState_Game_Over;
+	gameOverMenu->firstTick();
 }
