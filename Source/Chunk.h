@@ -28,10 +28,11 @@ private:
 	b2FixtureDef *collisionFixtureDef;
 	b2PolygonShape *boxShape;
 	SDL_Renderer *renderTarget;
+	int x, y;
 public:
 	void addTileSet();	
-	void draw(int x, int y, SDL_Rect *cameraRect);
-	Chunk(SDL_Renderer *rt,MiniChunk miniChunk, World *world);
+	void draw( SDL_Rect *cameraRect);
+	Chunk(SDL_Renderer *rt,MiniChunk miniChunk, World *world, int x , int y);
 	~Chunk();
 	void addLocation(Location l);
 	void addCollidableObject(int x, int y);

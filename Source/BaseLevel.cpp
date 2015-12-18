@@ -5,6 +5,7 @@ BaseLevel::BaseLevel(Asset assetId)
 {
 	textureId = assetId;
 	tiles = new std::vector<Tile*>();
+	possibleCollectibles = std::vector < Collectible::Collectibletypes >() ;
 	tiles->push_back( nullptr );
 	addTileSet();	
 }

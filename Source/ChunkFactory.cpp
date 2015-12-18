@@ -27,7 +27,7 @@ Chunk* ChunkFactory::getChunk(std::string name)
 	pair.first = name;
 	MiniChunk miniChunk;
 	miniChunk.tmx = name;
-	pair.second = new Chunk(renderTarget, miniChunk, world);
+	pair.second = new Chunk(renderTarget, miniChunk, world,1,1);
 	chunks->insert(pair);
 	return pair.second;
 }

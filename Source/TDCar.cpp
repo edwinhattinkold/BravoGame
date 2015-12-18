@@ -62,7 +62,7 @@ TDCar::TDCar(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, Ca
 	h = heightM;
 	score = 0;
 
-	float secondsGasoline = 20.0f;
+	float secondsGasoline = 20000000.0f;
 	gasoline = secondsGasoline * 1000.0f;
 	maxGasoline = gasoline;
 

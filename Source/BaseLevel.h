@@ -1,5 +1,6 @@
 #pragma once
 #include "Tile.h"
+#include "Collectible.h"
 #include <vector>
 #include <string>
 #include "Assets.h"
@@ -15,7 +16,9 @@ private:
 	void addTileSet();
 public:
 	std::vector<Tile*> *tiles;
+	std::vector<Collectible::Collectibletypes> possibleCollectibles;
 	BaseLevel(Asset assetId);
+	Collectible::Collectibletypes getTypeCollectible();
 	~BaseLevel();	
 };
 
