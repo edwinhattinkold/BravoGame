@@ -273,6 +273,9 @@
     <ClInclude Include="Source\GameOverMenu.h">
       <Filter>Header Files\Menu</Filter>
     </ClInclude>
+    <ClInclude Include="Source\InGameMenu.h">
+      <Filter>Header Files\Menu</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\MainMenu.cpp">
@@ -426,6 +429,9 @@
       <Filter>Source Files\Menu</Filter>
     </ClCompile>
     <ClCompile Include="Source\GameOverMenu.cpp">
+      <Filter>Source Files\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\InGameMenu.cpp">
       <Filter>Source Files\Menu</Filter>
     </ClCompile>
   </ItemGroup>

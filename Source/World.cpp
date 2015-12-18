@@ -115,7 +115,6 @@ void World::createPlayableContent()
 	}
 	center = new SDL_Point;
 
-
 	hud = new Hud( renderTarget, drawContainer, fpsCounter, camera, myCar, 24, 24, 0.8 );
 	drawContainer->add( hud );
 	contactHandler = new ContactHandler( this );
@@ -125,7 +124,6 @@ void World::createPlayableContent()
 World::~World()
 {	
 	delete this->fpsCounter;						this->fpsCounter = nullptr;
-	delete this->hud;								this->hud = nullptr;
 
 	delete menu;									menu = nullptr;
 	delete pauseMenu;								pauseMenu = nullptr;
@@ -180,6 +178,7 @@ void World::destroyPlayableContent()
 	delete updateContainer;							updateContainer = nullptr;
 	delete contactHandler;							contactHandler = nullptr;
 	delete center;									center = nullptr;
+	delete hud;										hud = nullptr;
 }
 
 void World::reset()
