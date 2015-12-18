@@ -43,6 +43,12 @@ class TDCar : public B2Content, public b2ContactListener, public Hittable
 	Camera* camera;
 
 	int score;
+	float gasoline;
+	float nitroTime;
+	float maxGasoline;
+	float oilTime;
+	
+	
 
 public:
 	
@@ -54,9 +60,14 @@ public:
 	virtual void accept( UpdateVisitor *dv );
 	void soundHorn();
 	void printFixtures();
+	void hitOil(float);
+	void hitNitro(float);
 	float getAngleB2D();
-	
+	int getGasoline();
+	void lowerGasoline(float deltaTime);
 	std::vector<TDTire*> getTires();
+	void addGasoline(float);
+	void setSpeedMultiplier(float);
 	void shoot();
 
 	void write_object( std::ostream& os ) const;
