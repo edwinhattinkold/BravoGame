@@ -36,4 +36,5 @@ public:
 	~Chunk();
 	void addLocation(Location l);
 	void addCollidableObject(int x, int y);
+	BaseLevel* getLevel();
 };

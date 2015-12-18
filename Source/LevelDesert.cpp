@@ -1,4 +1,5 @@
 #include "LevelDesert.h"
+#include "Sound.h"
 
 LevelDesert::LevelDesert()
 	: BaseLevel(Asset::Asset_Desert_Tileset)
@@ -11,4 +12,14 @@ LevelDesert::LevelDesert()
 LevelDesert::~LevelDesert()
 {
 
+}
+
+void LevelDesert::startSound()
+{
+	Sound::getInstance()->playSound( Sound_MainMenu_Theme );
+}
+
+void LevelDesert::stopSound()
+{
+	Sound::getInstance()->stopSound( Sound_MainMenu_Theme );
 }

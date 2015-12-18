@@ -1,6 +1,8 @@
 #include "TDCar.h"
 #include "World.h";
 #include "Camera.h"
+#include "BaseLevel.h"
+#include "LevelFactory.h"
 
 ostream& operator<<(ostream& os, const TDCar& obj)
 {
@@ -32,6 +34,16 @@ void TDCar::read_object( istream& is )
 	}
 }
 
+void TDCar::changeLevel( BaseLevel* level )
+{
+	if( this->level != level )
+	{
+		this->level->stopSound();
+		this->level = level;
+		this->level->startSound();
+	}
+}
+
 
 TDCar::~TDCar() {
 	physicsWorld->DestroyJoint( flJoint);	flJoint = nullptr;
@@ -54,7 +66,7 @@ TDCar::TDCar(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, Ca
 	keyMap.insert( std::pair<Car_Controls, SDL_Scancode>{ Car_Steer_Right,	SDL_SCANCODE_D } );
 	keyMap.insert( std::pair<Car_Controls, SDL_Scancode>{ Car_Horn,			SDL_SCANCODE_H } );
 	keyMap.insert( std::pair<Car_Controls, SDL_Scancode>{ Car_Shoot,		SDL_SCANCODE_SPACE } );
-
+	level = LevelFactory::getInstance()->getLevel( "desert" );
 	weapon = new MachineGun( world, this, physicsWorld, renderTarget );
 
 	m_controlState = 0;

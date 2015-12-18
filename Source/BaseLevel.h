@@ -19,6 +19,8 @@ public:
 	std::vector<Collectible::Collectibletypes> possibleCollectibles;
 	BaseLevel(Asset assetId);
 	Collectible::Collectibletypes getTypeCollectible();
+	void virtual stopSound();
+	void virtual startSound();
 	~BaseLevel();	
 };
 

@@ -6,5 +6,7 @@ class LevelSnow :
 public:
 	LevelSnow();
 	~LevelSnow();
+	void startSound();
+	void stopSound();
 };
 

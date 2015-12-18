@@ -45,3 +45,11 @@ void BaseLevel::addTileSet()
 		}
 	}
 }
+
+void BaseLevel::startSound()
+{
+}
+
+void BaseLevel::stopSound()
+{
+}

@@ -1,5 +1,7 @@
 #include "MapDrawer.h"
 #include "world.h"
+#include "TDCar.h"
+
 MapDrawer::MapDrawer( SDL_Renderer *renderTarget, SDL_Rect *cameraRect, World *world )
 {
 	this->cameraRect = cameraRect;
@@ -63,13 +65,31 @@ void MapDrawer::accept( UpdateVisitor *uv )
 void MapDrawer::update( float delta, const Uint8 *keyState )
 {
 	if( minX * 1024 > cameraRect->x )
+	{
 		loadChunkLeft();
+		changeLevel();
+	}
 	if( minY * 1024 > cameraRect->y )
+	{
 		loadChunkTop();
+		changeLevel();
+	}
 	if( maxX * 1024 < cameraRect->x + cameraRect->w )
+	{
 		loadChunkRight();
+		changeLevel();
+	}
 	if( maxY * 1024 < cameraRect->y + cameraRect->h )
+	{
 		loadChunkBottom();
+		changeLevel();
+	}
+}
+
+void MapDrawer::changeLevel()
+{
+	TDCar* car = world->getCar();
+	car->changeLevel( chunks->at( 1 )->at( 1 )->getLevel());
 }
 
 MiniChunk MapDrawer::getChunk(int x, int y)
