@@ -48,7 +48,8 @@ void Assets::setRenderTarget( SDL_Renderer* renderTarget )
 	insertAssetMapEntry( Asset_Explosion, "Animations/Dying/Explosion/explosion.png" );
 	insertAssetMapEntry( Asset_MainMenu_Background, "Mainmenu/background.png" );
 	insertAssetMapEntry( Asset_LoadScreen_Ad, "Advertenties/loadscreen.jpg" );
-	insertAssetMapEntry( Asset_GameOverScreen_Background, "GameOver/background.png" );
+	insertAssetMapEntry( Asset_GameOverScreen_Background, "GameOver/lose_background.png" );
+	insertAssetMapEntry( Asset_WinScreen_Background, "GameOver/win_background.png" );
 }
 
 SDL_Texture* Assets::getAsset( Asset asset )
