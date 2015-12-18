@@ -2,6 +2,7 @@
 #include "World.h"
 #include "LevelFactory.h"
 
+
 SDL_Texture* loadImage( SDL_Renderer *renderTarget, std::string filePath )
 {
 	filePath = filePath.substr( 3 );
@@ -21,15 +22,7 @@ SDL_Texture* loadImage( SDL_Renderer *renderTarget, std::string filePath )
 
 Chunk::Chunk(SDL_Renderer *rt, MiniChunk miniChunk, World *world, int x, int y)
 {
-	std::cout << "x: " << x << " y: " << y << endl;
-	this->x = x;
-	this->y = y;
-	this->world = world;
-
-	int positonNewX = x * (1024 / 20);
-	int positionNewY = y * (1024 / 20);
-
-	world->addCollectible(5, 5, positonNewX, -positionNewY, level->possibleCollectibles[0]);
+	
 	renderTarget = rt;
 	textures = new std::vector<SDL_Texture*>();
 	locations = new std::vector<Location>();
@@ -38,6 +31,7 @@ Chunk::Chunk(SDL_Renderer *rt, MiniChunk miniChunk, World *world, int x, int y)
 	//create holder and definitions for box2d
 	bodies = new std::vector<b2Body*>();
 	collisionBodyDef = new b2BodyDef();
+	//collectibleItems = new std::vector<Collectible*>();
 	collisionBodyDef->type = b2_staticBody;
 	collisionBodyDef->angle = 0;
 	collisionFixtureDef = new b2FixtureDef();
@@ -47,6 +41,26 @@ Chunk::Chunk(SDL_Renderer *rt, MiniChunk miniChunk, World *world, int x, int y)
 	collisionFixtureDef->density = 1;
 	XMLReader reader;
 	reader.parseXMLFile( this, "maps/" + miniChunk.tmx );
+	this->x = x;
+	this->y = y;
+	this->world = world;
+	
+	addCollectable();
+}
+
+void Chunk::addCollectable()
+{
+	//Collectibles laden
+	std::cout << "x: " << x << " y: " << y << endl;
+	
+
+	int positonNewX = x * (1024 / 20);
+	int positionNewY = y * (1024 / 20);
+
+	int numberRandom = Random::getInstance().nextInt(1, level->possibleCollectibles.size());
+	
+	Collectible* collectible = world->addCollectible(5, 5, positonNewX, -positionNewY, level->possibleCollectibles[numberRandom - 1]);
+	collectibleItems.push_back(collectible);
 }
 
 Chunk::~Chunk()
@@ -61,6 +75,14 @@ Chunk::~Chunk()
 		//world->destroyBody(bodies->at(k));
 		//bodies->at(k) = nullptr;
 	}
+	for (size_t i = 0; i < collectibleItems.size(); i++)
+	{
+		world->destroyCollectible(collectibleItems.at(i));
+		delete collectibleItems.at(i);
+		collectibleItems.at(i) = nullptr;
+		
+	}
+
 	delete bodies;
 	bodies = nullptr;
 	delete textures;

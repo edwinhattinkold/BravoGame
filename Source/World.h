@@ -110,7 +110,7 @@ public:
 	void addProjectile( Projectile* projectile );
 	void destroyProjectile( Projectile* projectile );
 
-	void addCollectible(int w, int h, int x, int y, Collectible::Collectibletypes);
+	Collectible * addCollectible(int w, int h, int x, int y, Collectible::Collectibletypes);
 	void destroyCollectible(Collectible *collectible);
 	void createExplosion( SDL_Rect positionRect );
 	void removeExplosion( Explosion* explosion );

@@ -23,6 +23,7 @@ private:
 	std::vector<SDL_Texture*> *textures;
 	std::vector<Location> *locations;
 	std::vector<b2Body*> *bodies;
+	std::vector<Collectible*> collectibleItems;
 	World *world;
 	b2BodyDef *collisionBodyDef;
 	b2FixtureDef *collisionFixtureDef;
@@ -36,4 +37,5 @@ public:
 	~Chunk();
 	void addLocation(Location l);
 	void addCollidableObject(int x, int y);
+	void addCollectable();
 };

@@ -329,24 +329,8 @@ void World::destroyProjectile( Projectile *projectile )
 	projectileRemoveStack->push_back( projectile );
 }
 
-/*
-	Voer een actie uit op de auto op basis
-	van myType
-*/
 void World::destroyCollectible(Collectible * collectible)
 {
-	switch (collectible->myType)
-	{
-	case Collectible::Collectibletypes::Nitro:
-			myCar->hitNitro(5.0f);
-			break;
-	case Collectible::Collectibletypes::Oil:
-		myCar->hitOil(2.0f);
-		break;
-	case Collectible::Collectibletypes::Gasoline:
-		myCar->addGasoline(4.0f);
-		break;
-	}
 	activeCollectibles->erase(std::remove(activeCollectibles->begin(), activeCollectibles->end(), collectible), activeCollectibles->end());
 	collectibleRemoveStack->push_back(collectible);
 }
@@ -382,12 +366,13 @@ void World::addProjectile( Projectile *projectile )
 	activeProjectiles->push_back( projectile );
 }
 
-void World::addCollectible(int w, int h, int x, int y, Collectible::Collectibletypes type)
+Collectible* World::addCollectible(int w, int h, int x, int y, Collectible::Collectibletypes type)
 {
-	Collectible * newCollectibe = new Collectible(physics, renderTarget, w, h, x, y, this, type);
+	Collectible* newCollectibe = new Collectible(physics, renderTarget, w, h, x, y, this, type);
 	updateContainer->add(newCollectibe);
 	drawContainer->add(newCollectibe);
 	activeCollectibles->push_back(newCollectibe);
+	return newCollectibe;
 }
 
 void World::addObject(B2Content* object)

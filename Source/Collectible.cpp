@@ -29,9 +29,8 @@ Collectible::Collectible(b2World* world, SDL_Renderer* renderTarget, int widthM,
 	bodyDef.position.Set(posX, posY);
 	m_body = world->CreateBody(&bodyDef);
 
-	m_body->SetAngularDamping(3);
-
-	b2Vec2 vertices[8];
+	m_body->SetType(b2_staticBody);
+	b2Vec2 vertices[4];
 	//het figuur van de auto.
 	// W en h worden meegegeven door de user
 	vertices[0].Set(w / 2, 0);
@@ -40,11 +39,11 @@ Collectible::Collectible(b2World* world, SDL_Renderer* renderTarget, int widthM,
 	vertices[3].Set(-w / 2, 0);
 	b2PolygonShape polygonShape;
 	polygonShape.Set(vertices, 4);
-
+	
 	//Draaien
 	m_body->SetTransform(m_body->GetPosition(), DEGTORAD * 0);
-	fixture = m_body->CreateFixture(&polygonShape, 0.8f);//shape, density
-
+	fixture = m_body->CreateFixture(&polygonShape, 0.0f);//shape, density
+	fixture->SetSensor(true);
 
 	updateSDLPosition(getCenterXSDL(), getCenterYSDL(), getSDLWidth(), getSDLHeight(), getAngleSDL());
 	updateOrigin();

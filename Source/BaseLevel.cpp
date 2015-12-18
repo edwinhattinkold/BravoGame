@@ -8,6 +8,7 @@ BaseLevel::BaseLevel(Asset assetId)
 	possibleCollectibles = std::vector < Collectible::Collectibletypes >() ;
 	tiles->push_back( nullptr );
 	addTileSet();	
+	possibleCollectibles.push_back(Collectible::Collect);
 }
 
 

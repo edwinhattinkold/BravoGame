@@ -87,21 +87,43 @@ void ContactHandler::bulletContact( Projectile* projectile, B2Content* otherObje
 
 void ContactHandler::collectibleContact(Collectible* collectible, B2Content* otherObject)
 {
-	switch (otherObject->getObjectType())
+	if (otherObject->getObjectType() == Object_Tire || otherObject->getObjectType() == Object_Car)
 	{
-	case(Object_Tire) :
-		if (!collectible->isOnDeathRow)
-		{
-		world->destroyCollectible(collectible);
-		collectible->isOnDeathRow = true;
-		}
-								 break;
-	case(Object_Car) :
-		if (!collectible->isOnDeathRow)
-		{
-		world->destroyCollectible(collectible);
-		collectible->isOnDeathRow = true;
-		}
-					 break;
+		handleCollectibleContact(collectible);
+	}
+	
+}
+void ContactHandler::handleCollectibleContact(Collectible* collectible){
+	
+	switch (collectible->myType)
+	{
+		case Collectible::Collectibletypes::Nitro:	
+			if (!collectible->isOnDeathRow)
+			{
+				world->destroyCollectible(collectible);
+				collectible->isOnDeathRow = true;
+				this->world->getCar()->hitNitro(5.0f);
+			}			
+			break;
+		case Collectible::Collectibletypes::Oil:			
+				this->world->getCar()->hitOil(2.0f);			
+			return;
+			break;
+		case Collectible::Collectibletypes::Gasoline:
+			if (!collectible->isOnDeathRow)
+			{
+				world->destroyCollectible(collectible);
+				collectible->isOnDeathRow = true;
+				this->world->getCar()->addGasoline(4.0f);
+			}
+			break;
+		default:
+			if (!collectible->isOnDeathRow)
+			{
+				world->destroyCollectible(collectible);
+				collectible->isOnDeathRow = true;
+			}
+			break;
+
 	}
 }
