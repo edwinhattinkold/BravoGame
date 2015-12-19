@@ -1,5 +1,6 @@
 #pragma once
 class Turret;
+class MovingTurret;
 class TurretState{
 private:
 	

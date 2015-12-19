@@ -14,10 +14,12 @@
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Assets.h" />
     <ClInclude Include="Source\Camera.h" />
+    <ClInclude Include="Source\ChasingTurretState.h" />
     <ClInclude Include="Source\ChunkFactory.h" />
     <ClInclude Include="Source\CarTireFUD.h" />
     <ClInclude Include="Source\Collectible.h" />
     <ClInclude Include="Source\ContactHandler.h" />
+    <ClInclude Include="Source\ContactWrapper.h" />
     <ClInclude Include="Source\CreditsMenu.h" />
     <ClInclude Include="Source\CustomCursor.h" />
     <ClInclude Include="Source\DeadTurretState.h" />
@@ -45,11 +47,13 @@
     <ClInclude Include="Source\MapDrawer.h" />
     <ClInclude Include="Source\Chunk.h" />
     <ClInclude Include="Source\MenuItem.h" />
+    <ClInclude Include="Source\MovingTurret.h" />
     <ClInclude Include="Source\MyDestructionListener.h" />
     <ClInclude Include="Source\OptionsMenu.h" />
     <ClInclude Include="Source\PauseMenu.h" />
     <ClInclude Include="Source\PhysicsWorld.h" />
     <ClInclude Include="Source\Projectile.h" />
+    <ClInclude Include="Source\RadarQueryCallback.h" />
     <ClInclude Include="Source\Random.h" />
     <ClInclude Include="Source\rapidxml.hpp" />
     <ClInclude Include="Source\rapidxml_utils.hpp" />
@@ -79,6 +83,7 @@
     <ClCompile Include="Source\Assets.cpp" />
     <ClCompile Include="Source\B2Content.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
+    <ClCompile Include="Source\ChasingTurretState.cpp" />
     <ClCompile Include="Source\ChunkFactory.cpp" />
     <ClCompile Include="Source\CarTireFUD.cpp" />
     <ClCompile Include="Source\Collectible.cpp" />
@@ -108,6 +113,7 @@
     <ClCompile Include="Source\MapDrawer.cpp" />
     <ClCompile Include="Source\Chunk.cpp" />
     <ClCompile Include="Source\MenuItem.cpp" />
+    <ClCompile Include="Source\MovingTurret.cpp" />
     <ClCompile Include="Source\MyDestructionListener.cpp" />
     <ClCompile Include="Source\OptionsMenu.cpp" />
     <ClCompile Include="Source\PauseMenu.cpp" />

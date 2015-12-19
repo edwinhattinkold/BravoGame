@@ -20,6 +20,8 @@
 #include "Turret.h"
 #include "Explosion.h"
 
+class MovingTurret;
+
 /************************************************************************/
 /* The World class contains everything a the game needs to render except
 for the window. Its purpose is to render the world, run the physics

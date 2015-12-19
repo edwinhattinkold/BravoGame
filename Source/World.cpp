@@ -1,6 +1,7 @@
 #include "World.h"
 #include "CustomCursor.h"
 #include "Assets.h"
+#include "MovingTurret.h"
 
 World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font )
 {
@@ -83,9 +84,9 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	updateContainer->add(myCar);
 	//add objects ( no special destructor )
 	addObject(new Tree(this, physics, renderTarget, 10, 10, 20, -15));
-	addObject(new Tree(this, physics, renderTarget, 10, 10, 40, -30));
+	addObject(new Tree(this, physics, renderTarget, 10, 10, 20, -25));
 	//add objects ( own destructor )
-	myTurret = new Turret(physics, renderTarget, 50, -40, myCar, this);
+	myTurret = new MovingTurret(physics, renderTarget, 50, -10, myCar, this);
 	drawContainer->add(myTurret);
 	updateContainer->add(myTurret);
 	

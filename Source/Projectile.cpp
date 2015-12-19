@@ -1,7 +1,7 @@
 #include "Projectile.h"
 #include "World.h"
 #include <typeinfo>
-
+#include "ContactWrapper.h"
 Projectile::Projectile( World* world, b2World* physicsWorld, SDL_Renderer * renderTarget, Asset asset, int damage, float speed )
 	: B2Content( renderTarget, world, physicsWorld, asset )
 {
@@ -37,7 +37,7 @@ Projectile::Projectile( World* world, b2World* physicsWorld, SDL_Renderer * rend
 	w = 0.35f;
 	h = 0.7f;
 
-	m_body->SetUserData( this );
+	m_body->SetUserData(new ContactWrapper(this));
 
 	updateSDLPosition( getCenterXSDL(), getCenterYSDL(), getSDLWidth(), getSDLHeight(), getAngleSDL() );
 	updateOrigin();

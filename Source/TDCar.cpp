@@ -1,7 +1,7 @@
 #include "TDCar.h"
 #include "World.h";
 #include "Camera.h"
-
+#include "ContactWrapper.h"
 ostream& operator<<(ostream& os, const TDCar& obj)
 {
 	obj.write_object( os );
@@ -142,7 +142,7 @@ TDCar::TDCar(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, Ca
 
 	updateSDLPosition(getCenterXSDL(), getCenterYSDL(), float(w), float(h), getAngleSDL());
 	updateOrigin();
-	m_body->SetUserData(this);
+	m_body->SetUserData(new ContactWrapper(this));
 }
 float TDCar::getAngleB2D()
 {
@@ -182,6 +182,7 @@ void TDCar::hitNitro(float time)
 void TDCar::update( float deltaTime, const Uint8 *keyState )
 {
 	weapon->update( deltaTime );
+	
 	// AUTO BESTUREN
 	//W
 	if (keyState[keyMap.at(Car_Throttle)])

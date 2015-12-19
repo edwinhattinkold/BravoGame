@@ -1,6 +1,7 @@
 #include "UpdateVisitor.h"
 #include "IUpdateable.h"
 #include "Turret.h"
+#include "MovingTurret.h"
 #include "TDCar.h"
 #include "MapDrawer.h"
 #include "Projectile.h"
@@ -36,6 +37,13 @@ void UpdateVisitor::visit( IUpdateable *ip )
 
 void UpdateVisitor::visit(Turret* turret){
 	
+	turret->getState()->checkState();
+	turret->getState()->update(deltaTime);
+	turret->setB2DAngle(turret->turretAngle);
+	turret->updateSDLPosition(turret->getCenterXSDL(), turret->getCenterYSDL(), turret->getSDLWidth(), turret->getSDLHeight(), turret->getAngleSDL());
+}
+
+void UpdateVisitor::visit(MovingTurret* turret){
 	turret->getState()->checkState();
 	turret->getState()->update(deltaTime);
 	turret->setB2DAngle(turret->turretAngle);

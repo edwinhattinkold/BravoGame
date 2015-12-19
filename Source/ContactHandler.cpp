@@ -1,4 +1,5 @@
 #include "ContactHandler.h"
+#include "ContactWrapper.h"
 #include "World.h"
 
 
@@ -14,8 +15,8 @@ ContactHandler::~ContactHandler()
 
 void ContactHandler::BeginContact(b2Contact* contact)
 {
-	B2Content* objectOne = (B2Content*) contact->GetFixtureA()->GetBody()->GetUserData();
-	B2Content* objectTwo = (B2Content*) contact->GetFixtureB()->GetBody()->GetUserData();
+	B2Content* objectOne = (B2Content*)((ContactWrapper*)contact->GetFixtureA()->GetBody()->GetUserData())->getContactElement();
+	B2Content* objectTwo = (B2Content*)((ContactWrapper*)contact->GetFixtureB()->GetBody()->GetUserData())->getContactElement();
 
 	if( objectOne && objectTwo )
 	{

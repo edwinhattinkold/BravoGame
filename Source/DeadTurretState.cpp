@@ -15,6 +15,7 @@ void DeadTurretState::update(float deltaTime){
 		turret->world->createExplosion(turret->positionRect);
 		turret->world->getCar()->addScore( 1000 );
 		exploded = true;
+		turret->getBody()->SetType(b2_staticBody);
 	}
 	turret->setAsset(Asset_Turret_Dead);
 }
