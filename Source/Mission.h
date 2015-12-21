@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include "Objective.h"
+#include "Assets.h"
 using namespace std;
 class Mission
 {
@@ -15,9 +16,9 @@ public:
 	Mission( string title);
 	~Mission();
 	void setObjectives( vector<Objective*> *objectives );
-	void addObjective( string title, string type, int total );
+	void addObjective( string title, Asset type, int total );
 	void addObjective( Objective *objective );
 	Objective* getCurrentObjective();
 	void nextObjective();
-	void addOne( string type );
+	void addOne( Asset type );
 };

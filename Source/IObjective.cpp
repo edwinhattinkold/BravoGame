@@ -1,7 +1,7 @@
 #include "IObjective.h"
 
 
-IObjective::IObjective(string type)
+IObjective::IObjective(Asset type)
 {
 	objectiveType = type;
 	collected = false;

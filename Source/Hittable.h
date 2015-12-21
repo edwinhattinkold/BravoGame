@@ -1,6 +1,9 @@
 #pragma once
 #include "SDL.h"
-class Hittable
+#include "IObjective.h"
+#include "Assets.h"
+#include "MissionControl.h"
+class Hittable : public IObjective
 {
 private:
 	int healthBarOffset;
@@ -14,7 +17,7 @@ public:
 	int health;
 	bool dead;
 	int takenDamage;
-	Hittable(int maxHealth);
+	Hittable(int maxHealth, Asset asset);
 	~Hittable();
 	virtual void drawHealthBar( SDL_Renderer* renderTarget, SDL_Rect* cameraRect, SDL_Rect positionRect );
 	virtual void takeDamage( int damage );

@@ -21,7 +21,7 @@ void Mission::addObjective( Objective *objective )
 	this->objectives->push_back( objective );
 }
 
-void Mission::addObjective( string title, string type, int total )
+void Mission::addObjective( string title, Asset type, int total )
 {
 	this->objectives->push_back( new Objective( title, type, total, 0));
 }
@@ -45,7 +45,7 @@ void Mission::nextObjective()
 	}
 }
 
-void Mission::addOne(string type)
+void Mission::addOne( Asset type )
 {
 	if( !complete )
 	{

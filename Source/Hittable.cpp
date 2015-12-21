@@ -2,7 +2,7 @@
 #include "Rect.h"
 #include <iostream>
 
-Hittable::Hittable(int maxHealth)
+Hittable::Hittable( int maxHealth, Asset asset ) : IObjective( asset )
 {
 	this->maxHealth = maxHealth;
 	health = this->maxHealth;
@@ -72,6 +72,7 @@ void Hittable::takeDamage( int damage )
 		takenDamage += damage;
 		if( health <= 0 )
 		{
+			MissionControl::getInstance()->addOne(objectiveType);
 			dead = true;
 			health = 0;
 		}

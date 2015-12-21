@@ -1,6 +1,6 @@
 #include "Objective.h"
 
-Objective::Objective( string title, string type, int total, int collected )
+Objective::Objective( string title, Asset type, int total, int collected )
 {
 	this->title = title;
 	this->type = type;
@@ -17,12 +17,12 @@ bool Objective::completed()
 	return total <= collected;
 }
 
-void Objective::addOne( string type )
+void Objective::addOne( Asset type )
 {
-	if( this->type.compare( type ) == 0 && collected < total)
+	if( this->type == type && collected < total)
 	{
 		collected++;
-	} else if( this->type.compare( type ) == 0 )
+	} else if( this->type == type )
 	{
 		cout << "DONE \n";
 	}

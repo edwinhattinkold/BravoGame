@@ -16,7 +16,7 @@ MissionControl* MissionControl::getInstance()
 	return instance;
 }
 
-void MissionControl::addOne( string type )
+void MissionControl::addOne( Asset type )
 {
 	currentMission->addOne( type );
 }

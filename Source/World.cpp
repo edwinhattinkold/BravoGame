@@ -116,7 +116,7 @@ void World::createPlayableContent()
 	center = new SDL_Point;
 
 
-	hud = new Hud( renderTarget, drawContainer, fpsCounter, camera, myCar, 24, 24, 0.8 );
+	hud = new Hud( renderTarget, drawContainer, fpsCounter, camera, myCar, 24, 24, 0.8f );
 	drawContainer->add( hud );
 	contactHandler = new ContactHandler( this );
 	physics->SetContactListener( contactHandler );
@@ -432,8 +432,10 @@ void World::addObject(B2Content* object)
 
 void World::setupMission()
 {
-	Mission *mission = new Mission( "ga iets doen met je leven ofzo" );
-	mission->addObjective( "verzamel RPGs: ", "rpg", 2 );
+	Mission *mission = new Mission( "Go be useful" );
+	mission->addObjective( "Collect gasoline: ", Asset_Gasoline, 2 );
+	mission->addObjective( "Shiet die boom HELEMAAL LEK OFNIEJ: ", Asset_Tree, 1 );
+	mission->addObjective( "die turret moet ook kapot", Asset_Turret_Calm, 1 );
 	MissionControl::getInstance()->currentMission = mission;
 }
 

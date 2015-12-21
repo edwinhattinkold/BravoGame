@@ -1,14 +1,15 @@
 #pragma once
-#include <string>;
+#include <string>
 #include "Objective.h"
+#include "Assets.h"
 using namespace std;
 class IObjective
 {
 private:
 	bool collected;
 public:
-	string objectiveType;
-	IObjective( string type);
+	Asset objectiveType;
+	IObjective( Asset type);
 	IObjective();
 	~IObjective();
 	void collect( Objective *objective );

@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "Mission.h"
+#include "Assets.h"
 using namespace std;
 class MissionControl
 {
@@ -16,5 +17,5 @@ public:
 
 	Mission *currentMission;
 
-	void addOne( string type );
+	void addOne( Asset type );
 };
