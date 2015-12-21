@@ -8,10 +8,10 @@ using namespace std;
 class Mission
 {
 private:
-	string title;
 	vector<Objective*> *objectives;
 	int currentObjective = 0;
 public:
+	string title;
 	bool complete = false;
 	Mission( string title);
 	~Mission();

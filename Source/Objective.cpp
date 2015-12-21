@@ -27,3 +27,8 @@ void Objective::addOne( Asset type )
 		cout << "DONE \n";
 	}
 }
+
+string Objective::getProgress()
+{
+	return to_string( collected ).append( " of " ).append( to_string( total ) );
+}

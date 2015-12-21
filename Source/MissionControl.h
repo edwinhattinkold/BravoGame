@@ -18,4 +18,7 @@ public:
 	Mission *currentMission;
 
 	void addOne( Asset type );
+	string getCurrentMissionTitle();
+	string getCurrentObjectiveTitle();
+	string getCurrentObjectiveProgress();
 };

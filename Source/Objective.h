@@ -15,4 +15,5 @@ public:
 	~Objective();
 	bool completed();
 	void addOne( Asset type );
+	string getProgress();
 };

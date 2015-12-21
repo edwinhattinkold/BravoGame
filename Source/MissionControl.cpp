@@ -3,9 +3,9 @@
 MissionControl::MissionControl()
 {
 	Mission *mission = new Mission( "Go be useful" );
-	mission->addObjective( "Collect gasoline: ", Asset_Gasoline, 2 );
-	mission->addObjective( "Shiet die boom HELEMAAL LEK OFNIEJ: ", Asset_Tree, 1 );
-	mission->addObjective( "die turret moet ook kapot", Asset_Turret_Calm, 1 );
+	mission->addObjective( "Collect gasoline tanks ", Asset_Gasoline, 2 );
+	mission->addObjective( "Kill a tree ", Asset_Tree, 1 );
+	mission->addObjective( "Fuck that turret up ", Asset_Turret_Calm, 1 );
 	currentMission = mission;
 }
 
@@ -29,4 +29,19 @@ MissionControl& MissionControl::getInstance()
 void MissionControl::addOne( Asset type )
 {
 	currentMission->addOne( type );
+}
+
+string MissionControl::getCurrentMissionTitle()
+{
+	return currentMission->title;
+}
+
+string MissionControl::getCurrentObjectiveTitle()
+{
+	return currentMission->getCurrentObjective()->title;
+}
+
+string MissionControl::getCurrentObjectiveProgress()
+{
+	return currentMission->getCurrentObjective()->getProgress();
 }

@@ -35,7 +35,6 @@ void Mission::addObjective( string title, Asset type, int total )
 
 Objective* Mission::getCurrentObjective()
 {
-	cout << objectives->at( currentObjective )->title << " \n";
 	return objectives->at( currentObjective );
 }
 
