@@ -23,6 +23,7 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 
 	//GameOver screen
 	gameOverMenu = new GameOverMenu( this, renderTarget, camera );
+	winScreen = new WinScreen( this, renderTarget, camera );
 
 	createPlayableContent();
 }
@@ -128,6 +129,7 @@ World::~World()
 	delete menu;									menu = nullptr;
 	delete pauseMenu;								pauseMenu = nullptr;
 	delete gameOverMenu;							gameOverMenu = nullptr;
+	delete winScreen;								winScreen = nullptr;
 	delete camera;									camera = nullptr;
 
 	destroyPlayableContent();
@@ -224,18 +226,22 @@ void World::tick()
 					pauseMenu->handleKeyboardInput( ev.key.keysym.sym );
 				else if( currentGameState == GameState_Game_Over )
 					gameOverMenu->handleKeyboardInput( ev.key.keysym.sym );
+				else if( currentGameState == GameState_Game_Over_Won )
+					winScreen->handleKeyboardInput( ev.key.keysym.sym );
 				break;
 			case( SDL_MOUSEBUTTONDOWN ) :
 				if( currentGameState == GameState_Paused )
 					pauseMenu->mouseButtonClicked( mouseX, mouseY );
 				else if( currentGameState == GameState_Game_Over )
 					gameOverMenu->mouseButtonClicked( mouseX, mouseY );
+				else if( currentGameState == GameState_Game_Over_Won )
+					winScreen->mouseButtonClicked( mouseX, mouseY );
 				break;
 		}
 	}
 	keyState = SDL_GetKeyboardState( NULL );
 	
-	if( currentGameState != GameState_Paused && currentGameState != GameState_Game_Over )
+	if( currentGameState != GameState_Paused && currentGameState != GameState_Game_Over && currentGameState != GameState_Game_Over_Won )
 	{
 		updateContainer->update( deltaTime, keyState );
 		physics->Step( deltaTime, *velocityIterations, *positionIterations );//update physics
@@ -257,7 +263,6 @@ void World::tick()
 void World::run()
 {
 	setGameState( GameState_In_MainMenu );
-	
 
 	while( currentGameState != GameState_Closing)
 		tick();
@@ -288,6 +293,8 @@ void World::updateSDL()
 		pauseMenu->tick( mouseX, mouseY );
 	else if( currentGameState == GameState_Game_Over )
 		gameOverMenu->tick( mouseX, mouseY );
+	else if( currentGameState == GameState_Game_Over_Won )
+		winScreen->tick( mouseX, mouseY );
 	SDL_RenderPresent( renderTarget );
 }
 
@@ -432,4 +439,11 @@ void World::gameOver()
 	sound->pauseAllSounds();
 	currentGameState = GameState_Game_Over;
 	gameOverMenu->firstTick();
+}
+
+void World::win()
+{
+	sound->pauseAllSounds();
+	currentGameState = GameState_Game_Over_Won;
+	winScreen->firstTick();
 }

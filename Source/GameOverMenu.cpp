@@ -99,6 +99,7 @@ void GameOverMenu::handleKeyboardInput( SDL_Keycode keyPressed )
 			sound->playSound( Sound_MainMenu_Tick );
 			break;
 		case( SDLK_RETURN ) :
+			sound->playSound( Sound_MainMenu_Click );
 			handleChoice( selected );
 			break;
 	}

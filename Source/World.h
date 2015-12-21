@@ -20,6 +20,7 @@
 #include "Turret.h"
 #include "Explosion.h"
 #include "GameOverMenu.h"
+#include "WinScreen.h"
 
 /************************************************************************/
 /* The World class contains everything a the game needs to render except
@@ -27,7 +28,7 @@ for the window. Its purpose is to render the world, run the physics
 update the objects, etc. Not all in this class of course.			*/
 /************************************************************************/
 
-enum GameState { GameState_Running, GameState_Paused, GameState_In_MainMenu, GameState_Game_Over, GameState_Closing };
+enum GameState { GameState_Running, GameState_Paused, GameState_In_MainMenu, GameState_Game_Over, GameState_Game_Over_Won, GameState_Closing };
 
 class World
 {
@@ -50,6 +51,7 @@ private:
 	MainMenu* menu;
 	PauseMenu* pauseMenu;
 	GameOverMenu* gameOverMenu;
+	WinScreen* winScreen;
 
 	int mouseX, mouseY;
 
@@ -120,6 +122,7 @@ public:
 	void removeExplosion( Explosion* explosion );
 
 	void gameOver();
+	void win();
 	void reset();
 
 	TDCar* getCar();

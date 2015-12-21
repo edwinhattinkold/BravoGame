@@ -12,7 +12,7 @@ private:
 		Restart, Main_Menu
 	};
 
-	void center();
+	void positionMenuItems();
 public:
 	WinScreen( World* world, SDL_Renderer* renderTarget, Camera* camera );
 	~WinScreen();
