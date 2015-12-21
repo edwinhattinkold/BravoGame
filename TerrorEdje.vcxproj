@@ -27,6 +27,7 @@
     <ClInclude Include="Source\Explosion.h" />
     <ClInclude Include="Source\FixtureUserData.h" />
     <ClInclude Include="Source\FPS.h" />
+    <ClInclude Include="Source\GameOverMenu.h" />
     <ClInclude Include="Source\GroundAreaFUD.h" />
     <ClInclude Include="Source\HighscoreMenu.h" />
     <ClInclude Include="Source\Hittable.h" />
@@ -37,6 +38,7 @@
     <ClInclude Include="Source\IObjective.h" />
     <ClInclude Include="Source\IUpdateable.h" />
     <ClInclude Include="Source\LoadingMenu.h" />
+    <ClInclude Include="Source\LoadingScreen.h" />
     <ClInclude Include="Source\Location.h" />
     <ClInclude Include="Source\MachineGun.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -96,6 +98,7 @@
     <ClCompile Include="Source\Explosion.cpp" />
     <ClCompile Include="Source\FixtureUserData.cpp" />
     <ClCompile Include="Source\FPS.cpp" />
+    <ClCompile Include="Source\GameOverMenu.cpp" />
     <ClCompile Include="Source\GroundAreaFUD.cpp" />
     <ClCompile Include="Source\HighscoreMenu.cpp" />
     <ClCompile Include="Source\Hittable.cpp" />
@@ -106,6 +109,7 @@
     <ClCompile Include="Source\IObjective.cpp" />
     <ClCompile Include="Source\IUpdateable.cpp" />
     <ClCompile Include="Source\LoadingMenu.cpp" />
+    <ClCompile Include="Source\LoadingScreen.cpp" />
     <ClCompile Include="Source\Location.cpp" />
     <ClCompile Include="Source\MachineGun.cpp" />
     <ClCompile Include="Source\main.cpp" />

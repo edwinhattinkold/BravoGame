@@ -19,6 +19,7 @@
 #include "Hud.h"
 #include "Turret.h"
 #include "Explosion.h"
+#include "GameOverMenu.h"
 
 #include "MissionControl.h"
 
@@ -28,7 +29,7 @@ for the window. Its purpose is to render the world, run the physics
 update the objects, etc. Not all in this class of course.			*/
 /************************************************************************/
 
-enum GameState { GameState_Running, GameState_Paused, GameState_In_MainMenu, GameState_Closing };
+enum GameState { GameState_Running, GameState_Paused, GameState_In_MainMenu, GameState_Game_Over, GameState_Closing };
 
 class World
 {
@@ -50,6 +51,7 @@ private:
 	//Menus
 	MainMenu* menu;
 	PauseMenu* pauseMenu;
+	GameOverMenu* gameOverMenu;
 
 	int mouseX, mouseY;
 
@@ -97,6 +99,8 @@ private:
 	FPS *fpsCounter;
 	void handleExplosionRemoveStack();
 
+	void createPlayableContent();
+	void destroyPlayableContent();
 public:
 	World(SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font);
 	~World();
@@ -112,10 +116,13 @@ public:
 	void addProjectile( Projectile* projectile );
 	void destroyProjectile( Projectile* projectile );
 
-	void addCollectible(int w, int h, int x, int y);
+	void addCollectible(int w, int h, int x, int y, Collectible::Collectibletypes);
 	void destroyCollectible(Collectible *collectible);
 	void createExplosion( SDL_Rect positionRect );
 	void removeExplosion( Explosion* explosion );
+
+	void gameOver();
+	void reset();
 
 	TDCar* getCar();
 

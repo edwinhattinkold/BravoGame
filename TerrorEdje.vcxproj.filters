@@ -22,9 +22,6 @@
     <Filter Include="Header Files\Menu">
       <UniqueIdentifier>{fb00ac1d-528a-4967-89a7-0b289319fdde}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Sound">
-      <UniqueIdentifier>{1cfddf5e-bcba-41e9-8caa-ea03bf0e22f5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\RapidXML">
       <UniqueIdentifier>{418e99f9-bfd5-4797-b2d1-e2c284a9c4fc}</UniqueIdentifier>
     </Filter>
@@ -93,6 +90,9 @@
     </Filter>
     <Filter Include="Source Files\Mission">
       <UniqueIdentifier>{5d1d70f9-111d-42d4-bc58-2cbaf427eb24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Sound">
+      <UniqueIdentifier>{1cfddf5e-bcba-41e9-8caa-ea03bf0e22f5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -285,6 +285,12 @@
     <ClInclude Include="Source\IObjective.h">
       <Filter>Header Files\Mission</Filter>
     </ClInclude>
+    <ClInclude Include="Source\LoadingScreen.h">
+      <Filter>Header Files\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameOverMenu.h">
+      <Filter>Header Files\Menu</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\MainMenu.cpp">
@@ -445,6 +451,12 @@
     </ClCompile>
     <ClCompile Include="Source\IObjective.cpp">
       <Filter>Source Files\Mission</Filter>
+	</ClCompile>
+    <ClCompile Include="Source\LoadingScreen.cpp">
+      <Filter>Source Files\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameOverMenu.cpp">
+      <Filter>Source Files\Menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

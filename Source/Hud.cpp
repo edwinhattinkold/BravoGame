@@ -13,7 +13,7 @@ Hud::Hud( SDL_Renderer *renderTarget, DrawContainer *dc, FPS *fpsCounter, Camera
 	this->font = TTF_OpenFont( "Fonts/28dayslater.ttf", 40 * scale );
 
 	
-	terror = 80;
+	terror = 20;
 	maxTerror = 100;
 	
 	healthbarMax = 364 * scale;
@@ -106,7 +106,8 @@ void Hud::renderHealth( float newHealth )
 	{
 		slidingWidth = healthWidth;
 	}
-
+	
+	terrorbar->rect->w = (terrorbarMax / maxTerror) *  car->getGasoline();
 	healthbar->rect->w = healthWidth;
 	slidingbar->rect->w = slidingWidth;
 }

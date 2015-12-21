@@ -13,12 +13,17 @@ enum Asset
 	Asset_Menu_Arrow,
 	Asset_Tire,
 	Asset_Collectible,
+	Asset_Gasoline,
+	Asset_Nitro,
+	Asset_Oil,
 	Asset_HUD,
 	Asset_Turret_Calm,
 	Asset_Turret_Angry,
 	Asset_Turret_Dead,
 	Asset_Explosion,
-	Asset_MainMenu_Background
+	Asset_MainMenu_Background,
+	Asset_LoadScreen_Ad,
+	Asset_GameOverScreen_Background
 };
 
 class Assets

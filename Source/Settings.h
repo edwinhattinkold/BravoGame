@@ -6,7 +6,7 @@
 #include <map>
 #include <sstream>
 
-enum BooleanVariables { Settings_fullscreen, Settings_SoundOn };
+enum BooleanVariables { Settings_fullscreen, Settings_SoundOn, Settings_Advertisements };
 enum IntegerVariables { Settings_Windowed_Width, Settings_Windowed_Height };
 
 using namespace std;
