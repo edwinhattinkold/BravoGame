@@ -92,6 +92,7 @@ void ContactHandler::collectibleContact(Collectible* collectible, B2Content* oth
 	case(Object_Tire) :
 		if (!collectible->isOnDeathRow)
 		{
+		MissionControl::getInstance()->addOne( collectible->objectiveType );
 		world->destroyCollectible(collectible);
 		collectible->isOnDeathRow = true;
 		}
@@ -99,6 +100,7 @@ void ContactHandler::collectibleContact(Collectible* collectible, B2Content* oth
 	case(Object_Car) :
 		if (!collectible->isOnDeathRow)
 		{
+		MissionControl::getInstance()->addOne( collectible->objectiveType );
 		world->destroyCollectible(collectible);
 		collectible->isOnDeathRow = true;
 		}

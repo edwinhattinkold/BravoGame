@@ -88,6 +88,12 @@
     <Filter Include="Header Files\Model\Shooting">
       <UniqueIdentifier>{77662d4a-30bb-4e4d-b85d-8042a6e7672f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Mission">
+      <UniqueIdentifier>{2586fad2-ad83-4679-8f84-4a73956349ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Mission">
+      <UniqueIdentifier>{5d1d70f9-111d-42d4-bc58-2cbaf427eb24}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Animation.h">
@@ -267,6 +273,18 @@
     <ClInclude Include="Source\HighscoreMenu.h">
       <Filter>Header Files\Menu</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Mission.h">
+      <Filter>Header Files\Mission</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Objective.h">
+      <Filter>Header Files\Mission</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MissionControl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\IObjective.h">
+      <Filter>Header Files\Mission</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\MainMenu.cpp">
@@ -415,6 +433,18 @@
     </ClCompile>
     <ClCompile Include="Source\HighscoreMenu.cpp">
       <Filter>Source Files\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Mission.cpp">
+      <Filter>Source Files\Mission</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Objective.cpp">
+      <Filter>Source Files\Mission</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MissionControl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\IObjective.cpp">
+      <Filter>Source Files\Mission</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

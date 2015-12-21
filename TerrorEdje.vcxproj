@@ -34,6 +34,7 @@
     <ClInclude Include="Source\Hud.h" />
     <ClInclude Include="Source\HudObject.h" />
     <ClInclude Include="Source\IDrawable.h" />
+    <ClInclude Include="Source\IObjective.h" />
     <ClInclude Include="Source\IUpdateable.h" />
     <ClInclude Include="Source\LoadingMenu.h" />
     <ClInclude Include="Source\Location.h" />
@@ -45,7 +46,10 @@
     <ClInclude Include="Source\MapDrawer.h" />
     <ClInclude Include="Source\Chunk.h" />
     <ClInclude Include="Source\MenuItem.h" />
+    <ClInclude Include="Source\Mission.h" />
+    <ClInclude Include="Source\MissionControl.h" />
     <ClInclude Include="Source\MyDestructionListener.h" />
+    <ClInclude Include="Source\Objective.h" />
     <ClInclude Include="Source\OptionsMenu.h" />
     <ClInclude Include="Source\PauseMenu.h" />
     <ClInclude Include="Source\PhysicsWorld.h" />
@@ -99,6 +103,7 @@
     <ClCompile Include="Source\Hud.cpp" />
     <ClCompile Include="Source\HudObject.cpp" />
     <ClCompile Include="Source\IDrawable.cpp" />
+    <ClCompile Include="Source\IObjective.cpp" />
     <ClCompile Include="Source\IUpdateable.cpp" />
     <ClCompile Include="Source\LoadingMenu.cpp" />
     <ClCompile Include="Source\Location.cpp" />
@@ -108,7 +113,10 @@
     <ClCompile Include="Source\MapDrawer.cpp" />
     <ClCompile Include="Source\Chunk.cpp" />
     <ClCompile Include="Source\MenuItem.cpp" />
+    <ClCompile Include="Source\Mission.cpp" />
+    <ClCompile Include="Source\MissionControl.cpp" />
     <ClCompile Include="Source\MyDestructionListener.cpp" />
+    <ClCompile Include="Source\Objective.cpp" />
     <ClCompile Include="Source\OptionsMenu.cpp" />
     <ClCompile Include="Source\PauseMenu.cpp" />
     <ClCompile Include="Source\PhysicsWorld.cpp" />

@@ -97,6 +97,8 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	drawContainer->add( hud );
 	contactHandler = new ContactHandler(this);
 	physics->SetContactListener( contactHandler );
+
+	setupMission();
 }
 
 World::~World()
@@ -355,6 +357,7 @@ void World::addProjectile( Projectile *projectile )
 void World::addCollectible(int w, int h, int x, int y)
 {
 	Collectible * newCollectibe = new Collectible(physics, renderTarget, w, h, x, y, this);
+	newCollectibe->objectiveType = "rpg"; //Ivan
 	updateContainer->add(newCollectibe);
 	drawContainer->add(newCollectibe);
 	activeCollectibles->push_back(newCollectibe);
@@ -365,4 +368,11 @@ void World::addObject(B2Content* object)
 	objects->push_back( object );
 	updateContainer->add( object );
 	drawContainer->add( object );
+}
+
+void World::setupMission()
+{
+	Mission *mission = new Mission( "ga iets doen met je leven ofzo" );
+	mission->addObjective( "verzamel RPGs: ", "rpg", 2 );
+	MissionControl::getInstance()->currentMission = mission;
 }
