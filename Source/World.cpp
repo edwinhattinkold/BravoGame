@@ -121,7 +121,6 @@ void World::createPlayableContent()
 	contactHandler = new ContactHandler( this );
 	physics->SetContactListener( contactHandler );
 
-	setupMission();
 }
 
 World::~World()
@@ -428,15 +427,6 @@ void World::addObject(B2Content* object)
 	objects->push_back( object );
 	updateContainer->add( object );
 	drawContainer->add( object );
-}
-
-void World::setupMission()
-{
-	Mission *mission = new Mission( "Go be useful" );
-	mission->addObjective( "Collect gasoline: ", Asset_Gasoline, 2 );
-	mission->addObjective( "Shiet die boom HELEMAAL LEK OFNIEJ: ", Asset_Tree, 1 );
-	mission->addObjective( "die turret moet ook kapot", Asset_Turret_Calm, 1 );
-	MissionControl::getInstance()->currentMission = mission;
 }
 
 void World::gameOver()

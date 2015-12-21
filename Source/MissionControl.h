@@ -12,7 +12,7 @@ private:
 	void operator=( MissionControl const& );
 public:
 	/* Singleton */
-	static MissionControl* getInstance();
+	static MissionControl& getInstance();
 	~MissionControl();
 
 	Mission *currentMission;

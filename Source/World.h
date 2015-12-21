@@ -125,9 +125,6 @@ public:
 	void reset();
 
 	TDCar* getCar();
-
-	//Ivan
-	void setupMission();
 };
 
 

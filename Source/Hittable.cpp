@@ -72,7 +72,7 @@ void Hittable::takeDamage( int damage )
 		takenDamage += damage;
 		if( health <= 0 )
 		{
-			MissionControl::getInstance()->addOne(objectiveType);
+			MissionControl::getInstance().addOne(objectiveType);
 			dead = true;
 			health = 0;
 		}

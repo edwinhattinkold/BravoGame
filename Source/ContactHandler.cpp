@@ -97,7 +97,7 @@ void ContactHandler::collectibleContact(Collectible* collectible, B2Content* oth
 		case( Object_Car ) :
 			if (!collectible->isOnDeathRow)
 			{
-			MissionControl::getInstance()->addOne( collectible->objectiveType ); //Try to add this to the current mission/objective. If not the right type, this does nothing
+			MissionControl::getInstance().addOne( collectible->objectiveType ); //Try to add this to the current mission/objective. If not the right type, this does nothing
 			world->destroyCollectible(collectible);
 			collectible->isOnDeathRow = true;
 			}

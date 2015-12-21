@@ -9,7 +9,14 @@ Mission::Mission(string title)
 
 
 Mission::~Mission()
-{}
+{
+	for( std::vector<Objective*>::iterator it = objectives->begin(); it != objectives->end(); ++it )
+	{
+		delete *it; *it = nullptr;
+	}
+	delete objectives;
+	objectives = nullptr;
+}
 
 void Mission::setObjectives( vector<Objective*> *objectives )
 {
