@@ -21,6 +21,8 @@
 #include "Explosion.h"
 #include "GameOverMenu.h"
 
+#include "MissionControl.h"
+
 /************************************************************************/
 /* The World class contains everything a the game needs to render except
 for the window. Its purpose is to render the world, run the physics

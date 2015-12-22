@@ -3,9 +3,11 @@
 #include "SDL.h"
 #include "SDL_ttf.h"
 #include <vector>
+#include <string>
 
 static enum Color { Red, White, SelectedRed };
 
+using namespace std;
 class MenuItem
 {
 private:
@@ -21,6 +23,7 @@ private:
 
 	SDL_Texture* createTextTexture(SDL_Renderer* renderTarget, TTF_Font* font, const char* text, SDL_Color color);
 	void toggleSelected();
+	void setContent(SDL_Renderer* renderTarget, char* text);
 
 public:
 	MenuItem(SDL_Renderer* renderTarget, TTF_Font* font, char* content);
@@ -37,7 +40,10 @@ public:
 	void setHighlighted();
 	void setXPosition(int xPosition);
 	void setYPosition(int yPosition);
-	void setText(SDL_Renderer* renderTarget, char* text);
+
+	void setText( SDL_Renderer* renderTarget, char* text );
+	void setText( SDL_Renderer* renderTarget, string text );
+
 	void draw(SDL_Renderer* renderTarget);
 };
 

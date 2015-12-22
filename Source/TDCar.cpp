@@ -1,5 +1,5 @@
 #include "TDCar.h"
-#include "World.h";
+#include "World.h"
 #include "Camera.h"
 
 ostream& operator<<(ostream& os, const TDCar& obj)
@@ -43,7 +43,7 @@ TDCar::~TDCar() {
 }
 
 TDCar::TDCar(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, Camera* camera, int widthM, int heightM)
-	:B2Content( renderTarget, world, physicsWorld, Asset_Car ), Hittable( 10 )
+	:B2Content( renderTarget, world, physicsWorld, Asset_Car ), Hittable( 1000000, Asset_Car )
 {
 	oilTime = 0;
 	this->camera = camera;

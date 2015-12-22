@@ -116,10 +116,11 @@ void World::createPlayableContent()
 	center = new SDL_Point;
 
 
-	hud = new Hud( renderTarget, drawContainer, fpsCounter, camera, myCar, 24, 24, 0.8 );
+	hud = new Hud( renderTarget, drawContainer, fpsCounter, camera, myCar, 24, 24, 0.8f );
 	drawContainer->add( hud );
 	contactHandler = new ContactHandler( this );
 	physics->SetContactListener( contactHandler );
+
 }
 
 World::~World()
