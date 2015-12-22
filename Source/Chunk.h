@@ -21,7 +21,6 @@ class Chunk
 private:
 	BaseLevel *level;
 	std::vector<Location> *locations;
-	std::vector<Collectible*> collectibleItems;
 	World *world;
 	b2BodyDef *collisionBodyDef;
 	b2FixtureDef *collisionFixtureDef;

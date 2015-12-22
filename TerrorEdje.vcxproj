@@ -17,6 +17,7 @@
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\ChunkFactory.h" />
     <ClInclude Include="Source\CarTireFUD.h" />
+    <ClInclude Include="Source\CollideObject.h" />
     <ClInclude Include="Source\Collectible.h" />
     <ClInclude Include="Source\ContactHandler.h" />
     <ClInclude Include="Source\CreditsMenu.h" />
@@ -86,6 +87,7 @@
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\ChunkFactory.cpp" />
     <ClCompile Include="Source\CarTireFUD.cpp" />
+    <ClCompile Include="Source\CollideObject.cpp" />
     <ClCompile Include="Source\Collectible.cpp" />
     <ClCompile Include="Source\ContactHandler.cpp" />
     <ClCompile Include="Source\CreditsMenu.cpp" />

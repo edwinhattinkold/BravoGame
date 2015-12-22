@@ -11,7 +11,6 @@ Chunk::Chunk(SDL_Renderer *rt, MiniChunk miniChunk, World *world, int x, int y)
 	level = LevelFactory::getInstance()->getLevel( miniChunk.level );
 	//create holder and definitions for box2d
 	collisionBodyDef = new b2BodyDef();
-	//collectibleItems = new std::vector<Collectible*>();
 	collisionBodyDef->type = b2_staticBody;
 	collisionBodyDef->angle = 0;
 	collisionFixtureDef = new b2FixtureDef();
@@ -26,29 +25,43 @@ Chunk::Chunk(SDL_Renderer *rt, MiniChunk miniChunk, World *world, int x, int y)
 	this->world = world;
 	
 	addCollectable();
+
+	this->world->loadChunk(x, y);
 }
 
 void Chunk::addCollectable()
 {
-	//Collectibles laden
-	std::cout << "x: " << x << " y: " << y << endl;
-	
+	if (!this->world->chunckIsLoaded(x, y))
+	{
+		//Collectibles laden
 
-	int positonNewX = x * (1024 / 20);
-	int positionNewY = y * (1024 / 20);
+		
+		int positionNewXMin = x * (1024 / 20);
+		int positionNewXMax = (x + 1) * (1024 / 20);
 
-	int numberRandom = Random::getInstance().nextInt(1, level->possibleCollectibles.size());
+		int positionNewYMin = y * (1024 / 20);
+		int positionNewYMax = (y+1) * (1024 / 20);
+
+		int numberRandom = Random::getInstance().nextInt(1, level->possibleCollectibles.size());
+
+		int randomX = Random::getInstance().nextInt(positionNewXMin, positionNewXMax);
+		int randomY = Random::getInstance().nextInt(positionNewYMin, positionNewYMax);
+
+		world->addCollectible(5, 5, randomX, -randomY, level->possibleCollectibles[numberRandom - 1]);
+
+		 numberRandom = Random::getInstance().nextInt(1, level->possibleCollide.size());
+		 randomX = Random::getInstance().nextInt(positionNewXMin, positionNewXMax);
+		 randomY = Random::getInstance().nextInt(positionNewYMin, positionNewYMax);
+		world->addCollidable(5, 5, randomX, -randomY, level->possibleCollide[numberRandom - 1]);
+		
+
+	}
 	
-	Collectible* collectible = world->addCollectible(5, 5, positonNewX, -positionNewY, level->possibleCollectibles[numberRandom - 1]);
-	collectibleItems.push_back(collectible);
 }
 
 Chunk::~Chunk()
 {
-	for (size_t i = 0; i < collectibleItems.size(); i++)
-	{
-		world->destroyCollectible(collectibleItems.at(i));
-	}
+	
 
 	delete locations;
 	locations = nullptr;

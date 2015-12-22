@@ -14,6 +14,10 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	velocityIterations = new int32( 8 );
 	positionIterations = new int32( 3 );
 
+
+	keys = new std::vector<Uint8 * >();
+	
+
 	//create add and remove stacks
 	bodyRemoveStack = new std::vector<B2Content*>();
 	projectileRemoveStack = new std::vector<Projectile*>();
@@ -24,6 +28,7 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 
 	collectibleRemoveStack = new std::vector<Collectible*>();
 	activeCollectibles = new std::vector<Collectible*>();
+	activeCollideObjects = new std::vector<CollideObject*>();
 
 	//create physics world (box2d)
 	gravity = new b2Vec2( 0.0f, 0.0f );
@@ -54,36 +59,12 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	mapDrawer = new MapDrawer( renderTarget, camera->getCamera(),this );
 	drawContainer->add(mapDrawer);
 	updateContainer->add(mapDrawer);
-	//add collectables
-	this->addCollectible(15, 15, 10, -100, Collectible::Collectibletypes::Oil);
-	this->addCollectible(15, 15, 60, -100, Collectible::Collectibletypes::Oil);
-
-	this->addCollectible(5, 5, 35, -150, Collectible::Collectibletypes::Collect);
-	this->addCollectible(5, 5, 20, -50, Collectible::Collectibletypes::Gasoline);
-	this->addCollectible(5, 5, 20, -80, Collectible::Collectibletypes::Nitro);
-	this->addCollectible(5, 5, 30, -120, Collectible::Collectibletypes::Gasoline);
-	this->addCollectible(5, 5, 40, -140, Collectible::Collectibletypes::Gasoline);
-	this->addCollectible(5, 5, 40, -170, Collectible::Collectibletypes::Gasoline);
-	this->addCollectible(5, 5, 40, -190, Collectible::Collectibletypes::Gasoline);
-	this->addCollectible(5, 5, 40, -210, Collectible::Collectibletypes::Nitro);
-
-
-	this->addCollectible(5, 5, 20, -329, Collectible::Collectibletypes::Gasoline);
-	this->addCollectible(5, 5, 20, -350, Collectible::Collectibletypes::Gasoline);
-	this->addCollectible(5, 5, 20, -380, Collectible::Collectibletypes::Nitro);
-	this->addCollectible(5, 5, 30, -420, Collectible::Collectibletypes::Collect);
-	this->addCollectible(5, 5, 40, -440, Collectible::Collectibletypes::Gasoline);
-	this->addCollectible(5, 5, 40, -470, Collectible::Collectibletypes::Gasoline);
-	this->addCollectible(5, 5, 40, -490, Collectible::Collectibletypes::Gasoline);
-	this->addCollectible(5, 5, 40, -510, Collectible::Collectibletypes::Nitro);
-
+	
 	//add car
 	myCar = new TDCar(this, physics, renderTarget, camera, 3, 6);
 	drawContainer->add(myCar);
 	updateContainer->add(myCar);
-	//add objects ( no special destructor )
-	addObject(new Tree(this, physics, renderTarget, 10, 10, 20, -15));
-	addObject(new Tree(this, physics, renderTarget, 10, 10, 40, -30));
+	
 	//add objects ( own destructor )
 	myTurret = new Turret(physics, renderTarget, 50, -40, myCar, this);
 	drawContainer->add(myTurret);
@@ -117,6 +98,12 @@ World::~World()
 {	
 	delete this->fpsCounter;						this->fpsCounter = nullptr;
 	delete this->hud;								this->hud = nullptr;
+	
+	for (size_t i = 0; i < activeCollideObjects->size(); i++)
+	{
+		delete activeCollideObjects->at(i);
+	}
+	delete activeCollideObjects;						activeCollideObjects = nullptr;
 	for( size_t i = 0; i < activeProjectiles->size(); i++ )
 	{
 		delete activeProjectiles->at( i );
@@ -138,6 +125,11 @@ World::~World()
 		delete explosions->at( x );					explosions->at( x ) = nullptr;
 	}
 	delete explosions;								explosions = nullptr;
+	for (size_t x = 0; x < keys->size(); x++)
+	{
+		delete keys->at(x);							keys->at(x) = nullptr;
+	}
+	delete keys;									keys = nullptr;
 	delete myCar;									myCar = nullptr;
 	delete myTurret;								myTurret = nullptr;
 	delete mapDrawer;								mapDrawer = nullptr;
@@ -160,7 +152,6 @@ World::~World()
 	delete updateContainer;							updateContainer = nullptr;
 	delete contactHandler;							contactHandler = nullptr;
 	delete center;									center = nullptr;
-
 	SDL_DestroyTexture(mainMenuBackground);			mainMenuBackground = nullptr;
 	SDL_DestroyRenderer(renderTarget);				renderTarget = nullptr;
 }
@@ -206,6 +197,7 @@ void World::tick()
 		}
 	}
 	keyState = SDL_GetKeyboardState( NULL );
+	
 	
 	if( currentGameState != GameState_Paused )
 	{
@@ -366,13 +358,21 @@ void World::addProjectile( Projectile *projectile )
 	activeProjectiles->push_back( projectile );
 }
 
-Collectible* World::addCollectible(int w, int h, int x, int y, Collectible::Collectibletypes type)
+void World::addCollectible(int w, int h, int x, int y, Collectible::Collectibletypes type)
 {
 	Collectible* newCollectibe = new Collectible(physics, renderTarget, w, h, x, y, this, type);
 	updateContainer->add(newCollectibe);
 	drawContainer->add(newCollectibe);
 	activeCollectibles->push_back(newCollectibe);
-	return newCollectibe;
+}
+
+
+void World::addCollidable(int w, int h, int x, int y, CollideObject::CollideType type)
+{
+	CollideObject* newCollectibe = new CollideObject(this, physics, renderTarget, w, h, x, y,  type);
+	updateContainer->add(newCollectibe);
+	drawContainer->add(newCollectibe);
+	activeCollideObjects->push_back(newCollectibe);
 }
 
 void World::addObject(B2Content* object)
@@ -380,4 +380,23 @@ void World::addObject(B2Content* object)
 	objects->push_back( object );
 	updateContainer->add( object );
 	drawContainer->add( object );
+}
+
+bool World::chunckIsLoaded(int x, int y)
+{
+	
+	if (loadedChunks.count(coord(x, y)) > 0)	
+		return true;
+	
+	return false;
+	
+		
+	
+}
+
+void World::loadChunk(int x, int y)
+{
+	loadedChunks[coord(x, y)] = true;
+
+	
 }

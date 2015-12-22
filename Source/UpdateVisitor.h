@@ -9,6 +9,7 @@ class MapDrawer;
 class Projectile;
 class Explosion;
 class Tree;
+class CollideObject;
 
 class UpdateVisitor
 {
@@ -30,5 +31,6 @@ public:
 	void visit( Projectile *projectile );
 	void visit( Explosion *explosion );
 	void visit( Tree *tree );
+	void visit( CollideObject *collide);
 };
 

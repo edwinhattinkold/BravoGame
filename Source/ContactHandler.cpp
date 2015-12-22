@@ -62,6 +62,16 @@ void ContactHandler::bulletContact( Projectile* projectile, B2Content* otherObje
 			}
 			break;
 		}
+		case (Object_Collide) : {
+			CollideObject* collider = (CollideObject*)otherObject;
+			if (!projectile->isOnDeathRow)
+			{
+				world->destroyProjectile(projectile);
+				projectile->isOnDeathRow = true;
+
+			}
+			break;
+		}
 		case (Object_Turret):{
 			Turret* turret = (Turret*)otherObject;
 			if (!projectile->isOnDeathRow)

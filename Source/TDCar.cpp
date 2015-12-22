@@ -62,6 +62,8 @@ TDCar::TDCar(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, Ca
 	h = heightM;
 	score = 0;
 
+	
+
 	float secondsGasoline = 20000000.0f;
 	gasoline = secondsGasoline * 1000.0f;
 	maxGasoline = gasoline;
@@ -181,6 +183,7 @@ void TDCar::hitNitro(float time)
 
 void TDCar::update( float deltaTime, const Uint8 *keyState )
 {
+	
 	weapon->update( deltaTime );
 	// AUTO BESTUREN
 	//W
@@ -206,6 +209,11 @@ void TDCar::update( float deltaTime, const Uint8 *keyState )
 			soundWStarted = false;
 		
 		m_controlState &= ~TDC_UP;
+	}
+	if (keyState[SDL_SCANCODE_N] && keyState[SDL_SCANCODE_I] && keyState[SDL_SCANCODE_T] && keyState[SDL_SCANCODE_R] && keyState[SDL_SCANCODE_O])
+	{
+		hitNitro(20.0f);
+		cout << "NEE" << endl;
 	}
 		
 	if( keyState[keyMap.at( Car_Brakes )] )
@@ -377,3 +385,4 @@ int TDCar::getScore()
 {
 	return score;
 }
+

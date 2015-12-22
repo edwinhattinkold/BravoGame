@@ -73,6 +73,12 @@ void Sprite::drawTree(SDL_Renderer *renderTarget, SDL_Rect camerRect)
 	animations->at(currentAnimation)->drawCar(renderTarget, drawingRect, angle);
 }
 
+void Sprite::drawCollidable(SDL_Renderer *renderTarget, SDL_Rect camerRect)
+{
+	SDL_Rect drawingRect = { positionRect.x - camerRect.x, positionRect.y - camerRect.y, positionRect.w, positionRect.h };
+	animations->at(currentAnimation)->drawCar(renderTarget, drawingRect, angle);
+}
+
 void Sprite::drawCollectible(SDL_Renderer *renderTarget, SDL_Rect camerRect)
 {
 	SDL_Rect drawingRect = { positionRect.x - camerRect.x, positionRect.y - camerRect.y, positionRect.w, positionRect.h };
