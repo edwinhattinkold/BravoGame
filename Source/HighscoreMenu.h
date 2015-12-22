@@ -26,10 +26,12 @@ private:
 	Sound* sound;
 	std::vector<MenuItem*>* menuItems;
 	MenuItem *backButton;
+	MenuItem *title;
 	bool isSelected;
 	int combinedHeight;
 	int margin;
 	int selected;
+	string saveFile;
 	vector<pair<string, string>> *highscores;
 
 	SDL_Texture* backgroundImage;
@@ -50,9 +52,11 @@ public:
 	void handleKeyboardInput( SDL_Keycode keyPressed );
 	void mouseButtonClicked( int mouseX, int mouseY );
 	void handleChoice( int index );
-	void firstTick();
-	void loadHighScores();
+	void firstTick( bool newHighscore );
+	void loadHighScores(bool newScore);
+	void createMenuItems();
 	static bool sortScores( pair<string, string> score1, pair<string, string> score2 );
+	void saveScores();
 
 	string getNow();
 };

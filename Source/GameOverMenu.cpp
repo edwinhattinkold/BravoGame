@@ -148,8 +148,8 @@ void GameOverMenu::handleChoice( int index )
 	switch( index )
 	{
 		case ( Choices::High_Score ) :
+			world->showHighscores(true);
 			world->reset();
-			world->showHighscores();
 			break;
 		case( Choices::Restart ) :
 			world->reset();

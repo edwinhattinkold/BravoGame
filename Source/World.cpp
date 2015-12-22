@@ -447,9 +447,9 @@ void World::gameOver()
 	gameOverMenu->firstTick();
 }
 
-void World::showHighscores()
+void World::showHighscores(bool newScore)
 {
 	sound->pauseAllSounds();
 	currentGameState = GameState_In_Highscores;
-	highscoreMenu->firstTick();
+	highscoreMenu->firstTick( newScore );
 }

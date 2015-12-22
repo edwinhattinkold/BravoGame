@@ -125,7 +125,7 @@ public:
 	void removeExplosion( Explosion* explosion );
 
 	void gameOver();
-	void showHighscores();
+	void showHighscores(bool newScore);
 	void reset();
 
 	TDCar* getCar();

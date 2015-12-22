@@ -3,15 +3,17 @@
 
 HighscoreMenu::HighscoreMenu( World* world, SDL_Renderer *renderTarget, Camera* camera)
 {
+	saveFile = "Settings/highscores.sav";
 	this->world = world;
 	this->renderTarget = renderTarget;
 	this->camera = camera;
-	font = TTF_OpenFont( "Fonts/28dayslater.ttf", 50 );
-	bigFont = TTF_OpenFont( "Fonts/28dayslater.ttf", 100 );
+	font = TTF_OpenFont( "Fonts/bloodlust.ttf", 60 );
+	bigFont = TTF_OpenFont( "Fonts/Frontman.ttf", 80 );
 	this->sound = Sound::getInstance();
 	menuItems = new vector<MenuItem*>();
 	highscores = new vector<pair<string, string>>();
 	backButton = new MenuItem(renderTarget, font, "Back" );
+	title = new MenuItem( renderTarget, bigFont, "High Scores" );
 	isSelected = false;
 	margin = 40;
 	selected = 0;
@@ -31,10 +33,11 @@ HighscoreMenu::~HighscoreMenu()
 	}
 	delete menuItems;				menuItems = nullptr;
 	delete backButton;				backButton = nullptr;
+	delete highscores;				highscores = nullptr;
+	delete title;					title = nullptr;
 	TTF_CloseFont( font );			font = nullptr;
 	TTF_CloseFont( bigFont );		bigFont = nullptr;
 }
-
 
 
 void HighscoreMenu::tick( int mouseX, int mouseY )
@@ -59,14 +62,19 @@ void HighscoreMenu::tick( int mouseX, int mouseY )
 	backButton->setXPosition( 40 );
 	backButton->setYPosition( camera->getCamera()->h - 100 );
 	backButton->draw( renderTarget );
+
+	//title->setXPosition( ( camera->getCamera()->h / 2 ) - ( title->getWidth() / 5 ) );
+	title->setYPosition( 100 );
+	title->draw( renderTarget );
+
 	/* Draw cursor */
 	CustomCursor::getInstance()->draw( mouseX, mouseY );
 }
 
 
-void HighscoreMenu::loadHighScores()
+void HighscoreMenu::loadHighScores(bool newScore)
 {
-	ifstream myfile( "Settings/highscores.sav" );
+	ifstream myfile( saveFile );
 	if( myfile.is_open() )
 	{
 		string line;
@@ -93,21 +101,66 @@ void HighscoreMenu::loadHighScores()
 			
 			highscores->push_back( pair<string, string>( token, line ) );
 		}
-		sort( highscores->begin(), highscores->end(), &HighscoreMenu::sortScores );
-
-		for( vector<pair<string, string>>::iterator it = highscores->begin(); it != highscores->end(); ++it )
+		
+		if( newScore )
 		{
-			string s = it->first + " " + it->second;
-			char *text = (char*) s.c_str();
-			cout << text << "\n";
-			menuItems->push_back( new MenuItem( renderTarget, font, text ) );
+			int score = world->getCar()->getScore();
+			if( highscores->size() < 5 )
+			{
+				highscores->push_back( pair<string, string>( getNow(), to_string( score ) ) );
+			} else
+			{
+				for( vector<pair<string, string>>::iterator it = highscores->begin(); it != highscores->end(); ++it )
+				{
+					if( stoi( it->second ) < score )
+					{
+						highscores->push_back( pair<string, string>( getNow(), to_string( score ) ) );
+						break;
+					}
+				}
+			}
 		}
+
+		sort( highscores->begin(), highscores->end(), &HighscoreMenu::sortScores );
+		while( highscores->size() > 5 )
+		{
+			highscores->pop_back();
+		}
+		saveScores();
+		createMenuItems();
 	} else
 	{
 		cout << "Could not load highscores\n";
 	}
 
 
+}
+
+void HighscoreMenu::saveScores()
+{
+	ofstream myfile;
+
+	myfile.open( saveFile );
+	if( myfile.is_open() )
+	{
+		string s = "";
+		for( vector<pair<string, string>>::iterator it = highscores->begin(); it != highscores->end(); ++it )
+		{
+			s += it->first + " " + it->second + "\n";
+		}
+		myfile << s;
+		myfile.close();
+	}
+}
+
+void HighscoreMenu::createMenuItems()
+{
+	for( vector<pair<string, string>>::iterator it = highscores->begin(); it != highscores->end(); ++it )
+	{
+		string s = it->first + " " + it->second;
+		char *text = (char*) s.c_str();
+		menuItems->push_back( new MenuItem( renderTarget, font, text ) );
+	}
 }
 
 bool HighscoreMenu::sortScores( pair<string, string> score1, pair<string, string> score2 )
@@ -130,9 +183,9 @@ void HighscoreMenu::handleKeyboardInput( SDL_Keycode keyPressed )
 	}
 }
 
-void HighscoreMenu::firstTick()
+void HighscoreMenu::firstTick(bool newHighscore)
 {
-	loadHighScores();
+	loadHighScores(newHighscore);
 	backgroundImageRect.w = camera->getCamera()->w;
 	backgroundImageRect.h = camera->getCamera()->h;
 	center();
@@ -140,13 +193,18 @@ void HighscoreMenu::firstTick()
 
 void HighscoreMenu::center()
 {
-	combinedHeight = -100;
+	combinedHeight = -200;
+	int xPosition = ( camera->getCamera()->w / 2 ) - ( title->getWidth()/2 );
+	title->setXPosition( xPosition );
+	
 	for( std::vector<int>::size_type i = menuItems->size() - 1; i != ( std::vector<int>::size_type ) - 1; i-- )
 	{
 		combinedHeight += menuItems->at( i )->getHeight();
 		int xPosition = ( camera->getCamera()->w / 2 ) - ( menuItems->at( i )->getWidth() / 2 );
 		menuItems->at( i )->setXPosition( xPosition );
 	}
+
+	
 
 	int marginHeight = ( ( menuItems->size() - 1 ) * 40 );
 	combinedHeight += marginHeight;
