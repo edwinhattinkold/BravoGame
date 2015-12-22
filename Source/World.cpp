@@ -181,6 +181,7 @@ void World::destroyPlayableContent()
 	delete updateContainer;							updateContainer = nullptr;
 	delete contactHandler;							contactHandler = nullptr;
 	delete center;									center = nullptr;
+	delete hud;										hud = nullptr;
 }
 
 void World::reset()
