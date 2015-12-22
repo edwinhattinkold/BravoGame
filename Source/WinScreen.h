@@ -7,6 +7,13 @@ private:
 	SDL_Texture* backgroundImage;
 	SDL_Rect backgroundImageRect;
 
+	SDL_Texture* confetti;
+	SDL_Rect confettiSourceRect;
+	float animationSpeed;
+	int column, row, textureWidth, textureHeight, framesX, framesY, frameWidth, frameHeight, startFrameX, startFrameY, currentFrameX, currentFrameY;
+	float frameCounter;
+	
+
 	enum Choices
 	{
 		Restart, Main_Menu
@@ -22,5 +29,6 @@ public:
 	void updateSelected();
 	void handleChoice( int index );
 	void firstTick();
+	void confettiAnimation( float deltaTime );
 };
 
