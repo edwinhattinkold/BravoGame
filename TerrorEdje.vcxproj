@@ -36,6 +36,7 @@
     <ClInclude Include="Source\HudObject.h" />
     <ClInclude Include="Source\IDrawable.h" />
     <ClInclude Include="Source\IObjective.h" />
+    <ClInclude Include="Source\InGameMenu.h" />
     <ClInclude Include="Source\IUpdateable.h" />
     <ClInclude Include="Source\LoadingMenu.h" />
     <ClInclude Include="Source\LoadingScreen.h" />
@@ -77,6 +78,7 @@
     <ClInclude Include="Source\UpdateContainer.h" />
     <ClInclude Include="Source\UpdateVisitor.h" />
     <ClInclude Include="Source\Weapon.h" />
+    <ClInclude Include="Source\WinScreen.h" />
     <ClInclude Include="Source\World.h" />
     <ClInclude Include="Source\XMLReader.h" />
   </ItemGroup>
@@ -107,6 +109,7 @@
     <ClCompile Include="Source\HudObject.cpp" />
     <ClCompile Include="Source\IDrawable.cpp" />
     <ClCompile Include="Source\IObjective.cpp" />
+    <ClCompile Include="Source\InGameMenu.cpp" />
     <ClCompile Include="Source\IUpdateable.cpp" />
     <ClCompile Include="Source\LoadingMenu.cpp" />
     <ClCompile Include="Source\LoadingScreen.cpp" />
@@ -143,6 +146,7 @@
     <ClCompile Include="Source\UpdateContainer.cpp" />
     <ClCompile Include="Source\UpdateVisitor.cpp" />
     <ClCompile Include="Source\Weapon.cpp" />
+    <ClCompile Include="Source\WinScreen.cpp" />
     <ClCompile Include="Source\World.cpp" />
     <ClCompile Include="Source\XMLReader.cpp" />
   </ItemGroup>

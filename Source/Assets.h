@@ -23,7 +23,9 @@ enum Asset
 	Asset_Explosion,
 	Asset_MainMenu_Background,
 	Asset_LoadScreen_Ad,
-	Asset_GameOverScreen_Background
+	Asset_GameOverScreen_Background,
+	Asset_WinScreen_Background,
+	Asset_WinScreen_Confetti
 };
 
 class Assets

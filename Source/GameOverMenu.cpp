@@ -5,19 +5,10 @@
 #include "World.h"
 
 GameOverMenu::GameOverMenu( World* world, SDL_Renderer* renderTarget, Camera* camera )
+	: InGameMenu(world, renderTarget, camera)
 {
-	this->world = world;
-	this->renderTarget = renderTarget;
-	this->camera = camera;
-	font = TTF_OpenFont( "Fonts/Frontman.ttf", 30 );
-	this->arrow = new Sprite( renderTarget, Asset_Menu_Arrow );
-	this->sound = Sound::getInstance();
-	menuItems = new std::vector<MenuItem*>();
 	menuItems->push_back( new MenuItem( renderTarget, font, "Restart" ) );
 	menuItems->push_back( new MenuItem( renderTarget, font, "Mainmenu" ) );
-
-	margin = 40;
-	selected = 0;
 
 	backgroundImageRect.x = 0;
 	backgroundImageRect.y = 0;
@@ -28,13 +19,7 @@ GameOverMenu::GameOverMenu( World* world, SDL_Renderer* renderTarget, Camera* ca
 
 GameOverMenu::~GameOverMenu()
 {
-	for( size_t c = 0; c < menuItems->size(); c++ )
-	{
-		delete menuItems->at( c );	menuItems->at( c ) = nullptr;
-	}
-	delete menuItems;				menuItems = nullptr;
-	delete arrow;					arrow = nullptr;
-	TTF_CloseFont( font );			font = nullptr;
+
 }
 
 void GameOverMenu::tick( int mouseX, int mouseY )
@@ -114,6 +99,7 @@ void GameOverMenu::handleKeyboardInput( SDL_Keycode keyPressed )
 			sound->playSound( Sound_MainMenu_Tick );
 			break;
 		case( SDLK_RETURN ) :
+			sound->playSound( Sound_MainMenu_Click );
 			handleChoice( selected );
 			break;
 	}
