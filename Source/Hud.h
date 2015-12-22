@@ -14,9 +14,11 @@ class Hud
 {
 private:
 	HudObject *hud;
+	
 	Rect *healthbar;
 	Rect *terrorbar;
 	Rect *slidingbar;
+
 	float terror;
 	float maxTerror;
 	float healthbarMax;
@@ -33,8 +35,13 @@ private:
 	SDL_Window *window;
 	FPS *fpsCounter;
 	TTF_Font* font;
+	
 	MenuItem *fpsDisplay;
 	MenuItem *scoreDisplay;
+
+	MenuItem *missionDisplay;
+	MenuItem *objectiveDisplay;
+
 	Camera *camera;
 	TDCar *car;
 	void renderHealth( float newHealth );

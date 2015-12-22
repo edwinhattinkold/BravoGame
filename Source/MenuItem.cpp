@@ -96,7 +96,7 @@ void MenuItem::setYPosition(int yPosition){
 	position.y = yPosition;
 }
 
-void MenuItem::setText(SDL_Renderer* renderTarget, char* text){
+void MenuItem::setContent(SDL_Renderer* renderTarget, char* text){
 	content = text;
 	SDL_DestroyTexture(normalTexture);
 	SDL_DestroyTexture(highlightedTexture);
@@ -105,6 +105,17 @@ void MenuItem::setText(SDL_Renderer* renderTarget, char* text){
 	highlightedTexture = createTextTexture(renderTarget, myFont, content, highlightedColor);
 	currentTexture = normalTexture;
 	SDL_QueryTexture(normalTexture, NULL, NULL, &position.w, &position.h);
+}
+
+void MenuItem::setText( SDL_Renderer* renderTarget, char* text )
+{
+	setContent( renderTarget, text );
+}
+
+void MenuItem::setText( SDL_Renderer* renderTarget, string text )
+{
+	char *chars = (char*) text.c_str();
+	setContent( renderTarget, chars );
 }
 
 void MenuItem::draw(SDL_Renderer* renderTarget){
