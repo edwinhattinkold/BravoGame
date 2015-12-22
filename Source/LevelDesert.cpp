@@ -11,15 +11,14 @@ LevelDesert::LevelDesert()
 
 LevelDesert::~LevelDesert()
 {
-
 }
 
 void LevelDesert::startSound()
 {
-	Sound::getInstance()->playSound( Sound_MainMenu_Theme );
+	Sound::getInstance()->playSoundLooping( Sound_Level_Desert );
 }
 
 void LevelDesert::stopSound()
 {
-	Sound::getInstance()->stopSound( Sound_MainMenu_Theme );
+	Sound::getInstance()->stopSound( Sound_Level_Desert );
 }

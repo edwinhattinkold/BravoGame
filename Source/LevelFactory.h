@@ -16,3 +16,4 @@ public:
 	BaseLevel* getLevel(std::string name);
 };
 
+extern __declspec(dllexport) void LevelFactory_Quit();

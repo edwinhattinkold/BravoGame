@@ -71,7 +71,7 @@ public:
 	void addGasoline(float);
 	void setSpeedMultiplier(float);
 	void shoot();
-
+	void continueSound();
 	void write_object( std::ostream& os ) const;
 	void read_object( std::istream& is );
 

@@ -14,7 +14,7 @@
 	</x>
 	<x value="-3">
 		<chunk y="-4" tmx="vertical-small-road.tmx" level="desert"/>
-		<chunk y="-3" tmx="map.1.1.tmx" level="desert"/>
+		<chunk y="-3" tmx="map.1.1.tmx" level="snow"/>
 		<chunk y="-2" tmx="vertical-small-road.tmx" level="desert"/>
 		<chunk y="-1" tmx="vertical-small-road.tmx" level="desert"/>
 		<chunk y="-0" tmx="map.1.4.tmx" level="desert"/>

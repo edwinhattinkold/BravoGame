@@ -38,6 +38,7 @@
     <ClInclude Include="Source\IUpdateable.h" />
     <ClInclude Include="Source\LevelDesert.h" />
     <ClInclude Include="Source\LevelFactory.h" />
+    <ClInclude Include="Source\LevelJungle.h" />
     <ClInclude Include="Source\LevelSnow.h" />
     <ClInclude Include="Source\LoadingMenu.h" />
     <ClInclude Include="Source\Location.h" />
@@ -107,6 +108,7 @@
     <ClCompile Include="Source\IUpdateable.cpp" />
     <ClCompile Include="Source\LevelDesert.cpp" />
     <ClCompile Include="Source\LevelFactory.cpp" />
+    <ClCompile Include="Source\LevelJungle.cpp" />
     <ClCompile Include="Source\LevelSnow.cpp" />
     <ClCompile Include="Source\LoadingMenu.cpp" />
     <ClCompile Include="Source\Location.cpp" />

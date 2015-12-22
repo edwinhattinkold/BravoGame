@@ -44,6 +44,11 @@ void TDCar::changeLevel( BaseLevel* level )
 	}
 }
 
+void TDCar::continueSound()
+{
+	this->level->startSound();
+}
+
 
 TDCar::~TDCar() {
 	physicsWorld->DestroyJoint( flJoint);	flJoint = nullptr;

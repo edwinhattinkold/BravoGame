@@ -18,6 +18,8 @@ BaseLevel::~BaseLevel()
 		delete tiles->at( i );
 		tiles->at( i ) = nullptr;
 	}
+	delete tiles;
+	tiles = nullptr;
 }
 
 void BaseLevel::addTileSet()

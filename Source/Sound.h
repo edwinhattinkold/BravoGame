@@ -13,7 +13,10 @@ enum SoundFiles {	Sound_MainMenu_Theme,
 					Sound_Horn,
 					Sound_Engine_Start,
 					Sound_Engine_Loop,
-					Sound_Skid
+					Sound_Skid,
+					Sound_Level_Desert,
+					Sound_Level_Snow,
+					Sound_Level_Jungle
 };
 
 class Sound

@@ -23,7 +23,8 @@ enum Asset
 	Asset_Explosion,
 	Asset_MainMenu_Background,
 	Asset_Desert_Tileset,
-	Asset_Snow_Tileset
+	Asset_Snow_Tileset,
+	Asset_Jungle_Tileset
 };
 
 class Assets
@@ -48,7 +49,7 @@ public:
 };
 
 /**
-This function cleans up the entire sound system. You should call it upon all exit conditions.
+This function cleans up the entire asset system. You should call it upon all exit conditions.
 */
 extern __declspec(dllexport) void Assets_Quit();
 

@@ -1,10 +1,13 @@
 #include "MainMenu.h"
 #include "CustomCursor.h"
+#include "World.h"
+
 MainMenu::MainMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, Camera* camera, TTF_Font* font, World* world )
 {
 	this->arrow = new Sprite( renderTarget, Asset_Menu_Arrow );
 	this->renderTarget = renderTarget;
 	this->camera = camera;
+	this->world = world;
 	sound = Sound::getInstance();
 	sound->playSoundLooping(Sound_MainMenu_Theme, 0.50f);
 	optionsMenu = new OptionsMenu(renderTarget, window, backgroundImage, arrow, camera, font);
@@ -56,6 +59,7 @@ int MainMenu::showMenu(SDL_Renderer* renderTarget){
 	switch (choice){
 	case(Choices::Continue) :
 		sound->stopSound(Sound_MainMenu_Theme);
+		world->getCar()->continueSound();
 		return Choices::Continue;
 		break;
 	case(Choices::Load_Game) :

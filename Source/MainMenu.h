@@ -34,6 +34,7 @@ private:
 	void center();
 	static enum Choices { Continue, Load_Game, How_To_Play, Options, Credits, Exit };
 	int selected;
+	World* world;
 public:
 	MainMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, Camera* camera, TTF_Font* font, World* world );
 	~MainMenu();

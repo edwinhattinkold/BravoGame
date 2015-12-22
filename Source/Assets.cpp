@@ -49,6 +49,7 @@ void Assets::setRenderTarget( SDL_Renderer* renderTarget )
 	insertAssetMapEntry( Asset_MainMenu_Background, "Mainmenu/background.png" );
 	insertAssetMapEntry( Asset_Desert_Tileset, "map/desert_2.png" );
 	insertAssetMapEntry( Asset_Snow_Tileset, "map/snow.png" );
+	insertAssetMapEntry( Asset_Jungle_Tileset, "map/snow.png" );
 }
 
 SDL_Texture* Assets::getAsset( Asset asset )

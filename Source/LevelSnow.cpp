@@ -10,16 +10,15 @@ LevelSnow::LevelSnow() :BaseLevel(Asset::Asset_Snow_Tileset)
 
 
 LevelSnow::~LevelSnow()
-{}
+{
+}
 
 void LevelSnow::startSound()
 {
-	std::cout << "SNOW START" << std::endl;
-	Sound::getInstance()->playSound( Sound_Credits_Theme );
+	Sound::getInstance()->playSoundLooping( Sound_Level_Snow );
 }
 
 void LevelSnow::stopSound()
 {
-	std::cout << "SNOW STOP" << std::endl;
-	Sound::getInstance()->stopSound(Sound_Credits_Theme );
+	Sound::getInstance()->stopSound( Sound_Level_Snow );
 }
