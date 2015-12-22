@@ -8,6 +8,8 @@ class IObjective
 private:
 	bool collected;
 public:
+	int x;
+	int y;
 	Asset objectiveType;
 	IObjective( Asset type);
 	IObjective();

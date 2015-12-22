@@ -36,18 +36,23 @@ void DrawVisitor::visit(B2Content *content)
 }
 
 void DrawVisitor::visit(Turret *turret){
+	turret->x = turret->positionRect.x;
+	turret->y = turret->positionRect.y;
 	turret->drawWithAngle(renderTarget, *cameraRect);
 	if (!turret->isDead())
 		turret->drawHealthBar(renderTarget, cameraRect, turret->positionRect);
 }
 
 void DrawVisitor::visit(Tree *tree){
+	tree->x = tree->positionRect.x;
+	tree->y = tree->positionRect.y;
 	tree->drawTree(renderTarget, *cameraRect);
 	tree->drawHealthBar( renderTarget, cameraRect, tree->positionRect );
 }
 
 void DrawVisitor::visit(Collectible *collectible){
-
+	collectible->x = collectible->positionRect.x;
+	collectible->y = collectible->positionRect.y;
 	collectible->drawCollectible(renderTarget, *cameraRect);
 }
 

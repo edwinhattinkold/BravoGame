@@ -7,14 +7,15 @@
 #include "MenuItem.h"
 #include "Camera.h"
 #include "TDCar.h"
-
+#include "World.h"
 using namespace std;
 class Hud
 	: public IDrawable
 {
 private:
 	HudObject *hud;
-	
+	World *world;
+
 	Rect *healthbar;
 	Rect *terrorbar;
 	Rect *slidingbar;
@@ -42,13 +43,21 @@ private:
 	MenuItem *missionDisplay;
 	MenuItem *objectiveDisplay;
 
+	Sprite *objectiveArrow;
+	IObjective *closestObjective;
+	pair<int, int> unitVector;
+	double distance;
+	double angle;
+
 	Camera *camera;
 	TDCar *car;
 	void renderHealth( float newHealth );
 	void renderTerror( float newTerror );
+	void calcUnitVector();
+	IObjective* getClosestObjective();
 
 public:
-	Hud( SDL_Renderer *renderTarget, DrawContainer *dc, FPS *fpsCounter, Camera *camera, TDCar *car, int top = 24, int left = 24, float scale = 0.8 );
+	Hud(World *world, SDL_Renderer *renderTarget, DrawContainer *dc, FPS *fpsCounter, Camera *camera, TDCar *car, int top = 24, int left = 24, float scale = 0.8 );
 	~Hud();
 	virtual void accept( DrawVisitor *dv );
 	virtual void draw( SDL_Renderer *renderTarget );

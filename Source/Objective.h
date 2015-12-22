@@ -16,4 +16,5 @@ public:
 	bool completed();
 	void addOne( Asset type );
 	string getProgress();
+	Asset getType();
 };

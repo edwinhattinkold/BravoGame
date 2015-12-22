@@ -72,6 +72,7 @@ private:
 	std::vector<Explosion*> *explosions;
 	std::vector<B2Content*> *objects;
 
+
 	//Containers
 	DrawContainer *drawContainer;
 	UpdateContainer *updateContainer;
@@ -129,6 +130,7 @@ public:
 	void reset();
 
 	TDCar* getCar();
+	std::vector<IObjective*> getObjectives();
 };
 
 

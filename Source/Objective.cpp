@@ -32,3 +32,8 @@ string Objective::getProgress()
 {
 	return to_string( collected ).append( " of " ).append( to_string( total ) );
 }
+
+Asset Objective::getType()
+{
+	return type;
+}

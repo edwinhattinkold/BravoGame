@@ -120,7 +120,7 @@ void World::createPlayableContent()
 	center = new SDL_Point;
 
 
-	hud = new Hud( renderTarget, drawContainer, fpsCounter, camera, myCar, 24, 24, 0.8f );
+	hud = new Hud(this, renderTarget, drawContainer, fpsCounter, camera, myCar, 24, 24, 0.8f );
 	drawContainer->add( hud );
 	contactHandler = new ContactHandler( this );
 	physics->SetContactListener( contactHandler );
@@ -453,4 +453,22 @@ void World::showHighscores(bool newScore)
 	sound->pauseAllSounds();
 	currentGameState = GameState_In_Highscores;
 	highscoreMenu->firstTick( newScore );
+}
+
+std::vector<IObjective*> World::getObjectives()
+{
+	vector<IObjective*> objectives = vector<IObjective*>();
+	for( size_t i = 0; i < activeCollectibles->size(); i++ )
+	{
+		if( MissionControl::getInstance().currentMission->getCurrentObjective()->getType() == activeCollectibles->at( i )->objectiveType )
+		{
+			objectives.push_back( activeCollectibles->at( i ) );
+		}
+	}
+
+	if( MissionControl::getInstance().currentMission->getCurrentObjective()->getType() == myTurret->objectiveType )
+	{
+		objectives.push_back( myTurret );
+	}
+	return objectives;
 }
