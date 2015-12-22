@@ -27,7 +27,9 @@ for the window. Its purpose is to render the world, run the physics
 update the objects, etc. Not all in this class of course.			*/
 /************************************************************************/
 
-enum GameState { GameState_Running, GameState_Paused, GameState_In_MainMenu, GameState_Game_Over, GameState_Closing };
+class HighscoreMenu;
+
+enum GameState { GameState_Running, GameState_Paused, GameState_In_MainMenu, GameState_Game_Over, GameState_Closing, GameState_In_Highscores };
 
 class World
 {
@@ -50,6 +52,7 @@ private:
 	MainMenu* menu;
 	PauseMenu* pauseMenu;
 	GameOverMenu* gameOverMenu;
+	HighscoreMenu* highscoreMenu;
 
 	int mouseX, mouseY;
 
@@ -120,6 +123,7 @@ public:
 	void removeExplosion( Explosion* explosion );
 
 	void gameOver();
+	void showHighscores();
 	void reset();
 
 	TDCar* getCar();

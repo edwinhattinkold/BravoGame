@@ -13,6 +13,7 @@ GameOverMenu::GameOverMenu( World* world, SDL_Renderer* renderTarget, Camera* ca
 	this->arrow = new Sprite( renderTarget, Asset_Menu_Arrow );
 	this->sound = Sound::getInstance();
 	menuItems = new std::vector<MenuItem*>();
+	menuItems->push_back( new MenuItem( renderTarget, font, "Highscore" ) );
 	menuItems->push_back( new MenuItem( renderTarget, font, "Restart" ) );
 	menuItems->push_back( new MenuItem( renderTarget, font, "Mainmenu" ) );
 
@@ -146,6 +147,10 @@ void GameOverMenu::handleChoice( int index )
 {
 	switch( index )
 	{
+		case ( Choices::High_Score ) :
+			world->reset();
+			world->showHighscores();
+			break;
 		case( Choices::Restart ) :
 			world->reset();
 			world->setGameState( GameState_Running );

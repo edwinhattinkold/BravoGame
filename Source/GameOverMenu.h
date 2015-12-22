@@ -29,7 +29,7 @@ private:
 
 	enum Choices
 	{
-		Restart, Main_Menu
+		High_Score, Restart, Main_Menu
 	};
 
 	void center();
