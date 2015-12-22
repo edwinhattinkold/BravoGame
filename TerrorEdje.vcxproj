@@ -54,6 +54,7 @@
     <ClInclude Include="Source\PhysicsWorld.h" />
     <ClInclude Include="Source\Projectile.h" />
     <ClInclude Include="Source\RadarQueryCallback.h" />
+    <ClInclude Include="Source\RageTurretState.h" />
     <ClInclude Include="Source\Random.h" />
     <ClInclude Include="Source\rapidxml.hpp" />
     <ClInclude Include="Source\rapidxml_utils.hpp" />
@@ -118,6 +119,7 @@
     <ClCompile Include="Source\OptionsMenu.cpp" />
     <ClCompile Include="Source\PauseMenu.cpp" />
     <ClCompile Include="Source\PhysicsWorld.cpp" />
+    <ClCompile Include="Source\RageTurretState.cpp" />
     <ClCompile Include="Source\Rect.cpp" />
     <ClCompile Include="Source\SearchingTurretState.cpp" />
     <ClCompile Include="Source\Projectile.cpp" />

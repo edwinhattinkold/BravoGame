@@ -142,7 +142,7 @@ TDCar::TDCar(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, Ca
 
 	updateSDLPosition(getCenterXSDL(), getCenterYSDL(), float(w), float(h), getAngleSDL());
 	updateOrigin();
-	m_body->SetUserData(new ContactWrapper(this));
+	setContactWrapper(new ContactWrapper(this));
 }
 float TDCar::getAngleB2D()
 {

@@ -1,4 +1,5 @@
 #include "Turret.h"
+#include "ContactWrapper.h"
 Turret::Turret(b2World* world, SDL_Renderer* renderTarget, int xPos, int yPos, TDCar* c, World* gameWorld) :B2Content(renderTarget, gameWorld, world, Asset_Turret_Calm), Hittable(1000) {
 	w = 5;
 	this->world = gameWorld;
@@ -29,7 +30,7 @@ Turret::Turret(b2World* world, SDL_Renderer* renderTarget, int xPos, int yPos, T
 
 
 	updateOrigin();
-	m_body->SetUserData(this);
+	setContactWrapper(new ContactWrapper(this));
 }
 
 Turret::~Turret(){

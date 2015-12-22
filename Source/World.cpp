@@ -84,12 +84,17 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	updateContainer->add(myCar);
 	//add objects ( no special destructor )
 	addObject(new Tree(this, physics, renderTarget, 10, 10, 20, -15));
-	addObject(new Tree(this, physics, renderTarget, 10, 10, 20, -25));
+	addObject(new Tree(this, physics, renderTarget, 10, 10, 20, -45));
 	//add objects ( own destructor )
 	myTurret = new MovingTurret(physics, renderTarget, 50, -10, myCar, this);
 	drawContainer->add(myTurret);
 	updateContainer->add(myTurret);
-	
+	myTurret2 = new MovingTurret(physics, renderTarget, 50, -40, myCar, this);
+	drawContainer->add(myTurret2);
+	updateContainer->add(myTurret2); 
+	myTurret3 = new MovingTurret(physics, renderTarget, 80, -10, myCar, this);
+	drawContainer->add(myTurret3);
+	updateContainer->add(myTurret3);
 	std::vector<TDTire*> tires = myCar->getTires();
 	for (size_t i = 0; i < tires.size(); i++)
 		drawContainer->add(tires[i]);
@@ -141,6 +146,8 @@ World::~World()
 	delete explosions;								explosions = nullptr;
 	delete myCar;									myCar = nullptr;
 	delete myTurret;								myTurret = nullptr;
+	delete myTurret2;								myTurret2 = nullptr;
+	delete myTurret3;								myTurret3 = nullptr;
 	delete mapDrawer;								mapDrawer = nullptr;
 	handleBodyRemoveStack();
 	handleCollectibleRemoveStack();

@@ -3,7 +3,7 @@
 #include "TDCar.h"
 #include "TDTire.h"
 
-enum ContactType { Contact_Car, Contact_Bullet, Contact_B2Content };
+enum ContactType { Contact_Car, Contact_Car_Horn, Contact_Bullet, Contact_B2Content };
 
 class ContactWrapper{
 private:
@@ -13,6 +13,14 @@ public:
 	ContactWrapper(TDCar* car){
 		element = car;
 		type = Contact_Car;
+	};
+	ContactWrapper(TDCar* car, bool horn){
+		element = car;
+		type = Contact_Car_Horn;
+	};
+	ContactWrapper(TDTire* car, bool horn){
+		element = car;
+		type = Contact_Car_Horn;
 	};
 	ContactWrapper(TDTire* tire){
 		element = tire;

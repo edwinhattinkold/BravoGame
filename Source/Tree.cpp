@@ -37,8 +37,7 @@ Tree::Tree(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, int 
 
 	updateSDLPosition(getCenterXSDL(), getCenterYSDL(), getSDLWidth(), getSDLHeight(), getAngleSDL());
 	updateOrigin();
-
-	m_body->SetUserData( new ContactWrapper(this) );
+	setContactWrapper(new ContactWrapper(this));
 }
 
 

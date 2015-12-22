@@ -50,7 +50,7 @@ Collectible::Collectible(b2World* world, SDL_Renderer* renderTarget, int widthM,
 	updateSDLPosition(getCenterXSDL(), getCenterYSDL(), getSDLWidth(), getSDLHeight(), getAngleSDL());
 	updateOrigin();
 
-	m_body->SetUserData(new ContactWrapper(this));
+	setContactWrapper(new ContactWrapper(this));
 }
 
 

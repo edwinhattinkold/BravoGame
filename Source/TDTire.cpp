@@ -16,7 +16,7 @@ TDTire::TDTire( World* world, b2World* physicsWorld, SDL_Renderer * renderTarget
 	fixture->SetUserData(ctfud);
 	w = 0.75f;
 	h = 1.625f;
-	m_body->SetUserData(new ContactWrapper(this));
+	setContactWrapper(new ContactWrapper(this));
 	m_currentTraction = 1;
 	multiplierSpeed = 1.0f;
 	nitroMultiplier = 1.0f;

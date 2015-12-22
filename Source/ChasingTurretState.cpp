@@ -3,6 +3,7 @@
 #include "MovingTurret.h"
 #include "RadarQueryCallback.h"
 #include "ContactWrapper.h"
+#include "RageTurretState.h"
 ChasingTurretState::ChasingTurretState(MovingTurret* turret) :TurretState(turret){
 
 }
@@ -10,8 +11,12 @@ ChasingTurretState::ChasingTurretState(MovingTurret* turret) :TurretState(turret
 ChasingTurretState::~ChasingTurretState(){}
 
 void ChasingTurretState::checkState(){
+	float distance = calculateDistance();
 	if (turret->isDead()){
 		turret->setState(new DeadTurretState(turret));
+	}
+	else if (distance < turret->getRange()){
+		turret->setState(new RageTurretState((MovingTurret*)turret));
 	}
 }
 
@@ -20,9 +25,9 @@ void ChasingTurretState::update(float deltaTime){
 	turret->setAsset(Asset_Turret_Calm);
 
 	//Get all bodies in range
-	float radius = 15;
-	float carImportant = 1;
-	float collideImportant = -3;
+	float radius = 20;
+	float carImportant = 10;
+	float collideImportant = 8;
 	b2Vec2 total(0, 0);
 	std::vector<b2Body*> bodies;
 	RadarQueryCallback raderCallback; //see "World querying topic"
@@ -35,18 +40,20 @@ void ChasingTurretState::update(float deltaTime){
 		b2Vec2 bodyCom = body->GetPosition();
 		ContactType type = ((ContactWrapper*)body->GetUserData())->getContactType();
 		//ignore bodies outside the blast range
-		if (type == Contact_Car ||(bodyCom - turret->getB2DPosition()).Length() >= radius)
-			continue;
-
-		bodies.push_back(body);
+		if (!(type == Contact_Car || type == Contact_Bullet || (bodyCom - turret->getB2DPosition()).Length() >= radius || body == turret->getBody())){
+			b2Vec2 temp = bodyCom - turret->getB2DPosition();
+			float length = temp.Length();
+			temp.Normalize();
+			temp = 10.0f / length * -1 * temp;
+			total += temp;
+		}
 	}
-	for (size_t c = 0; c < bodies.size(); c++){
-		total += collideImportant * (bodies[c]->GetPosition() - turret->getB2DPosition());
-	}
-	total += carImportant * (turret->getCar()->getB2DPosition() - turret->getB2DPosition());
 	total.Normalize();
-	
-	total = 6.0f * total;
+	b2Vec2 car = (turret->getCar()->getB2DPosition() - turret->getB2DPosition());
+	car.Normalize();
+	total += carImportant * car + collideImportant * total;
+	total.Normalize();
+	total = 12.0f * total;
 	if (abs(total.x) < 0.3)
 		total.x = 0;
 	if (abs(total.y) < 0.3)

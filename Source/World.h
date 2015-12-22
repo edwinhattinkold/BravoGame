@@ -37,6 +37,8 @@ private:
 	TDCar* myCar;
 	Sound* sound;
 	Turret* myTurret;
+	Turret* myTurret2;
+	Turret* myTurret3;
 	//SDL
 	SDL_Renderer *renderTarget;
 	SDL_Texture *carTexture;
