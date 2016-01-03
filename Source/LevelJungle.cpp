@@ -3,6 +3,8 @@
 
 LevelJungle::LevelJungle() : BaseLevel( Asset::Asset_Jungle_Tileset )
 {
+	possibleCollectibles.push_back( Collectible::Gasoline );
+	possibleCollectibles.push_back( Collectible::Collect );
 }
 
 

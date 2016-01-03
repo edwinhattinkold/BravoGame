@@ -109,7 +109,7 @@
 		<chunk y="12" tmx="verticalroad.tmx" level="jungle"/>
 		<chunk y="13" tmx="verticalroad.tmx" level="jungle"/>
 		<chunk y="14" tmx="verticalroad.tmx" level="jungle"/>
-		<chunk y="15" tmx="tsplituprightleft.tmx" level="jungle"/>
+		<chunk y="15" tmx="verticalroad.tmx" level="jungle"/>
 	</x>
 	<x value="1">
 		<chunk y="-4" tmx="horizontalroad.tmx" level="desert"/>
@@ -311,26 +311,26 @@
 		<chunk y="15" tmx="horizontalroad.tmx" level="snow"/>
 	</x>
 	<x value="10">
-		<chunk y="-4" tmx="tsplitdownrightleft.tmx" level="jungle"/>
-		<chunk y="-3" tmx="verticalroad.tmx" level="jungle"/>
-		<chunk y="-2" tmx="verticalroad.tmx" level="jungle"/>
-		<chunk y="-1" tmx="verticalroad.tmx" level="jungle"/>
+		<chunk y="-4" tmx="horizontalroad.tmx" level="jungle"/>
+		<chunk y="-3" tmx="clearlevel.tmx" level="jungle"/>
+		<chunk y="-2" tmx="clearlevel.tmx" level="jungle"/>
+		<chunk y="-1" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="-0" tmx="fourroadcross.tmx" level="jungle"/>
-		<chunk y="1" tmx="verticalroad.tmx" level="jungle"/>
-		<chunk y="2" tmx="verticalroad.tmx" level="jungle"/>
-		<chunk y="3" tmx="verticalroad.tmx" level="jungle"/>
-		<chunk y="4" tmx="verticalroad.tmx" level="jungle"/>
-		<chunk y="5" tmx="verticalroad.tmx" level="jungle"/>
-		<chunk y="6" tmx="verticalroad.tmx" level="snow"/>
-		<chunk y="7" tmx="verticalroad.tmx" level="snow"/>
-		<chunk y="8" tmx="verticalroad.tmx" level="snow"/>
-		<chunk y="9" tmx="verticalroad.tmx" level="snow"/>
+		<chunk y="1" tmx="clearlevel.tmx" level="jungle"/>
+		<chunk y="2" tmx="clearlevel.tmx" level="jungle"/>
+		<chunk y="3" tmx="clearlevel.tmx" level="jungle"/>
+		<chunk y="4" tmx="clearlevel.tmx" level="jungle"/>
+		<chunk y="5" tmx="clearlevel.tmx" level="jungle"/>
+		<chunk y="6" tmx="clearlevel.tmx" level="snow"/>
+		<chunk y="7" tmx="clearlevel.tmx" level="snow"/>
+		<chunk y="8" tmx="clearlevel.tmx" level="snow"/>
+		<chunk y="9" tmx="clearlevel.tmx" level="snow"/>
 		<chunk y="10" tmx="fourroadcross.tmx" level="snow"/>
-		<chunk y="11" tmx="verticalroad.tmx" level="snow"/>
-		<chunk y="12" tmx="verticalroad.tmx" level="snow"/>
-		<chunk y="13" tmx="verticalroad.tmx" level="snow"/>
-		<chunk y="14" tmx="verticalroad.tmx" level="snow"/>
-		<chunk y="15" tmx="tsplituprightleft.tmx" level="snow"/>
+		<chunk y="11" tmx="clearlevel.tmx" level="snow"/>
+		<chunk y="12" tmx="clearlevel.tmx" level="snow"/>
+		<chunk y="13" tmx="clearlevel.tmx" level="snow"/>
+		<chunk y="14" tmx="clearlevel.tmx" level="snow"/>
+		<chunk y="15" tmx="horizontalroad.tmx" level="snow"/>
 	</x>
 	<x value="11">
 		<chunk y="-4" tmx="horizontalroad.tmx" level="jungle"/>

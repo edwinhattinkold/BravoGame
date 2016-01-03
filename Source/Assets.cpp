@@ -47,7 +47,7 @@ void Assets::setRenderTarget( SDL_Renderer* renderTarget )
 	insertAssetMapEntry(Asset_Turret_Dead, "Objects/Turrets/normal_turret_destroyed.png");
 	insertAssetMapEntry( Asset_Explosion, "Animations/Dying/Explosion/explosion.png" );
 	insertAssetMapEntry( Asset_MainMenu_Background, "Mainmenu/background.png" );
-	insertAssetMapEntry( Asset_Desert_Tileset, "map/desert_2.png" );
+	insertAssetMapEntry( Asset_Desert_Tileset, "map/desert_5.png" );
 	insertAssetMapEntry( Asset_Snow_Tileset, "map/snow.png" );
 	insertAssetMapEntry( Asset_Jungle_Tileset, "map/snow.png" );
 }
