@@ -72,7 +72,7 @@ TDCar::TDCar(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, Ca
 	keyMap.insert( std::pair<Car_Controls, SDL_Scancode>{ Car_Horn,			SDL_SCANCODE_H } );
 	keyMap.insert( std::pair<Car_Controls, SDL_Scancode>{ Car_Shoot,		SDL_SCANCODE_SPACE } );
 	level = LevelFactory::getInstance()->getLevel( "desert" );
-	weapon = new MachineGun( world, this, physicsWorld, renderTarget, camera );
+	weapon = new MachineGun( world, this, physicsWorld, renderTarget );
 
 	m_controlState = 0;
 	w = widthM;

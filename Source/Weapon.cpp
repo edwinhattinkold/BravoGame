@@ -1,11 +1,10 @@
 #include "World.h"
 #include "math.h"
 
-Weapon::Weapon( World* world, B2Content* host, b2World* physics_world, SDL_Renderer * renderTarget, Camera* camera, float fireRate, float spread )
+Weapon::Weapon( World* world, B2Content* host, b2World* physics_world, SDL_Renderer * renderTarget, float fireRate, float spread )
 {
 	this->host = host;
 	this->world = world;
-	this->camera = camera;
 	projectileLoaded = true;
 	this->fireRate = fireRate; // <--- Measured in freedoms per second
 	pastTime = 0.00f;
@@ -43,7 +42,7 @@ void Weapon::pullTrigger( )
 
 void Weapon::fire()
 {
-	camera->cameraShake( 0.10f );
+	world->cameraShake();
 	Projectile* newProjectile = ammo->clone();
 	b2Vec2 direction = host->getB2DDirectionalVector();
 	int randomSpread = Random::getInstance().nextInt( 0 - (spread / 2), 0 + (spread / 2) );

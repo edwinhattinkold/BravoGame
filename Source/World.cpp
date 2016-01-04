@@ -95,7 +95,7 @@ void World::createPlayableContent()
 	addObject( new Tree( this, physics, renderTarget, 10, 10, 40, -30 ) );
 
 	//add objects ( own destructor )
-	myTurret = new Turret( physics, renderTarget, 50, -40, myCar, this, camera );
+	myTurret = new Turret( physics, renderTarget, 50, -40, myCar, this );
 	drawContainer->add( myTurret );
 	updateContainer->add( myTurret );
 
@@ -427,6 +427,11 @@ void World::addCollectible(int w, int h, int x, int y, Collectible::Collectiblet
 	updateContainer->add(newCollectibe);
 	drawContainer->add(newCollectibe);
 	activeCollectibles->push_back(newCollectibe);
+}
+
+void World::cameraShake()
+{
+	camera->cameraShake( 0.10f );
 }
 
 void World::addObject(B2Content* object)

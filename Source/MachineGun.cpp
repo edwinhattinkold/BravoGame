@@ -1,7 +1,7 @@
 #include "MachineGun.h"
 
-MachineGun::MachineGun( World* newWorld, B2Content* host, b2World* physics_world, SDL_Renderer * renderTarget, Camera* camera, float fireRate, float spread)
-	: Weapon( newWorld, host, physics_world, renderTarget, camera, 15.0f, spread )
+MachineGun::MachineGun( World* newWorld, B2Content* host, b2World* physics_world, SDL_Renderer * renderTarget, float fireRate, float spread)
+	: Weapon( newWorld, host, physics_world, renderTarget, 15.0f, spread )
 {
 	Projectile* projectile = new Projectile( newWorld, physics_world, renderTarget, Asset_MachineGun_Bullet, 50, 100 );
 	setAmmo( projectile );

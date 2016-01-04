@@ -6,7 +6,6 @@
 #include "TurretState.h"
 #include "Hittable.h"
 #include "TurretWeapon.h"
-#include "Camera.h"
 
 class Turret:public B2Content, public Hittable{
 private:
@@ -19,7 +18,7 @@ private:
 public:
 	float turretAngle;
 	World* world;
-	Turret(b2World* world, SDL_Renderer* renderTarget, int xPos, int yPos, TDCar* c, World* gameWorld, Camera* camera);
+	Turret(b2World* world, SDL_Renderer* renderTarget, int xPos, int yPos, TDCar* c, World* gameWorld);
 	~Turret();
 	void accept(DrawVisitor* dv);
 	void accept(UpdateVisitor *uv);
