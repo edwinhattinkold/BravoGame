@@ -6,6 +6,7 @@
 #include "Location.h"
 
 class Chunk;
+class MiniChunk;
 
 class XMLReader
 {
@@ -13,6 +14,6 @@ public:
 	XMLReader();
 	~XMLReader();
 	void parseXMLFile(Chunk *chunk, std::string filePath);
-	std::string getChunk( int x, int y );
+	MiniChunk getChunk( int x, int y);
 };
 

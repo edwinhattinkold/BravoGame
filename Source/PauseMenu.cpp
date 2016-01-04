@@ -143,6 +143,7 @@ void PauseMenu::handleChoice( int index )
 			break;
 		case(Choices::Continue) :
 			world->setGameState( GameState_Running );
+			world->getCar()->continueSound();
 			break;
 	}
 }

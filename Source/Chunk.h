@@ -7,12 +7,19 @@
 #include "Tile.h"
 #include "Location.h"
 #include <Box2D/Box2D.h>
+#include "BaseLevel.h"
 class World;
+class MiniChunk
+{
+public:
+	std::string tmx;
+	std::string level;
+};
 
 class Chunk
 {
 private:
-	std::vector<Tile*> *tiles;
+	BaseLevel *level;
 	std::vector<SDL_Texture*> *textures;
 	std::vector<Location> *locations;
 	std::vector<b2Body*> *bodies;
@@ -21,13 +28,13 @@ private:
 	b2FixtureDef *collisionFixtureDef;
 	b2PolygonShape *boxShape;
 	SDL_Renderer *renderTarget;
+	int x, y;
 public:
-	void addTileSet(std::string filePath, int spacing, int firstId, int amount, int width, int height);	
-	void draw(int x, int y, SDL_Rect *cameraRect);
-	Chunk(SDL_Renderer *rt, std::string filePath, World *world);
+	void addTileSet();	
+	void draw( SDL_Rect *cameraRect);
+	Chunk(SDL_Renderer *rt,MiniChunk miniChunk, World *world, int x , int y);
 	~Chunk();
 	void addLocation(Location l);
 	void addCollidableObject(int x, int y);
-
+	BaseLevel* getLevel();
 };
-

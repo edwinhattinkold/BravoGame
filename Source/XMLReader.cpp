@@ -1,6 +1,5 @@
 #include "XMLReader.h"
 
-
 XMLReader::XMLReader()
 {}
 
@@ -23,12 +22,12 @@ void XMLReader::parseXMLFile( Chunk *chunk, std::string filePath )
 			spacing = atoi( tileset->first_attribute( "spacing" )->value() );
 		}
 		rapidxml::xml_node<> *image = tileset->first_node( "image" );
-		chunk->addTileSet( image->first_attribute( "source" )->value(),
+		/*chunk->addTileSet( image->first_attribute( "source" )->value(),
 						   spacing,
 						   atoi( tileset->first_attribute( "firstgid" )->value() ),
 						   atoi( tileset->first_attribute( "tilecount" )->value() ),
 						   atoi( image->first_attribute( "width" )->value() ),
-						   atoi( image->first_attribute( "height" )->value() ) );
+						   atoi( image->first_attribute( "height" )->value() ) );*/
 	}
 
 	//find layers
@@ -66,8 +65,9 @@ void XMLReader::parseXMLFile( Chunk *chunk, std::string filePath )
 	}
 }
 
-std::string XMLReader::getChunk( int searchX, int searchY )
+MiniChunk XMLReader::getChunk( int searchX, int searchY)
 {
+	MiniChunk miniChunk;
 	rapidxml::file<> xmlFile( "maps/map.xml" );
 	rapidxml::xml_document<> doc;
 	doc.parse<0>( xmlFile.data() );
@@ -94,14 +94,15 @@ std::string XMLReader::getChunk( int searchX, int searchY )
 				{
 					std::string tmx;
 					if( chunk->first_attribute( "tmx" ) != nullptr )
-					{
-						tmx = chunk->first_attribute( "tmx" )->value();
-						return tmx;
+					{						
+						miniChunk.tmx = chunk->first_attribute( "tmx" )->value();
+						miniChunk.level = chunk->first_attribute( "level" )->value();
+						return miniChunk;
 					}
 				}
 			}
 		}
 	}
-	return "";
+	return miniChunk;
 }
 
