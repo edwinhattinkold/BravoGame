@@ -95,7 +95,7 @@ void World::createPlayableContent()
 	addObject( new Tree( this, physics, renderTarget, 10, 10, 40, -30 ) );
 
 	//add objects ( own destructor )
-	myTurret = new Turret( physics, renderTarget, 50, -40, myCar, this );
+	myTurret = new Turret( physics, renderTarget, 50, -40, myCar, this, camera );
 	drawContainer->add( myTurret );
 	updateContainer->add( myTurret );
 

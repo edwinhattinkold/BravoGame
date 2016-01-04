@@ -1,7 +1,7 @@
 #include "TurretWeapon.h"
 #include "Turret.h"
-TurretWeapon::TurretWeapon(World* world, Turret* host, b2World* physics_world, SDL_Renderer * renderTarget, float fireRate, float spread)
-: Weapon(world, host, physics_world, renderTarget, fireRate, spread)
+TurretWeapon::TurretWeapon(World* world, Turret* host, b2World* physics_world, SDL_Renderer * renderTarget, Camera* camera, float fireRate, float spread)
+: Weapon(world, host, physics_world, renderTarget, camera, fireRate, spread)
 {
 	turret = host;
 	setAmmo(new Projectile(world, physics_world, renderTarget, Asset_MachineGun_Bullet, 50, 80));
@@ -14,6 +14,7 @@ TurretWeapon::~TurretWeapon()
 }
 
 void TurretWeapon::fire(){
+	sound->playSound( Sound_Shooting_Machine_Gun );
 	Projectile* newProjectile = ammo->clone();
 
 	//b2Vec2 direction = host->getB2DDirectionalVector();
