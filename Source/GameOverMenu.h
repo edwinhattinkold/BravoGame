@@ -1,29 +1,9 @@
 #pragma once
-#include "Camera.h"
-#include "SDL.h"
-#include "Sprite.h"
-#include <vector>
-#include "Sound.h"
-#include "SaveMenu.h"
-#include "SDL_ttf.h"
+#include "InGameMenu.h"
 
-class World;
-class MenuItem;
-
-class GameOverMenu
+class GameOverMenu : public InGameMenu
 {
 private:
-	SDL_Renderer* renderTarget;
-	Camera* camera;
-	TTF_Font* font;
-	World* world;
-	Sprite* arrow;
-	Sound* sound;
-	std::vector<MenuItem*>* menuItems;
-	int combinedHeight;
-	int margin;
-	int selected;
-
 	SDL_Texture* backgroundImage;
 	SDL_Rect backgroundImageRect;
 

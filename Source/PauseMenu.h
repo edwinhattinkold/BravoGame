@@ -1,29 +1,12 @@
 #pragma once
-#include "Camera.h"
-#include "SDL.h"
-#include "Sprite.h"
-#include <vector>
-#include "Sound.h"
-#include "SaveMenu.h"
-#include "SDL_ttf.h"
 
-class World;
-class MenuItem;
+#include "InGameMenu.h"
+class SaveMenu;
 
-class PauseMenu
+class PauseMenu : public InGameMenu
 {
 private:
-	SDL_Renderer* renderTarget;
-	Camera* camera;
-	TTF_Font* font;
-	World* world;
-	Sprite* arrow;
-	Sound* sound;
-	std::vector<MenuItem*>* menuItems;
 	SaveMenu* saveMenu;
-	int combinedHeight;
-	int margin;
-	int selected;
 	enum Choices { Continue, Save_Game, Main_Menu };
 
 public:

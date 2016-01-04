@@ -25,7 +25,9 @@ Chunk* ChunkFactory::getChunk(std::string name)
 		return it->second;
 	std::pair<std::string, Chunk*> pair;
 	pair.first = name;
-	pair.second = new Chunk(renderTarget, "maps/" + name, world);
+	MiniChunk miniChunk;
+	miniChunk.tmx = name;
+	pair.second = new Chunk(renderTarget, miniChunk, world,1,1);
 	chunks->insert(pair);
 	return pair.second;
 }

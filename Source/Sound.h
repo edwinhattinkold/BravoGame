@@ -14,8 +14,13 @@ enum SoundFiles {	Sound_MainMenu_Theme,
 					Sound_Engine_Start,
 					Sound_Engine_Loop,
 					Sound_Skid,
+					Sound_Level_Desert,
+					Sound_Level_Snow,
+					Sound_Level_Jungle,
 					Sound_Ad,
-					Sound_Game_Over
+					Sound_Game_Over,
+					Sound_Game_Over_Applause,
+					Sound_Game_Over_Win
 };
 
 class Sound

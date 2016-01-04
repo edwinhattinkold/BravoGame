@@ -20,6 +20,7 @@
 #include "Turret.h"
 #include "Explosion.h"
 #include "GameOverMenu.h"
+#include "WinScreen.h"
 
 #include "MissionControl.h"
 
@@ -31,7 +32,10 @@ update the objects, etc. Not all in this class of course.			*/
 
 class HighscoreMenu;
 
-enum GameState { GameState_Running, GameState_Paused, GameState_In_MainMenu, GameState_Game_Over, GameState_Closing, GameState_In_Highscores };
+enum GameState
+{
+	GameState_Running, GameState_Paused, GameState_In_MainMenu, GameState_Game_Over, GameState_Game_Over_Won, GameState_In_Highscores, GameState_Closing
+};
 
 class World
 {
@@ -55,6 +59,7 @@ private:
 	PauseMenu* pauseMenu;
 	GameOverMenu* gameOverMenu;
 	HighscoreMenu* highscoreMenu;
+	WinScreen* winScreen;
 
 	int mouseX, mouseY;
 
@@ -127,6 +132,7 @@ public:
 
 	void gameOver();
 	void showHighscores(bool newScore);
+	void win();
 	void reset();
 
 	TDCar* getCar();
