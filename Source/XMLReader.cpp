@@ -45,7 +45,7 @@ void XMLReader::parseXMLFile( Chunk *chunk, std::string filePath )
 			if( layerName == "collision" )
 			{
 				if( atoi( tile->first_attribute( "gid" )->value() ) != 0 )
-					chunk->addCollidableObject( currentX, currentY );
+				{ }
 			} else
 			{
 				chunk->addLocation( Location( currentX, currentY, atoi( tile->first_attribute( "gid" )->value() ) ) );
