@@ -59,8 +59,8 @@
 		<chunk y="6" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="7" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="8" tmx="clearlevel.tmx" level="jungle"/>
-		<chunk y="9" tmx="clearlevel.tmx" level="jungle"/>
-		<chunk y="10" tmx="horizontalroad.tmx" level="jungle"/>
+		<chunk y="9" tmx="diagonalrightdown.tmx" level="jungle"/>
+		<chunk y="10" tmx="tsplituprightleft.tmx" level="jungle"/>
 		<chunk y="11" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="12" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="13" tmx="clearlevel.tmx" level="jungle"/>
@@ -80,8 +80,8 @@
 		<chunk y="5" tmx="clearlevel.tmx" level="desert"/>
 		<chunk y="6" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="7" tmx="clearlevel.tmx" level="jungle"/>
-		<chunk y="8" tmx="clearlevel.tmx" level="jungle"/>
-		<chunk y="9" tmx="clearlevel.tmx" level="jungle"/>
+		<chunk y="8" tmx="diagonalrightdown.tmx" level="jungle"/>
+		<chunk y="9" tmx="diagonalleftup.tmx" level="jungle"/>
 		<chunk y="10" tmx="horizontalroad.tmx" level="jungle"/>
 		<chunk y="11" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="12" tmx="clearlevel.tmx" level="jungle"/>
@@ -102,7 +102,7 @@
 		<chunk y="5" tmx="verticalroad.tmx" level="desert"/>
 		<chunk y="6" tmx="verticalroad.tmx" level="jungle"/>
 		<chunk y="7" tmx="verticalroad.tmx" level="jungle"/>
-		<chunk y="8" tmx="verticalroad.tmx" level="jungle"/>
+		<chunk y="8" tmx="fourroadcross.tmx" level="jungle"/>
 		<chunk y="9" tmx="verticalroad.tmx" level="jungle"/>
 		<chunk y="10" tmx="fourroadcross.tmx" level="jungle"/>
 		<chunk y="11" tmx="verticalroad.tmx" level="jungle"/>
@@ -123,8 +123,8 @@
 		<chunk y="4" tmx="clearlevel.tmx" level="desert"/>
 		<chunk y="5" tmx="clearlevel.tmx" level="desert"/>
 		<chunk y="6" tmx="clearlevel.tmx" level="jungle"/>
-		<chunk y="7" tmx="clearlevel.tmx" level="jungle"/>
-		<chunk y="8" tmx="clearlevel.tmx" level="jungle"/>
+		<chunk y="7" tmx="diagonalrightdown.tmx" level="jungle"/>
+		<chunk y="8" tmx="diagonalleftup.tmx" level="jungle"/>
 		<chunk y="9" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="10" tmx="horizontalroad.tmx" level="jungle"/>
 		<chunk y="11" tmx="clearlevel.tmx" level="jungle"/>
@@ -144,8 +144,8 @@
 		<chunk y="3" tmx="clearlevel.tmx" level="desert"/>
 		<chunk y="4" tmx="clearlevel.tmx" level="desert"/>
 		<chunk y="5" tmx="clearlevel.tmx" level="desert"/>
-		<chunk y="6" tmx="clearlevel.tmx" level="jungle"/>
-		<chunk y="7" tmx="clearlevel.tmx" level="jungle"/>
+		<chunk y="6" tmx="diagonalrightdown.tmx" level="jungle"/>
+		<chunk y="7" tmx="diagonalleftup.tmx" level="jungle"/>
 		<chunk y="8" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="9" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="10" tmx="horizontalroad.tmx" level="jungle"/>
@@ -165,8 +165,8 @@
 		<chunk y="2" tmx="clearlevel.tmx" level="desert"/>
 		<chunk y="3" tmx="clearlevel.tmx" level="desert"/>
 		<chunk y="4" tmx="clearlevel.tmx" level="desert"/>
-		<chunk y="5" tmx="clearlevel.tmx" level="desert"/>
-		<chunk y="6" tmx="clearlevel.tmx" level="jungle"/>
+		<chunk y="5" tmx="diagonalrightdown.tmx" level="desert"/>
+		<chunk y="6" tmx="diagonalleftup.tmx" level="jungle"/>
 		<chunk y="7" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="8" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="9" tmx="clearlevel.tmx" level="jungle"/>
@@ -186,8 +186,8 @@
 		<chunk y="1" tmx="clearlevel.tmx" level="desert"/>
 		<chunk y="2" tmx="clearlevel.tmx" level="desert"/>
 		<chunk y="3" tmx="clearlevel.tmx" level="desert"/>
-		<chunk y="4" tmx="clearlevel.tmx" level="desert"/>
-		<chunk y="5" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="4" tmx="diagonalrightdown.tmx" level="desert"/>
+		<chunk y="5" tmx="diagonalleftup.tmx" level="desert"/>
 		<chunk y="6" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="7" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="8" tmx="clearlevel.tmx" level="jungle"/>
@@ -207,8 +207,8 @@
 		<chunk y="-0" tmx="horizontalroad.tmx" level="desert"/>
 		<chunk y="1" tmx="clearlevel.tmx" level="desert"/>
 		<chunk y="2" tmx="clearlevel.tmx" level="desert"/>
-		<chunk y="3" tmx="clearlevel.tmx" level="desert"/>
-		<chunk y="4" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="3" tmx="diagonalrightdown.tmx" level="desert"/>
+		<chunk y="4" tmx="diagonalleftup.tmx" level="desert"/>
 		<chunk y="5" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="6" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="7" tmx="clearlevel.tmx" level="jungle"/>
@@ -228,8 +228,8 @@
 		<chunk y="-1" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="-0" tmx="horizontalroad.tmx" level="jungle"/>
 		<chunk y="1" tmx="clearlevel.tmx" level="jungle"/>
-		<chunk y="2" tmx="clearlevel.tmx" level="jungle"/>
-		<chunk y="3" tmx="clearlevel.tmx" level="jungle"/>
+		<chunk y="2" tmx="diagonalrightdown.tmx" level="jungle"/>
+		<chunk y="3" tmx="diagonalleftup.tmx" level="jungle"/>
 		<chunk y="4" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="5" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="6" tmx="clearlevel.tmx" level="jungle"/>
@@ -250,8 +250,8 @@
 		<chunk y="-2" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="-1" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="-0" tmx="horizontalroad.tmx" level="jungle"/>
-		<chunk y="1" tmx="clearlevel.tmx" level="jungle"/>
-		<chunk y="2" tmx="clearlevel.tmx" level="jungle"/>
+		<chunk y="1" tmx="diagonalrightdown.tmx" level="jungle"/>
+		<chunk y="2" tmx="diagonalleftup.tmx" level="jungle"/>
 		<chunk y="3" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="4" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="5" tmx="clearlevel.tmx" level="jungle"/>
@@ -271,8 +271,8 @@
 		<chunk y="-3" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="-2" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="-1" tmx="clearlevel.tmx" level="jungle"/>
-		<chunk y="-0" tmx="horizontalroad.tmx" level="jungle"/>
-		<chunk y="1" tmx="clearlevel.tmx" level="jungle"/>
+		<chunk y="-0" tmx="tsplitdownrightleft.tmx" level="jungle"/>
+		<chunk y="1" tmx="diagonalleftup.tmx" level="jungle"/>
 		<chunk y="2" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="3" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="4" tmx="clearlevel.tmx" level="jungle"/>
@@ -321,7 +321,7 @@
 		<chunk y="3" tmx="verticalroad.tmx" level="jungle"/>
 		<chunk y="4" tmx="verticalroad.tmx" level="jungle"/>
 		<chunk y="5" tmx="verticalroad.tmx" level="jungle"/>
-		<chunk y="6" tmx="verticalroad.tmx" level="snow"/>
+		<chunk y="6" tmx="tsplitupdownright.tmx" level="snow"/>
 		<chunk y="7" tmx="verticalroad.tmx" level="snow"/>
 		<chunk y="8" tmx="verticalroad.tmx" level="snow"/>
 		<chunk y="9" tmx="verticalroad.tmx" level="snow"/>
@@ -329,7 +329,7 @@
 		<chunk y="11" tmx="verticalroad.tmx" level="snow"/>
 		<chunk y="12" tmx="verticalroad.tmx" level="snow"/>
 		<chunk y="13" tmx="verticalroad.tmx" level="snow"/>
-		<chunk y="14" tmx="verticalroad.tmx" level="snow"/>
+		<chunk y="14" tmx="tsplitupdownright.tmx" level="snow"/>
 		<chunk y="15" tmx="tsplituprightleft.tmx" level="snow"/>
 	</x>
 	<x value="11">
@@ -343,15 +343,15 @@
 		<chunk y="3" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="4" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="5" tmx="clearlevel.tmx" level="jungle"/>
-		<chunk y="6" tmx="clearlevel.tmx" level="snow"/>
-		<chunk y="7" tmx="clearlevel.tmx" level="snow"/>
+		<chunk y="6" tmx="diagonalleftdown.tmx" level="snow"/>
+		<chunk y="7" tmx="diagonalrightup.tmx" level="snow"/>
 		<chunk y="8" tmx="clearlevel.tmx" level="snow"/>
 		<chunk y="9" tmx="clearlevel.tmx" level="snow"/>
 		<chunk y="10" tmx="horizontalroad.tmx" level="snow"/>
 		<chunk y="11" tmx="clearlevel.tmx" level="snow"/>
 		<chunk y="12" tmx="clearlevel.tmx" level="snow"/>
-		<chunk y="13" tmx="clearlevel.tmx" level="snow"/>
-		<chunk y="14" tmx="clearlevel.tmx" level="snow"/>
+		<chunk y="13" tmx="diagonalrightdown.tmx" level="snow"/>
+		<chunk y="14" tmx="diagonalleftup.tmx" level="snow"/>
 		<chunk y="15" tmx="horizontalroad.tmx" level="snow"/>
 	</x>
 	<x value="12">
@@ -366,13 +366,13 @@
 		<chunk y="4" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="5" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="6" tmx="clearlevel.tmx" level="snow"/>
-		<chunk y="7" tmx="clearlevel.tmx" level="snow"/>
-		<chunk y="8" tmx="clearlevel.tmx" level="snow"/>
+		<chunk y="7" tmx="diagonalleftdown.tmx" level="snow"/>
+		<chunk y="8" tmx="diagonalrightup.tmx" level="snow"/>
 		<chunk y="9" tmx="clearlevel.tmx" level="snow"/>
 		<chunk y="10" tmx="horizontalroad.tmx" level="snow"/>
 		<chunk y="11" tmx="clearlevel.tmx" level="snow"/>
-		<chunk y="12" tmx="clearlevel.tmx" level="snow"/>
-		<chunk y="13" tmx="clearlevel.tmx" level="snow"/>
+		<chunk y="12" tmx="diagonalrightdown.tmx" level="snow"/>
+		<chunk y="13" tmx="diagonalleftup.tmx" level="snow"/>
 		<chunk y="14" tmx="clearlevel.tmx" level="snow"/>
 		<chunk y="15" tmx="horizontalroad.tmx" level="snow"/>
 	</x>
@@ -389,11 +389,11 @@
 		<chunk y="5" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="6" tmx="clearlevel.tmx" level="snow"/>
 		<chunk y="7" tmx="clearlevel.tmx" level="snow"/>
-		<chunk y="8" tmx="clearlevel.tmx" level="snow"/>
-		<chunk y="9" tmx="clearlevel.tmx" level="snow"/>
+		<chunk y="8" tmx="diagonalleftdown.tmx" level="snow"/>
+		<chunk y="9" tmx="diagonalrightup.tmx" level="snow"/>
 		<chunk y="10" tmx="horizontalroad.tmx" level="snow"/>
-		<chunk y="11" tmx="clearlevel.tmx" level="snow"/>
-		<chunk y="12" tmx="clearlevel.tmx" level="snow"/>
+		<chunk y="11" tmx="diagonalrightdown.tmx" level="snow"/>
+		<chunk y="12" tmx="diagonalleftup.tmx" level="snow"/>
 		<chunk y="13" tmx="clearlevel.tmx" level="snow"/>
 		<chunk y="14" tmx="clearlevel.tmx" level="snow"/>
 		<chunk y="15" tmx="horizontalroad.tmx" level="snow"/>
@@ -412,9 +412,9 @@
 		<chunk y="6" tmx="clearlevel.tmx" level="snow"/>
 		<chunk y="7" tmx="clearlevel.tmx" level="snow"/>
 		<chunk y="8" tmx="clearlevel.tmx" level="snow"/>
-		<chunk y="9" tmx="clearlevel.tmx" level="snow"/>
-		<chunk y="10" tmx="horizontalroad.tmx" level="snow"/>
-		<chunk y="11" tmx="clearlevel.tmx" level="snow"/>
+		<chunk y="9" tmx="diagonalleftdown.tmx" level="snow"/>
+		<chunk y="10" tmx="fourroadcross.tmx" level="snow"/>
+		<chunk y="11" tmx="tsplituprightleft.tmx" level="snow"/>
 		<chunk y="12" tmx="clearlevel.tmx" level="snow"/>
 		<chunk y="13" tmx="clearlevel.tmx" level="snow"/>
 		<chunk y="14" tmx="clearlevel.tmx" level="snow"/>
@@ -436,7 +436,7 @@
 		<chunk y="8" tmx="verticalroad.tmx" level="snow"/>
 		<chunk y="9" tmx="verticalroad.tmx" level="snow"/>
 		<chunk y="10" tmx="tsplitupdownleft.tmx" level="snow"/>
-		<chunk y="11" tmx="verticalroad.tmx" level="snow"/>
+		<chunk y="11" tmx="tsplitupdownleft.tmx" level="snow"/>
 		<chunk y="12" tmx="verticalroad.tmx" level="snow"/>
 		<chunk y="13" tmx="verticalroad.tmx" level="snow"/>
 		<chunk y="14" tmx="verticalroad.tmx" level="snow"/>
