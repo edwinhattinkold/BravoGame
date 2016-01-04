@@ -429,6 +429,11 @@ void World::addCollectible(int w, int h, int x, int y, Collectible::Collectiblet
 	activeCollectibles->push_back(newCollectibe);
 }
 
+void World::cameraShake()
+{
+	camera->cameraShake( 0.10f );
+}
+
 void World::addObject(B2Content* object)
 {
 	objects->push_back( object );

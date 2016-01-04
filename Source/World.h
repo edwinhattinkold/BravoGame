@@ -122,6 +122,7 @@ public:
 	void destroyCollectible(Collectible *collectible);
 	void createExplosion( SDL_Rect positionRect );
 	void removeExplosion( Explosion* explosion );
+	void cameraShake();
 
 	void gameOver();
 	void win();
