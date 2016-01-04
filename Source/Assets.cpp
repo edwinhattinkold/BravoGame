@@ -49,7 +49,7 @@ void Assets::setRenderTarget( SDL_Renderer* renderTarget )
 	insertAssetMapEntry( Asset_MainMenu_Background, "Mainmenu/background.png" );
 	insertAssetMapEntry( Asset_Desert_Tileset, "map/desert_5.png" );
 	insertAssetMapEntry( Asset_Snow_Tileset, "map/snow.png" );
-	insertAssetMapEntry( Asset_Jungle_Tileset, "map/snow.png" );
+	insertAssetMapEntry( Asset_Jungle_Tileset, "map/jungle.png" );
 	insertAssetMapEntry( Asset_LoadScreen_Ad, "Advertenties/loadscreen.jpg" );
 	insertAssetMapEntry( Asset_GameOverScreen_Background, "GameOver/lose_background.png" );
 	insertAssetMapEntry( Asset_WinScreen_Background, "GameOver/win_background.png" );
