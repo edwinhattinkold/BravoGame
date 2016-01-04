@@ -17,4 +17,5 @@ public:
 	void addOne( Asset type );
 	string getProgress();
 	Asset getType();
+	void reset();
 };

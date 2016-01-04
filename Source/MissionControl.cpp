@@ -45,3 +45,8 @@ string MissionControl::getCurrentObjectiveProgress()
 {
 	return currentMission->getCurrentObjective()->getProgress();
 }
+
+void MissionControl::reset()
+{
+	currentMission->reset();
+}

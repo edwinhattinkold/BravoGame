@@ -231,6 +231,7 @@ void HighscoreMenu::mouseButtonClicked( int mouseX, int mouseY )
 
 void HighscoreMenu::handleChoice( int index )
 {
+	world->reset();
 	sound->playSoundLooping( Sound_MainMenu_Theme, 0.5f );
 	world->setGameState( GameState_In_MainMenu );
 }

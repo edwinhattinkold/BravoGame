@@ -156,7 +156,7 @@ void WinScreen::updateSelected()
 
 void WinScreen::handleChoice( int index )
 {
-	
+	world->showHighscores(true);
 }
 
 void WinScreen::confettiAnimation( float deltaTime )

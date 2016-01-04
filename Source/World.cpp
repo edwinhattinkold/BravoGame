@@ -193,6 +193,7 @@ void World::destroyPlayableContent()
 
 void World::reset()
 {
+	MissionControl::getInstance().reset();
 	destroyPlayableContent();
 	createPlayableContent();
 	myCar->health = myCar->maxHealth;

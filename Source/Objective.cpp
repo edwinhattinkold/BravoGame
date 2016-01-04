@@ -37,3 +37,8 @@ Asset Objective::getType()
 {
 	return type;
 }
+
+void Objective::reset()
+{
+	collected = 0;
+}
