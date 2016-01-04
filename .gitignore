@@ -6,6 +6,7 @@
 *.ncb
 *.log
 *.pdb
+*.ini
 *.vcproj.*.user
 [Dd]ebug
 [Rr]elease

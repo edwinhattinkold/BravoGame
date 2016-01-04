@@ -8,6 +8,7 @@
 #include <Box2D/Box2D.h>
 #include "World.h"
 #include "Sound.h"
+#include "LevelFactory.h"
 #include "CustomCursor.h"
 #include "Settings.h"
 #include "vld.h"
@@ -103,6 +104,7 @@ public:
 
 		//Our own Quits
 		Sound_Quit();
+		LevelFactory_Quit();
 		CustomCursor_Quit();
 		Settings_Quit();
 		Assets_Quit();
