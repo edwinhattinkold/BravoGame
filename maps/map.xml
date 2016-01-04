@@ -2,7 +2,7 @@
 <map>
 	<x value="-4">
 		<chunk y="-4" tmx="curvedownright.tmx" level="desert"/>
-		<chunk y="-3" tmx="verticalroad.tmx" level="desert"/>
+		<chunk y="-3" tmx="tsplitupdownright.tmx" level="desert"/>
 		<chunk y="-2" tmx="verticalroad.tmx" level="desert"/>
 		<chunk y="-1" tmx="verticalroad.tmx" level="desert"/>
 		<chunk y="-0" tmx="tsplitupdownright.tmx" level="desert"/>
@@ -25,8 +25,8 @@
 	</x>
 	<x value="-3">
 		<chunk y="-4" tmx="horizontalroad.tmx" level="desert"/>
-		<chunk y="-3" tmx="clearlevel.tmx" level="desert"/>
-		<chunk y="-2" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="-3" tmx="diagonalleftdown.tmx" level="desert"/>
+		<chunk y="-2" tmx="diagonalrightup.tmx" level="desert"/>
 		<chunk y="-1" tmx="clearlevel.tmx" level="desert"/>
 		<chunk y="-0" tmx="horizontalroad.tmx" level="desert"/>
 		<chunk y="1" tmx="clearlevel.tmx" level="desert"/>
@@ -48,8 +48,8 @@
 	<x value="-2">
 		<chunk y="-4" tmx="horizontalroad.tmx" level="desert"/>
 		<chunk y="-3" tmx="clearlevel.tmx" level="desert"/>
-		<chunk y="-2" tmx="clearlevel.tmx" level="desert"/>
-		<chunk y="-1" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="-2" tmx="diagonalleftdown.tmx" level="desert"/>
+		<chunk y="-1" tmx="diagonalrightup.tmx" level="desert"/>
 		<chunk y="-0" tmx="horizontalroad.tmx" level="desert"/>
 		<chunk y="1" tmx="clearlevel.tmx" level="desert"/>
 		<chunk y="2" tmx="clearlevel.tmx" level="desert"/>
@@ -71,8 +71,8 @@
 		<chunk y="-4" tmx="horizontalroad.tmx" level="desert"/>
 		<chunk y="-3" tmx="clearlevel.tmx" level="desert"/>
 		<chunk y="-2" tmx="clearlevel.tmx" level="desert"/>
-		<chunk y="-1" tmx="clearlevel.tmx" level="desert"/>
-		<chunk y="-0" tmx="horizontalroad.tmx" level="desert"/>
+		<chunk y="-1" tmx="diagonalleftdown.tmx" level="desert"/>
+		<chunk y="-0" tmx="tsplituprightleft.tmx" level="desert"/>
 		<chunk y="1" tmx="clearlevel.tmx" level="desert"/>
 		<chunk y="2" tmx="clearlevel.tmx" level="desert"/>
 		<chunk y="3" tmx="clearlevel.tmx" level="desert"/>
