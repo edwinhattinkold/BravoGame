@@ -23,7 +23,8 @@ private:
 	void loadChunkRight();
 	void loadChunkBottom();
 	void loadChunkLeft();
-	std::string getChunk( int x, int y );
+	MiniChunk getChunk( int x, int y );
+	void changeLevel();
 public:
 	MapDrawer(SDL_Renderer *renderTarget,SDL_Rect *cameraRect, World *world);
 	~MapDrawer();

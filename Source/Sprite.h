@@ -55,6 +55,7 @@ public:
 	int getOriginY();
 	void updateOrigin();
 	void setAsset(Asset asset);
+	Asset getAsset();
 
 	bool animationDone();
 };

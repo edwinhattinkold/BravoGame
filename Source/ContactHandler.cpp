@@ -78,8 +78,13 @@ void ContactHandler::bulletContact( Projectile* projectile, B2Content* otherObje
 			if (!projectile->isOnDeathRow)
 			{
 				car->takeDamage( projectile->getDamage() );
+				world->cameraShake();
 				world->destroyProjectile(projectile);
 				projectile->isOnDeathRow = true;
+				if( car->dead )
+				{
+					world->gameOver();
+				}
 			}
 			break;
 		}
@@ -90,19 +95,14 @@ void ContactHandler::collectibleContact(Collectible* collectible, B2Content* oth
 {
 	switch (otherObject->getObjectType())
 	{
-	case(Object_Tire) :
-		if (!collectible->isOnDeathRow)
-		{
-		world->destroyCollectible(collectible);
-		collectible->isOnDeathRow = true;
-		}
-								 break;
-	case(Object_Car) :
-		if (!collectible->isOnDeathRow)
-		{
-		world->destroyCollectible(collectible);
-		collectible->isOnDeathRow = true;
-		}
-					 break;
+		case(Object_Tire) :
+		case( Object_Car ) :
+			if (!collectible->isOnDeathRow)
+			{
+			MissionControl::getInstance().addOne( collectible->objectiveType ); //Try to add this to the current mission/objective. If not the right type, this does nothing
+			world->destroyCollectible(collectible);
+			collectible->isOnDeathRow = true;
+			}
+		break;
 	}
 }

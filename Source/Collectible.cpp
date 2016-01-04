@@ -5,6 +5,7 @@
 #define RADTODEG 57.295779513082320876f
 #endif
 
+//Als elke CollectibleType een Asset heeft, waarom gebruiken we dan niet overal asset?
 Collectible::Collectible(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM, int posX, int posY, World* gameWorld, Collectibletypes type)
 :B2Content(renderTarget, gameWorld, world, Asset_Collectible){
 	objectType = Object_Collectible;
@@ -25,6 +26,9 @@ Collectible::Collectible(b2World* world, SDL_Renderer* renderTarget, int widthM,
 		setAsset(Asset_Oil);
 		break;
 	}
+
+	objectiveType = getAsset(); //Make the asset known to IObjective for missions
+
 	bodyDef.type = b2_staticBody;
 
 	bodyDef.position.Set(posX, posY);

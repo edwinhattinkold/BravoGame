@@ -40,7 +40,7 @@ void ChasingTurretState::update(float deltaTime){
 		b2Vec2 bodyCom = body->GetPosition();
 		ContactType type = ((ContactWrapper*)body->GetUserData())->getContactType();
 		//ignore bodies outside the blast range
-		if (!(type == Contact_Car || type == Contact_Bullet || (bodyCom - turret->getB2DPosition()).Length() >= radius || body == turret->getBody())){
+		if (!(type == Contact_Collectible || type == Contact_Car || type == Contact_Bullet || (bodyCom - turret->getB2DPosition()).Length() >= radius || body == turret->getBody())){
 			b2Vec2 temp = bodyCom - turret->getB2DPosition();
 			float length = temp.Length();
 			temp.Normalize();
