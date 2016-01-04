@@ -41,12 +41,19 @@ Hud::Hud( SDL_Renderer *renderTarget, DrawContainer *dc, FPS *fpsCounter, Camera
 	
 	fpsDisplay = new MenuItem( renderTarget, font, "0" );
 	scoreDisplay = new MenuItem( renderTarget, font, "0" );
+	missionDisplay = new MenuItem( renderTarget, font, "No mission currently" );
+	objectiveDisplay = new MenuItem( renderTarget, font, "No objective currently" );
 
 	fpsDisplay->setXPosition( camera->windowWidth - left - ( 50) );
 	fpsDisplay->setYPosition( top );
 
 	scoreDisplay->setXPosition( ( camera->windowWidth / 2 ) - ( scoreDisplay->getWidth() / 2 ) );
 	scoreDisplay->setYPosition( top );
+
+	missionDisplay->setXPosition( left );
+	missionDisplay->setYPosition( top + 200 );
+	objectiveDisplay->setXPosition( left );
+	objectiveDisplay->setYPosition( top + 230 );
 
 }
 
@@ -59,6 +66,8 @@ Hud::~Hud()
 	delete slidingbar;			slidingbar = nullptr;
 	delete fpsDisplay;			fpsDisplay = nullptr;
 	delete scoreDisplay;		scoreDisplay = nullptr;
+	delete missionDisplay;		missionDisplay = nullptr;
+	delete objectiveDisplay;	objectiveDisplay = nullptr;
 }
 
 
@@ -66,20 +75,22 @@ void Hud::draw( SDL_Renderer *renderTarget)
 {
 	
 	fpsDisplay->setXPosition( camera->windowWidth - left - ( 100));
-	fpsDisplay->setYPosition( top );
-
 	scoreDisplay->setXPosition( (camera->windowWidth/2) - (scoreDisplay->getWidth()/2) );
-	scoreDisplay->setYPosition( top );
 
-	string s = to_string( fpsCounter->fps_current );
-	char *fps = (char*) s.c_str();
-
-	string sc = to_string( car->getScore() );
-	char *score = (char*) sc.c_str();
+	string fps = to_string( fpsCounter->fps_current );
+	string score = to_string( car->getScore() );
+	
 	fpsDisplay->setText( renderTarget, fps );
 	fpsDisplay->draw( renderTarget );
 	scoreDisplay->setText( renderTarget, score );
 	scoreDisplay->draw( renderTarget );
+
+	MissionControl& mc = MissionControl::getInstance();
+	missionDisplay->setText( renderTarget, mc.getCurrentMissionTitle() );
+	missionDisplay->draw( renderTarget );
+
+	objectiveDisplay->setText( renderTarget, mc.getCurrentObjectiveTitle() + " " + mc.getCurrentObjectiveProgress() );
+	objectiveDisplay->draw(renderTarget);
 
 	float newHealth = ( healthbarMax / car->maxHealth ) * car->health;
 	renderHealth( newHealth );

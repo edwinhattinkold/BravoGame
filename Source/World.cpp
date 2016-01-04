@@ -6,6 +6,30 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 {
 	fpsCounter = new FPS();
 
+	//create graphics world (SDL)
+	renderTarget = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
+	CustomCursor::getInstance()->setRenderTarget( renderTarget );
+	Assets::getInstance()->setRenderTarget( renderTarget );
+	sound = Sound::getInstance();
+
+	createCamera( window, levelWidth, levelHeight );
+
+	//TODO: main menu in separate class, drawable maybe?
+	mainMenuBackground = Assets::getInstance()->getAsset(Asset_MainMenu_Background);
+	menu = new MainMenu( renderTarget, window, mainMenuBackground, camera, font, this );
+
+	//Paused screen
+	pauseMenu = new PauseMenu(this, renderTarget, camera);
+
+	//GameOver screen
+	gameOverMenu = new GameOverMenu( this, renderTarget, camera );
+	winScreen = new WinScreen( this, renderTarget, camera );
+
+	createPlayableContent();
+}
+
+void World::createPlayableContent()
+{
 	prevTime = 0;
 	currentTime = 0;
 	deltaTime = 0.0f;
@@ -29,31 +53,15 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	gravity = new b2Vec2( 0.0f, 0.0f );
 	physics = new b2World( *gravity );
 
-	//create graphics world (SDL)
-	renderTarget = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
-	CustomCursor::getInstance()->setRenderTarget( renderTarget );
-	Assets::getInstance()->setRenderTarget( renderTarget );
-	sound = Sound::getInstance();
-
-	//TODO: Level in separate class, camera too maybe?
-	createCamera( window, levelWidth, levelHeight );
-
 	//Create containers
 	drawContainer = new DrawContainer( renderTarget, camera->getCamera() );
 	updateContainer = new UpdateContainer();
 
-	//TODO: main menu in separate class, drawable maybe?
-	mainMenuBackground = Assets::getInstance()->getAsset(Asset_MainMenu_Background);
-	menu = new MainMenu( renderTarget, window, mainMenuBackground, camera, font, this );
-
-	//Paused screen
-	pauseMenu = new PauseMenu(this, renderTarget, camera);
-
-	//Creation of sprites should be placed elsewhere as well, I'm just running out of time
 	//add map
-	mapDrawer = new MapDrawer( renderTarget, camera->getCamera(),this );
-	drawContainer->add(mapDrawer);
-	updateContainer->add(mapDrawer);
+	mapDrawer = new MapDrawer( renderTarget, camera->getCamera(), this );
+	drawContainer->add( mapDrawer );
+	updateContainer->add( mapDrawer );
+
 	//add collectables
 	this->addCollectible(15, 15, 10, -100, Collectible::Collectibletypes::Oil);
 	this->addCollectible(15, 15, 60, -100, Collectible::Collectibletypes::Oil);
@@ -78,45 +86,62 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	this->addCollectible(5, 5, 40, -510, Collectible::Collectibletypes::Nitro);
 
 	//add car
-	myCar = new TDCar(this, physics, renderTarget, camera, 3, 6);
-	drawContainer->add(myCar);
-	updateContainer->add(myCar);
+	myCar = new TDCar( this, physics, renderTarget, camera, 3, 6 );
+	drawContainer->add( myCar );
+	updateContainer->add( myCar );
+
 	//add objects ( no special destructor )
-	addObject(new Tree(this, physics, renderTarget, 10, 10, 20, -15));
-	addObject(new Tree(this, physics, renderTarget, 10, 10, 40, -30));
+	addObject( new Tree( this, physics, renderTarget, 10, 10, 20, -15 ) );
+	addObject( new Tree( this, physics, renderTarget, 10, 10, 40, -30 ) );
+
 	//add objects ( own destructor )
-	myTurret = new Turret(physics, renderTarget, 50, -40, myCar, this);
-	drawContainer->add(myTurret);
-	updateContainer->add(myTurret);
-	
+	myTurret = new Turret( physics, renderTarget, 50, -40, myCar, this );
+	drawContainer->add( myTurret );
+	updateContainer->add( myTurret );
+
 	std::vector<TDTire*> tires = myCar->getTires();
-	for (size_t i = 0; i < tires.size(); i++)
-		drawContainer->add(tires[i]);
+	for( size_t i = 0; i < tires.size(); i++ )
+		drawContainer->add( tires[i] );
 	drawContainer->add( myCar );
 
 	//CAR
-	surfaceCar = IMG_Load("Images/Car/debugbuggy.png");
-	if (surfaceCar == NULL)
+	surfaceCar = IMG_Load( "Images/Car/debugbuggy.png" );
+	if( surfaceCar == NULL )
 		std::cout << "Error" << std::endl;
 	else
 	{
-		textureCar = SDL_CreateTextureFromSurface(renderTarget, surfaceCar);
-		if (textureCar == NULL)
+		textureCar = SDL_CreateTextureFromSurface( renderTarget, surfaceCar );
+		if( textureCar == NULL )
 			std::cout << "Error 123 4 " << std::endl;
 	}
 	center = new SDL_Point;
-	
 
-	hud = new Hud( renderTarget, drawContainer, fpsCounter, camera, myCar, 24, 24, 0.8 );
+	hud = new Hud( renderTarget, drawContainer, fpsCounter, camera, myCar, 24, 24, 0.8f );
+
 	drawContainer->add( hud );
-	contactHandler = new ContactHandler(this);
+	contactHandler = new ContactHandler( this );
 	physics->SetContactListener( contactHandler );
+
 }
 
 World::~World()
 {	
 	delete this->fpsCounter;						this->fpsCounter = nullptr;
-	delete this->hud;								this->hud = nullptr;
+
+	delete menu;									menu = nullptr;
+	delete pauseMenu;								pauseMenu = nullptr;
+	delete gameOverMenu;							gameOverMenu = nullptr;
+	delete winScreen;								winScreen = nullptr;
+	delete camera;									camera = nullptr;
+
+	destroyPlayableContent();
+
+	SDL_DestroyTexture(mainMenuBackground);			mainMenuBackground = nullptr;
+	SDL_DestroyRenderer(renderTarget);				renderTarget = nullptr;
+}
+
+void World::destroyPlayableContent()
+{
 	for( size_t i = 0; i < activeProjectiles->size(); i++ )
 	{
 		delete activeProjectiles->at( i );
@@ -153,16 +178,19 @@ World::~World()
 	delete gravity;									gravity = nullptr;
 	delete velocityIterations;						velocityIterations = nullptr;
 	delete positionIterations;						positionIterations = nullptr;
-	delete camera;									camera = nullptr;
-	delete menu;									menu = nullptr;
-	delete pauseMenu;								pauseMenu = nullptr;
 	delete drawContainer;							drawContainer = nullptr;
 	delete updateContainer;							updateContainer = nullptr;
 	delete contactHandler;							contactHandler = nullptr;
 	delete center;									center = nullptr;
+	delete hud;										hud = nullptr;
+}
 
-	SDL_DestroyTexture(mainMenuBackground);			mainMenuBackground = nullptr;
-	SDL_DestroyRenderer(renderTarget);				renderTarget = nullptr;
+void World::reset()
+{
+	destroyPlayableContent();
+	createPlayableContent();
+	myCar->health = myCar->maxHealth;
+	myCar->takenDamage = 0;
 }
 
 TDCar* World::getCar()
@@ -198,16 +226,24 @@ void World::tick()
 				}
 				else if( currentGameState == GameState_Paused )
 					pauseMenu->handleKeyboardInput( ev.key.keysym.sym );
+				else if( currentGameState == GameState_Game_Over )
+					gameOverMenu->handleKeyboardInput( ev.key.keysym.sym );
+				else if( currentGameState == GameState_Game_Over_Won )
+					winScreen->handleKeyboardInput( ev.key.keysym.sym );
 				break;
-			case(SDL_MOUSEBUTTONDOWN) :
+			case( SDL_MOUSEBUTTONDOWN ) :
 				if( currentGameState == GameState_Paused )
-					pauseMenu->mouseButtonClicked(mouseX, mouseY);
+					pauseMenu->mouseButtonClicked( mouseX, mouseY );
+				else if( currentGameState == GameState_Game_Over )
+					gameOverMenu->mouseButtonClicked( mouseX, mouseY );
+				else if( currentGameState == GameState_Game_Over_Won )
+					winScreen->mouseButtonClicked( mouseX, mouseY );
 				break;
 		}
 	}
 	keyState = SDL_GetKeyboardState( NULL );
 	
-	if( currentGameState != GameState_Paused )
+	if( currentGameState != GameState_Paused && currentGameState != GameState_Game_Over && currentGameState != GameState_Game_Over_Won )
 	{
 		updateContainer->update( deltaTime, keyState );
 		physics->Step( deltaTime, *velocityIterations, *positionIterations );//update physics
@@ -229,7 +265,6 @@ void World::tick()
 void World::run()
 {
 	setGameState( GameState_In_MainMenu );
-	
 
 	while( currentGameState != GameState_Closing)
 		tick();
@@ -258,6 +293,10 @@ void World::updateSDL()
 	drawContainer->draw();
 	if( currentGameState == GameState_Paused )
 		pauseMenu->tick( mouseX, mouseY );
+	else if( currentGameState == GameState_Game_Over )
+		gameOverMenu->tick( mouseX, mouseY );
+	else if( currentGameState == GameState_Game_Over_Won )
+		winScreen->tick( mouseX, mouseY );
 	SDL_RenderPresent( renderTarget );
 }
 
@@ -395,4 +434,18 @@ void World::addObject(B2Content* object)
 	objects->push_back( object );
 	updateContainer->add( object );
 	drawContainer->add( object );
+}
+
+void World::gameOver()
+{
+	sound->pauseAllSounds();
+	currentGameState = GameState_Game_Over;
+	gameOverMenu->firstTick();
+}
+
+void World::win()
+{
+	sound->pauseAllSounds();
+	currentGameState = GameState_Game_Over_Won;
+	winScreen->firstTick();
 }

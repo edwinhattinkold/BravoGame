@@ -1,5 +1,5 @@
 #include "TDCar.h"
-#include "World.h";
+#include "World.h"
 #include "Camera.h"
 #include "BaseLevel.h"
 #include "LevelFactory.h"
@@ -60,7 +60,7 @@ TDCar::~TDCar() {
 }
 
 TDCar::TDCar(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, Camera* camera, int widthM, int heightM)
-	:B2Content( renderTarget, world, physicsWorld, Asset_Car ), Hittable( 2000 )
+	:B2Content( renderTarget, world, physicsWorld, Asset_Car ), Hittable( 2000, Asset_Car )
 {
 	oilTime = 0;
 	this->camera = camera;

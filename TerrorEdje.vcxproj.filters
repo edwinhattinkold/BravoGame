@@ -22,9 +22,6 @@
     <Filter Include="Header Files\Menu">
       <UniqueIdentifier>{fb00ac1d-528a-4967-89a7-0b289319fdde}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Sound">
-      <UniqueIdentifier>{1cfddf5e-bcba-41e9-8caa-ea03bf0e22f5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\RapidXML">
       <UniqueIdentifier>{418e99f9-bfd5-4797-b2d1-e2c284a9c4fc}</UniqueIdentifier>
     </Filter>
@@ -93,6 +90,15 @@
     </Filter>
     <Filter Include="Header Files\Levels">
       <UniqueIdentifier>{28908591-f439-4c93-ae60-db2ac4d6b705}</UniqueIdentifier>
+	</Filter>
+    <Filter Include="Header Files\Mission">
+      <UniqueIdentifier>{2586fad2-ad83-4679-8f84-4a73956349ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Mission">
+      <UniqueIdentifier>{5d1d70f9-111d-42d4-bc58-2cbaf427eb24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Sound">
+      <UniqueIdentifier>{1cfddf5e-bcba-41e9-8caa-ea03bf0e22f5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -287,6 +293,30 @@
     </ClInclude>
     <ClInclude Include="Source\LevelJungle.h">
       <Filter>Header Files\Levels</Filter>
+	</ClInclude>
+    <ClInclude Include="Source\Mission.h">
+      <Filter>Header Files\Mission</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Objective.h">
+      <Filter>Header Files\Mission</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MissionControl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\IObjective.h">
+      <Filter>Header Files\Mission</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LoadingScreen.h">
+      <Filter>Header Files\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameOverMenu.h">
+      <Filter>Header Files\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\InGameMenu.h">
+      <Filter>Header Files\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\WinScreen.h">
+      <Filter>Header Files\Menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -451,6 +481,30 @@
     </ClCompile>
     <ClCompile Include="Source\LevelJungle.cpp">
       <Filter>Source Files\Levels</Filter>
+	</ClCompile>
+    <ClCompile Include="Source\Mission.cpp">
+      <Filter>Source Files\Mission</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Objective.cpp">
+      <Filter>Source Files\Mission</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MissionControl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\IObjective.cpp">
+      <Filter>Source Files\Mission</Filter>
+	</ClCompile>
+    <ClCompile Include="Source\LoadingScreen.cpp">
+      <Filter>Source Files\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameOverMenu.cpp">
+      <Filter>Source Files\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\InGameMenu.cpp">
+      <Filter>Source Files\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\WinScreen.cpp">
+      <Filter>Source Files\Menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

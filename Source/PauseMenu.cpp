@@ -3,36 +3,20 @@
 #include "SDL_ttf.h"
 #include "MenuItem.h"
 #include "World.h"
+#include "SaveMenu.h"
 
 PauseMenu::PauseMenu(World* world, SDL_Renderer* renderTarget, Camera* camera )
+	: InGameMenu( world, renderTarget, camera )
 {
-	this->world = world;
-	this->renderTarget = renderTarget;
-	this->camera = camera;
-	font = TTF_OpenFont( "Fonts/Frontman.ttf", 30 );
-	this->arrow = new Sprite( renderTarget, Asset_Menu_Arrow );
-	this->sound = Sound::getInstance();
-	menuItems = new std::vector<MenuItem*>();
 	menuItems->push_back( new MenuItem( renderTarget, font, "Continue" ) );
 	menuItems->push_back( new MenuItem( renderTarget, font, "Save game" ) );
 	menuItems->push_back( new MenuItem( renderTarget, font, "Mainmenu" ) );
 
 	saveMenu = new SaveMenu(world, renderTarget, camera, arrow, font);
-
-	margin = 40;
-	selected = 0;
-	center();
 }
 
 PauseMenu::~PauseMenu()
 {
-	for( size_t c = 0; c < menuItems->size(); c++ )
-	{
-		delete menuItems->at( c );	menuItems->at( c ) = nullptr;
-	}
-	delete menuItems;				menuItems = nullptr;
-	delete arrow;					arrow = nullptr;
-	TTF_CloseFont( font );			font = nullptr;
 	delete saveMenu;				saveMenu = nullptr;
 }
 

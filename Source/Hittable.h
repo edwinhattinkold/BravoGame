@@ -1,12 +1,13 @@
 #pragma once
 #include "SDL.h"
-class Hittable
+#include "IObjective.h"
+#include "Assets.h"
+#include "MissionControl.h"
+class Hittable : public IObjective
 {
 private:
 	int healthBarOffset;
 protected:
-	int takenDamage;
-	bool dead;
 	SDL_Rect maxHealthBar;
 	SDL_Rect healthBar;
 	SDL_Rect takenDamageBar;
@@ -14,7 +15,9 @@ protected:
 public:
 	int maxHealth;
 	int health;
-	Hittable(int maxHealth);
+	bool dead;
+	int takenDamage;
+	Hittable(int maxHealth, Asset asset);
 	~Hittable();
 	virtual void drawHealthBar( SDL_Renderer* renderTarget, SDL_Rect* cameraRect, SDL_Rect positionRect );
 	virtual void takeDamage( int damage );
