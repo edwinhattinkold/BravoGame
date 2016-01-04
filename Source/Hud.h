@@ -38,10 +38,10 @@ private:
 	
 	MenuItem *fpsDisplay;
 	MenuItem *scoreDisplay;
-
+	MenuItem *levelDisplay;
 	MenuItem *missionDisplay;
 	MenuItem *objectiveDisplay;
-
+	string level;
 	Camera *camera;
 	TDCar *car;
 	void renderHealth( float newHealth );
@@ -52,5 +52,6 @@ public:
 	~Hud();
 	virtual void accept( DrawVisitor *dv );
 	virtual void draw( SDL_Renderer *renderTarget );
+	void changeLevel( string name );
 };
 

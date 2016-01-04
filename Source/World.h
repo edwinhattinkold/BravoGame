@@ -35,7 +35,6 @@ enum GameState { GameState_Running, GameState_Paused, GameState_In_MainMenu, Gam
 class World
 {
 private:
-	Hud *hud;
 	TDCar* myCar;
 	Sound* sound;
 	Turret* myTurret;
@@ -123,7 +122,7 @@ public:
 	void createExplosion( SDL_Rect positionRect );
 	void removeExplosion( Explosion* explosion );
 	void cameraShake();
-
+	Hud *hud;
 	void gameOver();
 	void win();
 	void reset();

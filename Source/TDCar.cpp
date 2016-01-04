@@ -41,7 +41,9 @@ void TDCar::changeLevel( BaseLevel* level )
 		this->level->stopSound();
 		this->level = level;
 		this->level->startSound();
+		world->hud->changeLevel( level->getName() );
 	}
+
 }
 
 void TDCar::continueSound()

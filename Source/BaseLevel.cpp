@@ -1,8 +1,9 @@
 #include "BaseLevel.h"
 #include "Assets.h"
 
-BaseLevel::BaseLevel(Asset assetId)
+BaseLevel::BaseLevel(Asset assetId,string name)
 {
+	this->name = name;
 	textureId = assetId;
 	tiles = new std::vector<Tile*>();
 	possibleCollectibles = std::vector < Collectible::Collectibletypes >() ;
@@ -50,6 +51,11 @@ void BaseLevel::addTileSet()
 
 void BaseLevel::startSound()
 {
+}
+
+string BaseLevel::getName()
+{
+	return name;
 }
 
 void BaseLevel::stopSound()

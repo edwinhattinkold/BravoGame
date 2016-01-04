@@ -2,10 +2,11 @@
 #include "Sound.h"
 
 LevelDesert::LevelDesert()
-	: BaseLevel(Asset::Asset_Desert_Tileset)
+	: BaseLevel( Asset::Asset_Desert_Tileset, "Desert" )
 {
 	possibleCollectibles.push_back(Collectible::Gasoline);
 	possibleCollectibles.push_back(Collectible::Collect);
+	
 }
 
 
