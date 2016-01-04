@@ -209,7 +209,7 @@
 		<chunk y="2" tmx="clearlevel.tmx" level="desert"/>
 		<chunk y="3" tmx="clearlevel.tmx" level="desert"/>
 		<chunk y="4" tmx="clearlevel.tmx" level="desert"/>
-		<chunk y="5" tmx="clearlevel.tmx" level="desert"/>
+		<chunk y="5" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="6" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="7" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="8" tmx="clearlevel.tmx" level="jungle"/>
@@ -232,7 +232,7 @@
 		<chunk y="3" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="4" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="5" tmx="clearlevel.tmx" level="jungle"/>
-		<chunk y="6" tmx="clearlevel.tmx" level="snow"/>
+		<chunk y="6" tmx="clearlevel.tmx" level="jungle"/>
 		<chunk y="7" tmx="clearlevel.tmx" level="snow"/>
 		<chunk y="8" tmx="clearlevel.tmx" level="snow"/>
 		<chunk y="9" tmx="clearlevel.tmx" level="snow"/>

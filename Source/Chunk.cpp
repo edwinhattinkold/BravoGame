@@ -80,14 +80,6 @@ void Chunk::addTileSet()
 {
 }
 
-void Chunk::addCollidableObject( int x, int y )
-{
-	collisionBodyDef->position.Set(x * 2, y * 3);
-	//b2Body *staticBody = world->createBody(collisionBodyDef);
-	//staticBody->CreateFixture(collisionFixtureDef);
-	//bodies->push_back(staticBody);
-}
-
 void Chunk::addLocation( Location l )
 {
 	locations->push_back( l );

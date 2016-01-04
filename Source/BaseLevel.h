@@ -8,7 +8,7 @@ class BaseLevel
 {
 private:
 	Asset textureId;
-	int spacing = 1;
+	int spacing = 0;
 	int firstId = 1;
 	int amount = 48;
 	int width = 263;

@@ -34,7 +34,6 @@ public:
 	void draw( SDL_Rect *cameraRect);
 	Chunk(SDL_Renderer *rt,MiniChunk miniChunk, World *world, int x , int y);
 	~Chunk();
-	void addLocation(Location l);
-	void addCollidableObject(int x, int y);
+	void addLocation( Location l );
 	BaseLevel* getLevel();
 };
