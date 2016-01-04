@@ -382,7 +382,6 @@ void TDCar::soundHorn(){
 void TDCar::shoot()
 {
 	weapon->pullTrigger();
-	camera->cameraShake( 0.10f );
 }
 
 void TDCar::addScore( int amount )

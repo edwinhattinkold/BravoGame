@@ -21,7 +21,7 @@ SDL_Texture* loadImage( SDL_Renderer *renderTarget, std::string filePath )
 
 Chunk::Chunk(SDL_Renderer *rt, MiniChunk miniChunk, World *world, int x, int y)
 {
-	std::cout << "x: " << x << " y: " << y << endl;
+	//std::cout << "x: " << x << " y: " << y << endl;
 	this->x = x;
 	this->y = y;
 	this->world = world;
@@ -78,14 +78,6 @@ Chunk::~Chunk()
 
 void Chunk::addTileSet()
 {
-}
-
-void Chunk::addCollidableObject( int x, int y )
-{
-	collisionBodyDef->position.Set(x * 2, y * 3);
-	//b2Body *staticBody = world->createBody(collisionBodyDef);
-	//staticBody->CreateFixture(collisionFixtureDef);
-	//bodies->push_back(staticBody);
 }
 
 void Chunk::addLocation( Location l )
