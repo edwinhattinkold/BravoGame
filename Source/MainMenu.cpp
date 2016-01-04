@@ -62,10 +62,10 @@ int MainMenu::showMenu(SDL_Renderer* renderTarget){
 	switch (choice){
 	case(Choices::Continue) :
 		sound->stopSound(Sound_MainMenu_Theme);
-		world->getCar()->continueSound();
 		loadChoice = loadScreen->createMenu();
 		if( loadChoice == loadScreen->getExitCode() )
 			return Choices::Exit;
+		world->getCar()->continueSound();
 		return Choices::Continue;
 		break;
 	case(Choices::Load_Game) :

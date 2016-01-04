@@ -21,7 +21,7 @@ SDL_Texture* loadImage( SDL_Renderer *renderTarget, std::string filePath )
 
 Chunk::Chunk(SDL_Renderer *rt, MiniChunk miniChunk, World *world, int x, int y)
 {
-	std::cout << "x: " << x << " y: " << y << endl;
+	//std::cout << "x: " << x << " y: " << y << endl;
 	this->x = x;
 	this->y = y;
 	this->world = world;
