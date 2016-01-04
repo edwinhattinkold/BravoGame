@@ -260,6 +260,11 @@ void World::tick()
 		camera->update( myCar->getOriginX(), myCar->getOriginY(), deltaTime );
 	}
 
+	if( currentGameState == GameState_Running && MissionControl::getInstance().currentMission->complete )
+	{
+		win();
+	}	
+
 	//update SDL
 	updateSDL();
 	fpsCounter->loop();
