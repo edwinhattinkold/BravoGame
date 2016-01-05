@@ -72,6 +72,7 @@ Hud::~Hud()
 	delete scoreDisplay;		scoreDisplay = nullptr;
 	delete missionDisplay;		missionDisplay = nullptr;
 	delete objectiveDisplay;	objectiveDisplay = nullptr;
+	delete levelDisplay;		levelDisplay = nullptr;
 }
 
 void Hud::changeLevel(string name)
