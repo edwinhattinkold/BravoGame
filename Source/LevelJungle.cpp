@@ -1,7 +1,7 @@
 #include "LevelJungle.h"
 #include "Sound.h"
 
-LevelJungle::LevelJungle() : BaseLevel( Asset::Asset_Jungle_Tileset )
+LevelJungle::LevelJungle() : BaseLevel( Asset::Asset_Jungle_Tileset,"Jungle" )
 {
 	possibleCollectibles.push_back( Collectible::Gasoline );
 	possibleCollectibles.push_back( Collectible::Collect );

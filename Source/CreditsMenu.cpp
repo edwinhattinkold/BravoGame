@@ -29,20 +29,6 @@ CreditsMenu::CreditsMenu( SDL_Renderer* renderTarget, Camera* camera )
 	lines->push_back( createLine( renderTarget, "Aaron Kieboom", LineType::Default, defaultMargin ) );
 	lines->push_back( createLine( renderTarget, "Erik Brandsma", LineType::Default, defaultMargin ) );
 
-	lines->push_back( createLine( renderTarget, "Physics", LineType::Titel, largerMargin ) );
-	lines->push_back( createLine( renderTarget, "Sven van den Boogaard", LineType::Default, titelSpacing ) );
-	lines->push_back( createLine( renderTarget, "Ivan horn", LineType::Default, defaultMargin ) );
-
-	lines->push_back( createLine( renderTarget, "Map", LineType::Titel, largerMargin ) );
-	lines->push_back( createLine( renderTarget, "Aaron Kieboom", LineType::Default, titelSpacing ) );
-	lines->push_back( createLine( renderTarget, "Edwin Hattink", LineType::Default, defaultMargin ) );
-
-	lines->push_back( createLine( renderTarget, "Menus", LineType::Titel, largerMargin ) );
-	lines->push_back( createLine( renderTarget, "Erik Brandsma", LineType::Default, titelSpacing ) );
-
-	lines->push_back( createLine( renderTarget, "Sound", LineType::Titel, largerMargin ) );
-	lines->push_back( createLine( renderTarget, "Erik Brandsma", LineType::Default, titelSpacing ) );
-
 	lines->push_back( createLine( renderTarget, "Git Master", LineType::Titel, largerMargin ) );
 	lines->push_back( createLine( renderTarget, "Edwin Hattink", LineType::Default, titelSpacing ) );
 
@@ -50,7 +36,8 @@ CreditsMenu::CreditsMenu( SDL_Renderer* renderTarget, Camera* camera )
 	lines->push_back( createLine( renderTarget, "Ivan Horn", LineType::Default, titelSpacing ) );
 
 	lines->push_back( createLine( renderTarget, "Scrum master", LineType::Titel, largerMargin ) );
-	lines->push_back( createLine( renderTarget, "Erik Brandsma", LineType::Default, titelSpacing ) );
+	lines->push_back( createLine( renderTarget, "Blok 13 Erik Brandsma", LineType::Default, titelSpacing ) );
+	lines->push_back( createLine( renderTarget, "Blok 14 Ivan Horn", LineType::Default, titelSpacing ) );
 
 	lines->push_back( createLine( renderTarget, "Product owner", LineType::Titel, largerMargin ) );
 	lines->push_back( createLine( renderTarget, "Edwin Hattink", LineType::Default, titelSpacing ) );
