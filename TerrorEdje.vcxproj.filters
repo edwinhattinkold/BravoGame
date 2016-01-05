@@ -276,6 +276,21 @@
     <ClInclude Include="Source\HighscoreMenu.h">
       <Filter>Header Files\Menu</Filter>
     </ClInclude>
+    <ClInclude Include="Source\RadarQueryCallback.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MovingTurret.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ChasingTurretState.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ContactWrapper.h">
+      <Filter>Header Files\Model\Shooting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RageTurretState.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
     <ClInclude Include="Source\BaseLevel.h">
       <Filter>Header Files\Levels</Filter>
     </ClInclude>
@@ -467,6 +482,15 @@
     <ClCompile Include="Source\HighscoreMenu.cpp">
       <Filter>Source Files\Menu</Filter>
     </ClCompile>
+    <ClCompile Include="Source\MovingTurret.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ChasingTurretState.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RageTurretState.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
     <ClCompile Include="Source\BaseLevel.cpp">
       <Filter>Source Files\Levels</Filter>
     </ClCompile>
@@ -481,7 +505,7 @@
     </ClCompile>
     <ClCompile Include="Source\LevelJungle.cpp">
       <Filter>Source Files\Levels</Filter>
-	</ClCompile>
+	 </ClCompile>
     <ClCompile Include="Source\Mission.cpp">
       <Filter>Source Files\Mission</Filter>
     </ClCompile>

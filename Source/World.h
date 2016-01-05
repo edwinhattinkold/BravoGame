@@ -24,6 +24,8 @@
 
 #include "MissionControl.h"
 
+class MovingTurret;
+
 /************************************************************************/
 /* The World class contains everything a the game needs to render except
 for the window. Its purpose is to render the world, run the physics
@@ -38,6 +40,8 @@ private:
 	TDCar* myCar;
 	Sound* sound;
 	Turret* myTurret;
+	Turret* myTurret2;
+	Turret* myTurret3;
 	//SDL
 	SDL_Renderer *renderTarget;
 	SDL_Texture *carTexture;

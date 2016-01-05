@@ -25,7 +25,7 @@ public:
 	float multiplierSpeed;
 	float oilMultiplier;
 	float nitroMultiplier;
-
+	
 	~TDTire();
 	TDTire( World* world, b2World* physicsWorld, SDL_Renderer * renderTarget );
 

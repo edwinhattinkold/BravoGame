@@ -1,8 +1,9 @@
 #include "B2Content.h"
 #include "World.h"
-
+#include "ContactWrapper.h"
 B2Content::B2Content( SDL_Renderer* renderTarget, World* world, b2World* physicsWorld, Asset asset) :Sprite(renderTarget, asset)
 {
+	contactWrapper = nullptr;
 	this->world = world;
 	this->physicsWorld = physicsWorld;
 	isOnDeathRow = false;
@@ -10,8 +11,20 @@ B2Content::B2Content( SDL_Renderer* renderTarget, World* world, b2World* physics
 
 B2Content::~B2Content()
 {
+	if (contactWrapper != nullptr){
+		delete contactWrapper;			contactWrapper = nullptr;
+	}
+	
 	if( m_body != nullptr )
 		physicsWorld->DestroyBody(m_body);
+}
+
+void B2Content::setContactWrapper(ContactWrapper* cw){
+	if (contactWrapper != nullptr){
+		delete contactWrapper;			contactWrapper = nullptr;
+	}
+	contactWrapper = cw;
+	m_body->SetUserData(contactWrapper);
 }
 
 b2Vec2 B2Content::getB2DPosition(){
