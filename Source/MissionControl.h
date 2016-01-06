@@ -21,4 +21,5 @@ public:
 	string getCurrentMissionTitle();
 	string getCurrentObjectiveTitle();
 	string getCurrentObjectiveProgress();
+	void reset();
 };

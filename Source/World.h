@@ -32,7 +32,12 @@ for the window. Its purpose is to render the world, run the physics
 update the objects, etc. Not all in this class of course.			*/
 /************************************************************************/
 
-enum GameState { GameState_Running, GameState_Paused, GameState_In_MainMenu, GameState_Game_Over, GameState_Game_Over_Won, GameState_Closing };
+class HighscoreMenu;
+
+enum GameState
+{
+	GameState_Running, GameState_Paused, GameState_In_MainMenu, GameState_Game_Over, GameState_Game_Over_Won, GameState_In_Highscores, GameState_Closing
+};
 
 class World
 {
@@ -57,6 +62,7 @@ private:
 	MainMenu* menu;
 	PauseMenu* pauseMenu;
 	GameOverMenu* gameOverMenu;
+	HighscoreMenu* highscoreMenu;
 	WinScreen* winScreen;
 
 	int mouseX, mouseY;
@@ -74,6 +80,7 @@ private:
 	std::vector<Collectible*> *activeCollectibles;
 	std::vector<Explosion*> *explosions;
 	std::vector<B2Content*> *objects;
+
 
 	//Containers
 	DrawContainer *drawContainer;
@@ -129,10 +136,12 @@ public:
 	void cameraShake();
 	Hud *hud;
 	void gameOver();
+	void showHighscores(bool newScore);
 	void win();
 	void reset();
 
 	TDCar* getCar();
+	std::vector<IObjective*> getObjectives();
 };
 
 

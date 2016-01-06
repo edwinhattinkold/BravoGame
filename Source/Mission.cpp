@@ -62,3 +62,13 @@ void Mission::addOne( Asset type )
 		}
 	}
 }
+
+void Mission::reset()
+{
+	for( size_t c = 0; c < objectives->size(); c++ )
+	{
+		objectives->at( c )->reset();
+	}
+	complete = false;
+	currentObjective = 0;
+}

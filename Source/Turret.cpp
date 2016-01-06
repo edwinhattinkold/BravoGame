@@ -31,6 +31,10 @@ Turret::Turret(b2World* world, SDL_Renderer* renderTarget, int xPos, int yPos, T
 
 
 	updateOrigin();
+	m_body->SetUserData(this);
+
+	x = positionRect.x;
+	y = positionRect.y;
 	setContactWrapper(new ContactWrapper(this));
 }
 

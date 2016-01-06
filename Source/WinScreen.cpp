@@ -59,11 +59,11 @@ void WinScreen::tick( int mouseX, int mouseY )
 	float deltaTime = 0.016f;
 	confettiAnimation( deltaTime );
 
-	/* Draw confetti */
-	SDL_RenderCopy( renderTarget, confetti, &confettiSourceRect, &backgroundImageRect );
-
 	/* Draw background image */
 	SDL_RenderCopy( renderTarget, backgroundImage, NULL, &backgroundImageRect );
+
+	/* Draw confetti */
+	SDL_RenderCopy( renderTarget, confetti, &confettiSourceRect, &backgroundImageRect );
 
 	for( size_t i = 0; i < menuItems->size(); i++ )
 		if( i != selected && menuItems->at( i )->checkHover( mouseX, mouseY ) )
@@ -156,7 +156,7 @@ void WinScreen::updateSelected()
 
 void WinScreen::handleChoice( int index )
 {
-	
+	world->showHighscores(true);
 }
 
 void WinScreen::confettiAnimation( float deltaTime )
