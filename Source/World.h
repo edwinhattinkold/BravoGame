@@ -37,6 +37,7 @@ enum GameState { GameState_Running, GameState_Paused, GameState_In_MainMenu, Gam
 class World
 {
 private:
+	bool fastForward;
 	TDCar* myCar;
 	Sound* sound;
 	Turret* myTurret;

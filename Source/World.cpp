@@ -5,6 +5,7 @@
 
 World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font )
 {
+	fastForward = false;
 	fpsCounter = new FPS();
 
 	//create graphics world (SDL)
@@ -223,7 +224,7 @@ void World::tick()
 				mouseX = ev.motion.x;
 				mouseY = ev.motion.y;
 				break;
-			case(SDL_KEYDOWN) :
+			case( SDL_KEYDOWN ) :
 				if( ev.key.keysym.sym == SDLK_ESCAPE )
 				{
 					currentGameState == GameState_Running ? currentGameState = GameState_Paused : currentGameState = GameState_Running;
@@ -231,6 +232,8 @@ void World::tick()
 					if( currentGameState == GameState_Paused )
 						sound->pauseAllSounds();
 				}
+				else if( ev.key.keysym.sym == SDLK_LCTRL || ev.key.keysym.sym == SDLK_RCTRL )
+					fastForward = !fastForward;
 				else if( currentGameState == GameState_Paused )
 					pauseMenu->handleKeyboardInput( ev.key.keysym.sym );
 				else if( currentGameState == GameState_Game_Over )
@@ -312,6 +315,10 @@ float World::calcDeltaTime()
 	prevTime = currentTime;
 	currentTime = SDL_GetTicks();
 	deltaTime = ( currentTime - prevTime ) / 1000.0f;
+	if( fastForward )
+	{
+		deltaTime *= 2;
+	}
 	return deltaTime;
 }
 
