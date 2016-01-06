@@ -263,6 +263,7 @@ void World::tick()
 void World::run()
 {
 	setGameState( GameState_In_MainMenu );
+	win();
 
 	while( currentGameState != GameState_Closing)
 		tick();

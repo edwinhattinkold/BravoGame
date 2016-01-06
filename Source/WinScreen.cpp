@@ -8,11 +8,42 @@
 WinScreen::WinScreen( World* world, SDL_Renderer* renderTarget, Camera* camera )
 	: InGameMenu( world, renderTarget, camera )
 {
+	confetti = Assets::getInstance()->getAsset( Asset_WinScreen_Confetti );
 	menuItems->push_back( new MenuItem( renderTarget, font, "Continue" ) );
 
 	backgroundImageRect.x = 0;
 	backgroundImageRect.y = 0;
 	this->backgroundImage = Assets::getInstance()->getAsset( Asset_WinScreen_Background );
+
+	confettiSourceRect.x = 0;
+	confettiSourceRect.y = 0;
+	animationSpeed = 0.03f;
+
+	framesX = 11;
+	framesY = 10;
+	startFrameX = 0;
+	startFrameY = 0;
+	
+	currentFrameX = startFrameX;
+	currentFrameY = startFrameY;
+
+	SDL_QueryTexture( confetti, NULL, NULL, &confettiSourceRect.w, &confettiSourceRect.h );
+
+	textureWidth = confettiSourceRect.w;
+	textureHeight = confettiSourceRect.h;
+
+	confettiSourceRect.w /= framesX;
+	confettiSourceRect.h /= framesY;
+
+	frameWidth = confettiSourceRect.w;
+	frameHeight = confettiSourceRect.h;
+
+	/* set the first frame */
+	confettiSourceRect.x = frameWidth * startFrameX;
+	confettiSourceRect.y = frameHeight * startFrameY;
+
+	frameCounter = 0.0f;
+
 	positionMenuItems();
 }
 
@@ -25,6 +56,11 @@ WinScreen::~WinScreen()
 void WinScreen::tick( int mouseX, int mouseY )
 {
 	SDL_ShowCursor( SDL_DISABLE );
+	float deltaTime = 0.016f;
+	confettiAnimation( deltaTime );
+
+	/* Draw confetti */
+	SDL_RenderCopy( renderTarget, confetti, &confettiSourceRect, &backgroundImageRect );
 
 	/* Draw background image */
 	SDL_RenderCopy( renderTarget, backgroundImage, NULL, &backgroundImageRect );
@@ -121,4 +157,40 @@ void WinScreen::updateSelected()
 void WinScreen::handleChoice( int index )
 {
 	
+}
+
+void WinScreen::confettiAnimation( float deltaTime )
+{
+	frameCounter += deltaTime;
+
+	if( frameCounter >= animationSpeed )
+	{
+		frameCounter = 0;
+		confettiSourceRect.x += frameWidth;
+		currentFrameX += 1;
+
+		if( confettiSourceRect.x >= textureWidth )
+		{
+			confettiSourceRect.y += frameHeight;
+			confettiSourceRect.x = 0;
+
+			currentFrameX = 0;
+			currentFrameY += 1;
+		}
+
+		if( confettiSourceRect.y >= textureHeight )
+		{
+			confettiSourceRect.y = 0;
+			currentFrameY = 0;
+		}
+
+		if( currentFrameX == 3 && currentFrameY == framesY - 1 )
+		{
+			confettiSourceRect.x = 0;
+			confettiSourceRect.y = 0;
+
+			currentFrameX = 0;
+			currentFrameY = 0;
+		}
+	}
 }
