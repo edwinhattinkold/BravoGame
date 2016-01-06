@@ -9,10 +9,11 @@ PauseMenu::PauseMenu(World* world, SDL_Renderer* renderTarget, Camera* camera )
 	: InGameMenu( world, renderTarget, camera )
 {
 	menuItems->push_back( new MenuItem( renderTarget, font, "Continue" ) );
+	menuItems->push_back( new MenuItem( renderTarget, font, "Restart" ) );
 	menuItems->push_back( new MenuItem( renderTarget, font, "Save game" ) );
 	menuItems->push_back( new MenuItem( renderTarget, font, "Mainmenu" ) );
 
-	saveMenu = new SaveMenu(world, renderTarget, camera, arrow, font);
+	saveMenu = new SaveMenu(world, renderTarget, camera, font);
 }
 
 PauseMenu::~PauseMenu()
@@ -69,6 +70,8 @@ void PauseMenu::center()
 		int yPosition = (camera->getCamera()->h / 2) - (combinedHeight / 2) + (j * margin) + previousHeight;
 		menuItems->at( j )->setYPosition( yPosition );
 	}
+	selected = 0;
+	saveMenu->saving = false;
 	updateSelected();
 	saveMenu->center();
 }
@@ -137,6 +140,10 @@ void PauseMenu::handleChoice( int index )
 		case(Choices::Main_Menu) :
 			sound->playSoundLooping( Sound_MainMenu_Theme, 0.5f );
 			world->setGameState( GameState_In_MainMenu );
+			break;
+		case( Choices::Restart ) :
+			world->reset();
+			world->setGameState( GameState_Running );
 			break;
 		case(Choices::Save_Game) :
 			saveMenu->saving = true;
