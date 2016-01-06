@@ -11,14 +11,14 @@
 #include <string>
 
 class World;
-
+class ContactWrapper;
 #ifndef DEGTORAD
 #define DEGTORAD 0.0174532925199432957f
 #define RADTODEG 57.295779513082320876f
 #endif
 const int sdlScale = 20;
 
-enum ObjectTypes { Object_Tire, Object_Car, Object_Projectile, Object_Tree, Object_Turret, Object_Collectible };
+enum ObjectTypes { Object_Tire, Object_Car, Object_Projectile, Object_Tree, Object_Collide, Object_Turret, Object_Collectible };
 
 class B2Content : public Sprite
 {
@@ -29,7 +29,9 @@ protected:
 	ObjectTypes objectType;
 	World* world;
 	b2World* physicsWorld;
+	
 public:
+	ContactWrapper* contactWrapper;
 	bool isOnDeathRow;
 	b2Body* m_body;
 	float w, h;
@@ -50,7 +52,7 @@ public:
 	float getSDLHeight();
 	void setB2DAngle(float angle);
 	virtual void accept(DrawVisitor *dv);
-
+	void setContactWrapper(ContactWrapper* cw);
 	ObjectTypes getObjectType();
 };
 

@@ -1,6 +1,7 @@
 #include "UpdateVisitor.h"
 #include "IUpdateable.h"
 #include "Turret.h"
+#include "MovingTurret.h"
 #include "TDCar.h"
 #include "MapDrawer.h"
 #include "Projectile.h"
@@ -42,6 +43,13 @@ void UpdateVisitor::visit(Turret* turret){
 	turret->updateSDLPosition(turret->getCenterXSDL(), turret->getCenterYSDL(), turret->getSDLWidth(), turret->getSDLHeight(), turret->getAngleSDL());
 }
 
+void UpdateVisitor::visit(MovingTurret* turret){
+	turret->getState()->checkState();
+	turret->getState()->update(deltaTime);
+	turret->setB2DAngle(turret->turretAngle);
+	turret->updateSDLPosition(turret->getCenterXSDL(), turret->getCenterYSDL(), turret->getSDLWidth(), turret->getSDLHeight(), turret->getAngleSDL());
+}
+
 void UpdateVisitor::visit( TDCar *car )
 {
 	car->update( deltaTime, keyState );
@@ -65,4 +73,9 @@ void UpdateVisitor::visit( Explosion *explosion )
 void UpdateVisitor::visit( Tree *tree )
 {
 	tree->checkDeath();
+}
+
+void UpdateVisitor::visit(CollideObject *collide)
+{
+	collide->checkDeath();
 }

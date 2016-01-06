@@ -18,9 +18,27 @@ void ShootingTurretState::checkState(){
 	}
 }
 void ShootingTurretState::update(float deltaTime){
+	float degPerSec = 200;
 	turret->setAsset(Asset_Turret_Angry);
-	double radAngle = 90 + RADTODEG * atan2((turret->getCar()->getCenterYSDL() - turret->getCenterYSDL()), (turret->getCar()->getCenterXSDL() - turret->getCenterXSDL()));
-	turret->turretAngle = radAngle;
-	turret->getWeapon()->pullTrigger();
+	double newAngle = fmod(450 + RADTODEG * atan2((turret->getCar()->getCenterYSDL() - turret->getCenterYSDL()), (turret->getCar()->getCenterXSDL() - turret->getCenterXSDL())), 360);
+	if (deltaTime * degPerSec < abs(newAngle - turret->turretAngle)){
+		if (fmod(turret->turretAngle - newAngle+360, 360) > 180){
+			turret->turretAngle += deltaTime * degPerSec;
+			if (turret->turretAngle > 360){
+				turret->turretAngle = 0;
+			}
+		}
+		else {
+			turret->turretAngle -= deltaTime * degPerSec;
+			if (turret->turretAngle < 0){
+				turret->turretAngle = 360;
+			}
+		}
+	}
+	else{
+		turret->turretAngle = newAngle;
+		turret->getWeapon()->pullTrigger();
+	}
+	
 	turret->getWeapon()->update(deltaTime);
 }

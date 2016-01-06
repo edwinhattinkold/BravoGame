@@ -7,18 +7,32 @@
 enum Asset
 {
 	Asset_Tree,
+	Asset_Pyramid,
+	Asset_Tent,
+	Asset_IceTree,
+	Asset_CollideDefault,
 	Asset_Car,
 	Asset_MachineGun_Bullet,
 	Asset_HowTo,
 	Asset_Menu_Arrow,
 	Asset_Tire,
 	Asset_Collectible,
+	Asset_Gasoline,
+	Asset_Nitro,
+	Asset_Oil,
 	Asset_HUD,
 	Asset_Turret_Calm,
 	Asset_Turret_Angry,
 	Asset_Turret_Dead,
 	Asset_Explosion,
-	Asset_MainMenu_Background
+	Asset_MainMenu_Background,
+	Asset_Desert_Tileset,
+	Asset_Snow_Tileset,
+	Asset_Jungle_Tileset,
+	Asset_LoadScreen_Ad,
+	Asset_GameOverScreen_Background,
+	Asset_WinScreen_Background,
+	Asset_WinScreen_Confetti
 };
 
 class Assets
@@ -43,7 +57,7 @@ public:
 };
 
 /**
-This function cleans up the entire sound system. You should call it upon all exit conditions.
+This function cleans up the entire asset system. You should call it upon all exit conditions.
 */
 extern __declspec(dllexport) void Assets_Quit();
 

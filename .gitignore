@@ -6,16 +6,17 @@
 *.ncb
 *.log
 *.pdb
+*.ini
 *.vcproj.*.user
 [Dd]ebug
 [Rr]elease
 SavedGames
+Settings
 
 # TerrorEdje specifiek
 TerrorEdje.sdf
 TerrorEdje.opensdf
 TerrorEdje.v12.suo
-Settings/general.ini
 
 # Compiled Object files
 *.slo

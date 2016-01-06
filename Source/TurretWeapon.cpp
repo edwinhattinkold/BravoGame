@@ -14,6 +14,7 @@ TurretWeapon::~TurretWeapon()
 }
 
 void TurretWeapon::fire(){
+	sound->playSound( Sound_Shooting_Machine_Gun );
 	Projectile* newProjectile = ammo->clone();
 
 	//b2Vec2 direction = host->getB2DDirectionalVector();

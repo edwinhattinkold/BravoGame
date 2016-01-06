@@ -14,6 +14,7 @@ class Collectible;
 class Turret;
 class Projectile;
 class Explosion;
+class CollideObject;
 
 class DrawVisitor
 {
@@ -28,6 +29,7 @@ public:
 	void visit(TDTire *tire);
 	void visit(TDCar *car);
 	void visit(Tree *tree);
+	void visit(CollideObject *collide);
 	void visit( Rect *rect );
 	void visit( HudObject *ho );
 	void visit( Hud *hud );

@@ -1,32 +1,15 @@
 #include "Chunk.h"
 #include "World.h"
-SDL_Texture* loadImage( SDL_Renderer *renderTarget, std::string filePath )
-{
-	filePath = filePath.substr( 3 );
-	SDL_Surface *surface = IMG_Load( filePath.c_str() );
-	if( surface == NULL )
-		std::cout << "Error1" << filePath << std::endl;
-	else
-	{
-		SDL_Texture *texture = SDL_CreateTextureFromSurface( renderTarget, surface );
-		if( texture == NULL )
-			std::cout << "Error2" << std::endl;
-		SDL_FreeSurface( surface );
-		return texture;
-	}
-	return NULL;
-}
+#include "LevelFactory.h"
 
-Chunk::Chunk(SDL_Renderer *rt, std::string filePath, World *world)
+Chunk::Chunk(SDL_Renderer *rt, MiniChunk miniChunk, World *world, int x, int y)
 {
-	this->world = world;
 	renderTarget = rt;
-	textures = new std::vector<SDL_Texture*>();
-	tiles = new std::vector<Tile*>();
-	tiles->push_back( nullptr );
 	locations = new std::vector<Location>();
+	//TO IMPROVE
+	level = LevelFactory::getInstance()->getLevel(miniChunk.level);
+
 	//create holder and definitions for box2d
-	bodies = new std::vector<b2Body*>();
 	collisionBodyDef = new b2BodyDef();
 	collisionBodyDef->type = b2_staticBody;
 	collisionBodyDef->angle = 0;
@@ -36,32 +19,53 @@ Chunk::Chunk(SDL_Renderer *rt, std::string filePath, World *world)
 	collisionFixtureDef->shape = boxShape;
 	collisionFixtureDef->density = 1;
 	XMLReader reader;
-	reader.parseXMLFile( this, filePath );
+	reader.parseXMLFile( this, "maps/" + miniChunk.tmx );
+	this->x = x;
+	this->y = y;
+	this->world = world;
+	
+	
+	addCollectable();
+	this->world->loadChunk(x, y);
+
+	
+}
+
+void Chunk::addCollectable()
+{
+	if (!this->world->chunckIsLoaded(x, y))
+	{
+		//Collectibles laden
+
+		
+		int positionNewXMin = x * (1024 / 20);
+		int positionNewXMax = (x + 1) * (1024 / 20);
+
+		int positionNewYMin = y * (1024 / 20);
+		int positionNewYMax = (y+1) * (1024 / 20);
+
+		int numberRandom = Random::getInstance().nextInt(1, level->possibleCollectibles.size());
+
+		int randomX = Random::getInstance().nextInt(positionNewXMin, positionNewXMax);
+		int randomY = Random::getInstance().nextInt(positionNewYMin, positionNewYMax);
+
+
+		world->addCollectible(5, 5, randomX, -randomY, level->possibleCollectibles[numberRandom - 1]);
+
+		 numberRandom = Random::getInstance().nextInt(1, level->possibleCollide.size());
+		 randomX = Random::getInstance().nextInt(positionNewXMin, positionNewXMax);
+		 randomY = Random::getInstance().nextInt(positionNewYMin, positionNewYMax);
+		//world->addCollidable(5, 5, randomX, -randomY, level->possibleCollide[numberRandom - 1]);
+		
+
+	}
+	
 }
 
 Chunk::~Chunk()
 {
-	for( size_t i = 1; i < tiles->size(); i++ )
-	{
-		delete tiles->at( i );
-		tiles->at( i ) = nullptr;
-	}
-	for( size_t j = 0; j < textures->size(); j++ )
-	{
-		SDL_DestroyTexture( textures->at( j ) );
-		textures->at( j ) = nullptr;
-	}
-	/* TODO Objecten verwijderen uit de map */
-	for (size_t k = 0; k < bodies->size(); k++){
-		//world->destroyBody(bodies->at(k));
-		//bodies->at(k) = nullptr;
-	}
-	delete bodies;
-	bodies = nullptr;
-	delete tiles;
-	tiles = nullptr;
-	delete textures;
-	textures = nullptr;
+	
+
 	delete locations;
 	locations = nullptr;
 	/*delete bodies;*/
@@ -73,55 +77,31 @@ Chunk::~Chunk()
 	boxShape = nullptr;
 }
 
-void Chunk::addTileSet( std::string filePath, int spacing, int firstId, int amount, int width, int height )
+void Chunk::addTileSet()
 {
-
-	SDL_Texture  *texture = loadImage( renderTarget, filePath );
-	//save pointer for removing
-	textures->push_back( texture );
-	int x = 0;
-	int y = 0;
-	for( int c = 0; c < amount; c++ )
-	{
-		SDL_Rect cropRect;
-		cropRect.h = 32;
-		cropRect.w = 32;
-		cropRect.x = x;
-		cropRect.y = y;
-		x += spacing + 32;
-
-		tiles->push_back( new Tile( texture, cropRect ) );
-		if( x + 32 > width )
-		{
-			x = 0;
-			y += spacing + 32;
-		}
-	}
-}
-
-void Chunk::addCollidableObject( int x, int y )
-{
-	collisionBodyDef->position.Set(x * 2, y * 3);
-	//b2Body *staticBody = world->createBody(collisionBodyDef);
-	//staticBody->CreateFixture(collisionFixtureDef);
-	//bodies->push_back(staticBody);
 }
 
 void Chunk::addLocation( Location l )
 {
+
 	locations->push_back( l );
 }
 
-void Chunk::draw( int x, int y, SDL_Rect *cameraRect )
+BaseLevel* Chunk::getLevel()
+{
+	return level;
+}
+
+void Chunk::draw(SDL_Rect *cameraRect )
 {
 	Tile *tile = nullptr;
 	SDL_Rect tarRect = { 0, 0, 32, 32 };
 	for( size_t i = 0; i < locations->size(); i++ )
 	{
 		Location l = locations->at( i );
-		tarRect.x = l.x * 32 + x - cameraRect->x;
-		tarRect.y = l.y * 32 + y - cameraRect->y;
-		tile = tiles->at( l.id );;
+		tarRect.x = l.x * 32 + (x*1024) - cameraRect->x;
+		tarRect.y = l.y * 32 + (y*1024) - cameraRect->y;
+		tile = level->tiles->at( l.id );;
 		SDL_RenderCopy( renderTarget, tile->getTexture(), tile->getRect(), &tarRect );
 	}
 }

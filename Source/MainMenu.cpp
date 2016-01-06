@@ -1,16 +1,20 @@
 #include "MainMenu.h"
 #include "CustomCursor.h"
+#include "World.h"
+
 MainMenu::MainMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, Camera* camera, TTF_Font* font, World* world )
 {
 	this->arrow = new Sprite( renderTarget, Asset_Menu_Arrow );
 	this->renderTarget = renderTarget;
 	this->camera = camera;
+	this->world = world;
 	sound = Sound::getInstance();
 	sound->playSoundLooping(Sound_MainMenu_Theme, 0.50f);
 	optionsMenu = new OptionsMenu(renderTarget, window, backgroundImage, arrow, camera, font);
 	loadMenu = new LoadingMenu( renderTarget, window, backgroundImage, arrow, camera, font, world );
 	creditsMenu = new CreditsMenu(renderTarget, camera);
 	howToPlay = new HowToPlay(renderTarget, camera, font);
+	loadScreen = new LoadingScreen( renderTarget, camera, font );
 	backgroundImageRect.x = 0;
 	backgroundImageRect.y = 0;
 	backgroundImageRect.w = camera->getCamera()->w;
@@ -40,6 +44,7 @@ MainMenu::~MainMenu()
 	delete howToPlay;						howToPlay = nullptr;
 	delete arrow;							arrow = nullptr;
 	delete loadMenu;						loadMenu = nullptr;
+	delete loadScreen;						loadScreen = nullptr;
 }
 
 int MainMenu::getExitCode(){
@@ -53,9 +58,14 @@ int MainMenu::showMenu(SDL_Renderer* renderTarget){
 	SDL_GetMouseState( &mouseX, &mouseY );
 	CustomCursor::getInstance( )->draw( mouseX, mouseY );
 	int choice = createMenu(renderTarget);
+	int loadChoice;
 	switch (choice){
 	case(Choices::Continue) :
 		sound->stopSound(Sound_MainMenu_Theme);
+		loadChoice = loadScreen->createMenu();
+		if( loadChoice == loadScreen->getExitCode() )
+			return Choices::Exit;
+		world->getCar()->continueSound();
 		return Choices::Continue;
 		break;
 	case(Choices::Load_Game) :

@@ -1,6 +1,6 @@
 #include "Hud.h"
 
-Hud::Hud( SDL_Renderer *renderTarget, DrawContainer *dc, FPS *fpsCounter, Camera *camera, TDCar *car,  int top, int left, float scale )
+Hud::Hud( World *world, SDL_Renderer *renderTarget, DrawContainer *dc, FPS *fpsCounter, Camera *camera, TDCar *car,  int top, int left, float scale )
 {
 	this->scale = scale;
 	this->renderTarget = renderTarget;
@@ -9,11 +9,11 @@ Hud::Hud( SDL_Renderer *renderTarget, DrawContainer *dc, FPS *fpsCounter, Camera
 	this->left = left * scale;
 	this->camera = camera;
 	this->car = car;
+	this->world = world;
 
 	this->font = TTF_OpenFont( "Fonts/28dayslater.ttf", 40 * scale );
-
 	
-	terror = 80;
+	terror = 20;
 	maxTerror = 100;
 	
 	healthbarMax = 364 * scale;
@@ -41,13 +41,23 @@ Hud::Hud( SDL_Renderer *renderTarget, DrawContainer *dc, FPS *fpsCounter, Camera
 	
 	fpsDisplay = new MenuItem( renderTarget, font, "0" );
 	scoreDisplay = new MenuItem( renderTarget, font, "0" );
+	missionDisplay = new MenuItem( renderTarget, font, "No mission currently" );
+	objectiveDisplay = new MenuItem( renderTarget, font, "No objective currently" );
+	levelDisplay = new MenuItem( renderTarget, font, "" );
 
 	fpsDisplay->setXPosition( camera->windowWidth - left - ( 50) );
 	fpsDisplay->setYPosition( top );
+	
+	levelDisplay->setXPosition( camera->windowWidth / 2 );
+	levelDisplay->setYPosition( camera->windowHeight / 2 - 200 );
 
 	scoreDisplay->setXPosition( ( camera->windowWidth / 2 ) - ( scoreDisplay->getWidth() / 2 ) );
 	scoreDisplay->setYPosition( top );
 
+	missionDisplay->setXPosition( left );
+	missionDisplay->setYPosition( top + 200 );
+	objectiveDisplay->setXPosition( left );
+	objectiveDisplay->setYPosition( top + 230 );
 }
 
 
@@ -59,6 +69,15 @@ Hud::~Hud()
 	delete slidingbar;			slidingbar = nullptr;
 	delete fpsDisplay;			fpsDisplay = nullptr;
 	delete scoreDisplay;		scoreDisplay = nullptr;
+	delete missionDisplay;		missionDisplay = nullptr;
+	delete objectiveDisplay;	objectiveDisplay = nullptr;
+	delete levelDisplay;		levelDisplay = nullptr;
+}
+
+void Hud::changeLevel(string name)
+{
+	level = "Entering " + name;
+	levelDisplay->setYPosition( camera->windowHeight / 2 - 200 );
 }
 
 
@@ -66,20 +85,27 @@ void Hud::draw( SDL_Renderer *renderTarget)
 {
 	
 	fpsDisplay->setXPosition( camera->windowWidth - left - ( 100));
-	fpsDisplay->setYPosition( top );
-
 	scoreDisplay->setXPosition( (camera->windowWidth/2) - (scoreDisplay->getWidth()/2) );
-	scoreDisplay->setYPosition( top );
+	levelDisplay->setXPosition( (camera->windowWidth / 2) - (levelDisplay->getWidth() / 2) );
+	levelDisplay->setYPosition( levelDisplay->getYPosition() - 2 );
 
-	string s = to_string( fpsCounter->fps_current );
-	char *fps = (char*) s.c_str();
-
-	string sc = to_string( car->getScore() );
-	char *score = (char*) sc.c_str();
+	string fps = to_string( fpsCounter->fps_current );
+	string score = to_string( car->getScore() );
+	
 	fpsDisplay->setText( renderTarget, fps );
 	fpsDisplay->draw( renderTarget );
 	scoreDisplay->setText( renderTarget, score );
 	scoreDisplay->draw( renderTarget );
+
+	MissionControl& mc = MissionControl::getInstance();
+	missionDisplay->setText( renderTarget, mc.getCurrentMissionTitle() );
+	missionDisplay->draw( renderTarget );
+
+	levelDisplay->setText(renderTarget, level );
+	levelDisplay->draw( renderTarget );
+
+	objectiveDisplay->setText( renderTarget, mc.getCurrentObjectiveTitle() + " " + mc.getCurrentObjectiveProgress() );
+	objectiveDisplay->draw(renderTarget);
 
 	float newHealth = ( healthbarMax / car->maxHealth ) * car->health;
 	renderHealth( newHealth );
@@ -106,7 +132,8 @@ void Hud::renderHealth( float newHealth )
 	{
 		slidingWidth = healthWidth;
 	}
-
+	
+	terrorbar->rect->w = (terrorbarMax / maxTerror) *  car->getGasoline();
 	healthbar->rect->w = healthWidth;
 	slidingbar->rect->w = slidingWidth;
 }
