@@ -89,7 +89,7 @@ void WinScreen::firstTick()
 	backgroundImageRect.w = camera->getCamera()->w;
 	backgroundImageRect.h = camera->getCamera()->h;
 	positionMenuItems();
-	sound->playSound( Sound_Game_Over_Applause, 0.5f );
+	sound->playSound( Sound_Game_Over_Applause );
 	sound->playSoundLooping( Sound_Game_Over_Win );
 }
 
