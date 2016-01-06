@@ -7,13 +7,13 @@
 GameOverMenu::GameOverMenu( World* world, SDL_Renderer* renderTarget, Camera* camera )
 	: InGameMenu(world, renderTarget, camera)
 {
-	this->world = world;
+	/*this->world = world;
 	this->renderTarget = renderTarget;
-	this->camera = camera;
-	font = TTF_OpenFont( "Fonts/Frontman.ttf", 30 );
-	this->arrow = new Sprite( renderTarget, Asset_Menu_Arrow );
-	this->sound = Sound::getInstance();
-	menuItems = new std::vector<MenuItem*>();
+	this->camera = camera;*/
+	//font = TTF_OpenFont( "Fonts/Frontman.ttf", 30 );
+	//this->arrow = new Sprite( renderTarget, Asset_Menu_Arrow );
+	//this->sound = Sound::getInstance();
+	//menuItems = new std::vector<MenuItem*>();
 	menuItems->push_back( new MenuItem( renderTarget, font, "Highscore" ) );
 	menuItems->push_back( new MenuItem( renderTarget, font, "Restart" ) );
 	menuItems->push_back( new MenuItem( renderTarget, font, "Mainmenu" ) );
@@ -27,7 +27,7 @@ GameOverMenu::GameOverMenu( World* world, SDL_Renderer* renderTarget, Camera* ca
 
 GameOverMenu::~GameOverMenu()
 {
-
+	
 }
 
 void GameOverMenu::tick( int mouseX, int mouseY )

@@ -78,6 +78,7 @@ Hud::~Hud()
 	delete missionDisplay;		missionDisplay = nullptr;
 	delete objectiveDisplay;	objectiveDisplay = nullptr;
 	delete levelDisplay;		levelDisplay = nullptr;
+	delete objectiveArrow;		objectiveArrow = nullptr;
 }
 
 void Hud::changeLevel(string name)

@@ -133,12 +133,8 @@ public:
 	void destroyCollectible(Collectible *collectible);
 	void createExplosion( SDL_Rect positionRect );
 	void removeExplosion( Explosion* explosion );
-<<<<<<< HEAD
-
-=======
 	void cameraShake();
 	Hud *hud;
->>>>>>> 6d6dc77becb2c430ec12d16e0cd7822e58191073
 	void gameOver();
 	void showHighscores(bool newScore);
 	void win();

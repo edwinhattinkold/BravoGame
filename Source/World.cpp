@@ -180,6 +180,7 @@ void World::destroyPlayableContent()
 	delete myTurret2;								myTurret2 = nullptr;
 	delete myTurret3;								myTurret3 = nullptr;
 	delete mapDrawer;								mapDrawer = nullptr;
+
 	handleBodyRemoveStack();
 	handleCollectibleRemoveStack();
 	handleProjectileRemoveStack();
