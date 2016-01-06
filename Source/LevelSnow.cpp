@@ -1,7 +1,7 @@
 #include "LevelSnow.h"
 #include "Sound.h"
 
-LevelSnow::LevelSnow() :BaseLevel(Asset::Asset_Snow_Tileset,"Snow")
+LevelSnow::LevelSnow() :BaseLevel(Asset::Asset_Snow_Tileset,"Tundra")
 {
 	possibleCollectibles.push_back(Collectible::Nitro);
 	possibleCollectibles.push_back(Collectible::Collect);
