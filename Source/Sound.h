@@ -21,7 +21,8 @@ enum SoundFiles {	Sound_MainMenu_Theme,
 					Sound_Game_Over,
 					Sound_Game_Over_Applause,
 					Sound_Game_Over_Win,
-					Sound_Shooting_Machine_Gun
+					Sound_Shooting_Machine_Gun,
+					Sound_Explosion
 };
 
 class Sound

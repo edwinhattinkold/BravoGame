@@ -429,6 +429,7 @@ void World::createExplosion(SDL_Rect positionRect)
 	explosions->push_back( newExplosion );
 	updateContainer->add( newExplosion );
 	drawContainer->add( newExplosion );
+	sound->playSound( Sound_Explosion );
 }
 
 void World::removeExplosion( Explosion* explosion )
