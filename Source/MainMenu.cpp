@@ -70,7 +70,6 @@ int MainMenu::showMenu(SDL_Renderer* renderTarget){
 		break;
 	case(Choices::Load_Game) :
 		loadChoice = loadMenu->showMenu( renderTarget );
-		sound->stopSound(Sound_MainMenu_Theme);
 		if( loadChoice == loadMenu->getBackCode() )
 		{
 			return showMenu( renderTarget );
