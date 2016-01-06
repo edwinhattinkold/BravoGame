@@ -5,7 +5,7 @@ MissionControl::MissionControl()
 	Mission *mission = new Mission( "Go be useful" );
 	mission->addObjective( "Collect gasoline tanks ", Asset_Gasoline, 2 );
 	mission->addObjective( "Kill a tree ", Asset_Tree, 1 );
-	mission->addObjective( "Fuck that turret up ", Asset_Turret_Calm, 1 );
+	mission->addObjective( "F*ck that turret up ", Asset_Turret_Calm, 1 );
 	currentMission = mission;
 }
 
@@ -44,4 +44,9 @@ string MissionControl::getCurrentObjectiveTitle()
 string MissionControl::getCurrentObjectiveProgress()
 {
 	return currentMission->getCurrentObjective()->getProgress();
+}
+
+void MissionControl::reset()
+{
+	currentMission->reset();
 }

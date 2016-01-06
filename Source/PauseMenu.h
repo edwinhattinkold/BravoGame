@@ -7,7 +7,7 @@ class PauseMenu : public InGameMenu
 {
 private:
 	SaveMenu* saveMenu;
-	enum Choices { Continue, Save_Game, Main_Menu };
+	enum Choices { Continue, Restart, Save_Game, Main_Menu };
 
 public:
 	PauseMenu(World* world, SDL_Renderer* renderTarget, Camera* camera);

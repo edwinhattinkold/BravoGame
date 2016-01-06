@@ -1,10 +1,12 @@
 #include "World.h"
 #include "CustomCursor.h"
 #include "Assets.h"
+#include "HighscoreMenu.h"
 #include "MovingTurret.h"
 
 World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font )
 {
+	fastForward = false;
 	fpsCounter = new FPS();
 
 	//create graphics world (SDL)
@@ -25,6 +27,9 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	//GameOver screen
 	gameOverMenu = new GameOverMenu( this, renderTarget, camera );
 	winScreen = new WinScreen( this, renderTarget, camera );
+
+	//HighScore screen
+	highscoreMenu = new HighscoreMenu(this, renderTarget, camera);
 
 	createPlayableContent();
 }
@@ -121,7 +126,8 @@ void World::createPlayableContent()
 	}
 	center = new SDL_Point;
 
-	hud = new Hud( renderTarget, drawContainer, fpsCounter, camera, myCar, 24, 24, 0.8f );
+	hud = new Hud(this, renderTarget, drawContainer, fpsCounter, camera, myCar, 24, 24, 0.8f );
+	//hud = new Hud( renderTarget, drawContainer, fpsCounter, camera, myCar, 24, 24, 0.8f );
 
 	drawContainer->add( hud );
 	contactHandler = new ContactHandler( this );
@@ -136,6 +142,7 @@ World::~World()
 	delete menu;									menu = nullptr;
 	delete pauseMenu;								pauseMenu = nullptr;
 	delete gameOverMenu;							gameOverMenu = nullptr;
+	delete highscoreMenu;							highscoreMenu = nullptr;
 	delete winScreen;								winScreen = nullptr;
 	delete camera;									camera = nullptr;
 
@@ -173,6 +180,7 @@ void World::destroyPlayableContent()
 	delete myTurret2;								myTurret2 = nullptr;
 	delete myTurret3;								myTurret3 = nullptr;
 	delete mapDrawer;								mapDrawer = nullptr;
+
 	handleBodyRemoveStack();
 	handleCollectibleRemoveStack();
 	handleProjectileRemoveStack();
@@ -194,6 +202,7 @@ void World::destroyPlayableContent()
 
 void World::reset()
 {
+	MissionControl::getInstance().reset();
 	destroyPlayableContent();
 	createPlayableContent();
 	myCar->health = myCar->maxHealth;
@@ -223,7 +232,7 @@ void World::tick()
 				mouseX = ev.motion.x;
 				mouseY = ev.motion.y;
 				break;
-			case(SDL_KEYDOWN) :
+			case( SDL_KEYDOWN ) :
 				if( ev.key.keysym.sym == SDLK_ESCAPE )
 				{
 					currentGameState == GameState_Running ? currentGameState = GameState_Paused : currentGameState = GameState_Running;
@@ -231,10 +240,14 @@ void World::tick()
 					if( currentGameState == GameState_Paused )
 						sound->pauseAllSounds();
 				}
+				else if( ev.key.keysym.sym == SDLK_LCTRL || ev.key.keysym.sym == SDLK_RCTRL )
+					fastForward = !fastForward;
 				else if( currentGameState == GameState_Paused )
 					pauseMenu->handleKeyboardInput( ev.key.keysym.sym );
 				else if( currentGameState == GameState_Game_Over )
 					gameOverMenu->handleKeyboardInput( ev.key.keysym.sym );
+				else if( currentGameState == GameState_In_Highscores )
+					highscoreMenu->handleKeyboardInput( ev.key.keysym.sym );
 				else if( currentGameState == GameState_Game_Over_Won )
 					winScreen->handleKeyboardInput( ev.key.keysym.sym );
 				break;
@@ -243,6 +256,8 @@ void World::tick()
 					pauseMenu->mouseButtonClicked( mouseX, mouseY );
 				else if( currentGameState == GameState_Game_Over )
 					gameOverMenu->mouseButtonClicked( mouseX, mouseY );
+				else if( currentGameState == GameState_In_Highscores )
+					highscoreMenu->mouseButtonClicked( mouseX, mouseY );
 				else if( currentGameState == GameState_Game_Over_Won )
 					winScreen->mouseButtonClicked( mouseX, mouseY );
 				break;
@@ -250,12 +265,17 @@ void World::tick()
 	}
 	keyState = SDL_GetKeyboardState( NULL );
 	
-	if( currentGameState != GameState_Paused && currentGameState != GameState_Game_Over && currentGameState != GameState_Game_Over_Won )
+	if( currentGameState != GameState_Paused && currentGameState != GameState_Game_Over && currentGameState != GameState_Game_Over_Won && currentGameState != GameState_In_Highscores )
 	{
 		updateContainer->update( deltaTime, keyState );
 		physics->Step( deltaTime, *velocityIterations, *positionIterations );//update physics
 		camera->update( myCar->getOriginX(), myCar->getOriginY(), deltaTime );
 	}
+
+	if( currentGameState == GameState_Running && MissionControl::getInstance().currentMission->complete )
+	{
+		win();
+	}	
 
 	//update SDL
 	updateSDL();
@@ -302,6 +322,8 @@ void World::updateSDL()
 		pauseMenu->tick( mouseX, mouseY );
 	else if( currentGameState == GameState_Game_Over )
 		gameOverMenu->tick( mouseX, mouseY );
+	else if( currentGameState == GameState_In_Highscores )
+		highscoreMenu->tick( mouseX, mouseY );
 	else if( currentGameState == GameState_Game_Over_Won )
 		winScreen->tick( mouseX, mouseY );
 	SDL_RenderPresent( renderTarget );
@@ -312,6 +334,10 @@ float World::calcDeltaTime()
 	prevTime = currentTime;
 	currentTime = SDL_GetTicks();
 	deltaTime = ( currentTime - prevTime ) / 1000.0f;
+	if( fastForward )
+	{
+		deltaTime *= 2;
+	}
 	return deltaTime;
 }
 
@@ -453,6 +479,31 @@ void World::gameOver()
 	sound->pauseAllSounds();
 	currentGameState = GameState_Game_Over;
 	gameOverMenu->firstTick();
+}
+
+void World::showHighscores(bool newScore)
+{
+	sound->pauseAllSounds();
+	currentGameState = GameState_In_Highscores;
+	highscoreMenu->firstTick( newScore );
+}
+
+std::vector<IObjective*> World::getObjectives()
+{
+	vector<IObjective*> objectives = vector<IObjective*>();
+	for( size_t i = 0; i < activeCollectibles->size(); i++ )
+	{
+		if( MissionControl::getInstance().currentMission->getCurrentObjective()->getType() == activeCollectibles->at( i )->objectiveType )
+		{
+			objectives.push_back( activeCollectibles->at( i ) );
+		}
+	}
+
+	if( MissionControl::getInstance().currentMission->getCurrentObjective()->getType() == myTurret->objectiveType )
+	{
+		objectives.push_back( myTurret );
+	}
+	return objectives;
 }
 
 void World::win()

@@ -21,4 +21,5 @@ public:
 	Objective* getCurrentObjective();
 	void nextObjective();
 	void addOne( Asset type );
+	void reset();
 };

@@ -4,13 +4,13 @@
 #include "MenuItem.h"
 #include "World.h"
 
-SaveMenu::SaveMenu( World* world, SDL_Renderer* renderTarget, Camera* camera, Sprite* arrow, TTF_Font* font)
+SaveMenu::SaveMenu( World* world, SDL_Renderer* renderTarget, Camera* camera, TTF_Font* font)
 {
 	this->world = world;
 	this->renderTarget = renderTarget;
 	this->camera = camera;
 	this->font = font;
-	this->arrow = arrow;
+	this->arrow = new Sprite( renderTarget, Asset_Menu_Arrow );
 	this->sound = Sound::getInstance();
 	saving = false;
 	menuItems = new std::vector<MenuItem*>();
@@ -33,6 +33,7 @@ SaveMenu::~SaveMenu()
 	for( size_t c = 0; c < menuItems->size(); c++ )
 		delete menuItems->at( c );
 	delete menuItems;
+	delete arrow; arrow = nullptr;
 }
 
 void SaveMenu::tick( int mouseX, int mouseY )
