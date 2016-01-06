@@ -46,9 +46,13 @@ Hud::Hud( World *world, SDL_Renderer *renderTarget, DrawContainer *dc, FPS *fpsC
 	scoreDisplay = new MenuItem( renderTarget, font, "0" );
 	missionDisplay = new MenuItem( renderTarget, font, "No mission currently" );
 	objectiveDisplay = new MenuItem( renderTarget, font, "No objective currently" );
+	levelDisplay = new MenuItem( renderTarget, font, "" );
 
 	fpsDisplay->setXPosition( camera->windowWidth - left - ( 50) );
 	fpsDisplay->setYPosition( top );
+	
+	levelDisplay->setXPosition( camera->windowWidth / 2 );
+	levelDisplay->setYPosition( camera->windowHeight / 2 - 200 );
 
 	scoreDisplay->setXPosition( ( camera->windowWidth / 2 ) - ( scoreDisplay->getWidth() / 2 ) );
 	scoreDisplay->setYPosition( top );
@@ -73,6 +77,13 @@ Hud::~Hud()
 	delete scoreDisplay;		scoreDisplay = nullptr;
 	delete missionDisplay;		missionDisplay = nullptr;
 	delete objectiveDisplay;	objectiveDisplay = nullptr;
+	delete levelDisplay;		levelDisplay = nullptr;
+}
+
+void Hud::changeLevel(string name)
+{
+	level = name;
+	levelDisplay->setYPosition( camera->windowHeight / 2 - 200 );
 }
 
 
@@ -81,6 +92,8 @@ void Hud::draw( SDL_Renderer *renderTarget)
 	
 	fpsDisplay->setXPosition( camera->windowWidth - left - ( 100));
 	scoreDisplay->setXPosition( (camera->windowWidth/2) - (scoreDisplay->getWidth()/2) );
+	levelDisplay->setXPosition( (camera->windowWidth / 2) - (levelDisplay->getWidth() / 2) );
+	levelDisplay->setYPosition( levelDisplay->getYPosition() - 2 );
 
 	string fps = to_string( fpsCounter->fps_current );
 	string score = to_string( car->getScore() );
@@ -93,6 +106,9 @@ void Hud::draw( SDL_Renderer *renderTarget)
 	MissionControl& mc = MissionControl::getInstance();
 	missionDisplay->setText( renderTarget, mc.getCurrentMissionTitle() );
 	missionDisplay->draw( renderTarget );
+
+	levelDisplay->setText(renderTarget, level );
+	levelDisplay->draw( renderTarget );
 
 	objectiveDisplay->setText( renderTarget, mc.getCurrentObjectiveTitle() + " " + mc.getCurrentObjectiveProgress() );
 	objectiveDisplay->draw(renderTarget);

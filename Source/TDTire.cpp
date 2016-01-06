@@ -1,5 +1,5 @@
 #include "TDTire.h"
-
+#include "ContactWrapper.h"
 TDTire::TDTire( World* world, b2World* physicsWorld, SDL_Renderer * renderTarget)
 	:B2Content( renderTarget, world, physicsWorld, Asset_Tire)
 {
@@ -16,7 +16,7 @@ TDTire::TDTire( World* world, b2World* physicsWorld, SDL_Renderer * renderTarget
 	fixture->SetUserData(ctfud);
 	w = 0.75f;
 	h = 1.625f;
-	m_body->SetUserData(this);
+	setContactWrapper(new ContactWrapper(this));
 	m_currentTraction = 1;
 	multiplierSpeed = 1.0f;
 	nitroMultiplier = 1.0f;

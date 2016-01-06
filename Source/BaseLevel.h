@@ -14,13 +14,15 @@ private:
 	int width = 263;
 	int height = 197;
 	void addTileSet();
+	string name;
 public:
 	std::vector<Tile*> *tiles;
 	std::vector<Collectible::Collectibletypes> possibleCollectibles;
-	BaseLevel(Asset assetId);
+	BaseLevel(Asset assetId,string name);
 	Collectible::Collectibletypes getTypeCollectible();
 	void virtual stopSound();
 	void virtual startSound();
+	string getName();
 	~BaseLevel();	
 };
 

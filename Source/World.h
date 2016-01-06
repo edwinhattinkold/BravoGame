@@ -24,6 +24,8 @@
 
 #include "MissionControl.h"
 
+class MovingTurret;
+
 /************************************************************************/
 /* The World class contains everything a the game needs to render except
 for the window. Its purpose is to render the world, run the physics
@@ -40,10 +42,12 @@ enum GameState
 class World
 {
 private:
-	Hud *hud;
+	bool fastForward;
 	TDCar* myCar;
 	Sound* sound;
 	Turret* myTurret;
+	Turret* myTurret2;
+	Turret* myTurret3;
 	//SDL
 	SDL_Renderer *renderTarget;
 	SDL_Texture *carTexture;
@@ -129,7 +133,12 @@ public:
 	void destroyCollectible(Collectible *collectible);
 	void createExplosion( SDL_Rect positionRect );
 	void removeExplosion( Explosion* explosion );
+<<<<<<< HEAD
 
+=======
+	void cameraShake();
+	Hud *hud;
+>>>>>>> 6d6dc77becb2c430ec12d16e0cd7822e58191073
 	void gameOver();
 	void showHighscores(bool newScore);
 	void win();

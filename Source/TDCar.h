@@ -37,7 +37,6 @@ class TDCar : public B2Content, public b2ContactListener, public Hittable
 
 	std::map<Car_Controls, SDL_Scancode> keyMap;
 	SDL_Scancode keys[5];
-	
 	std::vector<TDTire*> m_tires;
 	b2RevoluteJoint *flJoint, *frJoint;
 	int m_controlState;

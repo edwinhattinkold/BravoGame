@@ -13,17 +13,17 @@ Sound::Sound(){
 	fadeTickSpeed = 0.02f;
 
 	sounds = new std::map<int, std::string>();
-	sounds->insert( std::pair<int, std::string>( Sound_MainMenu_Theme,		"rock_intro.mp3" ) );
+	sounds->insert( std::pair<int, std::string>( Sound_MainMenu_Theme,		"credits_beelzeboss.mp3" ) );
 	sounds->insert( std::pair<int, std::string>( Sound_MainMenu_Tick,		"menu_tick.wav" ));
 	sounds->insert( std::pair<int, std::string>( Sound_MainMenu_Click,		"menu_confirm.wav" ));
-	sounds->insert( std::pair<int, std::string>( Sound_Credits_Theme,		"credits_beelzeboss.mp3" ));
+	sounds->insert( std::pair<int, std::string>( Sound_Credits_Theme,		"rock_intro.mp3" ));
 	sounds->insert(	std::pair<int, std::string>( Sound_Horn,				"horn.mp3"));
 	sounds->insert( std::pair<int, std::string>( Sound_Engine_Start,		"car_engine.mp3"));
 	sounds->insert( std::pair<int, std::string>( Sound_Engine_Loop,			"engine_loop2.wav"));
-	sounds->insert( std::pair<int, std::string>( Sound_Skid,					"brake2.mp3"));
-	sounds->insert( std::pair<int, std::string>( Sound_Level_Desert, "The_Rub_al_Khali.flac" ) );
-	sounds->insert( std::pair<int, std::string>( Sound_Level_Snow, "Warzone.flac" ) );
-	sounds->insert( std::pair<int, std::string>( Sound_Level_Jungle, "Uncharted_Island.flac" ) );
+	sounds->insert( std::pair<int, std::string>( Sound_Skid,				"brake2.mp3"));
+	sounds->insert( std::pair<int, std::string>( Sound_Level_Desert,		"The_Rub_al_Khali.flac" ) );
+	sounds->insert( std::pair<int, std::string>( Sound_Level_Snow,			"Warzone.flac" ) );
+	sounds->insert( std::pair<int, std::string>( Sound_Level_Jungle,		"Uncharted_Island.flac" ) );
 	sounds->insert(	std::pair<int, std::string>( Sound_Horn,				"horn.mp3" ));
 	sounds->insert( std::pair<int, std::string>( Sound_Engine_Start,		"car_engine.mp3" ));
 	sounds->insert( std::pair<int, std::string>( Sound_Engine_Loop,			"engine_loop2.wav" ));
