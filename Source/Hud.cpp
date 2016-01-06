@@ -12,9 +12,6 @@ Hud::Hud( World *world, SDL_Renderer *renderTarget, DrawContainer *dc, FPS *fpsC
 	this->world = world;
 
 	this->font = TTF_OpenFont( "Fonts/28dayslater.ttf", 40 * scale );
-
-	distance = 0;
-	unitVector = pair<int, int>( 0, 0 );
 	
 	terror = 20;
 	maxTerror = 100;
@@ -61,9 +58,6 @@ Hud::Hud( World *world, SDL_Renderer *renderTarget, DrawContainer *dc, FPS *fpsC
 	missionDisplay->setYPosition( top + 200 );
 	objectiveDisplay->setXPosition( left );
 	objectiveDisplay->setYPosition( top + 230 );
-
-	closestObjective = nullptr;
-	objectiveArrow = new Sprite( renderTarget, Asset_Menu_Arrow );
 }
 
 
@@ -78,12 +72,11 @@ Hud::~Hud()
 	delete missionDisplay;		missionDisplay = nullptr;
 	delete objectiveDisplay;	objectiveDisplay = nullptr;
 	delete levelDisplay;		levelDisplay = nullptr;
-	delete objectiveArrow;		objectiveArrow = nullptr;
 }
 
 void Hud::changeLevel(string name)
 {
-	level = "Entering " + name;
+	level = name;
 	levelDisplay->setYPosition( camera->windowHeight / 2 - 200 );
 }
 
@@ -116,11 +109,6 @@ void Hud::draw( SDL_Renderer *renderTarget)
 
 	float newHealth = ( healthbarMax / car->maxHealth ) * car->health;
 	renderHealth( newHealth );
-
-	if( closestObjective != nullptr )
-	{
-		//hier was ik gebleven
-	}
 }
 
 void Hud::renderHealth( float newHealth )
@@ -153,43 +141,4 @@ void Hud::renderHealth( float newHealth )
 void Hud::accept( DrawVisitor *dv )
 {
 	dv->visit( this );
-}
-
-void Hud::calcUnitVector()
-{
-	if( closestObjective != nullptr )
-	{
-		int i = pow( closestObjective->x - car->x, 2 );
-		int j = pow( closestObjective->y - car->y, 2 );
-	
-		distance = sqrt(i + j);
-		unitVector = pair<int, int>( i / distance, j / distance );
-		angle = atan2( unitVector.second, unitVector.first ) * 180 / M_PI;
-	}
-}
-
-IObjective* Hud::getClosestObjective()
-{
-	int thedistance = INT_MAX;
-	IObjective* theObjective;
-	vector<IObjective*> objectives = world->getObjectives();
-	if( objectives.size() < 1 )
-	{
-		closestObjective = nullptr;
-	} else
-	{
-		for( size_t i = 0; i < objectives.size(); i++ )
-		{
-			int ii = pow( objectives.at(i)->x - car->x, 2 );
-			int j = pow( objectives.at( i )->y - car->y, 2 );
-
-			int newDistance = sqrt( i + j );
-			if( newDistance < thedistance )
-			{
-				closestObjective = objectives.at( i );
-				thedistance = newDistance;
-			}
-		}
-	}
-	return closestObjective;
 }

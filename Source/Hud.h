@@ -43,12 +43,6 @@ private:
 	MenuItem *missionDisplay;
 	MenuItem *objectiveDisplay;
 
-	Sprite *objectiveArrow;
-	IObjective *closestObjective;
-	pair<int, int> unitVector;
-	double distance;
-	double angle;
-
 	string level;
 	Camera *camera;
 	TDCar *car;
