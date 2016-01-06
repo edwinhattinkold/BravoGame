@@ -42,7 +42,7 @@ void Weapon::pullTrigger( )
 
 void Weapon::fire()
 {
-	world->cameraShake();
+//	world->cameraShake();
 	Projectile* newProjectile = ammo->clone();
 	b2Vec2 direction = host->getB2DDirectionalVector();
 	int randomSpread = Random::getInstance().nextInt( 0 - (spread / 2), 0 + (spread / 2) );

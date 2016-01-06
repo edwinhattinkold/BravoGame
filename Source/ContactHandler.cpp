@@ -77,7 +77,7 @@ void ContactHandler::bulletContact( Projectile* projectile, B2Content* otherObje
 			if (!projectile->isOnDeathRow)
 			{
 				car->takeDamage( projectile->getDamage() );
-				world->cameraShake();
+//				world->cameraShake();
 				world->destroyProjectile(projectile);
 				projectile->isOnDeathRow = true;
 				if( car->dead )
