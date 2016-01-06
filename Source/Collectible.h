@@ -1,7 +1,8 @@
 #pragma once
 #include "B2Content.h"
+#include "IObjective.h"
 
-class Collectible : public B2Content
+class Collectible : public B2Content, public IObjective
 {
 public:
 	

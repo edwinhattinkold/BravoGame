@@ -1,8 +1,9 @@
 #include "BaseLevel.h"
 #include "Assets.h"
 
-BaseLevel::BaseLevel(Asset assetId)
+BaseLevel::BaseLevel(Asset assetId,string name)
 {
+	this->name = name;
 	textureId = assetId;
 	tiles = new std::vector<Tile*>();
 	possibleCollectibles = std::vector < Collectible::Collectibletypes >() ;
@@ -24,8 +25,8 @@ BaseLevel::~BaseLevel()
 		delete tiles->at( i );
 		tiles->at( i ) = nullptr;
 	}
-
-
+	delete tiles;
+	tiles = nullptr;
 }
 
 void BaseLevel::addTileSet()
@@ -52,4 +53,17 @@ void BaseLevel::addTileSet()
 			y += spacing + 32;
 		}
 	}
+}
+
+void BaseLevel::startSound()
+{
+}
+
+string BaseLevel::getName()
+{
+	return name;
+}
+
+void BaseLevel::stopSound()
+{
 }

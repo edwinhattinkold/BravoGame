@@ -1,11 +1,41 @@
 #include "World.h"
 #include "CustomCursor.h"
 #include "Assets.h"
+#include "HighscoreMenu.h"
+#include "MovingTurret.h"
 
 World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font )
 {
+	fastForward = false;
 	fpsCounter = new FPS();
 
+	//create graphics world (SDL)
+	renderTarget = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
+	CustomCursor::getInstance()->setRenderTarget( renderTarget );
+	Assets::getInstance()->setRenderTarget( renderTarget );
+	sound = Sound::getInstance();
+
+	createCamera( window, levelWidth, levelHeight );
+
+	//TODO: main menu in separate class, drawable maybe?
+	mainMenuBackground = Assets::getInstance()->getAsset(Asset_MainMenu_Background);
+	menu = new MainMenu( renderTarget, window, mainMenuBackground, camera, font, this );
+
+	//Paused screen
+	pauseMenu = new PauseMenu(this, renderTarget, camera);
+
+	//GameOver screen
+	gameOverMenu = new GameOverMenu( this, renderTarget, camera );
+	winScreen = new WinScreen( this, renderTarget, camera );
+
+	//HighScore screen
+	highscoreMenu = new HighscoreMenu(this, renderTarget, camera);
+
+	createPlayableContent();
+}
+
+void World::createPlayableContent()
+{
 	prevTime = 0;
 	currentTime = 0;
 	deltaTime = 0.0f;
@@ -34,64 +64,82 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	gravity = new b2Vec2( 0.0f, 0.0f );
 	physics = new b2World( *gravity );
 
-	//create graphics world (SDL)
-	renderTarget = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
-	CustomCursor::getInstance()->setRenderTarget( renderTarget );
-	Assets::getInstance()->setRenderTarget( renderTarget );
-	sound = Sound::getInstance();
-
-	//TODO: Level in separate class, camera too maybe?
-	createCamera( window, levelWidth, levelHeight );
-
 	//Create containers
 	drawContainer = new DrawContainer( renderTarget, camera->getCamera() );
 	updateContainer = new UpdateContainer();
 
-	//TODO: main menu in separate class, drawable maybe?
-	mainMenuBackground = Assets::getInstance()->getAsset(Asset_MainMenu_Background);
-	menu = new MainMenu( renderTarget, window, mainMenuBackground, camera, font, this );
-
-	//Paused screen
-	pauseMenu = new PauseMenu(this, renderTarget, camera);
-
-	//Creation of sprites should be placed elsewhere as well, I'm just running out of time
 	//add map
-	mapDrawer = new MapDrawer( renderTarget, camera->getCamera(),this );
-	drawContainer->add(mapDrawer);
-	updateContainer->add(mapDrawer);
-	
+
+	mapDrawer = new MapDrawer( renderTarget, camera->getCamera(), this );
+	drawContainer->add( mapDrawer );
+	updateContainer->add( mapDrawer );
+
+	//add collectables
+	this->addCollectible(15, 15, 10, -100, Collectible::Collectibletypes::Oil);
+	this->addCollectible(15, 15, 60, -100, Collectible::Collectibletypes::Oil);
+
+	this->addCollectible(5, 5, 35, -150, Collectible::Collectibletypes::Collect);
+	this->addCollectible(5, 5, 20, -50, Collectible::Collectibletypes::Gasoline);
+	this->addCollectible(5, 5, 20, -80, Collectible::Collectibletypes::Nitro);
+	this->addCollectible(5, 5, 30, -120, Collectible::Collectibletypes::Gasoline);
+	this->addCollectible(5, 5, 40, -140, Collectible::Collectibletypes::Gasoline);
+	this->addCollectible(5, 5, 40, -170, Collectible::Collectibletypes::Gasoline);
+	this->addCollectible(5, 5, 40, -190, Collectible::Collectibletypes::Gasoline);
+	this->addCollectible(5, 5, 40, -210, Collectible::Collectibletypes::Nitro);
+
+
+	this->addCollectible(5, 5, 20, -329, Collectible::Collectibletypes::Gasoline);
+	this->addCollectible(5, 5, 20, -350, Collectible::Collectibletypes::Gasoline);
+	this->addCollectible(5, 5, 20, -380, Collectible::Collectibletypes::Nitro);
+	this->addCollectible(5, 5, 30, -420, Collectible::Collectibletypes::Collect);
+	this->addCollectible(5, 5, 40, -440, Collectible::Collectibletypes::Gasoline);
+	this->addCollectible(5, 5, 40, -470, Collectible::Collectibletypes::Gasoline);
+	this->addCollectible(5, 5, 40, -490, Collectible::Collectibletypes::Gasoline);
+	this->addCollectible(5, 5, 40, -510, Collectible::Collectibletypes::Nitro);
+
 	//add car
-	myCar = new TDCar(this, physics, renderTarget, camera, 3, 6);
-	drawContainer->add(myCar);
-	updateContainer->add(myCar);
-	
+	myCar = new TDCar( this, physics, renderTarget, camera, 3, 6 );
+	drawContainer->add( myCar );
+	updateContainer->add( myCar );
+
+	//add objects ( no special destructor )
+	addObject(new Tree(this, physics, renderTarget, 10, 10, 20, -15));
+	addObject(new Tree(this, physics, renderTarget, 10, 10, 20, -45));
+
 	//add objects ( own destructor )
-	myTurret = new Turret(physics, renderTarget, 50, -40, myCar, this);
+	myTurret = new MovingTurret(physics, renderTarget, 50, -10, myCar, this);
 	drawContainer->add(myTurret);
 	updateContainer->add(myTurret);
-	
+	myTurret2 = new MovingTurret(physics, renderTarget, 50, -40, myCar, this);
+	drawContainer->add(myTurret2);
+	updateContainer->add(myTurret2); 
+	myTurret3 = new MovingTurret(physics, renderTarget, 80, -10, myCar, this);
+	drawContainer->add(myTurret3);
+	updateContainer->add(myTurret3);
 	std::vector<TDTire*> tires = myCar->getTires();
-	for (size_t i = 0; i < tires.size(); i++)
-		drawContainer->add(tires[i]);
+	for( size_t i = 0; i < tires.size(); i++ )
+		drawContainer->add( tires[i] );
 	drawContainer->add( myCar );
 
 	//CAR
-	surfaceCar = IMG_Load("Images/Car/debugbuggy.png");
-	if (surfaceCar == NULL)
+	surfaceCar = IMG_Load( "Images/Car/debugbuggy.png" );
+	if( surfaceCar == NULL )
 		std::cout << "Error" << std::endl;
 	else
 	{
-		textureCar = SDL_CreateTextureFromSurface(renderTarget, surfaceCar);
-		if (textureCar == NULL)
+		textureCar = SDL_CreateTextureFromSurface( renderTarget, surfaceCar );
+		if( textureCar == NULL )
 			std::cout << "Error 123 4 " << std::endl;
 	}
 	center = new SDL_Point;
-	
 
-	hud = new Hud( renderTarget, drawContainer, fpsCounter, camera, myCar, 24, 24, 0.8 );
+	hud = new Hud(this, renderTarget, drawContainer, fpsCounter, camera, myCar, 24, 24, 0.8f );
+	//hud = new Hud( renderTarget, drawContainer, fpsCounter, camera, myCar, 24, 24, 0.8f );
+
 	drawContainer->add( hud );
-	contactHandler = new ContactHandler(this);
+	contactHandler = new ContactHandler( this );
 	physics->SetContactListener( contactHandler );
+
 	addCollidable(5, 5, 5, 0, CollideObject::Desert_Tree);
 	addCollidable(5, 5, 15, 0, CollideObject::Ice_Tent);
 	addCollidable(5, 5, 25, 0, CollideObject::Ice_Tree);
@@ -103,20 +151,29 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	addCollidable(5, 5, 25, 30, CollideObject::Ice_Tree);
 	addCollidable(5, 5, 35, 30, CollideObject::Desert_Piramid);
 	addCollidable(5, 5, 45, 30, CollideObject::Collide_Default);
-	
-	
+
 }
 
 World::~World()
 {	
 	delete this->fpsCounter;						this->fpsCounter = nullptr;
-	delete this->hud;								this->hud = nullptr;
-	
-	for (size_t i = 0; i < activeCollideObjects->size(); i++)
-	{
-		delete activeCollideObjects->at(i);
-	}
-	delete activeCollideObjects;						activeCollideObjects = nullptr;
+
+	delete menu;									menu = nullptr;
+	delete pauseMenu;								pauseMenu = nullptr;
+	delete gameOverMenu;							gameOverMenu = nullptr;
+	delete highscoreMenu;							highscoreMenu = nullptr;
+	delete winScreen;								winScreen = nullptr;
+	delete camera;									camera = nullptr;
+
+	destroyPlayableContent();
+
+	SDL_DestroyTexture(mainMenuBackground);			mainMenuBackground = nullptr;
+	SDL_DestroyRenderer(renderTarget);				renderTarget = nullptr;
+}
+
+void World::destroyPlayableContent()
+{
+
 	for( size_t i = 0; i < activeProjectiles->size(); i++ )
 	{
 		delete activeProjectiles->at( i );
@@ -127,6 +184,13 @@ World::~World()
 		delete activeCollectibles->at(i);
 	}
 	delete activeCollectibles;						activeCollectibles = nullptr;
+
+	for (size_t i = 0; i < activeCollideObjects->size(); i++)
+	{
+		delete activeCollideObjects->at(i);
+	}
+	delete activeCollideObjects;						activeCollideObjects = nullptr;
+	
 
 	for( size_t c = 0; c < objects->size(); c++ )
 	{
@@ -145,7 +209,11 @@ World::~World()
 	delete keys;									keys = nullptr;
 	delete myCar;									myCar = nullptr;
 	delete myTurret;								myTurret = nullptr;
+	delete myTurret2;								myTurret2 = nullptr;
+	delete myTurret3;								myTurret3 = nullptr;
 	delete mapDrawer;								mapDrawer = nullptr;
+	delete this->hud;								this->hud = nullptr;
+
 	handleBodyRemoveStack();
 	handleCollectibleRemoveStack();
 	handleProjectileRemoveStack();
@@ -158,15 +226,20 @@ World::~World()
 	delete gravity;									gravity = nullptr;
 	delete velocityIterations;						velocityIterations = nullptr;
 	delete positionIterations;						positionIterations = nullptr;
-	delete camera;									camera = nullptr;
-	delete menu;									menu = nullptr;
-	delete pauseMenu;								pauseMenu = nullptr;
 	delete drawContainer;							drawContainer = nullptr;
 	delete updateContainer;							updateContainer = nullptr;
 	delete contactHandler;							contactHandler = nullptr;
 	delete center;									center = nullptr;
-	SDL_DestroyTexture(mainMenuBackground);			mainMenuBackground = nullptr;
-	SDL_DestroyRenderer(renderTarget);				renderTarget = nullptr;
+
+}
+
+void World::reset()
+{
+	MissionControl::getInstance().reset();
+	destroyPlayableContent();
+	createPlayableContent();
+	myCar->health = myCar->maxHealth;
+	myCar->takenDamage = 0;
 }
 
 TDCar* World::getCar()
@@ -192,32 +265,53 @@ void World::tick()
 				mouseX = ev.motion.x;
 				mouseY = ev.motion.y;
 				break;
-			case(SDL_KEYDOWN) :
+			case( SDL_KEYDOWN ) :
 				if( ev.key.keysym.sym == SDLK_ESCAPE )
 				{
-					currentGameState == GameState_Running ? currentGameState = GameState_Paused : currentGameState = GameState_Running;
-					pauseMenu->center();
-					if( currentGameState == GameState_Paused )
-						sound->pauseAllSounds();
+					if (currentGameState == GameState_Running || currentGameState == GameState_Paused){
+						currentGameState == GameState_Running ? currentGameState = GameState_Paused : currentGameState = GameState_Running;
+						pauseMenu->center();
+						if (currentGameState == GameState_Paused)
+							sound->pauseAllSounds();
+					}
 				}
+				else if( ev.key.keysym.sym == SDLK_LCTRL || ev.key.keysym.sym == SDLK_RCTRL )
+					fastForward = !fastForward;
 				else if( currentGameState == GameState_Paused )
 					pauseMenu->handleKeyboardInput( ev.key.keysym.sym );
+				else if( currentGameState == GameState_Game_Over )
+					gameOverMenu->handleKeyboardInput( ev.key.keysym.sym );
+				else if( currentGameState == GameState_In_Highscores )
+					highscoreMenu->handleKeyboardInput( ev.key.keysym.sym );
+				else if( currentGameState == GameState_Game_Over_Won )
+					winScreen->handleKeyboardInput( ev.key.keysym.sym );
 				break;
-			case(SDL_MOUSEBUTTONDOWN) :
+			case( SDL_MOUSEBUTTONDOWN ) :
 				if( currentGameState == GameState_Paused )
-					pauseMenu->mouseButtonClicked(mouseX, mouseY);
+					pauseMenu->mouseButtonClicked( mouseX, mouseY );
+				else if( currentGameState == GameState_Game_Over )
+					gameOverMenu->mouseButtonClicked( mouseX, mouseY );
+				else if( currentGameState == GameState_In_Highscores )
+					highscoreMenu->mouseButtonClicked( mouseX, mouseY );
+				else if( currentGameState == GameState_Game_Over_Won )
+					winScreen->mouseButtonClicked( mouseX, mouseY );
 				break;
 		}
 	}
 	keyState = SDL_GetKeyboardState( NULL );
 	
-	
-	if( currentGameState != GameState_Paused )
+
+	if( currentGameState != GameState_Paused && currentGameState != GameState_Game_Over && currentGameState != GameState_Game_Over_Won && currentGameState != GameState_In_Highscores )
 	{
 		updateContainer->update( deltaTime, keyState );
 		physics->Step( deltaTime, *velocityIterations, *positionIterations );//update physics
 		camera->update( myCar->getOriginX(), myCar->getOriginY(), deltaTime );
 	}
+
+	if( currentGameState == GameState_Running && MissionControl::getInstance().currentMission->complete )
+	{
+		win();
+	}	
 
 	//update SDL
 	updateSDL();
@@ -234,7 +328,6 @@ void World::tick()
 void World::run()
 {
 	setGameState( GameState_In_MainMenu );
-	
 
 	while( currentGameState != GameState_Closing)
 		tick();
@@ -263,6 +356,12 @@ void World::updateSDL()
 	drawContainer->draw();
 	if( currentGameState == GameState_Paused )
 		pauseMenu->tick( mouseX, mouseY );
+	else if( currentGameState == GameState_Game_Over )
+		gameOverMenu->tick( mouseX, mouseY );
+	else if( currentGameState == GameState_In_Highscores )
+		highscoreMenu->tick( mouseX, mouseY );
+	else if( currentGameState == GameState_Game_Over_Won )
+		winScreen->tick( mouseX, mouseY );
 	SDL_RenderPresent( renderTarget );
 }
 
@@ -271,6 +370,10 @@ float World::calcDeltaTime()
 	prevTime = currentTime;
 	currentTime = SDL_GetTicks();
 	deltaTime = ( currentTime - prevTime ) / 1000.0f;
+	if( fastForward )
+	{
+		deltaTime *= 2;
+	}
 	return deltaTime;
 }
 
@@ -346,6 +449,7 @@ void World::createExplosion(SDL_Rect positionRect)
 	explosions->push_back( newExplosion );
 	updateContainer->add( newExplosion );
 	drawContainer->add( newExplosion );
+	sound->playSound( Sound_Explosion );
 }
 
 void World::removeExplosion( Explosion* explosion )
@@ -380,12 +484,16 @@ void World::addCollectible(int w, int h, int x, int y, Collectible::Collectiblet
 }
 
 
-void World::addCollidable(int w, int h, int x, int y, CollideObject::CollideType type)
+	void World::addCollidable(int w, int h, int x, int y, CollideObject::CollideType type)
 {
-	CollideObject* newCollectibe = new CollideObject(this, physics, renderTarget, w, h, x, y,  type);
+	CollideObject* newCollectibe = new CollideObject(this, physics, renderTarget, w, h, x, y, type);
 	updateContainer->add(newCollectibe);
 	drawContainer->add(newCollectibe);
 	activeCollideObjects->push_back(newCollectibe);
+}
+void World::cameraShake()
+{
+	camera->cameraShake( 0.10f );
 }
 
 void World::addObject(B2Content* object)
@@ -394,6 +502,7 @@ void World::addObject(B2Content* object)
 	updateContainer->add( object );
 	drawContainer->add( object );
 }
+
 
 bool World::chunckIsLoaded(int x, int y)
 {
@@ -410,6 +519,44 @@ bool World::chunckIsLoaded(int x, int y)
 void World::loadChunk(int x, int y)
 {
 	loadedChunks[coord(x, y)] = true;
-
+}
 	
+
+void World::gameOver()
+{
+	sound->pauseAllSounds();
+	currentGameState = GameState_Game_Over;
+	gameOverMenu->firstTick();
+}
+
+void World::showHighscores(bool newScore)
+{
+	sound->pauseAllSounds();
+	currentGameState = GameState_In_Highscores;
+	highscoreMenu->firstTick( newScore );
+}
+
+std::vector<IObjective*> World::getObjectives()
+{
+	vector<IObjective*> objectives = vector<IObjective*>();
+	for( size_t i = 0; i < activeCollectibles->size(); i++ )
+	{
+		if( MissionControl::getInstance().currentMission->getCurrentObjective()->getType() == activeCollectibles->at( i )->objectiveType )
+		{
+			objectives.push_back( activeCollectibles->at( i ) );
+		}
+	}
+
+	if( MissionControl::getInstance().currentMission->getCurrentObjective()->getType() == myTurret->objectiveType )
+	{
+		objectives.push_back( myTurret );
+	}
+	return objectives;
+}
+
+void World::win()
+{
+	sound->pauseAllSounds();
+	currentGameState = GameState_Game_Over_Won;
+	winScreen->firstTick();
 }

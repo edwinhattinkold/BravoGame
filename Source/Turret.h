@@ -28,4 +28,7 @@ public:
 	void setState(TurretState* state);
 	TurretState* getState();
 	Weapon* getWeapon();
+	b2World* getPhysicsWorld(){
+		return physicsWorld;
+	};
 };

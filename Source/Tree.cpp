@@ -1,13 +1,14 @@
 #include "Tree.h"
 #include "World.h"
-
+#include "ContactWrapper.h"
 #ifndef DEGTORAD
 #define DEGTORAD 0.0174532925199432957f
 #define RADTODEG 57.295779513082320876f
 #endif
 
 Tree::Tree(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, int widthM, int heightM, int posX, int posY)
-	:B2Content(renderTarget, world, physicsWorld, Asset_Tree), Hittable(1000){
+	:B2Content( renderTarget, world, physicsWorld, Asset_Tree ), Hittable( 1000, Asset_Tree )
+{
 	objectType = Object_Tree;
 	w = widthM;
 	h = heightM;
@@ -37,8 +38,7 @@ Tree::Tree(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, int 
 
 	updateSDLPosition(getCenterXSDL(), getCenterYSDL(), getSDLWidth(), getSDLHeight(), getAngleSDL());
 	updateOrigin();
-
-	m_body->SetUserData( this );
+	setContactWrapper(new ContactWrapper(this));
 }
 
 

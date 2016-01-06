@@ -35,4 +35,5 @@ public:
 	void addLocation(Location l);
 	void addCollidableObject(int x, int y);
 	void addCollectable();
+	BaseLevel* getLevel();
 };

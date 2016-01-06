@@ -8,6 +8,7 @@ class TDCar;
 class MapDrawer;
 class Projectile;
 class Explosion;
+class MovingTurret;
 class Tree;
 class CollideObject;
 
@@ -20,7 +21,7 @@ public:
 	UpdateVisitor();
 	~UpdateVisitor();
 	void visit(IUpdateable *iu, float deltaTime, const Uint8 *keyState);
-	void visit(Turret* turret);
+	
 	void setDelta( float deltaTime );
 	void setKeyState( const Uint8 *keyState );
 
@@ -32,5 +33,7 @@ public:
 	void visit( Explosion *explosion );
 	void visit( Tree *tree );
 	void visit( CollideObject *collide);
+	void visit(Turret* turret);
+	void visit(MovingTurret* turret);
 };
 

@@ -3,36 +3,21 @@
 #include "SDL_ttf.h"
 #include "MenuItem.h"
 #include "World.h"
+#include "SaveMenu.h"
 
 PauseMenu::PauseMenu(World* world, SDL_Renderer* renderTarget, Camera* camera )
+	: InGameMenu( world, renderTarget, camera )
 {
-	this->world = world;
-	this->renderTarget = renderTarget;
-	this->camera = camera;
-	font = TTF_OpenFont( "Fonts/Frontman.ttf", 30 );
-	this->arrow = new Sprite( renderTarget, Asset_Menu_Arrow );
-	this->sound = Sound::getInstance();
-	menuItems = new std::vector<MenuItem*>();
 	menuItems->push_back( new MenuItem( renderTarget, font, "Continue" ) );
+	menuItems->push_back( new MenuItem( renderTarget, font, "Restart" ) );
 	menuItems->push_back( new MenuItem( renderTarget, font, "Save game" ) );
 	menuItems->push_back( new MenuItem( renderTarget, font, "Mainmenu" ) );
 
-	saveMenu = new SaveMenu(world, renderTarget, camera, arrow, font);
-
-	margin = 40;
-	selected = 0;
-	center();
+	saveMenu = new SaveMenu(world, renderTarget, camera, font);
 }
 
 PauseMenu::~PauseMenu()
 {
-	for( size_t c = 0; c < menuItems->size(); c++ )
-	{
-		delete menuItems->at( c );	menuItems->at( c ) = nullptr;
-	}
-	delete menuItems;				menuItems = nullptr;
-	delete arrow;					arrow = nullptr;
-	TTF_CloseFont( font );			font = nullptr;
 	delete saveMenu;				saveMenu = nullptr;
 }
 
@@ -85,6 +70,8 @@ void PauseMenu::center()
 		int yPosition = (camera->getCamera()->h / 2) - (combinedHeight / 2) + (j * margin) + previousHeight;
 		menuItems->at( j )->setYPosition( yPosition );
 	}
+	selected = 0;
+	saveMenu->saving = false;
 	updateSelected();
 	saveMenu->center();
 }
@@ -154,11 +141,16 @@ void PauseMenu::handleChoice( int index )
 			sound->playSoundLooping( Sound_MainMenu_Theme, 0.5f );
 			world->setGameState( GameState_In_MainMenu );
 			break;
+		case( Choices::Restart ) :
+			world->reset();
+			world->setGameState( GameState_Running );
+			break;
 		case(Choices::Save_Game) :
 			saveMenu->saving = true;
 			break;
 		case(Choices::Continue) :
 			world->setGameState( GameState_Running );
+			world->getCar()->continueSound();
 			break;
 	}
 }

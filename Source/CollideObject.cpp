@@ -7,7 +7,7 @@
 #endif
 
 CollideObject::CollideObject(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, int widthM, int heightM, int posX, int posY, CollideType type)
-	:B2Content(renderTarget, world, physicsWorld, Asset_Tree), Hittable(1000){
+	:B2Content(renderTarget, world, physicsWorld, Asset_Tree), Hittable(1000,	Asset_Tree){
 	objectType = Object_Collide;
 	w = widthM;
 	h = heightM;

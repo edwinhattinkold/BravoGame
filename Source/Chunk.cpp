@@ -4,11 +4,11 @@
 
 Chunk::Chunk(SDL_Renderer *rt, MiniChunk miniChunk, World *world, int x, int y)
 {
-	
 	renderTarget = rt;
 	locations = new std::vector<Location>();
 	//TO IMPROVE
-	level = LevelFactory::getInstance()->getLevel( miniChunk.level );
+	level = LevelFactory::getInstance()->getLevel(miniChunk.level);
+
 	//create holder and definitions for box2d
 	collisionBodyDef = new b2BodyDef();
 	collisionBodyDef->type = b2_staticBody;
@@ -24,9 +24,11 @@ Chunk::Chunk(SDL_Renderer *rt, MiniChunk miniChunk, World *world, int x, int y)
 	this->y = y;
 	this->world = world;
 	
+	
 	addCollectable();
-
 	this->world->loadChunk(x, y);
+
+	
 }
 
 void Chunk::addCollectable()
@@ -79,16 +81,15 @@ void Chunk::addTileSet()
 {
 }
 
-void Chunk::addCollidableObject( int x, int y )
-{
-	collisionBodyDef->position.Set(x * 2, y * 3);
-	//b2Body *staticBody = world->createBody(collisionBodyDef);
-	//staticBody->CreateFixture(collisionFixtureDef);
-}
-
 void Chunk::addLocation( Location l )
 {
+
 	locations->push_back( l );
+}
+
+BaseLevel* Chunk::getLevel()
+{
+	return level;
 }
 
 void Chunk::draw(SDL_Rect *cameraRect )

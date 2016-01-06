@@ -15,11 +15,13 @@
     <ClInclude Include="Source\Assets.h" />
     <ClInclude Include="Source\BaseLevel.h" />
     <ClInclude Include="Source\Camera.h" />
+    <ClInclude Include="Source\ChasingTurretState.h" />
     <ClInclude Include="Source\ChunkFactory.h" />
     <ClInclude Include="Source\CarTireFUD.h" />
     <ClInclude Include="Source\CollideObject.h" />
     <ClInclude Include="Source\Collectible.h" />
     <ClInclude Include="Source\ContactHandler.h" />
+    <ClInclude Include="Source\ContactWrapper.h" />
     <ClInclude Include="Source\CreditsMenu.h" />
     <ClInclude Include="Source\CustomCursor.h" />
     <ClInclude Include="Source\DeadTurretState.h" />
@@ -29,6 +31,7 @@
     <ClInclude Include="Source\Explosion.h" />
     <ClInclude Include="Source\FixtureUserData.h" />
     <ClInclude Include="Source\FPS.h" />
+    <ClInclude Include="Source\GameOverMenu.h" />
     <ClInclude Include="Source\GroundAreaFUD.h" />
     <ClInclude Include="Source\HighscoreMenu.h" />
     <ClInclude Include="Source\Hittable.h" />
@@ -36,11 +39,15 @@
     <ClInclude Include="Source\Hud.h" />
     <ClInclude Include="Source\HudObject.h" />
     <ClInclude Include="Source\IDrawable.h" />
+    <ClInclude Include="Source\IObjective.h" />
+    <ClInclude Include="Source\InGameMenu.h" />
     <ClInclude Include="Source\IUpdateable.h" />
     <ClInclude Include="Source\LevelDesert.h" />
     <ClInclude Include="Source\LevelFactory.h" />
+    <ClInclude Include="Source\LevelJungle.h" />
     <ClInclude Include="Source\LevelSnow.h" />
     <ClInclude Include="Source\LoadingMenu.h" />
+    <ClInclude Include="Source\LoadingScreen.h" />
     <ClInclude Include="Source\Location.h" />
     <ClInclude Include="Source\MachineGun.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -50,11 +57,17 @@
     <ClInclude Include="Source\MapDrawer.h" />
     <ClInclude Include="Source\Chunk.h" />
     <ClInclude Include="Source\MenuItem.h" />
+    <ClInclude Include="Source\MovingTurret.h" />
+    <ClInclude Include="Source\Mission.h" />
+    <ClInclude Include="Source\MissionControl.h" />
     <ClInclude Include="Source\MyDestructionListener.h" />
+    <ClInclude Include="Source\Objective.h" />
     <ClInclude Include="Source\OptionsMenu.h" />
     <ClInclude Include="Source\PauseMenu.h" />
     <ClInclude Include="Source\PhysicsWorld.h" />
     <ClInclude Include="Source\Projectile.h" />
+    <ClInclude Include="Source\RadarQueryCallback.h" />
+    <ClInclude Include="Source\RageTurretState.h" />
     <ClInclude Include="Source\Random.h" />
     <ClInclude Include="Source\rapidxml.hpp" />
     <ClInclude Include="Source\rapidxml_utils.hpp" />
@@ -76,6 +89,7 @@
     <ClInclude Include="Source\UpdateContainer.h" />
     <ClInclude Include="Source\UpdateVisitor.h" />
     <ClInclude Include="Source\Weapon.h" />
+    <ClInclude Include="Source\WinScreen.h" />
     <ClInclude Include="Source\World.h" />
     <ClInclude Include="Source\XMLReader.h" />
   </ItemGroup>
@@ -85,6 +99,7 @@
     <ClCompile Include="Source\B2Content.cpp" />
     <ClCompile Include="Source\BaseLevel.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
+    <ClCompile Include="Source\ChasingTurretState.cpp" />
     <ClCompile Include="Source\ChunkFactory.cpp" />
     <ClCompile Include="Source\CarTireFUD.cpp" />
     <ClCompile Include="Source\CollideObject.cpp" />
@@ -99,6 +114,7 @@
     <ClCompile Include="Source\Explosion.cpp" />
     <ClCompile Include="Source\FixtureUserData.cpp" />
     <ClCompile Include="Source\FPS.cpp" />
+    <ClCompile Include="Source\GameOverMenu.cpp" />
     <ClCompile Include="Source\GroundAreaFUD.cpp" />
     <ClCompile Include="Source\HighscoreMenu.cpp" />
     <ClCompile Include="Source\Hittable.cpp" />
@@ -106,11 +122,15 @@
     <ClCompile Include="Source\Hud.cpp" />
     <ClCompile Include="Source\HudObject.cpp" />
     <ClCompile Include="Source\IDrawable.cpp" />
+    <ClCompile Include="Source\IObjective.cpp" />
+    <ClCompile Include="Source\InGameMenu.cpp" />
     <ClCompile Include="Source\IUpdateable.cpp" />
     <ClCompile Include="Source\LevelDesert.cpp" />
     <ClCompile Include="Source\LevelFactory.cpp" />
+    <ClCompile Include="Source\LevelJungle.cpp" />
     <ClCompile Include="Source\LevelSnow.cpp" />
     <ClCompile Include="Source\LoadingMenu.cpp" />
+    <ClCompile Include="Source\LoadingScreen.cpp" />
     <ClCompile Include="Source\Location.cpp" />
     <ClCompile Include="Source\MachineGun.cpp" />
     <ClCompile Include="Source\main.cpp" />
@@ -118,10 +138,15 @@
     <ClCompile Include="Source\MapDrawer.cpp" />
     <ClCompile Include="Source\Chunk.cpp" />
     <ClCompile Include="Source\MenuItem.cpp" />
+    <ClCompile Include="Source\MovingTurret.cpp" />
+    <ClCompile Include="Source\Mission.cpp" />
+    <ClCompile Include="Source\MissionControl.cpp" />
     <ClCompile Include="Source\MyDestructionListener.cpp" />
+    <ClCompile Include="Source\Objective.cpp" />
     <ClCompile Include="Source\OptionsMenu.cpp" />
     <ClCompile Include="Source\PauseMenu.cpp" />
     <ClCompile Include="Source\PhysicsWorld.cpp" />
+    <ClCompile Include="Source\RageTurretState.cpp" />
     <ClCompile Include="Source\Rect.cpp" />
     <ClCompile Include="Source\SearchingTurretState.cpp" />
     <ClCompile Include="Source\Projectile.cpp" />
@@ -141,6 +166,7 @@
     <ClCompile Include="Source\UpdateContainer.cpp" />
     <ClCompile Include="Source\UpdateVisitor.cpp" />
     <ClCompile Include="Source\Weapon.cpp" />
+    <ClCompile Include="Source\WinScreen.cpp" />
     <ClCompile Include="Source\World.cpp" />
     <ClCompile Include="Source\XMLReader.cpp" />
   </ItemGroup>

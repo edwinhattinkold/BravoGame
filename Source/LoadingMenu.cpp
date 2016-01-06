@@ -65,7 +65,11 @@ int LoadingMenu::showMenu( SDL_Renderer* renderTarget )
 		case(Choices::Exit) :
 			return Choices::Exit;
 		case(Choices::Game1) :
+			return choice;
+			break;
 		case(Choices::Game2) :
+			return choice;
+			break;
 		case(Choices::Game3) :
 			return choice;
 			break;
@@ -160,7 +164,10 @@ int LoadingMenu::createMenu( SDL_Renderer* renderTarget )
 						if( selected == Choices::Back )
 							return selected;
 						else
+						{						
 							handleSelection( selected );
+							return selected;
+						}
 					}
 					else if( keyPressed == SDLK_ESCAPE )
 						return Choices::Back;

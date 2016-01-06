@@ -141,7 +141,13 @@ int Sprite::getOriginY(){
 
 void Sprite::setAsset( Asset asset )
 {
+	this->asset = asset;
 	this->animations->at(currentAnimation)->setAsset( asset );
+}
+
+Asset Sprite::getAsset()
+{
+	return asset;
 }
 
 void Sprite::updateSDLPosition(float x, float y, float w, float h, float a){

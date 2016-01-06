@@ -1,4 +1,5 @@
 #include "ContactHandler.h"
+#include "ContactWrapper.h"
 #include "World.h"
 
 
@@ -14,8 +15,9 @@ ContactHandler::~ContactHandler()
 
 void ContactHandler::BeginContact(b2Contact* contact)
 {
-	B2Content* objectOne = (B2Content*) contact->GetFixtureA()->GetBody()->GetUserData();
-	B2Content* objectTwo = (B2Content*) contact->GetFixtureB()->GetBody()->GetUserData();
+	B2Content* objectOne = (B2Content*)((ContactWrapper*)contact->GetFixtureA()->GetBody()->GetUserData())->getContactElement();
+	B2Content* objectTwo = (B2Content*)((ContactWrapper*)contact->GetFixtureB()->GetBody()->GetUserData())->getContactElement();
+
 
 	if( objectOne && objectTwo )
 	{
@@ -87,22 +89,48 @@ void ContactHandler::bulletContact( Projectile* projectile, B2Content* otherObje
 			if (!projectile->isOnDeathRow)
 			{
 				car->takeDamage( projectile->getDamage() );
+				world->cameraShake();
 				world->destroyProjectile(projectile);
 				projectile->isOnDeathRow = true;
+				if( car->dead )
+				{
+					world->gameOver();
+				}
 			}
 			break;
 		}
 	}
 }
 
+
 void ContactHandler::collectibleContact(Collectible* collectible, B2Content* otherObject)
 {
+
 	if (otherObject->getObjectType() == Object_Tire || otherObject->getObjectType() == Object_Car)
 	{
 		handleCollectibleContact(collectible);
 	}
 	
 }
+
+/*
+void ContactHandler::collectibleContact(Collectible* collectible, B2Content* otherObject)
+{
+	switch (otherObject->getObjectType())
+	{
+		case(Object_Tire) :
+		case(Object_Car) :
+		if (!collectible->isOnDeathRow)
+		{
+			MissionControl::getInstance().addOne(collectible->objectiveType); //Try to add this to the current mission/objective. If not the right type, this does nothing
+			world->destroyCollectible(collectible);
+			collectible->isOnDeathRow = true;
+		}
+		break;
+	}
+}
+*/
+
 void ContactHandler::handleCollectibleContact(Collectible* collectible){
 	
 	switch (collectible->myType)
@@ -110,6 +138,7 @@ void ContactHandler::handleCollectibleContact(Collectible* collectible){
 		case Collectible::Collectibletypes::Nitro:	
 			if (!collectible->isOnDeathRow)
 			{
+				MissionControl::getInstance().addOne(collectible->objectiveType);
 				world->destroyCollectible(collectible);
 				collectible->isOnDeathRow = true;
 				this->world->getCar()->hitNitro(5.0f);
@@ -122,6 +151,7 @@ void ContactHandler::handleCollectibleContact(Collectible* collectible){
 		case Collectible::Collectibletypes::Gasoline:
 			if (!collectible->isOnDeathRow)
 			{
+				MissionControl::getInstance().addOne(collectible->objectiveType);
 				world->destroyCollectible(collectible);
 				collectible->isOnDeathRow = true;
 				this->world->getCar()->addGasoline(4.0f);
@@ -130,10 +160,10 @@ void ContactHandler::handleCollectibleContact(Collectible* collectible){
 		default:
 			if (!collectible->isOnDeathRow)
 			{
+				MissionControl::getInstance().addOne(collectible->objectiveType);
 				world->destroyCollectible(collectible);
 				collectible->isOnDeathRow = true;
 			}
 			break;
-
 	}
 }

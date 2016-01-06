@@ -24,6 +24,7 @@ private:
 	void loadChunkBottom();
 	void loadChunkLeft();
 	MiniChunk getChunk( int x, int y );
+	void changeLevel();
 public:
 	MapDrawer(SDL_Renderer *renderTarget,SDL_Rect *cameraRect, World *world);
 	~MapDrawer();

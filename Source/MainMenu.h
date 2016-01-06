@@ -10,6 +10,7 @@
 #include "Sound.h"
 #include "Camera.h"
 #include "HowToPlay.h"
+#include "LoadingScreen.h"
 #include "Sprite.h"
 class World;
 
@@ -29,11 +30,13 @@ private:
 	OptionsMenu* optionsMenu;
 	CreditsMenu* creditsMenu;
 	LoadingMenu* loadMenu;
+	LoadingScreen* loadScreen;
 	HowToPlay* howToPlay;
 	int optionsChoice, creditsChoice, howToPlayChoise, loadChoice;
 	void center();
 	static enum Choices { Continue, Load_Game, How_To_Play, Options, Credits, Exit };
 	int selected;
+	World* world;
 public:
 	MainMenu( SDL_Renderer* renderTarget, SDL_Window* window, SDL_Texture* backgroundImage, Camera* camera, TTF_Font* font, World* world );
 	~MainMenu();

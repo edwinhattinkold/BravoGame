@@ -29,7 +29,7 @@ private:
 	};
 	std::vector<std::string> fileNames;
 public:
-	SaveMenu( World* world, SDL_Renderer* renderTarget, Camera* camera, Sprite* arrow, TTF_Font* font );
+	SaveMenu( World* world, SDL_Renderer* renderTarget, Camera* camera, TTF_Font* font );
 	~SaveMenu();
 	bool saving;
 	void tick( int mouseX, int mouseY );

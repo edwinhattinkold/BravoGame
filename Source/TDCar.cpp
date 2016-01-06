@@ -1,6 +1,9 @@
 #include "TDCar.h"
-#include "World.h";
+#include "World.h"
 #include "Camera.h"
+#include "ContactWrapper.h"
+#include "BaseLevel.h"
+#include "LevelFactory.h"
 
 ostream& operator<<(ostream& os, const TDCar& obj)
 {
@@ -32,6 +35,23 @@ void TDCar::read_object( istream& is )
 	}
 }
 
+void TDCar::changeLevel( BaseLevel* level )
+{
+	if( this->level != level )
+	{
+		this->level->stopSound();
+		this->level = level;
+		this->level->startSound();
+		world->hud->changeLevel( level->getName() );
+	}
+
+}
+
+void TDCar::continueSound()
+{
+	this->level->startSound();
+}
+
 
 TDCar::~TDCar() {
 	physicsWorld->DestroyJoint( flJoint);	flJoint = nullptr;
@@ -43,7 +63,7 @@ TDCar::~TDCar() {
 }
 
 TDCar::TDCar(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, Camera* camera, int widthM, int heightM)
-	:B2Content( renderTarget, world, physicsWorld, Asset_Car ), Hittable( 2000 )
+	:B2Content( renderTarget, world, physicsWorld, Asset_Car ), Hittable( 2000, Asset_Car )
 {
 	oilTime = 0;
 	this->camera = camera;
@@ -54,7 +74,7 @@ TDCar::TDCar(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, Ca
 	keyMap.insert( std::pair<Car_Controls, SDL_Scancode>{ Car_Steer_Right,	SDL_SCANCODE_D } );
 	keyMap.insert( std::pair<Car_Controls, SDL_Scancode>{ Car_Horn,			SDL_SCANCODE_H } );
 	keyMap.insert( std::pair<Car_Controls, SDL_Scancode>{ Car_Shoot,		SDL_SCANCODE_SPACE } );
-
+	level = LevelFactory::getInstance()->getLevel( "desert" );
 	weapon = new MachineGun( world, this, physicsWorld, renderTarget );
 
 	m_controlState = 0;
@@ -64,7 +84,7 @@ TDCar::TDCar(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, Ca
 
 	
 
-	float secondsGasoline = 20000000.0f;
+	float secondsGasoline = 20.0f;
 	gasoline = secondsGasoline * 1000.0f;
 	maxGasoline = gasoline;
 
@@ -144,7 +164,7 @@ TDCar::TDCar(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, Ca
 
 	updateSDLPosition(getCenterXSDL(), getCenterYSDL(), float(w), float(h), getAngleSDL());
 	updateOrigin();
-	m_body->SetUserData(this);
+	setContactWrapper(new ContactWrapper(this));
 }
 float TDCar::getAngleB2D()
 {
@@ -185,6 +205,7 @@ void TDCar::update( float deltaTime, const Uint8 *keyState )
 {
 	
 	weapon->update( deltaTime );
+	
 	// AUTO BESTUREN
 	//W
 	if (keyState[keyMap.at(Car_Throttle)])
@@ -213,7 +234,10 @@ void TDCar::update( float deltaTime, const Uint8 *keyState )
 	if (keyState[SDL_SCANCODE_N] && keyState[SDL_SCANCODE_I] && keyState[SDL_SCANCODE_T] && keyState[SDL_SCANCODE_R] && keyState[SDL_SCANCODE_O])
 	{
 		hitNitro(20.0f);
-		cout << "NEE" << endl;
+	}
+	if (keyState[SDL_SCANCODE_G] && keyState[SDL_SCANCODE_A] && keyState[SDL_SCANCODE_S])
+	{
+		addGasoline(20.0f);
 	}
 		
 	if( keyState[keyMap.at( Car_Brakes )] )
@@ -373,7 +397,6 @@ void TDCar::soundHorn(){
 void TDCar::shoot()
 {
 	weapon->pullTrigger();
-	camera->cameraShake( 0.10f );
 }
 
 void TDCar::addScore( int amount )

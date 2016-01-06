@@ -20,6 +20,7 @@
 #include <iostream>
 #include "MachineGun.h"
 #include "Hittable.h"
+#include "BaseLevel.h"
 
 class World;
 class Camera;
@@ -33,20 +34,20 @@ class TDCar : public B2Content, public b2ContactListener, public Hittable
 	bool soundWStarted;
 	bool soundAStarted;
 	bool soundALoopStarted;
-	std::map<Car_Controls, SDL_Scancode> keyMap;
 
+	std::map<Car_Controls, SDL_Scancode> keyMap;
+	SDL_Scancode keys[5];
 	std::vector<TDTire*> m_tires;
 	b2RevoluteJoint *flJoint, *frJoint;
 	int m_controlState;
 	Weapon* weapon;
 	Camera* camera;
-
 	int score;
 	float gasoline;
 	float nitroTime;
 	float maxGasoline;
 	float oilTime;
-	
+	BaseLevel* level;
 	
 
 public:
@@ -54,6 +55,7 @@ public:
 	TDCar( World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, Camera* camera, int widthM, int heightM );
 	~TDCar();
 
+	void changeLevel( BaseLevel* level );
 	virtual void update( float deltaTime, const Uint8 *keyState );
 	virtual void accept( DrawVisitor *dv );
 	virtual void accept( UpdateVisitor *dv );
@@ -68,7 +70,7 @@ public:
 	void addGasoline(float);
 	void setSpeedMultiplier(float);
 	void shoot();
-
+	void continueSound();
 	void write_object( std::ostream& os ) const;
 	void read_object( std::istream& is );
 

@@ -20,6 +20,12 @@
 #include "Hud.h"
 #include "Turret.h"
 #include "Explosion.h"
+#include "GameOverMenu.h"
+#include "WinScreen.h"
+
+#include "MissionControl.h"
+
+class MovingTurret;
 
 /************************************************************************/
 /* The World class contains everything a the game needs to render except
@@ -27,19 +33,27 @@ for the window. Its purpose is to render the world, run the physics
 update the objects, etc. Not all in this class of course.			*/
 /************************************************************************/
 
-enum GameState { GameState_Running, GameState_Paused, GameState_In_MainMenu, GameState_Closing };
 //Coordinaten
 typedef std::pair<int, int> coord;
 //Map met boolean of hij geladen is.
 typedef std::map<coord, bool> coord_map;
 
+class HighscoreMenu;
+
+enum GameState
+{
+	GameState_Running, GameState_Paused, GameState_In_MainMenu, GameState_Game_Over, GameState_Game_Over_Won, GameState_In_Highscores, GameState_Closing
+};
+
 class World
 {
 private:
-	Hud *hud;
+	bool fastForward;
 	TDCar* myCar;
 	Sound* sound;
 	Turret* myTurret;
+	Turret* myTurret2;
+	Turret* myTurret3;
 	//SDL
 	SDL_Renderer *renderTarget;
 	SDL_Texture *carTexture;
@@ -53,6 +67,9 @@ private:
 	//Menus
 	MainMenu* menu;
 	PauseMenu* pauseMenu;
+	GameOverMenu* gameOverMenu;
+	HighscoreMenu* highscoreMenu;
+	WinScreen* winScreen;
 
 	int mouseX, mouseY;
 
@@ -71,6 +88,7 @@ private:
 	std::vector<Explosion*> *explosions;
 	std::vector<B2Content*> *objects;
 	std::vector<Uint8 *> *keys;
+
 
 	//Containers
 	DrawContainer *drawContainer;
@@ -105,6 +123,8 @@ private:
 	FPS *fpsCounter;
 	void handleExplosionRemoveStack();
 
+	void createPlayableContent();
+	void destroyPlayableContent();
 public:
 	World(SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* font);
 	~World();
@@ -126,12 +146,19 @@ public:
 	void destroyCollectible(Collectible *collectible);
 	void createExplosion( SDL_Rect positionRect );
 	void removeExplosion( Explosion* explosion );
+	void cameraShake();
+	Hud *hud;
+	void gameOver();
+	void showHighscores(bool newScore);
+	void win();
+	void reset();
 
 	
 
 	void loadChunk(int, int);
 	bool chunckIsLoaded(int, int);
 	TDCar* getCar();
+	std::vector<IObjective*> getObjectives();
 };
 
 
