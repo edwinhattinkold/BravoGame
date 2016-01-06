@@ -8,7 +8,7 @@ class CollideObject : public B2Content, public Hittable
 {
 public:
 	enum CollideType {
-		Desert_Tree = 0,
+		Desert_Tree,
 		Desert_Piramid,
 		Ice_Tree,
 		Ice_Tent,

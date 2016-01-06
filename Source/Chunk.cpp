@@ -47,12 +47,13 @@ void Chunk::addCollectable()
 		int randomX = Random::getInstance().nextInt(positionNewXMin, positionNewXMax);
 		int randomY = Random::getInstance().nextInt(positionNewYMin, positionNewYMax);
 
+
 		world->addCollectible(5, 5, randomX, -randomY, level->possibleCollectibles[numberRandom - 1]);
 
 		 numberRandom = Random::getInstance().nextInt(1, level->possibleCollide.size());
 		 randomX = Random::getInstance().nextInt(positionNewXMin, positionNewXMax);
 		 randomY = Random::getInstance().nextInt(positionNewYMin, positionNewYMax);
-		world->addCollidable(5, 5, randomX, -randomY, level->possibleCollide[numberRandom - 1]);
+		//world->addCollidable(5, 5, randomX, -randomY, level->possibleCollide[numberRandom - 1]);
 		
 
 	}

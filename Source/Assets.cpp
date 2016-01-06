@@ -37,7 +37,7 @@ void Assets::setRenderTarget( SDL_Renderer* renderTarget )
 	insertAssetMapEntry( Asset_Menu_Arrow, "Cursor/menuArrow.png" );
 	insertAssetMapEntry( Asset_Tree, "Objects/Tree.png" );
 
-	insertAssetMapEntry(Asset_Pyramid, "Objects/dsert_pyramid.jpg");
+	insertAssetMapEntry(Asset_Pyramid, "Objects/dsert_pyramid.png");
 	insertAssetMapEntry(Asset_Tent, "Objects/ice_tent.png");
 	insertAssetMapEntry(Asset_IceTree, "Objects/ice_tree.png");
 	insertAssetMapEntry(Asset_CollideDefault, "Objects/collide_default.jpg");

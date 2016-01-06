@@ -1,8 +1,7 @@
-
+#include "Sprite.h"
 #include <SDL_image.h>
 #include <iostream>
 #include <cmath>
-#include "Sprite.h"
 
 Sprite::Sprite( int xPosition, int yPosition )
 {
@@ -71,10 +70,19 @@ void Sprite::drawTree(SDL_Renderer *renderTarget, SDL_Rect camerRect)
 {
 	SDL_Rect drawingRect = { positionRect.x - camerRect.x, positionRect.y - camerRect.y, positionRect.w, positionRect.h };
 	animations->at(currentAnimation)->drawCar(renderTarget, drawingRect, angle);
+	
 }
 
 void Sprite::drawCollidable(SDL_Renderer *renderTarget, SDL_Rect camerRect)
 {
+	/* Declaring the surface. */
+	SDL_Surface *s;
+
+	/* Creating the surface. */
+	s = SDL_CreateRGBSurface(0, 32, 32, 32, 0, 0, 0, 0);
+	
+		/* Filling the surface with red color. */
+		SDL_FillRect(s, NULL, SDL_MapRGB(s->format, 255, 0, 0));
 	SDL_Rect drawingRect = { positionRect.x - camerRect.x, positionRect.y - camerRect.y, positionRect.w, positionRect.h };
 	animations->at(currentAnimation)->drawCar(renderTarget, drawingRect, angle);
 }

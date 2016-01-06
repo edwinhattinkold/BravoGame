@@ -92,6 +92,19 @@ World::World( SDL_Window *window, int levelWidth, int levelHeight, TTF_Font* fon
 	drawContainer->add( hud );
 	contactHandler = new ContactHandler(this);
 	physics->SetContactListener( contactHandler );
+	addCollidable(5, 5, 5, 0, CollideObject::Desert_Tree);
+	addCollidable(5, 5, 15, 0, CollideObject::Ice_Tent);
+	addCollidable(5, 5, 25, 0, CollideObject::Ice_Tree);
+	addCollidable(5, 5, 35, 0, CollideObject::Desert_Piramid);
+	addCollidable(5, 5, 45, 0, CollideObject::Collide_Default);
+
+	addCollidable(5, 5, 5, 30, CollideObject::Desert_Tree);
+	addCollidable(5, 5, 15, 30, CollideObject::Ice_Tent);
+	addCollidable(5, 5, 25, 30, CollideObject::Ice_Tree);
+	addCollidable(5, 5, 35, 30, CollideObject::Desert_Piramid);
+	addCollidable(5, 5, 45, 30, CollideObject::Collide_Default);
+	
+	
 }
 
 World::~World()
