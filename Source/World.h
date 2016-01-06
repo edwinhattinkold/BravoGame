@@ -11,6 +11,7 @@
 #include "Camera.h"
 #include <Windows.h>
 #include "Tree.h"
+#include "CollideObject.h"
 #include "Sprite.h"
 #include "Projectile.h"
 #include "Collectible.h"
@@ -31,6 +32,11 @@ class MovingTurret;
 for the window. Its purpose is to render the world, run the physics
 update the objects, etc. Not all in this class of course.			*/
 /************************************************************************/
+
+//Coordinaten
+typedef std::pair<int, int> coord;
+//Map met boolean of hij geladen is.
+typedef std::map<coord, bool> coord_map;
 
 class HighscoreMenu;
 
@@ -78,8 +84,10 @@ private:
 	std::vector<Projectile*> *activeProjectiles;
 	std::vector<Collectible*> *collectibleRemoveStack;
 	std::vector<Collectible*> *activeCollectibles;
+	std::vector<CollideObject*> *activeCollideObjects;
 	std::vector<Explosion*> *explosions;
 	std::vector<B2Content*> *objects;
+	std::vector<Uint8 *> *keys;
 
 
 	//Containers
@@ -95,6 +103,9 @@ private:
 
 	MapDrawer *mapDrawer;
 		
+	// list with loaded coordinates
+	coord_map loadedChunks;
+
 	void tick();
 
 	float calcDeltaTime();
@@ -129,6 +140,8 @@ public:
 	void addProjectile( Projectile* projectile );
 	void destroyProjectile( Projectile* projectile );
 
+	void addCollidable(int w, int h, int x, int y, CollideObject::CollideType type);
+
 	void addCollectible(int w, int h, int x, int y, Collectible::Collectibletypes);
 	void destroyCollectible(Collectible *collectible);
 	void createExplosion( SDL_Rect positionRect );
@@ -140,6 +153,10 @@ public:
 	void win();
 	void reset();
 
+	
+
+	void loadChunk(int, int);
+	bool chunckIsLoaded(int, int);
 	TDCar* getCar();
 	std::vector<IObjective*> getObjectives();
 };

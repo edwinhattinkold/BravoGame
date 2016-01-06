@@ -189,6 +189,7 @@ void HighscoreMenu::firstTick(bool newHighscore)
 	backgroundImageRect.w = camera->getCamera()->w;
 	backgroundImageRect.h = camera->getCamera()->h;
 	center();
+	std::cout << "FirstTick" << std::endl;
 }
 
 void HighscoreMenu::center()

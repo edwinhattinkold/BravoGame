@@ -74,3 +74,8 @@ void UpdateVisitor::visit( Tree *tree )
 {
 	tree->checkDeath();
 }
+
+void UpdateVisitor::visit(CollideObject *collide)
+{
+	collide->checkDeath();
+}

@@ -37,9 +37,6 @@
     <Filter Include="Source Files\Sound">
       <UniqueIdentifier>{814155c1-f594-45ec-b51e-a81516284047}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Containers">
-      <UniqueIdentifier>{5dbff1d7-6440-4ca6-89e6-db7eb088d286}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Factories">
       <UniqueIdentifier>{604e35b2-87b9-426e-b590-f5e64b45f4ed}</UniqueIdentifier>
     </Filter>
@@ -99,6 +96,9 @@
     </Filter>
     <Filter Include="Header Files\Sound">
       <UniqueIdentifier>{1cfddf5e-bcba-41e9-8caa-ea03bf0e22f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Enemy\Containers">
+      <UniqueIdentifier>{5dbff1d7-6440-4ca6-89e6-db7eb088d286}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -306,6 +306,9 @@
     <ClInclude Include="Source\LevelSnow.h">
       <Filter>Header Files\Levels</Filter>
     </ClInclude>
+    <ClInclude Include="Source\CollideObject.h">
+      <Filter>Header Files\Model</Filter>
+	</ClInclude>
     <ClInclude Include="Source\LevelJungle.h">
       <Filter>Header Files\Levels</Filter>
 	</ClInclude>
@@ -503,6 +506,9 @@
     <ClCompile Include="Source\LevelSnow.cpp">
       <Filter>Source Files\Levels</Filter>
     </ClCompile>
+    <ClCompile Include="Source\CollideObject.cpp">
+      <Filter>Source Files\Model</Filter>
+	</ClCompile>
     <ClCompile Include="Source\LevelJungle.cpp">
       <Filter>Source Files\Levels</Filter>
 	 </ClCompile>
@@ -539,10 +545,10 @@
       <Filter>Source Files\Visitors</Filter>
     </ClCompile>
     <ClCompile Include="Source\DrawContainer.cpp">
-      <Filter>Source Files\Containers</Filter>
+      <Filter>Source Files\Enemy\Containers</Filter>
     </ClCompile>
     <ClCompile Include="Source\UpdateContainer.cpp">
-      <Filter>Source Files\Containers</Filter>
+      <Filter>Source Files\Enemy\Containers</Filter>
     </ClCompile>
     <ClCompile Include="Source\DrawFactory.cpp">
       <Filter>Source Files\Factories</Filter>

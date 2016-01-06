@@ -7,6 +7,10 @@
 enum Asset
 {
 	Asset_Tree,
+	Asset_Pyramid,
+	Asset_Tent,
+	Asset_IceTree,
+	Asset_CollideDefault,
 	Asset_Car,
 	Asset_MachineGun_Bullet,
 	Asset_HowTo,

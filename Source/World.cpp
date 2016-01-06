@@ -44,6 +44,10 @@ void World::createPlayableContent()
 	velocityIterations = new int32( 8 );
 	positionIterations = new int32( 3 );
 
+
+	keys = new std::vector<Uint8 * >();
+	
+
 	//create add and remove stacks
 	bodyRemoveStack = new std::vector<B2Content*>();
 	projectileRemoveStack = new std::vector<Projectile*>();
@@ -54,6 +58,7 @@ void World::createPlayableContent()
 
 	collectibleRemoveStack = new std::vector<Collectible*>();
 	activeCollectibles = new std::vector<Collectible*>();
+	activeCollideObjects = new std::vector<CollideObject*>();
 
 	//create physics world (box2d)
 	gravity = new b2Vec2( 0.0f, 0.0f );
@@ -64,6 +69,7 @@ void World::createPlayableContent()
 	updateContainer = new UpdateContainer();
 
 	//add map
+
 	mapDrawer = new MapDrawer( renderTarget, camera->getCamera(), this );
 	drawContainer->add( mapDrawer );
 	updateContainer->add( mapDrawer );
@@ -99,6 +105,7 @@ void World::createPlayableContent()
 	//add objects ( no special destructor )
 	addObject(new Tree(this, physics, renderTarget, 10, 10, 20, -15));
 	addObject(new Tree(this, physics, renderTarget, 10, 10, 20, -45));
+
 	//add objects ( own destructor )
 	myTurret = new MovingTurret(physics, renderTarget, 50, -10, myCar, this);
 	drawContainer->add(myTurret);
@@ -133,6 +140,18 @@ void World::createPlayableContent()
 	contactHandler = new ContactHandler( this );
 	physics->SetContactListener( contactHandler );
 
+	addCollidable(5, 5, 5, 0, CollideObject::Desert_Tree);
+	addCollidable(5, 5, 15, 0, CollideObject::Ice_Tent);
+	addCollidable(5, 5, 25, 0, CollideObject::Ice_Tree);
+	addCollidable(5, 5, 35, 0, CollideObject::Desert_Piramid);
+	addCollidable(5, 5, 45, 0, CollideObject::Collide_Default);
+
+	addCollidable(5, 5, 5, 30, CollideObject::Desert_Tree);
+	addCollidable(5, 5, 15, 30, CollideObject::Ice_Tent);
+	addCollidable(5, 5, 25, 30, CollideObject::Ice_Tree);
+	addCollidable(5, 5, 35, 30, CollideObject::Desert_Piramid);
+	addCollidable(5, 5, 45, 30, CollideObject::Collide_Default);
+
 }
 
 World::~World()
@@ -154,6 +173,7 @@ World::~World()
 
 void World::destroyPlayableContent()
 {
+
 	for( size_t i = 0; i < activeProjectiles->size(); i++ )
 	{
 		delete activeProjectiles->at( i );
@@ -165,6 +185,13 @@ void World::destroyPlayableContent()
 	}
 	delete activeCollectibles;						activeCollectibles = nullptr;
 
+	for (size_t i = 0; i < activeCollideObjects->size(); i++)
+	{
+		delete activeCollideObjects->at(i);
+	}
+	delete activeCollideObjects;						activeCollideObjects = nullptr;
+	
+
 	for( size_t c = 0; c < objects->size(); c++ )
 	{
 		delete objects->at( c );					objects->at( c ) = nullptr;
@@ -175,11 +202,17 @@ void World::destroyPlayableContent()
 		delete explosions->at( x );					explosions->at( x ) = nullptr;
 	}
 	delete explosions;								explosions = nullptr;
+	for (size_t x = 0; x < keys->size(); x++)
+	{
+		delete keys->at(x);							keys->at(x) = nullptr;
+	}
+	delete keys;									keys = nullptr;
 	delete myCar;									myCar = nullptr;
 	delete myTurret;								myTurret = nullptr;
 	delete myTurret2;								myTurret2 = nullptr;
 	delete myTurret3;								myTurret3 = nullptr;
 	delete mapDrawer;								mapDrawer = nullptr;
+	delete this->hud;								this->hud = nullptr;
 
 	handleBodyRemoveStack();
 	handleCollectibleRemoveStack();
@@ -197,7 +230,7 @@ void World::destroyPlayableContent()
 	delete updateContainer;							updateContainer = nullptr;
 	delete contactHandler;							contactHandler = nullptr;
 	delete center;									center = nullptr;
-	delete hud;										hud = nullptr;
+
 }
 
 void World::reset()
@@ -235,10 +268,12 @@ void World::tick()
 			case( SDL_KEYDOWN ) :
 				if( ev.key.keysym.sym == SDLK_ESCAPE )
 				{
-					currentGameState == GameState_Running ? currentGameState = GameState_Paused : currentGameState = GameState_Running;
-					pauseMenu->center();
-					if( currentGameState == GameState_Paused )
-						sound->pauseAllSounds();
+					if (currentGameState == GameState_Running || currentGameState == GameState_Paused){
+						currentGameState == GameState_Running ? currentGameState = GameState_Paused : currentGameState = GameState_Running;
+						pauseMenu->center();
+						if (currentGameState == GameState_Paused)
+							sound->pauseAllSounds();
+					}
 				}
 				else if( ev.key.keysym.sym == SDLK_LCTRL || ev.key.keysym.sym == SDLK_RCTRL )
 					fastForward = !fastForward;
@@ -265,6 +300,7 @@ void World::tick()
 	}
 	keyState = SDL_GetKeyboardState( NULL );
 	
+
 	if( currentGameState != GameState_Paused && currentGameState != GameState_Game_Over && currentGameState != GameState_Game_Over_Won && currentGameState != GameState_In_Highscores )
 	{
 		updateContainer->update( deltaTime, keyState );
@@ -401,24 +437,8 @@ void World::destroyProjectile( Projectile *projectile )
 	projectileRemoveStack->push_back( projectile );
 }
 
-/*
-	Voer een actie uit op de auto op basis
-	van myType
-*/
 void World::destroyCollectible(Collectible * collectible)
 {
-	switch (collectible->myType)
-	{
-	case Collectible::Collectibletypes::Nitro:
-			myCar->hitNitro(5.0f);
-			break;
-	case Collectible::Collectibletypes::Oil:
-		myCar->hitOil(2.0f);
-		break;
-	case Collectible::Collectibletypes::Gasoline:
-		myCar->addGasoline(4.0f);
-		break;
-	}
 	activeCollectibles->erase(std::remove(activeCollectibles->begin(), activeCollectibles->end(), collectible), activeCollectibles->end());
 	collectibleRemoveStack->push_back(collectible);
 }
@@ -457,12 +477,20 @@ void World::addProjectile( Projectile *projectile )
 
 void World::addCollectible(int w, int h, int x, int y, Collectible::Collectibletypes type)
 {
-	Collectible * newCollectibe = new Collectible(physics, renderTarget, w, h, x, y, this, type);
+	Collectible* newCollectibe = new Collectible(physics, renderTarget, w, h, x, y, this, type);
 	updateContainer->add(newCollectibe);
 	drawContainer->add(newCollectibe);
 	activeCollectibles->push_back(newCollectibe);
 }
 
+
+	void World::addCollidable(int w, int h, int x, int y, CollideObject::CollideType type)
+{
+	CollideObject* newCollectibe = new CollideObject(this, physics, renderTarget, w, h, x, y, type);
+	updateContainer->add(newCollectibe);
+	drawContainer->add(newCollectibe);
+	activeCollideObjects->push_back(newCollectibe);
+}
 void World::cameraShake()
 {
 	camera->cameraShake( 0.10f );
@@ -474,6 +502,25 @@ void World::addObject(B2Content* object)
 	updateContainer->add( object );
 	drawContainer->add( object );
 }
+
+
+bool World::chunckIsLoaded(int x, int y)
+{
+	
+	if (loadedChunks.count(coord(x, y)) > 0)	
+		return true;
+	
+	return false;
+	
+		
+	
+}
+
+void World::loadChunk(int x, int y)
+{
+	loadedChunks[coord(x, y)] = true;
+}
+	
 
 void World::gameOver()
 {

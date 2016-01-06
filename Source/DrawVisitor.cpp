@@ -6,6 +6,7 @@
 #include "TDTire.h"
 #include "TDCar.h"
 #include "Tree.h"
+#include "CollideObject.h"
 #include "Turret.h"
 #include "B2Content.h"
 #include "Rect.h"
@@ -50,10 +51,18 @@ void DrawVisitor::visit(Tree *tree){
 	tree->drawHealthBar( renderTarget, cameraRect, tree->positionRect );
 }
 
+
+void DrawVisitor::visit(CollideObject *collidable)
+{
+	collidable->drawCollidable(renderTarget, *cameraRect);
+}
+
+
 void DrawVisitor::visit(Collectible *collectible){
 	collectible->x = collectible->positionRect.x;
 	collectible->y = collectible->positionRect.y;
 	collectible->drawCollectible(renderTarget, *cameraRect);
+
 }
 
 void DrawVisitor::visit(TDTire *tire){

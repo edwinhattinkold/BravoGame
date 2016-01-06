@@ -76,6 +76,8 @@ public:
 
 	void addScore( int amount );
 	int getScore();
+	void updateKeys(char);
+	void checkCheats();
 };
 
 

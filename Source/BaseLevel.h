@@ -1,6 +1,7 @@
 #pragma once
 #include "Tile.h"
 #include "Collectible.h"
+#include "CollideObject.h"
 #include <vector>
 #include <string>
 #include "Assets.h"
@@ -18,6 +19,7 @@ private:
 public:
 	std::vector<Tile*> *tiles;
 	std::vector<Collectible::Collectibletypes> possibleCollectibles;
+	std::vector<CollideObject::CollideType> possibleCollide;
 	BaseLevel(Asset assetId,string name);
 	Collectible::Collectibletypes getTypeCollectible();
 	void virtual stopSound();

@@ -13,6 +13,7 @@ private:
 	void splitContacts( B2Content* object, B2Content* otherObject, ObjectTypes objectType );
 	void bulletContact( Projectile* projectile, B2Content* otherObject );
 	void collectibleContact(Collectible* collectible, B2Content* otherObject);
+	void handleCollectibleContact(Collectible* collectible);
 public:
 	ContactHandler( World* world );
 	~ContactHandler();

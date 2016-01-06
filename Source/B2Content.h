@@ -18,7 +18,7 @@ class ContactWrapper;
 #endif
 const int sdlScale = 20;
 
-enum ObjectTypes { Object_Tire, Object_Car, Object_Projectile, Object_Tree, Object_Turret, Object_Collectible };
+enum ObjectTypes { Object_Tire, Object_Car, Object_Projectile, Object_Tree, Object_Collide, Object_Turret, Object_Collectible };
 
 class B2Content : public Sprite
 {

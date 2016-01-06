@@ -20,9 +20,7 @@ class Chunk
 {
 private:
 	BaseLevel *level;
-	std::vector<SDL_Texture*> *textures;
 	std::vector<Location> *locations;
-	std::vector<b2Body*> *bodies;
 	World *world;
 	b2BodyDef *collisionBodyDef;
 	b2FixtureDef *collisionFixtureDef;
@@ -34,6 +32,8 @@ public:
 	void draw( SDL_Rect *cameraRect);
 	Chunk(SDL_Renderer *rt,MiniChunk miniChunk, World *world, int x , int y);
 	~Chunk();
-	void addLocation( Location l );
+	void addLocation(Location l);
+	void addCollidableObject(int x, int y);
+	void addCollectable();
 	BaseLevel* getLevel();
 };

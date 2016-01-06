@@ -2,41 +2,14 @@
 #include "World.h"
 #include "LevelFactory.h"
 
-SDL_Texture* loadImage( SDL_Renderer *renderTarget, std::string filePath )
-{
-	filePath = filePath.substr( 3 );
-	SDL_Surface *surface = IMG_Load( filePath.c_str() );
-	if( surface == NULL )
-		std::cout << "Error1" << filePath << std::endl;
-	else
-	{
-		SDL_Texture *texture = SDL_CreateTextureFromSurface( renderTarget, surface );
-		if( texture == NULL )
-			std::cout << "Error2" << std::endl;
-		SDL_FreeSurface( surface );
-		return texture;
-	}
-	return NULL;
-}
-
 Chunk::Chunk(SDL_Renderer *rt, MiniChunk miniChunk, World *world, int x, int y)
 {
-	//std::cout << "x: " << x << " y: " << y << endl;
-	this->x = x;
-	this->y = y;
-	this->world = world;
-
-	int positonNewX = x * (1024 / 20);
-	int positionNewY = y * (1024 / 20);
-	level = LevelFactory::getInstance()->getLevel( miniChunk.level );
-	world->addCollectible(5, 5, positonNewX, -positionNewY, level->possibleCollectibles[0]);
 	renderTarget = rt;
-	textures = new std::vector<SDL_Texture*>();
 	locations = new std::vector<Location>();
 	//TO IMPROVE
-	
+	level = LevelFactory::getInstance()->getLevel(miniChunk.level);
+
 	//create holder and definitions for box2d
-	bodies = new std::vector<b2Body*>();
 	collisionBodyDef = new b2BodyDef();
 	collisionBodyDef->type = b2_staticBody;
 	collisionBodyDef->angle = 0;
@@ -47,24 +20,52 @@ Chunk::Chunk(SDL_Renderer *rt, MiniChunk miniChunk, World *world, int x, int y)
 	collisionFixtureDef->density = 1;
 	XMLReader reader;
 	reader.parseXMLFile( this, "maps/" + miniChunk.tmx );
+	this->x = x;
+	this->y = y;
+	this->world = world;
+	
+	
+	addCollectable();
+	this->world->loadChunk(x, y);
+
+	
+}
+
+void Chunk::addCollectable()
+{
+	if (!this->world->chunckIsLoaded(x, y))
+	{
+		//Collectibles laden
+
+		
+		int positionNewXMin = x * (1024 / 20);
+		int positionNewXMax = (x + 1) * (1024 / 20);
+
+		int positionNewYMin = y * (1024 / 20);
+		int positionNewYMax = (y+1) * (1024 / 20);
+
+		int numberRandom = Random::getInstance().nextInt(1, level->possibleCollectibles.size());
+
+		int randomX = Random::getInstance().nextInt(positionNewXMin, positionNewXMax);
+		int randomY = Random::getInstance().nextInt(positionNewYMin, positionNewYMax);
+
+
+		world->addCollectible(5, 5, randomX, -randomY, level->possibleCollectibles[numberRandom - 1]);
+
+		 numberRandom = Random::getInstance().nextInt(1, level->possibleCollide.size());
+		 randomX = Random::getInstance().nextInt(positionNewXMin, positionNewXMax);
+		 randomY = Random::getInstance().nextInt(positionNewYMin, positionNewYMax);
+		//world->addCollidable(5, 5, randomX, -randomY, level->possibleCollide[numberRandom - 1]);
+		
+
+	}
+	
 }
 
 Chunk::~Chunk()
 {
-	for( size_t j = 0; j < textures->size(); j++ )
-	{
-		SDL_DestroyTexture( textures->at( j ) );
-		textures->at( j ) = nullptr;
-	}
-	/* TODO Objecten verwijderen uit de map */
-	for (size_t k = 0; k < bodies->size(); k++){
-		//world->destroyBody(bodies->at(k));
-		//bodies->at(k) = nullptr;
-	}
-	delete bodies;
-	bodies = nullptr;
-	delete textures;
-	textures = nullptr;
+	
+
 	delete locations;
 	locations = nullptr;
 	/*delete bodies;*/
@@ -82,6 +83,7 @@ void Chunk::addTileSet()
 
 void Chunk::addLocation( Location l )
 {
+
 	locations->push_back( l );
 }
 
