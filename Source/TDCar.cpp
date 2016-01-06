@@ -196,7 +196,7 @@ void TDCar::hitNitro(float time)
 {
 	nitroTime = time;
 	for (int c = 0; c < m_tires.size(); c++)
-		m_tires[c]->nitroMultiplier = 1.5f;
+		m_tires[c]->nitroMultiplier = 4.0f;
 }
 
 void TDCar::update( float deltaTime, const Uint8 *keyState )
@@ -229,12 +229,14 @@ void TDCar::update( float deltaTime, const Uint8 *keyState )
 		
 		m_controlState &= ~TDC_UP;
 	}
-	if (keyState[SDL_SCANCODE_N] && keyState[SDL_SCANCODE_I] && keyState[SDL_SCANCODE_T] && keyState[SDL_SCANCODE_R] && keyState[SDL_SCANCODE_O])
+	if( keyState[SDL_SCANCODE_N] && keyState[SDL_SCANCODE_O])
 	{
+		std::cout << "Nitro cheat! NOS set to 20 seconds!" << std::endl;
 		hitNitro(20.0f);
 	}
-	if (keyState[SDL_SCANCODE_G] && keyState[SDL_SCANCODE_A] && keyState[SDL_SCANCODE_S])
+	if (keyState[SDL_SCANCODE_G] && keyState[SDL_SCANCODE_S])
 	{
+		std::cout << "Gas cheat! Added 20 seconds gas!" << std::endl;
 		addGasoline(20.0f);
 	}
 		

@@ -154,7 +154,7 @@ void ContactHandler::handleCollectibleContact(Collectible* collectible){
 				MissionControl::getInstance().addOne(collectible->objectiveType);
 				world->destroyCollectible(collectible);
 				collectible->isOnDeathRow = true;
-				this->world->getCar()->addGasoline(4.0f);
+				this->world->getCar()->addGasoline(10.0f);
 			}
 			break;
 		default:

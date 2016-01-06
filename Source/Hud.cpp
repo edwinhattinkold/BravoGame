@@ -76,7 +76,7 @@ Hud::~Hud()
 
 void Hud::changeLevel(string name)
 {
-	level = name;
+	level = "Entering " + name;
 	levelDisplay->setYPosition( camera->windowHeight / 2 - 200 );
 }
 

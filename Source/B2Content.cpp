@@ -61,7 +61,6 @@ b2Vec2 B2Content::getSDLDirectionalVector()
 	b2Vec2 direction = m_body->GetLocalVector(m_body->GetLocalCenter());	
 	direction.x = direction.x * - 1 * sdlScale;
 	direction.y = direction.y * - 1 * sdlScale;
-	std::cout << direction.x << " , " << direction.y << std::endl;
 	return direction;
 }
 

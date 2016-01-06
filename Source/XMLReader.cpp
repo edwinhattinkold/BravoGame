@@ -35,7 +35,6 @@ void XMLReader::parseXMLFile( Chunk *chunk, std::string filePath )
 	{
 		int x = std::stoi( layer->first_attribute( "width" )->value() );
 		int y = std::stoi( layer->first_attribute( "height" )->value() );
-		std::cout << x;
 		int currentX = 0;
 		int currentY = 0;
 		std::string layerName = layer->first_attribute( "name" )->value();
