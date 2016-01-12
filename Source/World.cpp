@@ -140,6 +140,57 @@ void World::createPlayableContent()
 	contactHandler = new ContactHandler( this );
 	physics->SetContactListener( contactHandler );
 
+
+	
+
+	int positionNewXMin;
+	int positionNewXMax;
+
+	int positionNewYMin;
+	int positionNewYMax;
+
+
+	int numberRandom;
+
+	int randomX;
+	int randomY;
+
+	for (int xPosCollidable = -5; xPosCollidable < 5; xPosCollidable++)
+	{
+		for (int yPosCollidable = -5; yPosCollidable < 5; yPosCollidable++)
+		{
+			if (!((xPosCollidable < 2 && xPosCollidable > -2) && (yPosCollidable < 2 && yPosCollidable > -2)))
+			{
+				CollideObject::CollideType collideType;
+				numberRandom = Random::getInstance().nextInt(0, 3);
+				switch (numberRandom)
+				{
+					case (0) :
+						collideType = CollideObject::Desert_Tree;
+						break;
+					case(1) :
+						collideType = CollideObject::Ice_Tree;
+						break;
+					default:
+						collideType = CollideObject::Collide_Default;
+						break;
+
+				}
+				positionNewXMin = xPosCollidable * (1024 / 20);
+				positionNewXMax = (xPosCollidable + 1) * (1024 / 20);
+
+				positionNewYMin = yPosCollidable * (1024 / 20);
+				positionNewYMax = (yPosCollidable + 1) * (1024 / 20);
+				
+				randomX = Random::getInstance().nextInt(positionNewXMin, positionNewXMax);
+				randomY = Random::getInstance().nextInt(positionNewYMin, positionNewYMax);
+
+				addCollidable(5, 5, randomX, -randomY, collideType);
+			}
+		}
+		
+	}
+
 	addCollidable(5, 5, 5, 0, CollideObject::Desert_Tree);
 	addCollidable(5, 5, 15, 0, CollideObject::Ice_Tent);
 	addCollidable(5, 5, 25, 0, CollideObject::Ice_Tree);
@@ -484,7 +535,7 @@ void World::addCollectible(int w, int h, int x, int y, Collectible::Collectiblet
 }
 
 
-	void World::addCollidable(int w, int h, int x, int y, CollideObject::CollideType type)
+void World::addCollidable(int w, int h, int x, int y, CollideObject::CollideType type)
 {
 	CollideObject* newCollectibe = new CollideObject(this, physics, renderTarget, w, h, x, y, type);
 	updateContainer->add(newCollectibe);

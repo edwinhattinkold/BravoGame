@@ -169,6 +169,13 @@ float TDCar::getAngleB2D()
 	return m_body->GetAngle()  * RADTODEG;
 }
 
+void TDCar::addHealth(int addHealth)
+{
+	health += addHealth;
+	if (health > 2000)
+		health = 2000;
+}
+
 void TDCar::printFixtures()
 {
 	b2PolygonShape* polygonShape2 = (b2PolygonShape*)fixture->GetShape();
