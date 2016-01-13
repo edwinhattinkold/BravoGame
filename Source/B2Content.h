@@ -54,5 +54,6 @@ public:
 	virtual void accept(DrawVisitor *dv);
 	void setContactWrapper(ContactWrapper* cw);
 	ObjectTypes getObjectType();
+	virtual void muzzleFlash();
 };
 

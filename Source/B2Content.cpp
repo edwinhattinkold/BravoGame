@@ -157,3 +157,4 @@ ObjectTypes B2Content::getObjectType()
 }
 
 void B2Content::accept(DrawVisitor* dv){}
+void B2Content::muzzleFlash(){}
