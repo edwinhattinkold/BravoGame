@@ -68,6 +68,10 @@ void World::createPlayableContent()
 	drawContainer = new DrawContainer( renderTarget, camera->getCamera() );
 	updateContainer = new UpdateContainer();
 
+	//CAR
+	myCar = new TDCar( this, physics, renderTarget, camera, 3, 6 );
+	updateContainer->add( myCar );
+
 	//add map
 
 	mapDrawer = new MapDrawer( renderTarget, camera->getCamera(), this );
@@ -97,25 +101,7 @@ void World::createPlayableContent()
 	this->addCollectible(5, 5, 40, -490, Collectible::Collectibletypes::Gasoline);
 	this->addCollectible(5, 5, 40, -510, Collectible::Collectibletypes::Nitro);
 
-	//add car
-	myCar = new TDCar( this, physics, renderTarget, camera, 3, 6 );
-	drawContainer->add( myCar );
-	updateContainer->add( myCar );
-
-	//add objects ( no special destructor )
-	addObject(new Tree(this, physics, renderTarget, 10, 10, 20, -15));
-	addObject(new Tree(this, physics, renderTarget, 10, 10, 20, -45));
-
 	//add objects ( own destructor )
-	myTurret = new MovingTurret(physics, renderTarget, 50, -10, myCar, this);
-	drawContainer->add(myTurret);
-	updateContainer->add(myTurret);
-	myTurret2 = new MovingTurret(physics, renderTarget, 50, -40, myCar, this);
-	drawContainer->add(myTurret2);
-	updateContainer->add(myTurret2); 
-	myTurret3 = new MovingTurret(physics, renderTarget, 80, -10, myCar, this);
-	drawContainer->add(myTurret3);
-	updateContainer->add(myTurret3);
 	std::vector<TDTire*> tires = myCar->getTires();
 	for( size_t i = 0; i < tires.size(); i++ )
 		drawContainer->add( tires[i] );
@@ -152,6 +138,29 @@ void World::createPlayableContent()
 	addCollidable(5, 5, 35, 30, CollideObject::Desert_Piramid);
 	addCollidable(5, 5, 45, 30, CollideObject::Collide_Default);
 
+
+	drawContainer->add( myCar );
+}
+
+void World::addTree( int x, int y )
+{
+	addObject( new Tree( this, physics, renderTarget, 10, 10, x, y ) );
+}
+
+void World::addMovingTurret(int x, int y)
+{
+	Turret* myTurret = new MovingTurret( physics, renderTarget, x, y, myCar, this );
+	//drawContainer->add( myTurret );
+	//updateContainer->add( myTurret );
+	readyTurrets.push_back( myTurret );
+}
+
+void World::addTurret( int x, int y )
+{
+	Turret* myTurret = new Turret( physics, renderTarget, x, y, myCar, this );
+	//drawContainer->add( myTurret );
+	//updateContainer->add( myTurret );
+	readyTurrets.push_back( myTurret );
 }
 
 World::~World()
@@ -206,11 +215,12 @@ void World::destroyPlayableContent()
 	{
 		delete keys->at(x);							keys->at(x) = nullptr;
 	}
+	for( size_t x = 0; x < turrets.size(); x++ )
+	{
+		delete turrets.at( x );							turrets.at( x ) = nullptr;
+	}
 	delete keys;									keys = nullptr;
 	delete myCar;									myCar = nullptr;
-	delete myTurret;								myTurret = nullptr;
-	delete myTurret2;								myTurret2 = nullptr;
-	delete myTurret3;								myTurret3 = nullptr;
 	delete mapDrawer;								mapDrawer = nullptr;
 	delete this->hud;								this->hud = nullptr;
 
@@ -300,12 +310,19 @@ void World::tick()
 	}
 	keyState = SDL_GetKeyboardState( NULL );
 	
-
 	if( currentGameState != GameState_Paused && currentGameState != GameState_Game_Over && currentGameState != GameState_Game_Over_Won && currentGameState != GameState_In_Highscores )
 	{
+
 		updateContainer->update( deltaTime, keyState );
 		physics->Step( deltaTime, *velocityIterations, *positionIterations );//update physics
 		camera->update( myCar->getOriginX(), myCar->getOriginY(), deltaTime );
+		for( int x = 0; x < readyTurrets.size(); x++ )
+		{
+			turrets.push_back( readyTurrets.at( x ) );
+			drawContainer->add( readyTurrets.at( x ) );
+			updateContainer->add( readyTurrets.at( x ) );
+		}
+		readyTurrets.clear();
 	}
 
 	if( currentGameState == GameState_Running && MissionControl::getInstance().currentMission->complete )
@@ -329,8 +346,10 @@ void World::run()
 {
 	setGameState( GameState_In_MainMenu );
 
-	while( currentGameState != GameState_Closing)
+	while( currentGameState != GameState_Closing )
+	{
 		tick();
+	}
 
 	SDL_DestroyRenderer( renderTarget );
 	renderTarget = nullptr;
@@ -505,15 +524,12 @@ void World::addObject(B2Content* object)
 
 
 bool World::chunckIsLoaded(int x, int y)
-{
-	
-	if (loadedChunks.count(coord(x, y)) > 0)	
+{	
+	if( loadedChunks.count( coord( x, y ) ) > 0 )
+	{
 		return true;
-	
-	return false;
-	
-		
-	
+	}
+	return false;	
 }
 
 void World::loadChunk(int x, int y)
@@ -547,10 +563,10 @@ std::vector<IObjective*> World::getObjectives()
 		}
 	}
 
-	if( MissionControl::getInstance().currentMission->getCurrentObjective()->getType() == myTurret->objectiveType )
+	/*if( MissionControl::getInstance().currentMission->getCurrentObjective()->getType() == myTurret->objectiveType )
 	{
 		objectives.push_back( myTurret );
-	}
+	}*/
 	return objectives;
 }
 
