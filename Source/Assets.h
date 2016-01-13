@@ -32,7 +32,8 @@ enum Asset
 	Asset_LoadScreen_Ad,
 	Asset_GameOverScreen_Background,
 	Asset_WinScreen_Background,
-	Asset_WinScreen_Confetti
+	Asset_WinScreen_Confetti,
+	Asset_Muzzleflash,
 };
 
 class Assets

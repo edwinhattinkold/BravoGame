@@ -59,12 +59,19 @@ TDCar::~TDCar() {
 	for (size_t i = 0; i < m_tires.size(); i++){
 		delete m_tires[i];	m_tires[i] = nullptr;
 	}
-	delete weapon;		 weapon = nullptr;
+	delete weapon;			weapon = nullptr;
+	delete muzzle_center;	muzzle_center = nullptr;
 }
 
 TDCar::TDCar(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, Camera* camera, int widthM, int heightM)
 	:B2Content( renderTarget, world, physicsWorld, Asset_Car ), Hittable( 2000, Asset_Car )
 {
+	muzzle_flash_texture = Assets::getInstance()->getAsset( Asset_Muzzleflash );
+	SDL_QueryTexture( muzzle_flash_texture, NULL, NULL, &muzzle_position.w, &muzzle_position.h );
+	muzzle_center = new SDL_Point();
+	muzzle_center->x = muzzle_position.w / 2;
+	muzzle_center->y = muzzle_position.h;
+	shouldMuzzleFlash = false;
 	oilTime = 0;
 	this->camera = camera;
 	objectType = Object_Car;
@@ -409,3 +416,22 @@ int TDCar::getScore()
 	return score;
 }
 
+void TDCar::muzzleFlash()
+{
+	shouldMuzzleFlash = 10;
+}
+
+void TDCar::drawMuzzleFlash(SDL_Renderer* renderTarget, SDL_Rect cameraRect )
+{
+	if( shouldMuzzleFlash > 0 )
+	{
+		b2Vec2 muzzlePosition = m_body->GetWorldPoint( b2Vec2{ 0, 9.5 } );
+		muzzle_position.x = muzzlePosition.x * sdlScale - muzzle_position.w / 2;
+		muzzle_position.y = muzzlePosition.y * -1 * sdlScale - muzzle_position.h;
+		double angle = getAngleSDL();
+		SDL_Rect drawingRect = { muzzle_position.x - cameraRect.x, muzzle_position.y - cameraRect.y, muzzle_position.w, muzzle_position.h };
+		SDL_RenderCopyEx( renderTarget, muzzle_flash_texture, NULL, &drawingRect, angle, muzzle_center, SDL_FLIP_NONE );
+		shouldMuzzleFlash--;
+	}
+	
+}
