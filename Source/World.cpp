@@ -141,22 +141,22 @@ void World::createPlayableContent()
 	int randomX;
 	int randomY;
 
-	for (int xPosCollidable = -5; xPosCollidable < 5; xPosCollidable++)
+	for( int xPosCollidable = -5; xPosCollidable < 5; xPosCollidable++ )
 	{
-		for (int yPosCollidable = -5; yPosCollidable < 5; yPosCollidable++)
+		for( int yPosCollidable = -5; yPosCollidable < 5; yPosCollidable++ )
 		{
-			if (!((xPosCollidable < 2 && xPosCollidable > -2) && (yPosCollidable < 2 && yPosCollidable > -2)))
+			if( !( ( xPosCollidable < 2 && xPosCollidable > -2 ) && ( yPosCollidable < 2 && yPosCollidable > -2 ) ) )
 			{
 				bool adding = false;
 				CollideObject::CollideType collideType;
 				numberRandom = Random::getInstance().nextInt(0, 5);
 				switch (numberRandom)
 				{
-					case (0) :
+					case ( 0 ) :
 						collideType = CollideObject::Desert_Tree;
 						adding = true;
 						break;
-					case(1) :
+					case( 1 ) :
 						collideType = CollideObject::Ice_Tree;
 						adding = true;
 						break;
@@ -168,36 +168,21 @@ void World::createPlayableContent()
 						break;
 
 				}
-				positionNewXMin = xPosCollidable * (1024 / 20);
-				positionNewXMax = (xPosCollidable + 1) * (1024 / 20);
+				positionNewXMin = xPosCollidable * ( 1024 / 20 );
+				positionNewXMax = ( xPosCollidable + 1 ) * ( 1024 / 20 );
 
-				positionNewYMin = yPosCollidable * (1024 / 20);
-				positionNewYMax = (yPosCollidable + 1) * (1024 / 20);
-				
-				randomX = Random::getInstance().nextInt(positionNewXMin, positionNewXMax);
-				randomY = Random::getInstance().nextInt(positionNewYMin, positionNewYMax);
-
+				positionNewYMin = yPosCollidable * ( 1024 / 20 );
+				positionNewYMax = ( yPosCollidable + 1 ) * ( 1024 / 20 );
+				randomX = Random::getInstance().nextInt( positionNewXMin, positionNewXMax );
+				randomY = Random::getInstance().nextInt( positionNewYMin, positionNewYMax );
 				if( adding )
 				{
 					addCollidable( 5, 5, randomX, -randomY, collideType );
 				}
 			}
 		}
-		
+
 	}
-
-	addCollidable(5, 5, 5, 0, CollideObject::Desert_Tree);
-	addCollidable(5, 5, 15, 0, CollideObject::Ice_Tent);
-	addCollidable(5, 5, 25, 0, CollideObject::Ice_Tree);
-	addCollidable(5, 5, 35, 0, CollideObject::Desert_Piramid);
-	addCollidable(5, 5, 45, 0, CollideObject::Collide_Default);
-
-	addCollidable(5, 5, 5, 30, CollideObject::Desert_Tree);
-	addCollidable(5, 5, 15, 30, CollideObject::Ice_Tent);
-	addCollidable(5, 5, 25, 30, CollideObject::Ice_Tree);
-	addCollidable(5, 5, 35, 30, CollideObject::Desert_Piramid);
-	addCollidable(5, 5, 45, 30, CollideObject::Collide_Default);
-
 
 	drawContainer->add( myCar );
 }
