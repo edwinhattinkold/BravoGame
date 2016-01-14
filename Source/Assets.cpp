@@ -37,6 +37,8 @@ void Assets::setRenderTarget( SDL_Renderer* renderTarget )
 	insertAssetMapEntry( Asset_Menu_Arrow, "Cursor/menuArrow.png" );
 	insertAssetMapEntry( Asset_Tree, "Objects/Tree.png" );
 
+	insertAssetMapEntry(Asset_Health, "Objects/Health.png");
+
 	insertAssetMapEntry(Asset_Pyramid, "Objects/dsert_pyramid.png");
 	insertAssetMapEntry(Asset_Tent, "Objects/ice_tent.png");
 	insertAssetMapEntry(Asset_IceTree, "Objects/ice_tree.png");
@@ -60,6 +62,8 @@ void Assets::setRenderTarget( SDL_Renderer* renderTarget )
 	insertAssetMapEntry( Asset_GameOverScreen_Background, "GameOver/lose_background.png" );
 	insertAssetMapEntry( Asset_WinScreen_Background, "GameOver/win_background.png" );
 	insertAssetMapEntry( Asset_WinScreen_Confetti, "GameOver/confetti_sheet.png" );
+	insertAssetMapEntry( Asset_Muzzleflash, "Car/Muzzle_flash/muzzleflash.png" );
+	insertAssetMapEntry( Asset_MuzzleFlash_Turret, "Car/Muzzle_flash/3.png" );
 }
 
 SDL_Texture* Assets::getAsset( Asset asset )

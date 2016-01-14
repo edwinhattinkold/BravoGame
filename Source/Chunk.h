@@ -27,6 +27,7 @@ private:
 	b2PolygonShape *boxShape;
 	SDL_Renderer *renderTarget;
 	int x, y;
+	void spawnTurrets();
 public:
 	void addTileSet();	
 	void draw( SDL_Rect *cameraRect);

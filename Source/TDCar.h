@@ -48,8 +48,7 @@ class TDCar : public B2Content, public b2ContactListener, public Hittable
 	float maxGasoline;
 	float oilTime;
 	BaseLevel* level;
-	
-
+	bool cheattrigger;
 public:
 	
 	TDCar( World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, Camera* camera, int widthM, int heightM );
@@ -70,6 +69,7 @@ public:
 	void addGasoline(float);
 	void setSpeedMultiplier(float);
 	void shoot();
+	void addHealth(int);
 	void continueSound();
 	void write_object( std::ostream& os ) const;
 	void read_object( std::istream& is );

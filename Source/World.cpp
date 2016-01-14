@@ -68,6 +68,10 @@ void World::createPlayableContent()
 	drawContainer = new DrawContainer( renderTarget, camera->getCamera() );
 	updateContainer = new UpdateContainer();
 
+	//CAR
+	myCar = new TDCar( this, physics, renderTarget, camera, 3, 6 );
+	updateContainer->add( myCar );
+
 	//add map
 
 	mapDrawer = new MapDrawer( renderTarget, camera->getCamera(), this );
@@ -75,8 +79,8 @@ void World::createPlayableContent()
 	updateContainer->add( mapDrawer );
 
 	//add collectables
-	this->addCollectible(15, 15, 10, -100, Collectible::Collectibletypes::Oil);
-	this->addCollectible(15, 15, 60, -100, Collectible::Collectibletypes::Oil);
+	//this->addCollectible(15, 15, 10, -100, Collectible::Collectibletypes::Oil);
+	//this->addCollectible(15, 15, 60, -100, Collectible::Collectibletypes::Oil);
 
 	this->addCollectible(5, 5, 35, -150, Collectible::Collectibletypes::Collect);
 	this->addCollectible(5, 5, 20, -50, Collectible::Collectibletypes::Gasoline);
@@ -97,25 +101,7 @@ void World::createPlayableContent()
 	this->addCollectible(5, 5, 40, -490, Collectible::Collectibletypes::Gasoline);
 	this->addCollectible(5, 5, 40, -510, Collectible::Collectibletypes::Nitro);
 
-	//add car
-	myCar = new TDCar( this, physics, renderTarget, camera, 3, 6 );
-	drawContainer->add( myCar );
-	updateContainer->add( myCar );
-
-	//add objects ( no special destructor )
-	addObject(new Tree(this, physics, renderTarget, 10, 10, 20, -15));
-	addObject(new Tree(this, physics, renderTarget, 10, 10, 20, -45));
-
 	//add objects ( own destructor )
-	myTurret = new MovingTurret(physics, renderTarget, 50, -10, myCar, this);
-	drawContainer->add(myTurret);
-	updateContainer->add(myTurret);
-	myTurret2 = new MovingTurret(physics, renderTarget, 50, -40, myCar, this);
-	drawContainer->add(myTurret2);
-	updateContainer->add(myTurret2); 
-	myTurret3 = new MovingTurret(physics, renderTarget, 80, -10, myCar, this);
-	drawContainer->add(myTurret3);
-	updateContainer->add(myTurret3);
 	std::vector<TDTire*> tires = myCar->getTires();
 	for( size_t i = 0; i < tires.size(); i++ )
 		drawContainer->add( tires[i] );
@@ -140,18 +126,86 @@ void World::createPlayableContent()
 	contactHandler = new ContactHandler( this );
 	physics->SetContactListener( contactHandler );
 
-	addCollidable(5, 5, 5, 0, CollideObject::Desert_Tree);
-	addCollidable(5, 5, 15, 0, CollideObject::Ice_Tent);
-	addCollidable(5, 5, 25, 0, CollideObject::Ice_Tree);
-	addCollidable(5, 5, 35, 0, CollideObject::Desert_Piramid);
-	addCollidable(5, 5, 45, 0, CollideObject::Collide_Default);
 
-	addCollidable(5, 5, 5, 30, CollideObject::Desert_Tree);
-	addCollidable(5, 5, 15, 30, CollideObject::Ice_Tent);
-	addCollidable(5, 5, 25, 30, CollideObject::Ice_Tree);
-	addCollidable(5, 5, 35, 30, CollideObject::Desert_Piramid);
-	addCollidable(5, 5, 45, 30, CollideObject::Collide_Default);
+	
 
+	int positionNewXMin;
+	int positionNewXMax;
+
+	int positionNewYMin;
+	int positionNewYMax;
+
+
+	int numberRandom;
+
+	int randomX;
+	int randomY;
+
+	for( int xPosCollidable = -5; xPosCollidable < 5; xPosCollidable++ )
+	{
+		for( int yPosCollidable = -5; yPosCollidable < 5; yPosCollidable++ )
+		{
+			if( !( ( xPosCollidable < 2 && xPosCollidable > -2 ) && ( yPosCollidable < 2 && yPosCollidable > -2 ) ) )
+			{
+				bool adding = false;
+				CollideObject::CollideType collideType;
+				numberRandom = Random::getInstance().nextInt(0, 5);
+				switch (numberRandom)
+				{
+					case ( 0 ) :
+						collideType = CollideObject::Desert_Tree;
+						adding = true;
+						break;
+					case( 1 ) :
+						collideType = CollideObject::Ice_Tree;
+						adding = true;
+						break;
+					case(2):
+						collideType = CollideObject::Collide_Default;
+						adding = true;
+						break;
+					default:
+						break;
+
+				}
+				positionNewXMin = xPosCollidable * ( 1024 / 20 );
+				positionNewXMax = ( xPosCollidable + 1 ) * ( 1024 / 20 );
+
+				positionNewYMin = yPosCollidable * ( 1024 / 20 );
+				positionNewYMax = ( yPosCollidable + 1 ) * ( 1024 / 20 );
+				randomX = Random::getInstance().nextInt( positionNewXMin, positionNewXMax );
+				randomY = Random::getInstance().nextInt( positionNewYMin, positionNewYMax );
+				if( adding )
+				{
+					addCollidable( 5, 5, randomX, -randomY, collideType );
+				}
+			}
+		}
+
+	}
+
+	drawContainer->add( myCar );
+}
+
+void World::addTree( int x, int y )
+{
+	addObject( new Tree( this, physics, renderTarget, 10, 10, x, y ) );
+}
+
+void World::addMovingTurret(int x, int y)
+{
+	Turret* myTurret = new MovingTurret( physics, renderTarget, x, y, myCar, this );
+	//drawContainer->add( myTurret );
+	//updateContainer->add( myTurret );
+	readyTurrets.push_back( myTurret );
+}
+
+void World::addTurret( int x, int y )
+{
+	Turret* myTurret = new Turret( physics, renderTarget, x, y, myCar, this );
+	//drawContainer->add( myTurret );
+	//updateContainer->add( myTurret );
+	readyTurrets.push_back( myTurret );
 }
 
 World::~World()
@@ -206,11 +260,16 @@ void World::destroyPlayableContent()
 	{
 		delete keys->at(x);							keys->at(x) = nullptr;
 	}
+	for( size_t x = 0; x < turrets.size(); x++ )
+	{
+		delete turrets.at( x );						turrets.at( x ) = nullptr;
+	}
+	for( size_t x = 0; x < readyTurrets.size(); x++ )
+	{
+		delete readyTurrets.at( x );				readyTurrets.at( x ) = nullptr;
+	}
 	delete keys;									keys = nullptr;
 	delete myCar;									myCar = nullptr;
-	delete myTurret;								myTurret = nullptr;
-	delete myTurret2;								myTurret2 = nullptr;
-	delete myTurret3;								myTurret3 = nullptr;
 	delete mapDrawer;								mapDrawer = nullptr;
 	delete this->hud;								this->hud = nullptr;
 
@@ -301,12 +360,19 @@ void World::tick()
 	}
 	keyState = SDL_GetKeyboardState( NULL );
 	
-
 	if( currentGameState != GameState_Paused && currentGameState != GameState_Game_Over && currentGameState != GameState_Game_Over_Won && currentGameState != GameState_In_Highscores )
 	{
+
 		updateContainer->update( deltaTime, keyState );
 		physics->Step( deltaTime, *velocityIterations, *positionIterations );//update physics
 		camera->update( myCar->getOriginX(), myCar->getOriginY(), deltaTime );
+		for( int x = 0; x < readyTurrets.size(); x++ )
+		{
+			turrets.push_back( readyTurrets.at( x ) );
+			drawContainer->add( readyTurrets.at( x ) );
+			updateContainer->add( readyTurrets.at( x ) );
+		}
+		readyTurrets.clear();
 	}
 
 	if( currentGameState == GameState_Running && MissionControl::getInstance().currentMission->complete )
@@ -330,8 +396,10 @@ void World::run()
 {
 	setGameState( GameState_In_MainMenu );
 
-	while( currentGameState != GameState_Closing)
+	while( currentGameState != GameState_Closing )
+	{
 		tick();
+	}
 
 	SDL_DestroyRenderer( renderTarget );
 	renderTarget = nullptr;
@@ -363,6 +431,7 @@ void World::updateSDL()
 		highscoreMenu->tick( mouseX, mouseY );
 	else if( currentGameState == GameState_Game_Over_Won )
 		winScreen->tick( mouseX, mouseY );
+	//myCar->drawMuzzleFlash( renderTarget, *camera->getCamera() );
 	SDL_RenderPresent( renderTarget );
 }
 
@@ -485,7 +554,7 @@ void World::addCollectible(int w, int h, int x, int y, Collectible::Collectiblet
 }
 
 
-	void World::addCollidable(int w, int h, int x, int y, CollideObject::CollideType type)
+void World::addCollidable(int w, int h, int x, int y, CollideObject::CollideType type)
 {
 	CollideObject* newCollectibe = new CollideObject(this, physics, renderTarget, w, h, x, y, type);
 	updateContainer->add(newCollectibe);
@@ -506,15 +575,12 @@ void World::addObject(B2Content* object)
 
 
 bool World::chunckIsLoaded(int x, int y)
-{
-	
-	if (loadedChunks.count(coord(x, y)) > 0)	
+{	
+	if( loadedChunks.count( coord( x, y ) ) > 0 )
+	{
 		return true;
-	
-	return false;
-	
-		
-	
+	}
+	return false;	
 }
 
 void World::loadChunk(int x, int y)
@@ -548,9 +614,12 @@ std::vector<IObjective*> World::getObjectives()
 		}
 	}
 
-	if( MissionControl::getInstance().currentMission->getCurrentObjective()->getType() == myTurret->objectiveType )
+	for( size_t i = 0; i < turrets.size(); i++ )
 	{
-		objectives.push_back( myTurret );
+		if( MissionControl::getInstance().currentMission->getCurrentObjective()->getType() == turrets[i]->objectiveType )
+		{
+			objectives.push_back( turrets[i] );
+		}
 	}
 	return objectives;
 }

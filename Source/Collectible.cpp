@@ -16,6 +16,9 @@ Collectible::Collectible(b2World* world, SDL_Renderer* renderTarget, int widthM,
 	myType = type;
 	switch (type)
 	{
+	case Health:
+		setAsset(Asset_Health);
+		break;
 	case Nitro:
 		setAsset(Asset_Nitro);
 		break;

@@ -38,6 +38,7 @@
     <ClInclude Include="Source\HowToPlay.h" />
     <ClInclude Include="Source\Hud.h" />
     <ClInclude Include="Source\HudObject.h" />
+    <ClInclude Include="Source\IdleTurretState.h" />
     <ClInclude Include="Source\IDrawable.h" />
     <ClInclude Include="Source\IObjective.h" />
     <ClInclude Include="Source\InGameMenu.h" />
@@ -121,6 +122,7 @@
     <ClCompile Include="Source\HowToPlay.cpp" />
     <ClCompile Include="Source\Hud.cpp" />
     <ClCompile Include="Source\HudObject.cpp" />
+    <ClCompile Include="Source\IdleTurretState.cpp" />
     <ClCompile Include="Source\IDrawable.cpp" />
     <ClCompile Include="Source\IObjective.cpp" />
     <ClCompile Include="Source\InGameMenu.cpp" />

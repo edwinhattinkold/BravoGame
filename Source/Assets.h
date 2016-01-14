@@ -6,6 +6,7 @@
 
 enum Asset
 {
+	Asset_Health,
 	Asset_Tree,
 	Asset_Pyramid,
 	Asset_Tent,
@@ -32,7 +33,9 @@ enum Asset
 	Asset_LoadScreen_Ad,
 	Asset_GameOverScreen_Background,
 	Asset_WinScreen_Background,
-	Asset_WinScreen_Confetti
+	Asset_WinScreen_Confetti,
+	Asset_Muzzleflash,
+	Asset_MuzzleFlash_Turret
 };
 
 class Assets

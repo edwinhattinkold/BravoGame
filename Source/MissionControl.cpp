@@ -2,10 +2,16 @@
 
 MissionControl::MissionControl()
 {
-	Mission *mission = new Mission( "Go be useful" );
+	Mission *mission = new Mission( "Go be useful " );
 	mission->addObjective( "Collect gasoline tanks ", Asset_Gasoline, 2 );
+	mission->addObjective( "Collect health packs ", Asset_Health, 2 );
+	mission->addObjective( "Collect more gasoline tanks ", Asset_Gasoline, 2 );
+	mission->addObjective( "Collect carparts ", Asset_Collectible, 2 );
+	mission->addObjective( "Collect even more gasoline tanks ", Asset_Gasoline, 2 );
+	mission->addObjective( "Destroy turrets ", Asset_Turret_Calm, 2 );
+	mission->addObjective( "Triple A gameplay: more gasoline tanks please ", Asset_Gasoline, 2 );
 	mission->addObjective( "Kill a tree ", Asset_Tree, 1 );
-	mission->addObjective( "F*ck that turret up ", Asset_Turret_Calm, 1 );
+	mission->addObjective( "Destroy all the turrets ", Asset_Turret_Calm, 20 );
 	currentMission = mission;
 }
 
@@ -44,6 +50,11 @@ string MissionControl::getCurrentObjectiveTitle()
 string MissionControl::getCurrentObjectiveProgress()
 {
 	return currentMission->getCurrentObjective()->getProgress();
+}
+
+Asset MissionControl::getObjectiveType()
+{
+	return currentMission->getCurrentObjective()->getType();
 }
 
 void MissionControl::reset()
