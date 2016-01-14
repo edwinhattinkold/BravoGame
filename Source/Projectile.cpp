@@ -5,6 +5,7 @@
 Projectile::Projectile( World* world, b2World* physicsWorld, SDL_Renderer * renderTarget, Asset asset, int damage, float speed )
 	: B2Content( renderTarget, world, physicsWorld, asset )
 {
+	muzzleFlash = Assets::getInstance()->getAsset( Asset_Muzzleflash );
 	objectType = Object_Projectile;
 	this->renderTarget = renderTarget;
 	this->m_body = nullptr;
@@ -12,9 +13,11 @@ Projectile::Projectile( World* world, b2World* physicsWorld, SDL_Renderer * rend
 	this->speed = speed;
 }
 
-Projectile::Projectile( World* world, b2World* physicsWorld, SDL_Renderer * renderTarget, Asset asset, int damage, float speed, bool clone )
+Projectile::Projectile( World* world, b2World* physicsWorld, SDL_Renderer * renderTarget, Asset asset, int damage, float speed, SDL_Texture* muzzleFlashTexture )
 	:B2Content( renderTarget, world, physicsWorld, asset )
 {
+	muzzleFlash = muzzleFlashTexture;
+	shouldDrawMuzzleFlash = true;
 	objectType = Object_Projectile;
 	this->renderTarget = renderTarget;
 	this->damage = damage;
@@ -70,7 +73,7 @@ void Projectile::update(float deltaTime, const Uint8 *keyState)
 
 Projectile* Projectile::clone()
 {
-	Projectile* toReturn = new Projectile( world, physicsWorld, renderTarget, asset, damage, speed, true );
+	Projectile* toReturn = new Projectile( world, physicsWorld, renderTarget, asset, damage, speed, muzzleFlash );
 	return toReturn;
 }
 
@@ -87,4 +90,21 @@ void Projectile::accept( UpdateVisitor *uv )
 int Projectile::getDamage()
 {
 	return damage;
+}
+
+void Projectile::drawProjectile( SDL_Renderer* renderTarget, SDL_Rect cameraRect )
+{
+	SDL_Rect drawingRect = { positionRect.x - cameraRect.x, positionRect.y - cameraRect.y, positionRect.w, positionRect.h };
+	if( shouldDrawMuzzleFlash )
+	{
+		SDL_QueryTexture( muzzleFlash, NULL, NULL, &drawingRect.w, &drawingRect.h );
+		drawingRect.x -= drawingRect.w / 2 - positionRect.w / 2;
+		drawingRect.y -= drawingRect.h / 2 - positionRect.h / 2;
+		SDL_RenderCopyEx( renderTarget, muzzleFlash, NULL, &drawingRect, angle, NULL, SDL_FLIP_NONE );
+		shouldDrawMuzzleFlash = false;
+	}
+	else
+	{
+		animations->at( currentAnimation )->drawCar( renderTarget, drawingRect, angle );
+	}
 }

@@ -42,7 +42,6 @@ void Weapon::pullTrigger( )
 
 void Weapon::fire()
 {
-	host->muzzleFlash();
 	world->cameraShake();
 	Projectile* newProjectile = ammo->clone();
 	b2Vec2 direction = host->getB2DDirectionalVector();
