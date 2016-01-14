@@ -141,7 +141,7 @@ void ContactHandler::handleCollectibleContact(Collectible* collectible){
 			MissionControl::getInstance().addOne(collectible->objectiveType);
 			world->destroyCollectible(collectible);
 			collectible->isOnDeathRow = true;
-			this->world->getCar()->addHealth(100.0f);
+			this->world->getCar()->addHealth(1000.0f);
 		}
 		break;
 		case Collectible::Collectibletypes::Nitro:	
