@@ -34,6 +34,7 @@ enum Asset
 	Asset_WinScreen_Background,
 	Asset_WinScreen_Confetti,
 	Asset_Muzzleflash,
+	Asset_MuzzleFlash_Turret
 };
 
 class Assets

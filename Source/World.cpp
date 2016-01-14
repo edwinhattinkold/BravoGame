@@ -362,7 +362,7 @@ void World::updateSDL()
 		highscoreMenu->tick( mouseX, mouseY );
 	else if( currentGameState == GameState_Game_Over_Won )
 		winScreen->tick( mouseX, mouseY );
-	myCar->drawMuzzleFlash( renderTarget, *camera->getCamera() );
+	//myCar->drawMuzzleFlash( renderTarget, *camera->getCamera() );
 	SDL_RenderPresent( renderTarget );
 }
 

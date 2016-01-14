@@ -48,10 +48,6 @@ class TDCar : public B2Content, public b2ContactListener, public Hittable
 	float maxGasoline;
 	float oilTime;
 	BaseLevel* level;
-	SDL_Texture* muzzle_flash_texture;
-	SDL_Rect muzzle_position;
-	SDL_Point* muzzle_center;
-	int shouldMuzzleFlash;
 public:
 	
 	TDCar( World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, Camera* camera, int widthM, int heightM );
@@ -80,8 +76,6 @@ public:
 	int getScore();
 	void updateKeys(char);
 	void checkCheats();
-	void muzzleFlash();
-	void drawMuzzleFlash(SDL_Renderer* renderTarget, SDL_Rect cameraRect );
 };
 
 
