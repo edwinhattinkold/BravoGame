@@ -563,10 +563,13 @@ std::vector<IObjective*> World::getObjectives()
 		}
 	}
 
-	/*if( MissionControl::getInstance().currentMission->getCurrentObjective()->getType() == myTurret->objectiveType )
+	for( size_t i = 0; i < turrets.size(); i++ )
 	{
-		objectives.push_back( myTurret );
-	}*/
+		if( MissionControl::getInstance().currentMission->getCurrentObjective()->getType() == turrets[i]->objectiveType )
+		{
+			objectives.push_back( turrets[i] );
+		}
+	}
 	return objectives;
 }
 
