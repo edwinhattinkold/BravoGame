@@ -3,6 +3,7 @@
 #include "MovingTurret.h"
 #include "RadarQueryCallback.h"
 #include "ContactWrapper.h"
+#include "IdleTurretState.h"
 #include "RageTurretState.h"
 ChasingTurretState::ChasingTurretState(MovingTurret* turret) :TurretState(turret){
 
@@ -17,6 +18,9 @@ void ChasingTurretState::checkState(){
 	}
 	else if (distance < turret->getRange()){
 		turret->setState(new RageTurretState((MovingTurret*)turret));
+	}
+	else if (distance >(turret->getRange() * 3)){
+		turret->setState(new IdleTurretState(turret));
 	}
 }
 

@@ -87,7 +87,7 @@
     </Filter>
     <Filter Include="Header Files\Levels">
       <UniqueIdentifier>{28908591-f439-4c93-ae60-db2ac4d6b705}</UniqueIdentifier>
-	</Filter>
+    </Filter>
     <Filter Include="Header Files\Mission">
       <UniqueIdentifier>{2586fad2-ad83-4679-8f84-4a73956349ce}</UniqueIdentifier>
     </Filter>
@@ -308,10 +308,10 @@
     </ClInclude>
     <ClInclude Include="Source\CollideObject.h">
       <Filter>Header Files\Model</Filter>
-	</ClInclude>
+    </ClInclude>
     <ClInclude Include="Source\LevelJungle.h">
       <Filter>Header Files\Levels</Filter>
-	</ClInclude>
+    </ClInclude>
     <ClInclude Include="Source\Mission.h">
       <Filter>Header Files\Mission</Filter>
     </ClInclude>
@@ -335,6 +335,9 @@
     </ClInclude>
     <ClInclude Include="Source\WinScreen.h">
       <Filter>Header Files\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\IdleTurretState.h">
+      <Filter>Header Files\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -508,10 +511,10 @@
     </ClCompile>
     <ClCompile Include="Source\CollideObject.cpp">
       <Filter>Source Files\Model</Filter>
-	</ClCompile>
+    </ClCompile>
     <ClCompile Include="Source\LevelJungle.cpp">
       <Filter>Source Files\Levels</Filter>
-	 </ClCompile>
+    </ClCompile>
     <ClCompile Include="Source\Mission.cpp">
       <Filter>Source Files\Mission</Filter>
     </ClCompile>
@@ -523,7 +526,7 @@
     </ClCompile>
     <ClCompile Include="Source\IObjective.cpp">
       <Filter>Source Files\Mission</Filter>
-	</ClCompile>
+    </ClCompile>
     <ClCompile Include="Source\LoadingScreen.cpp">
       <Filter>Source Files\Menu</Filter>
     </ClCompile>
@@ -535,6 +538,9 @@
     </ClCompile>
     <ClCompile Include="Source\WinScreen.cpp">
       <Filter>Source Files\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\IdleTurretState.cpp">
+      <Filter>Source Files\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
