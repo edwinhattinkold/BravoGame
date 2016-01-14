@@ -11,8 +11,13 @@ B2Content::B2Content( SDL_Renderer* renderTarget, World* world, b2World* physics
 
 B2Content::~B2Content()
 {
-	if (contactWrapper != nullptr){
-		delete contactWrapper;			contactWrapper = nullptr;
+	try{
+		if (contactWrapper != nullptr){
+			delete contactWrapper;			contactWrapper = nullptr;
+		}
+	}
+	catch (exception e){
+
 	}
 	
 	if( m_body != nullptr )
