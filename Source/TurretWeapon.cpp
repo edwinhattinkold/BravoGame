@@ -5,6 +5,7 @@ TurretWeapon::TurretWeapon(World* world, Turret* host, b2World* physics_world, S
 {
 	turret = host;
 	Projectile* p = new Projectile( world, physics_world, renderTarget, Asset_MachineGun_Bullet, 50, 80 );
+	p->prototype = true;
 	p->muzzleFlash = Assets::getInstance()->getAsset(Asset_MuzzleFlash_Turret);
 	setAmmo(p);
 }

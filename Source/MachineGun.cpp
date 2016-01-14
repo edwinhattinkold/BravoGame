@@ -4,6 +4,7 @@ MachineGun::MachineGun( World* newWorld, B2Content* host, b2World* physics_world
 	: Weapon( newWorld, host, physics_world, renderTarget, 19.0f, spread )
 {
 	Projectile* projectile = new Projectile( newWorld, physics_world, renderTarget, Asset_MachineGun_Bullet, 50, 100 );
+	projectile->prototype = true;
 	setAmmo( projectile );
 }
 

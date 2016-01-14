@@ -11,21 +11,20 @@ B2Content::B2Content( SDL_Renderer* renderTarget, World* world, b2World* physics
 
 B2Content::~B2Content()
 {
-	try{
-		if (contactWrapper != nullptr){
+		if (contactWrapper){
 			delete contactWrapper;			contactWrapper = nullptr;
 		}
-	}
-	catch (exception e){
-
-	}
+		else{
+			cout << "contact already gone" << endl;
+		}
+	
 	
 	if( m_body != nullptr )
 		physicsWorld->DestroyBody(m_body);
 }
 
 void B2Content::setContactWrapper(ContactWrapper* cw){
-	if (contactWrapper != nullptr){
+	if (contactWrapper != nullptr && !prototype){
 		delete contactWrapper;			contactWrapper = nullptr;
 	}
 	contactWrapper = cw;

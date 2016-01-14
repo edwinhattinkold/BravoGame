@@ -33,6 +33,8 @@ protected:
 public:
 	ContactWrapper* contactWrapper;
 	bool isOnDeathRow;
+	bool prototype = false;
+
 	b2Body* m_body;
 	float w, h;
 	b2Fixture* fixture;
