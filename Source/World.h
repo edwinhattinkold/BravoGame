@@ -51,9 +51,6 @@ private:
 	bool fastForward;
 	TDCar* myCar;
 	Sound* sound;
-	Turret* myTurret;
-	Turret* myTurret2;
-	Turret* myTurret3;
 	//SDL
 	SDL_Renderer *renderTarget;
 	SDL_Texture *carTexture;
@@ -88,6 +85,8 @@ private:
 	std::vector<Explosion*> *explosions;
 	std::vector<B2Content*> *objects;
 	std::vector<Uint8 *> *keys;
+	std::vector<Turret*> readyTurrets;
+	std::vector<Turret*> turrets;
 
 
 	//Containers
@@ -139,9 +138,10 @@ public:
 	Uint32 getFPS();
 	void addProjectile( Projectile* projectile );
 	void destroyProjectile( Projectile* projectile );
-
+	void addTree( int x, int y );
 	void addCollidable(int w, int h, int x, int y, CollideObject::CollideType type);
-
+	void addTurret( int x, int y );
+	void addMovingTurret( int x, int y );
 	void addCollectible(int w, int h, int x, int y, Collectible::Collectibletypes);
 	void destroyCollectible(Collectible *collectible);
 	void createExplosion( SDL_Rect positionRect );

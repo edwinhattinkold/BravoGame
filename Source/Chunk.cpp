@@ -2,6 +2,7 @@
 #include "World.h"
 #include "LevelFactory.h"
 
+
 Chunk::Chunk(SDL_Renderer *rt, MiniChunk miniChunk, World *world, int x, int y)
 {
 	renderTarget = rt;
@@ -24,11 +25,39 @@ Chunk::Chunk(SDL_Renderer *rt, MiniChunk miniChunk, World *world, int x, int y)
 	this->y = y;
 	this->world = world;
 	
-	
 	addCollectable();
+	TDCar* car = world->getCar();
+	spawnTurrets();
 	this->world->loadChunk(x, y);
 
 	
+}
+
+void Chunk::spawnTurrets()
+{
+	int numberRandom = Random::getInstance().nextInt( 0, 10 );
+
+	int positionNewXMin = x * (1024 / 20);
+	int positionNewXMax = (x + 1) * (1024 / 20);
+
+	int positionNewYMin = y * (1024 / 20);
+	int positionNewYMax = (y + 1) * (1024 / 20);
+
+	int randomX = Random::getInstance().nextInt( positionNewXMin, positionNewXMax );
+	int randomY = Random::getInstance().nextInt( positionNewYMin, positionNewYMax );
+
+	if( numberRandom < 2 )
+	{
+		world->addTurret( randomX, -randomY );
+	}
+	else if( numberRandom < 3 )
+	{
+		world->addMovingTurret( randomX, -randomY );
+	}
+	else if( numberRandom < 4 )
+	{
+		world->addTree( randomX, -randomY );
+	}
 }
 
 void Chunk::addCollectable()
