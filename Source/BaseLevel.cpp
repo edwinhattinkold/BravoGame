@@ -13,6 +13,8 @@ BaseLevel::BaseLevel(Asset assetId,string name)
 	addTileSet();	
 	possibleCollectibles.push_back(Collectible::Gasoline);
 	possibleCollectibles.push_back(Collectible::Collect);
+	possibleCollectibles.push_back(Collectible::Health);
+	possibleCollectibles.push_back(Collectible::Oil);
 	possibleCollectibles.push_back(Collectible::Nitro);
 	possibleCollide.push_back(CollideObject::Collide_Default);
 }

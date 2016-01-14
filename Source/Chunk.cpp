@@ -62,8 +62,7 @@ void Chunk::spawnTurrets()
 
 void Chunk::addCollectable()
 {
-	if (!this->world->chunckIsLoaded(x, y))
-	{
+	
 		//Collectibles laden
 
 		
@@ -80,14 +79,10 @@ void Chunk::addCollectable()
 
 
 		world->addCollectible(5, 5, randomX, -randomY, level->possibleCollectibles[numberRandom - 1]);
-
-		 numberRandom = Random::getInstance().nextInt(1, level->possibleCollide.size());
-		 randomX = Random::getInstance().nextInt(positionNewXMin, positionNewXMax);
-		 randomY = Random::getInstance().nextInt(positionNewYMin, positionNewYMax);
 		//world->addCollidable(5, 5, randomX, -randomY, level->possibleCollide[numberRandom - 1]);
 		
 
-	}
+	
 	
 }
 

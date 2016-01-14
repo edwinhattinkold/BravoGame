@@ -6,6 +6,7 @@
 
 enum Asset
 {
+	Asset_Health,
 	Asset_Tree,
 	Asset_Pyramid,
 	Asset_Tent,

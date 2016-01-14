@@ -10,7 +10,8 @@ public:
 		Gasoline = 0, 
 		Collect,
 		Nitro,
-		Oil	
+		Oil,
+		Health
 	};
 	Collectibletypes myType;
 	Collectible(b2World* world, SDL_Renderer* renderTarget, int widthM, int heightM, int posX, int posY, World* gameWorld, Collectibletypes type);
