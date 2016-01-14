@@ -163,6 +163,8 @@ TDCar::TDCar(World* world, b2World* physicsWorld, SDL_Renderer* renderTarget, Ca
 	updateSDLPosition(getCenterXSDL(), getCenterYSDL(), float(w), float(h), getAngleSDL());
 	updateOrigin();
 	setContactWrapper(new ContactWrapper(this));
+
+	cheattrigger = false;
 }
 float TDCar::getAngleB2D()
 {
@@ -238,13 +240,22 @@ void TDCar::update( float deltaTime, const Uint8 *keyState )
 	}
 	if( keyState[SDL_SCANCODE_N] && keyState[SDL_SCANCODE_O])
 	{
-		std::cout << "Nitro cheat! NOS set to 20 seconds!" << std::endl;
+		std::cout << "Nitro cheat! NOS set to 20 seconds!" << "\n";
 		hitNitro(20.0f);
 	}
 	if (keyState[SDL_SCANCODE_G] && keyState[SDL_SCANCODE_S])
 	{
-		std::cout << "Gas cheat! Added 20 seconds gas!" << std::endl;
+		std::cout << "Gas cheat! Added 20 seconds gas!" << "\n";
 		addGasoline(20.0f);
+	}
+	if( keyState[SDL_SCANCODE_O] && keyState[SDL_SCANCODE_0] && !cheattrigger)
+	{
+		cheattrigger = true;
+		std::cout << "Objective cheat! added 1 objective!" << "\n";
+		MissionControl::getInstance().addOne( MissionControl::getInstance().getObjectiveType() );
+	} else if( cheattrigger && !keyState[SDL_SCANCODE_0] )
+	{
+		cheattrigger = false;
 	}
 		
 	if( keyState[keyMap.at( Car_Brakes )] )

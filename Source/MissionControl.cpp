@@ -52,6 +52,11 @@ string MissionControl::getCurrentObjectiveProgress()
 	return currentMission->getCurrentObjective()->getProgress();
 }
 
+Asset MissionControl::getObjectiveType()
+{
+	return currentMission->getCurrentObjective()->getType();
+}
+
 void MissionControl::reset()
 {
 	currentMission->reset();

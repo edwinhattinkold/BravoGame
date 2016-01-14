@@ -22,4 +22,5 @@ public:
 	string getCurrentObjectiveTitle();
 	string getCurrentObjectiveProgress();
 	void reset();
+	Asset getObjectiveType();
 };
