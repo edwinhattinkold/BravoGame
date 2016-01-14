@@ -262,7 +262,11 @@ void World::destroyPlayableContent()
 	}
 	for( size_t x = 0; x < turrets.size(); x++ )
 	{
-		delete turrets.at( x );							turrets.at( x ) = nullptr;
+		delete turrets.at( x );						turrets.at( x ) = nullptr;
+	}
+	for( size_t x = 0; x < readyTurrets.size(); x++ )
+	{
+		delete readyTurrets.at( x );				readyTurrets.at( x ) = nullptr;
 	}
 	delete keys;									keys = nullptr;
 	delete myCar;									myCar = nullptr;
