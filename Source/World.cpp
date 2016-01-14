@@ -147,18 +147,24 @@ void World::createPlayableContent()
 		{
 			if (!((xPosCollidable < 2 && xPosCollidable > -2) && (yPosCollidable < 2 && yPosCollidable > -2)))
 			{
+				bool adding = false;
 				CollideObject::CollideType collideType;
-				numberRandom = Random::getInstance().nextInt(0, 3);
+				numberRandom = Random::getInstance().nextInt(0, 5);
 				switch (numberRandom)
 				{
 					case (0) :
 						collideType = CollideObject::Desert_Tree;
+						adding = true;
 						break;
 					case(1) :
 						collideType = CollideObject::Ice_Tree;
+						adding = true;
+						break;
+					case(2):
+						collideType = CollideObject::Collide_Default;
+						adding = true;
 						break;
 					default:
-						collideType = CollideObject::Collide_Default;
 						break;
 
 				}
@@ -171,7 +177,10 @@ void World::createPlayableContent()
 				randomX = Random::getInstance().nextInt(positionNewXMin, positionNewXMax);
 				randomY = Random::getInstance().nextInt(positionNewYMin, positionNewYMax);
 
-				addCollidable(5, 5, randomX, -randomY, collideType);
+				if( adding )
+				{
+					addCollidable( 5, 5, randomX, -randomY, collideType );
+				}
 			}
 		}
 		
