@@ -425,7 +425,9 @@ void TDCar::drawMuzzleFlash(SDL_Renderer* renderTarget, SDL_Rect cameraRect )
 {
 	if( shouldMuzzleFlash > 0 )
 	{
-		b2Vec2 muzzlePosition = m_body->GetWorldPoint( b2Vec2{ 0, 9.5 } );
+		float randomDistance = 0.4f * Random::getInstance().nextInt( 0, 1 );
+		float position = 9.4 + randomDistance;
+		b2Vec2 muzzlePosition = m_body->GetWorldPoint( b2Vec2{ 0, position } );
 		muzzle_position.x = muzzlePosition.x * sdlScale - muzzle_position.w / 2;
 		muzzle_position.y = muzzlePosition.y * -1 * sdlScale - muzzle_position.h;
 		double angle = getAngleSDL();

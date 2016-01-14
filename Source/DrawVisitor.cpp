@@ -71,7 +71,6 @@ void DrawVisitor::visit(TDTire *tire){
 
 void DrawVisitor::visit(TDCar *car){
 	car->drawCar(renderTarget, *cameraRect);
-	car->drawMuzzleFlash(renderTarget, *cameraRect);
 }
 
 void DrawVisitor::visit( Rect *rect )
