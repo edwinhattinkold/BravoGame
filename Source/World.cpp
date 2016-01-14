@@ -79,8 +79,8 @@ void World::createPlayableContent()
 	updateContainer->add( mapDrawer );
 
 	//add collectables
-	this->addCollectible(15, 15, 10, -100, Collectible::Collectibletypes::Oil);
-	this->addCollectible(15, 15, 60, -100, Collectible::Collectibletypes::Oil);
+	//this->addCollectible(15, 15, 10, -100, Collectible::Collectibletypes::Oil);
+	//this->addCollectible(15, 15, 60, -100, Collectible::Collectibletypes::Oil);
 
 	this->addCollectible(5, 5, 35, -150, Collectible::Collectibletypes::Collect);
 	this->addCollectible(5, 5, 20, -50, Collectible::Collectibletypes::Gasoline);
